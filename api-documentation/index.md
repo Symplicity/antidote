@@ -1,0 +1,64 @@
+FORMAT: 1A
+HOST: https://entic.com/api
+
+# entic API Documentation
+This is the entic API
+
+## Welcome Front-End Devs
+This documentation will always be updated after every commit - please refer to this when building the Angular app
+
+# Group Users
+This endpoint is to manage users in the application
+
+## User List [/users{?name,sort,limit}]
+A list of users
+
++ Parameters
+
+    + name: `alice` (string, optional) - Search for a user by name
+    + sort: `joined` (string, optional) - Which field to sort by
+        + Default: `name`
+        + Members
+            + `name`
+    + limit: `25` (integer, optional) - The maximum number of users to return, up to `50`
+      + Default: `10`
+
++ Model
+
+    + Headers
+
+            Content-Type: application/json
+
+    + Body
+
+            [
+                {
+                	"id": 1,
+                	"email": "Jack.Parisian@hotmail.com",
+                    "name": "Rachael Gleichner",
+                    "created_at": "2015-06-18 00:27:01",
+                    "updated_at": "2015-06-18 00:27:01"
+                },
+                {
+                    "id": 2,
+                    "email": "bDicki@Runolfsson.com",
+                    "name": "Forest Hermann",
+                    "created_at": "2015-06-18 00:27:01",
+                    "updated_at": "2015-06-18 00:27:01"
+                }
+            ]
+
+    + Schema
+
+            <!-- include(api-documentation/user-schema.json) -->
+
+### Get users [GET]
+Get a list of users. Example:
+
+```no-highlight
+https://entic.com/api/users?sort=name&limit=5
+```
+
++ Response 200
+
+    [User List][]

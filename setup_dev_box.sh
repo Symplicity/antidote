@@ -1,5 +1,6 @@
+#!/usr/bin/env bash
 curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
+sudo mv composer.phar /usr/local/bin/composer
 composer install
 vagrant box add laravel/homestead
 composer global require laravel/homestead
