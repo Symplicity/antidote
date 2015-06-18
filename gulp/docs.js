@@ -5,7 +5,7 @@ var aglio = require('gulp-aglio');
 
 module.exports = function (options) {
 	gulp.task('docs', function () {
-		gulp.src('api-documentation/*.md')
+		gulp.src('api-documentation/*.apibp')
 			.pipe(aglio({template: 'default'}))
 			.pipe(gulp.dest('public/api-documentation'));
 	});
