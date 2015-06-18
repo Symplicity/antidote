@@ -6,6 +6,8 @@ var $ = require('gulp-load-plugins')({
   pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
 });
 
+var rename = require('gulp-rename');
+
 module.exports = function(options) {
   gulp.task('partials', function () {
     return gulp.src([
@@ -75,14 +77,28 @@ module.exports = function(options) {
   gulp.task('other', function () {
     return gulp.src([
       options.src + '/**/*',
-      '!' + options.src + '/**/*.{html,css,js,scss}'
+      '!' + options.src + '/**/*.{html,css,js,scss}',
+      '!' + options.src + '/bower_components'
     ])
       .pipe(gulp.dest(options.dist + '/'));
+  });
+
+  gulp.task('dev', ['html'], function () {
+    return gulp.src([
+      options.tmp + '/serve/**/*',
+      '!' + options.tmp + '/serve/index_src.html'
+    ]).pipe(gulp.dest(options.src + '/'));
+  });
+
+  gulp.task('copy-index', ['html'], function () {
+    return gulp.src(options.tmp + '/serve/index_src.html')
+      .pipe(rename('index.html'))
+      .pipe(gulp.dest(options.src + '/'));
   });
 
   gulp.task('clean', function (done) {
     $.del([options.dist + '/', options.tmp + '/'], done);
   });
 
-  gulp.task('build', ['html', 'fonts', 'other']);
+  gulp.task('build', ['html', 'fonts', 'other', 'dev', 'copy-index']);
 };

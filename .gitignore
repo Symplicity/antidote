@@ -7,3 +7,5 @@ bower_components/
 .sass-cache/
 .tmp/
 dist/
+public/index.html
+public/styles/*.css
