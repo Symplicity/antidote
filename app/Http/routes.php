@@ -1,5 +1,7 @@
 <?php
 
+use Laravel\Lumen\Application;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,6 +13,11 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->welcome();
-});
+$app->group(['prefix' => 'api'],
+	function (Application $app) {
+		$app->get('users',
+			[
+				'uses' => 'App\Http\Controllers\UserController@index',
+				'as'   => 'user.index'
+			]);
+	});
