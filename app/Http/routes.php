@@ -20,4 +20,10 @@ $app->group(['prefix' => 'api'],
 				'uses' => 'App\Http\Controllers\UserController@index',
 				'as'   => 'user.index'
 			]);
+
+		$app->get('drugs/{ndc}',
+			[
+				'uses' => 'App\Http\Controllers\DrugController@show',
+				'as' => 'drug.show'
+			]);
 	});
