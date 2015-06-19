@@ -30,7 +30,7 @@ module.exports = function(options) {
     }
 
     browserSync.instance = browserSync.init({
-      startPath: '/',
+      startPath: '/index_src.html',
       server: server,
       browser: browser
     });
