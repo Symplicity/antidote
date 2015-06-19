@@ -25,7 +25,6 @@ class OpenFDA {
 				]
 			]);
 		} catch (RequestException $e) {
-			echo $e->getRequest();
 			if ($e->hasResponse()) {
 				return $e->getResponse();
 			}
