@@ -14,16 +14,16 @@ use Laravel\Lumen\Application;
 */
 
 $app->group(['prefix' => 'api'],
-	function (Application $app) {
-		$app->get('users',
-			[
-				'uses' => 'App\Http\Controllers\UserController@index',
-				'as'   => 'user.index'
-			]);
+    function (Application $app) {
+        $app->get('users',
+            [
+                'uses' => 'App\Http\Controllers\UserController@index',
+                'as' => 'user.index',
+            ]);
 
-		$app->get('drugs/{ndc}',
-			[
-				'uses' => 'App\Http\Controllers\DrugController@show',
-				'as' => 'drug.show'
-			]);
-	});
+        $app->get('drugs/{ndc}',
+            [
+                'uses' => 'App\Http\Controllers\DrugController@show',
+                'as' => 'drug.show',
+            ]);
+    });

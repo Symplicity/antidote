@@ -16,7 +16,7 @@ Dotenv::load(__DIR__.'/../');
 */
 
 $app = new Laravel\Lumen\Application(
-	realpath(__DIR__.'/../')
+    realpath(__DIR__.'/../')
 );
 
 $app->withFacades();
@@ -35,13 +35,13 @@ $app->withEloquent();
 */
 
 $app->singleton(
-	Illuminate\Contracts\Debug\ExceptionHandler::class,
-	App\Exceptions\Handler::class
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
 );
 
 $app->singleton(
-	Illuminate\Contracts\Console\Kernel::class,
-	App\Console\Kernel::class
+    Illuminate\Contracts\Console\Kernel::class,
+    App\Console\Kernel::class
 );
 
 /*
@@ -80,6 +80,7 @@ $app->singleton(
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\OpenFDAServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -93,7 +94,7 @@ $app->singleton(
 */
 
 $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
-	require __DIR__.'/../app/Http/routes.php';
+    require __DIR__.'/../app/Http/routes.php';
 });
 
 /*
