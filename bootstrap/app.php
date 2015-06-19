@@ -96,4 +96,16 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
 	require __DIR__.'/../app/Http/routes.php';
 });
 
+/*
+|--------------------------------------------------------------------------
+| Register custom config files
+|--------------------------------------------------------------------------
+|
+| If you add custom config files to the app under the config/ directory
+| add a line here to load them on bootstrap
+|
+*/
+
+$app->configure('openfda');
+
 return $app;
