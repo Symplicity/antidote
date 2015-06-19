@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
 use App\User;
 
-class UserController extends Controller {
-
-	public function index()
-	{
-		return User::all();
-	}
+class UserController extends Controller
+{
+    public function index()
+    {
+        return User::all();
+    }
 }

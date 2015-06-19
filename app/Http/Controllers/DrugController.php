@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
 use App\Services\OpenFDA;
 
 class DrugController extends Controller
 {
     /**
-     * Get drug detail data from ndc id
+     * Get drug detail data from ndc id.
      *
-     * @param  int  $ndc
+     * @param int $ndc
      */
     public function show($ndc)
     {
-		$client = new OpenFDA();
-		$fda_info = json_decode($client->getDrugInfo($ndc), true);
+        $client = new OpenFDA();
+        $fda_info = json_decode($client->getDrugInfo($ndc), true);
 
-		//here munge our local data with response from open fda
-		$response = [
-			'fda_info' => $fda_info
-		];
+        //here munge our local data with response from open fda
+        $response = [
+            'fda_info' => $fda_info,
+        ];
 
-		return $response;
+        return $response;
     }
 }
