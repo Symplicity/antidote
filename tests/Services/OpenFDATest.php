@@ -10,7 +10,8 @@ class OpenFDATest extends TestCase
 {
 	private static $client;
 
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass()
+	{
 		self::$client = self::mockGuzzle();
 	}
 
