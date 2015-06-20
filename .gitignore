@@ -9,3 +9,4 @@ public/index.html
 public/styles/*.css
 public/styles/*.css.map
 clover.xml
+.DS_Store
