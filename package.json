@@ -14,6 +14,7 @@
     "gulp-csso": "~1.0.0",
     "gulp-filter": "~2.0.2",
     "gulp-flatten": "~0.0.4",
+    "gulp-jscs": "~1.6.0",
     "gulp-jshint": "~1.9.0",
     "gulp-load-plugins": "~0.8.0",
     "gulp-size": "~1.2.0",
