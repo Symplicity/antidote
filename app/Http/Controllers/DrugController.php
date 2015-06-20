@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\OpenFDA;
+use App\Facades\OpenFDA;
 
 class DrugController extends Controller
 {
@@ -13,8 +13,7 @@ class DrugController extends Controller
      */
     public function show($ndc)
     {
-        $client = new OpenFDA();
-        $fda_info = json_decode($client->getDrugInfo($ndc), true);
+        $fda_info = json_decode(OpenFDA::getDrugInfo($ndc), true);
 
         //here munge our local data with response from open fda
         $response = [

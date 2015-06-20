@@ -8,18 +8,20 @@ use Illuminate\Support\Facades\Config;
 
 class OpenFDA
 {
-    private $client;
+    private $client = null;
+    private $api_base_uri = '';
 
-    public function __construct()
+    public function __construct(Client $client = null)
     {
         // Create a client with a base URI
-        $this->client = new Client(['base_uri' => Config::get('openfda.api_base_uri')]);
+        $this->client = $client;
+        $this->api_base_uri = Config::get('openfda.api_base_uri');
     }
 
     public function getDrugInfo($ndc)
     {
         try {
-            $res = $this->client->get('drug/label.json', [
+            $res = $this->client->get($this->api_base_uri . 'drug/label.json', [
                 'query' => [
                     'api_key' => env('OPENFDA_API_KEY'),
                     'search' => 'product_ndc:'.$ndc,

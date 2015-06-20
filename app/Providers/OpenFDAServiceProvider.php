@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Config;
+use App\Services\OpenFDA;
 
 class OpenFDAServiceProvider extends ServiceProvider
 {
@@ -12,8 +12,8 @@ class OpenFDAServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('App\Services\OpenFDA', function () {
-            return new OpenFDA(Config::get('openfda.api_base_uri'));
+        $this->app->singleton('OpenFDA', function ($app) {
+            return new OpenFDA($app['Guzzle']);
         });
     }
 }
