@@ -8,9 +8,6 @@ sudo: false
 before_install:
   - npm install -g dredd
 
-install: travis_retry composer install --no-interaction --prefer-source
+install: travis_retry scripts/build.sh
 
-script:
-  - dredd
-  - vendor/bin/phpunit --coverage-clover clover.xml
-  - vendor/bin/test-reporter --coverage-report clover.xml
+script: scripts/test.sh
