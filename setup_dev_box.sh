@@ -9,3 +9,7 @@ source ~/.bash_profile
 homestead init
 cp Homestead.yaml ~/.homestead/
 homestead up
+
+# setup a git hook to check your commits before you push them
+cp scripts/pre-commit.php .git/hooks/pre-commit
+
