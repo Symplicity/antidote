@@ -15,15 +15,16 @@ use Laravel\Lumen\Application;
 
 $app->group(['prefix' => 'api'],
     function (Application $app) {
-        $app->get('users',
-            [
-                'uses' => 'App\Http\Controllers\UserController@index',
-                'as' => 'user.index',
-            ]);
+        $app->post('auth/login', 'App\Http\Controllers\AuthController@login');
+        $app->post('auth/signup', 'App\Http\Controllers\AuthController@signup');
+        $app->post('auth/forgot', 'App\Http\Controllers\AuthController@processForgotPassword');
 
-        $app->get('drugs/{ndc}',
-            [
-                'uses' => 'App\Http\Controllers\DrugController@show',
-                'as' => 'drug.show',
-            ]);
+        $app->get('auth/reset/{token}', 'App\Http\Controllers\AuthController@verifyResetPasswordToken');
+
+        $app->post('auth/reset/{token}', 'App\Http\Controllers\AuthController@updatePasswordFromResetToken');
+
+        $app->get('users/me', ['middleware' => 'auth', 'uses' => 'App\Http\Controllers\UserController@getUser']);
+        $app->put('users/me', ['middleware' => 'auth', 'uses' => 'App\Http\Controllers\UserController@updateUser']);
+
+        $app->get('drugs/{ndc}','App\Http\Controllers\DrugController@show');
     });

@@ -14,14 +14,17 @@
     <!-- endbower -->
     <!-- endbuild -->
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!-- build:css({.tmp/serve,public}) styles/app.css -->
     <!-- inject:css -->
     <!-- css files will be automatically insert here -->
     <!-- endinject -->
     <!-- endbuild -->
 </head>
-<body>
-    <!--[if lt IE 10]>
+<body layout="column" ng-controller="AppCtrl">
+    <div ng-include="'/app/components/navbar/navbar.html'"></div>
+<!--[if lt IE 10]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
       <![endif]-->
 

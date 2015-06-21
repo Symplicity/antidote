@@ -63,9 +63,10 @@ $app->singleton(
 //     // Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
 // ]);
 
-// $app->routeMiddleware([
+$app->routeMiddleware([
+    'auth' => 'App\Http\Middleware\AuthMiddleware'
 
-// ]);
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -78,8 +79,7 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\OpenFDAServiceProvider::class);
 $app->register(App\Providers\GuzzleServiceProvider::class);
 

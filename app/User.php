@@ -25,5 +25,5 @@ class User extends Model
      *
      * @var array
      */
-    protected $hidden = ['password'];
+    protected $hidden = ['password', 'reset_password_token', 'reset_password_token_expiration'];
 }
