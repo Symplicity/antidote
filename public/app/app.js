@@ -33,7 +33,7 @@ angular.module('entic', [
                 url: '/:id',
                 abstract: true,
                 templateUrl: '/app/drugs/drugs.view.html',
-                controller: 'DrugsViewCtrl as drugsview',
+                controller: 'DrugsViewCtrl as drugsView',
                 resolve: {
                     drug: ['$stateParams', 'DrugsService', function ($stateParams, DrugsService) {
                         return DrugsService.get({id: $stateParams.id}).$promise;
@@ -43,17 +43,17 @@ angular.module('entic', [
             .state('drugs.view.overview', {
                 url: '/overview',
                 templateUrl: '/app/drugs/drugs.overview.html',
-                controller: 'DrugsOverviewCtrl as drugsoverview'
+                controller: 'DrugsOverviewCtrl as drugsOverview'
             })
             .state('drugs.view.reviews', {
                 url: '/reviews',
                 templateUrl: '/app/drugs/drugs.reviews.html',
-                controller: 'DrugsReviewsCtrl as drugsreviews'
+                controller: 'DrugsReviewsCtrl as drugsReviews'
             })
             .state('drugs.view.alternatives', {
                 url: '/alternatives',
                 templateUrl: '/app/drugs/drugs.alternatives.html',
-                controller: 'DrugsAlternativesCtrl as drugsalternatives'
+                controller: 'DrugsAlternativesCtrl as drugsAlternatives'
             })
             .state('login', {
                 url: '/login',
@@ -78,7 +78,7 @@ angular.module('entic', [
             .state('password.forgot', {
                 url: '/forgot',
                 templateUrl: 'app/password/forgot/password.forgot.html',
-                controller: 'ForgotPasswordCtrl as forgotpassword'
+                controller: 'ForgotPasswordCtrl as forgotPassword'
             })
             .state('password.reset', {
                 abstract: true,
@@ -92,7 +92,7 @@ angular.module('entic', [
             .state('password.reset.form', {
                 url: '/:token',
                 templateUrl: 'app/password/reset/password.reset.form.html',
-                controller: 'ResetPasswordCtrl as resetpassword'
+                controller: 'ResetPasswordCtrl as resetPassword'
             })
             .state('profile', {
                 url: '/profile',
