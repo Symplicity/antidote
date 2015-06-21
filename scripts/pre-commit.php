@@ -28,7 +28,7 @@ foreach ($output as $file) {
             /*
              * PHP-CS-Fixer && add it back
              */
-            exec("vendor/bin/php-cs-fixer fix {$fileName} --level=psr2; git add {$fileName}");
+            exec("vendor/bin/php-cs-fixer fix {$fileName} --level=psr2 --fixers=-psr0; git add {$fileName}");
         } else {
             echo implode("\n", $lint_output), "\n";
             exit(1);
