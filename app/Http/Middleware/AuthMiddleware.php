@@ -40,7 +40,7 @@ class AuthMiddleware
             $payload = (array) JWT::decode($token, env('APP_KEY'), array('HS256'));
 
             if ($payload['exp'] < time()) {
-                return response()->json(['message' => 'Token has expired'], 401);
+                return response()->json(['message' => 'Token has expired']);
             }
 
             $request['user'] = $payload;
