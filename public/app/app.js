@@ -118,7 +118,7 @@ angular.module('entic', [
     })
     .controller('AppCtrl', function ($scope, $mdToast) {
 
-        $scope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error){
+        $scope.$on('$stateChangeError', function() {
             var message = 'A website error has occurred. The website administrator has been notified of the issue. Sorry for the temporary inconvenience.';
 
             $mdToast.show(
