@@ -1,0 +1,37 @@
+<md-content layout-margin layout="column" class="center-form">
+    <section class="md-whiteframe-z1" flex>
+        <md-toolbar class="mute-toolbar">
+            <div class="md-toolbar-tools">
+                <h3>Update your profile</h3>
+            </div>
+        </md-toolbar>
+        <md-content layout-padding layput-margin layout="row">
+            <form flex method="post" name="profileForm" ng-submit="profile.updateProfile()">
+                <md-input-container class="md-icon-float">
+                    <label>Name</label>
+                    <md-icon>person</md-icon>
+                    <input ng-model="profile.user.name">
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <label>Email Address</label>
+                    <md-icon>email</md-icon>
+                    <input ng-model="profile.user.email" type="email">
+                </md-input-container>
+                <md-input-container class="md-icon-float">
+                    <label>New Password</label>
+                    <md-icon>lock</md-icon>
+                    <input ng-model="profile.user.newPassword" type="password">
+                </md-input-container>
+                <div layout="row">
+                    <div flex>
+                        <md-input-container ng-if="profile.user.providers.indexOf('local') !== -1">
+                            <label>Confirm the changes with your current password</label>
+                            <input ng-model="profile.user.oldPassword" type="password" name="oldPassword" required>
+                        </md-input-container>
+                    </div>
+                    <md-button class="btn-primary" ng-disabled="profileForm.$invalid">Update Information</md-button>
+                </div>
+            </form>
+        </md-content>
+    </section>
+</md-content>

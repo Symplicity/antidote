@@ -1,6 +1,8 @@
 'use strict';
 
 angular.module('entic')
-    .controller('NavbarCtrl', function ($scope) {
-        $scope.date = new Date();
+    .controller('NavbarCtrl', function ($auth) {
+        this.isAuthenticated = function() {
+            return $auth.isAuthenticated();
+        };
     });
