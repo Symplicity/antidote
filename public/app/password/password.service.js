@@ -1,7 +1,12 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('entic')
-    .factory('Password', function($http) {
+    angular
+        .module('entic')
+        .factory('Password', Password);
+
+    /** @ngInject */
+    function Password($http) {
         return {
             forgotPassword: function(emailData) {
                 return $http.post('/api/auth/forgot', emailData);
@@ -10,4 +15,5 @@ angular.module('entic')
                 return $http.post('/api/auth/reset/' + token, passwordData);
             }
         };
-    });
+    }
+})();
