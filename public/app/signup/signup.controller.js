@@ -1,7 +1,12 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('entic')
-    .controller('SignupCtrl', function($mdToast, $auth) {
+    angular
+        .module('entic')
+        .controller('SignupCtrl', SignupCtrl);
+
+    /** @ngInject */
+    function SignupCtrl($mdToast, $auth) {
 
         this.authenticate = function(provider) {
             $auth.authenticate(provider)
@@ -45,4 +50,5 @@ angular.module('entic')
                 );
             }
         }
-    });
+    }
+})();

@@ -1,7 +1,12 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('entic')
-    .directive('passwordMatch', function() {
+    angular
+        .module('entic')
+        .directive('passwordMatch', passwordMatch);
+
+    /** @ngInject */
+    function passwordMatch() {
         return {
             require: 'ngModel',
             scope: {
@@ -16,4 +21,5 @@ angular.module('entic')
                 });
             }
         };
-    });
+    }
+})();
