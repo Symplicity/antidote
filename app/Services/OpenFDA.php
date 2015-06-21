@@ -21,7 +21,7 @@ class OpenFDA
     public function getDrugInfo($ndc)
     {
         try {
-            $res = $this->client->get($this->api_base_uri . 'drug/label.json', [
+            $res = $this->client->get($this->api_base_uri.'drug/label.json', [
                 'query' => [
                     'api_key' => env('OPENFDA_API_KEY'),
                     'search' => 'product_ndc:'.$ndc,

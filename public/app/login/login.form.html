@@ -1,0 +1,38 @@
+<md-content layout-margin class="center-form">
+
+    <section class="md-whiteframe-z1" flex>
+
+        <md-toolbar class="mute-toolbar">
+            <div class="md-toolbar-tools">
+                <h3>Log in</h3>
+            </div>
+        </md-toolbar>
+
+        <md-content layout="column" layout-gt-sm="row" layout-padding>
+            <div flex layout="column" layout-padding layout-margin>
+                <form method="post" ng-submit="login.login()" name="loginForm" layout="column">
+                    <md-input-container class="md-icon-float">
+                        <label>Email</label>
+                        <md-icon>email</md-icon>
+                        <input ng-model="login.email" name="email" type="email" required autofocus>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float">
+                        <label>Password</label>
+                        <md-icon>lock</md-icon>
+                        <input ng-model="login.password" name="password" type="password" required>
+                    </md-input-container>
+                    <md-button type="submit" ng-disabled="loginForm.$invalid" class="md-primary">Log in</md-button>
+                </form>
+            </div>
+        </md-content>
+
+        <md-divider></md-divider>
+
+        <div layout="column" layout-align="center center">
+            <a ui-sref="password.forgot">Forgot your password?</a>
+            <small>Don't have an account yet? <a ui-sref="signup">Sign up</a></small>
+        </div>
+
+    </section>
+
+</md-content>
