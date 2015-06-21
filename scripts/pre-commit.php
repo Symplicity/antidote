@@ -14,26 +14,31 @@
  */
 
 // collect all files which have been added, copied or modified
-exec('git diff --cached --name-status --diff-filter=ACM', $output);
+exec('git diff --cached --name-only --diff-filter=ACM', $output);
 
-foreach ($output as $file) {
-    $fileName = trim(substr($file, 1));
-    if (pathinfo($fileName, PATHINFO_EXTENSION) == 'php') {
-
-        // Check for lint errors
-        $lint_output = array();
-        exec('php -l '.escapeshellarg($fileName), $lint_output, $return);
-
-        if ($return === 0) {
-            /*
-             * PHP-CS-Fixer && add it back
-             */
-            exec("vendor/bin/php-cs-fixer fix {$fileName} --level=psr2 --fixers=-psr0; git add {$fileName}");
-        } else {
-            echo implode("\n", $lint_output), "\n";
-            exit(1);
+foreach ($output as $fileName) {
+    $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+    $fileName = escapeshellarg($fileName);
+    if ($ext === 'php') {
+        runCheck("php -l $fileName");
+        if (runCheck("vendor/bin/php-cs-fixer fix $fileName --level=psr2 --fixers=-psr0")) {
+            exec("git add $fileName");
         }
     }
+}
+
+function runCheck($command)
+{
+    $output = [];
+    exec($command, $output, $return);
+    $changed = count($output);
+    if ($changed) {
+        echo implode("\n", $output) . "\n";
+    }
+    if ($return !== 0) {
+        exit($return);
+    }
+    return $changed;
 }
 
 exit(0);
