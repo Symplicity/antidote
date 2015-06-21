@@ -1,7 +1,12 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('entic')
-    .controller('ResetPasswordCtrl', function($auth, $mdToast, Password, $stateParams) {
+    angular
+        .module('entic')
+        .controller('ResetPasswordCtrl', ResetPasswordCtrl);
+
+    /** @ngInject */
+    function ResetPasswordCtrl($auth, $mdToast, Password, $stateParams) {
         this.reset = function() {
             Password.resetPassword($stateParams.token, {'password': this.password})
                 .then(function(token) {
@@ -21,4 +26,5 @@ angular.module('entic')
                     .hideDelay(3000)
             );
         }
-    });
+    }
+})();

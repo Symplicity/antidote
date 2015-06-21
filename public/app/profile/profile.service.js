@@ -1,7 +1,12 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('entic')
-    .factory('ProfileService', function ProfileService($resource) {
+    angular
+        .module('entic')
+        .factory('ProfileService', ProfileService);
+
+    /** @ngInject */
+    function ProfileService($resource) {
         return $resource('/api/users/me',
             {},
             {
@@ -10,4 +15,5 @@ angular.module('entic')
                 }
             }
         );
-    });
+    }
+})();

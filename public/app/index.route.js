@@ -1,21 +1,12 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('entic', [
-    'ngResource',
-    'ngMessages',
-    'ngMaterial',
-    'ui.router',
-    'satellizer'
-])
-    .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $authProvider) {
-        $mdThemingProvider.theme('default')
-            .primaryPalette('blue')
-            .accentPalette('grey');
+    angular
+        .module('entic')
+        .config(routeConfig);
 
-        $authProvider.loginUrl = '/api/auth/login';
-        $authProvider.signupUrl = '/api/auth/signup';
-
-        $urlRouterProvider.otherwise('/');
+    /** @ngInject */
+    function routeConfig($stateProvider, $urlRouterProvider) {
 
         $stateProvider
             .state('home', {
@@ -34,11 +25,6 @@ angular.module('entic', [
                 abstract: true,
                 templateUrl: '/app/drugs/drugs.view.html',
                 controller: 'DrugsViewCtrl as drugsView',
-                resolve: {
-                    drug: ['$stateParams', 'DrugsService', function($stateParams, DrugsService) {
-                        return DrugsService.get({id: $stateParams.id}).$promise;
-                    }]
-                }
             })
             .state('drugs.view.overview', {
                 url: '/overview',
@@ -109,25 +95,11 @@ angular.module('entic', [
                         }
 
                         return deferred.promise;
-                    },
-                    user: ['ProfileService', function(ProfileService) {
-                        return ProfileService.get().$promise;
-                    }]
+                    }
                 }
             });
-    })
-    .controller('AppCtrl', function($scope, $mdToast) {
 
-        $scope.$on('$stateChangeError', function() {
-            var message = 'A website error has occurred. ' +
-                'The website administrator has been notified of the issue. ' +
-                'Sorry for the temporary inconvenience.';
+        $urlRouterProvider.otherwise('/');
+    }
 
-            $mdToast.show(
-                $mdToast.simple()
-                    .content(message)
-                    .position('bottom right')
-                    .hideDelay(3000)
-            );
-        });
-    });
+})();

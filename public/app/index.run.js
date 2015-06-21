@@ -3,9 +3,10 @@
 
     angular
         .module('entic')
-        .controller('HomeCtrl', HomeCtrl);
+        .run(runBlock);
 
     /** @ngInject */
-    function HomeCtrl() {
+    function runBlock() {
     }
+
 })();
