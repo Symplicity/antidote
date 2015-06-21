@@ -3,7 +3,7 @@
 angular.module('entic')
     .controller('LoginCtrl', function($mdToast, $auth) {
         this.login = function() {
-            $auth.login({ email: this.email, password: this.password })
+            $auth.login({email: this.email, password: this.password})
                 .then(loginSuccessHandler)
                 .catch(loginErrorHandler);
         };
