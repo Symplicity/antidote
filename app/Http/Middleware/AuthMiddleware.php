@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use JWT;
-use Illuminate\Support\Facades\Config;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
@@ -38,10 +37,10 @@ class AuthMiddleware
     {
         if ($request->header('Authorization')) {
             $token = explode(' ', $request->header('Authorization'))[1];
-            $payload = (array) JWT::decode($token, Config::get('app.token_secret'), array('HS256'));
+            $payload = (array) JWT::decode($token, env('APP_KEY'), array('HS256'));
 
             if ($payload['exp'] < time()) {
-                return response()->json(['message' => 'Token has expired']);
+                return response()->json(['message' => 'Token has expired'], 401);
             }
 
             $request['user'] = $payload;
