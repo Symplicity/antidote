@@ -24,6 +24,11 @@ foreach ($output as $fileName) {
         if (runCheck("vendor/bin/php-cs-fixer fix $fileName --level=psr2 --fixers=-psr0")) {
             exec("git add $fileName");
         }
+    } elseif ($ext === 'js') {
+        runCheck("./node_modules/.bin/jshint {$fileName}");
+        if (runCheck("./node_modules/.bin/jscs -x {$fileName}")) {
+            exec("git add $fileName");
+        }
     }
 }
 
