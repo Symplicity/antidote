@@ -1,7 +1,12 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('entic')
-    .controller('ForgotPasswordCtrl', function($mdToast, Password) {
+    angular
+        .module('entic')
+        .controller('ForgotPasswordCtrl', ForgotPasswordCtrl);
+
+    /** @ngInject */
+    function ForgotPasswordCtrl($mdToast, Password) {
         this.forgot = function() {
             Password.forgotPassword({'email': this.email})
                 .then(function() {
@@ -21,5 +26,5 @@ angular.module('entic')
             );
         }
 
-    });
-
+    }
+})();

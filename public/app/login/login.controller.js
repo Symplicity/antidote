@@ -1,7 +1,12 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('entic')
-    .controller('LoginCtrl', function($mdToast, $auth) {
+    angular
+        .module('entic')
+        .controller('LoginCtrl', LoginCtrl);
+
+    /** @ngInject */
+    function LoginCtrl($mdToast, $auth) {
         this.login = function() {
             $auth.login({email: this.email, password: this.password})
                 .then(loginSuccessHandler)
@@ -30,4 +35,5 @@ angular.module('entic')
                     .hideDelay(3000)
             );
         }
-    });
+    }
+})();

@@ -1,7 +1,12 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('entic')
-    .controller('LogoutCtrl', function($auth, $mdToast) {
+    angular
+        .module('entic')
+        .controller('LogoutCtrl', LogoutCtrl);
+
+    /** @ngInject */
+    function LogoutCtrl($mdToast, $auth) {
         if (!$auth.isAuthenticated()) {
             return;
         }
@@ -14,4 +19,5 @@ angular.module('entic')
                         .hideDelay(3000)
                 );
             });
-    });
+    }
+})();

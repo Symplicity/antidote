@@ -1,8 +1,20 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('entic')
-    .controller('ProfileCtrl', function($auth, $mdToast, user) {
-        this.user = user;
+    angular
+        .module('entic')
+        .controller('ProfileCtrl', ProfileCtrl);
+
+    /** @ngInject */
+    function ProfileCtrl($mdToast, ProfileService) {
+        var that = this;
+        activate();
+
+        function activate() {
+            ProfileService.get().$promise.then(function(user) {
+                that.user = user;
+            });
+        }
 
         /**
          * Update user's profile information.
@@ -26,4 +38,5 @@ angular.module('entic')
             );
         }
 
-    });
+    }
+})();
