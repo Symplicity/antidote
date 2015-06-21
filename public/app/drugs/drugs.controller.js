@@ -1,5 +1,5 @@
 'use strict';
 
 angular.module('entic')
-    .controller('DrugsCtrl', function () {
+    .controller('DrugsCtrl', function() {
     });
