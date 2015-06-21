@@ -21,6 +21,7 @@ angular.module('entic')
                     .hideDelay(3000)
             );
         }
+
         function loginErrorHandler(response) {
             $mdToast.show(
                 $mdToast.simple()

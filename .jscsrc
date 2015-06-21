@@ -1,7 +1,5 @@
 {
     "preset": "google",
     "validateIndentation": 4,
-    "maximumLineLength": 120,
-    "disallowSpacesInAnonymousFunctionExpression": null,
-    "requireSpacesInAnonymousFunctionExpression": null
+    "maximumLineLength": 120
 }
