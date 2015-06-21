@@ -3,8 +3,5 @@
     "validateIndentation": 4,
     "maximumLineLength": 120,
     "disallowSpacesInAnonymousFunctionExpression": null,
-    "requireSpacesInAnonymousFunctionExpression": {
-        "beforeOpeningCurlyBrace": true,
-        "beforeOpeningRoundBrace": true
-    }
+    "requireSpacesInAnonymousFunctionExpression": null
 }

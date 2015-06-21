@@ -3,7 +3,7 @@
 angular.module('entic')
     .controller('ForgotPasswordCtrl', function($mdToast, Password) {
         this.forgot = function() {
-            Password.forgotPassword({ 'email': this.email })
+            Password.forgotPassword({'email': this.email})
                 .then(function() {
                     showDefaultToast('Email has been sent');
                 })
