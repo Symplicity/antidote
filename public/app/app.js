@@ -7,7 +7,7 @@ angular.module('entic', [
     'ui.router',
     'satellizer'
 ])
-    .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider, $authProvider) {
+    .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $authProvider) {
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
             .accentPalette('grey');
@@ -35,7 +35,7 @@ angular.module('entic', [
                 templateUrl: '/app/drugs/drugs.view.html',
                 controller: 'DrugsViewCtrl as drugsView',
                 resolve: {
-                    drug: ['$stateParams', 'DrugsService', function ($stateParams, DrugsService) {
+                    drug: ['$stateParams', 'DrugsService', function($stateParams, DrugsService) {
                         return DrugsService.get({id: $stateParams.id}).$promise;
                     }]
                 }
@@ -110,13 +110,13 @@ angular.module('entic', [
 
                         return deferred.promise;
                     },
-                    user: ['ProfileService', function (ProfileService) {
+                    user: ['ProfileService', function(ProfileService) {
                         return ProfileService.get().$promise;
                     }]
                 }
             });
     })
-    .controller('AppCtrl', function ($scope, $mdToast) {
+    .controller('AppCtrl', function($scope, $mdToast) {
 
         $scope.$on('$stateChangeError', function() {
             var message = 'A website error has occurred. ' +
