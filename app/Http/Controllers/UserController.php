@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
@@ -8,7 +8,6 @@ use Hash;
 
 class UserController extends Controller
 {
-
     /**
      * Get signed in user's profile.
      */
@@ -29,8 +28,7 @@ class UserController extends Controller
         $old_password = $request->input('oldPassword');
         $new_password = $request->input('newPassword');
 
-        if (Hash::check($old_password, $user->password))
-        {
+        if (Hash::check($old_password, $user->password)) {
             $user->name = $request->input('name');
             $user->email = $request->input('email');
 
@@ -39,10 +37,9 @@ class UserController extends Controller
             }
 
             $user->save();
+
             return $user;
-        }
-        else
-        {
+        } else {
             return response()->json(['message' => 'Please enter correct current password to update your profile'], 401);
         }
     }

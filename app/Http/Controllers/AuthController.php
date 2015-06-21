@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
 use Hash;
 use Validator;
@@ -12,7 +12,6 @@ use DateInterval;
 
 class AuthController extends Controller
 {
-
     /**
      * Generate JSON Web Token.
      */
@@ -21,8 +20,9 @@ class AuthController extends Controller
         $payload = [
             'sub' => $user->id,
             'iat' => time(),
-            'exp' => time() + (2 * 7 * 24 * 60 * 60)
+            'exp' => time() + (2 * 7 * 24 * 60 * 60),
         ];
+
         return JWT::encode($payload, env('APP_KEY'));
     }
 
@@ -36,19 +36,15 @@ class AuthController extends Controller
 
         $user = User::where('email', '=', $email)->first();
 
-        if (!$user)
-        {
+        if (!$user) {
             return response()->json(['message' => 'Wrong email and/or password'], 401);
         }
 
-        if (Hash::check($password, $user->password))
-        {
+        if (Hash::check($password, $user->password)) {
             unset($user->password);
 
             return response()->json(['token' => $this->createToken($user)]);
-        }
-        else
-        {
+        } else {
             return response()->json(['message' => 'Wrong email and/or password'], 401);
         }
     }
@@ -61,14 +57,14 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required'
+            'password' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['message' => $validator->messages()], 400);
         }
 
-        $user = new User;
+        $user = new User();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = Hash::make($request->input('password'));
@@ -81,20 +77,18 @@ class AuthController extends Controller
     {
         $user = $this->findUserByToken($token);
 
-        if (!$user)
-        {
+        if (!$user) {
             return redirect('/#/password/reset/invalid');
         }
 
-        return redirect('/#/password/reset/' . $token);
+        return redirect('/#/password/reset/'.$token);
     }
 
     public function updatePasswordFromResetToken($token, Request $request)
     {
         $user = $this->findUserByToken($token);
 
-        if (!$user)
-        {
+        if (!$user) {
             return response()->json(['message' => 'Password reset token is invalid or has expired.'], 400);
         }
 
@@ -120,8 +114,7 @@ class AuthController extends Controller
 
         $user = User::where('email', '=', $email)->first();
 
-        if (!$user)
-        {
+        if (!$user) {
             return response()->json(['message' => 'No account with that email address exists.'], 400);
         }
 

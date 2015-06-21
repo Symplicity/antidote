@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace app\Http\Middleware;
 
 use JWT;
 use Illuminate\Support\Facades\Config;
@@ -9,7 +9,6 @@ use Illuminate\Contracts\Auth\Guard;
 
 class AuthMiddleware
 {
-
     /**
      * The Guard implementation.
      *
@@ -20,7 +19,7 @@ class AuthMiddleware
     /**
      * Create a new filter instance.
      *
-     * @param  Guard  $auth
+     * @param Guard $auth
      */
     public function __construct(Guard $auth)
     {
@@ -30,30 +29,26 @@ class AuthMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if ($request->header('Authorization'))
-        {
+        if ($request->header('Authorization')) {
             $token = explode(' ', $request->header('Authorization'))[1];
             $payload = (array) JWT::decode($token, Config::get('app.token_secret'), array('HS256'));
 
-            if ($payload['exp'] < time())
-            {
+            if ($payload['exp'] < time()) {
                 return response()->json(['message' => 'Token has expired']);
             }
 
             $request['user'] = $payload;
 
             return $next($request);
-        }
-        else
-        {
+        } else {
             return response()->json(['message' => 'Please make sure your request has an Authorization header'], 401);
         }
     }
-
 }
