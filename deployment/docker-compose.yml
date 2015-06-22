@@ -1,0 +1,24 @@
+# This will stand up a dev environment
+web:
+  image: symplicity/dev
+  ports:
+    - "8080:80"
+  volumes:
+    - .:/var/www
+  links:
+    - db
+job:
+  image: symplicity/job
+  volumes:
+    - .:/var/www
+  links:
+    - db
+db:
+  image: sameersbn/mysql
+  volumes:
+   - /var/lib/mysql
+   # - /run/mysqld:/run/mysqld
+  environment:
+   - DB_NAME=entic
+   - DB_USER=enticUser
+   - DB_PASS=enticSecretPass
