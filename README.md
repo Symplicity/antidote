@@ -1,6 +1,6 @@
 ## Entic
 
-[ ![Codeship Status for Symplicity/entic](https://codeship.com/projects/f7af4310-f775-0132-2961-76fcd0eb4f4a/status?branch=master)](https://codeship.com/projects/86377)
+[![Codeship Status for Symplicity/antidote](https://codeship.com/projects/fea58c00-fb48-0132-0e8a-0ea73193a6c8/status?branch=master)](https://codeship.com/projects/87143)
 [![Code Climate](https://codeclimate.com/repos/55838202e30ba04ef700cac0/badges/792d281f494bb1383ca1/gpa.svg)](https://codeclimate.com/repos/55838202e30ba04ef700cac0/feed)
 [![Test Coverage](https://codeclimate.com/repos/55838202e30ba04ef700cac0/badges/792d281f494bb1383ca1/coverage.svg)](https://codeclimate.com/repos/55838202e30ba04ef700cac0/coverage)
 
