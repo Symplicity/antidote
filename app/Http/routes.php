@@ -26,8 +26,8 @@ $app->group(['prefix' => 'api'],
         $app->get('users/me', ['middleware' => 'auth', 'uses' => 'App\Http\Controllers\UserController@getUser']);
         $app->put('users/me', ['middleware' => 'auth', 'uses' => 'App\Http\Controllers\UserController@updateUser']);
 
+        $app->get('drugs', 'App\Http\Controllers\DrugController@index');
         $app->get('drugs/{ndc}', 'App\Http\Controllers\DrugController@show');
-
         $app->get('drugs/{id}/reviews', 'App\Http\Controllers\DrugController@getReviews');
         /* TODO add route to add reviews */
     });

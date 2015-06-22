@@ -1,0 +1,102 @@
+# Group Drugs
+With the drugs API you can retrieve information and reviews on individual drugs as well as list all drugs.
+
+## Drug List [/drugs]
+
++ Parameters
+
+    + label: `Tylenol` (string, optional) - Search for a drug by label
+    + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `50`
+      + Default: `10`
+
++ Model
+
+    + Body
+
+        {
+            "data": [
+                {
+                    "id": 1,
+                    "label": "Tylenol",
+                    "description": "Tylenol is used to treat pain."
+                },
+                {
+                    "id": 2,
+                    "label": "Claritin",
+                    "description": "Claritin is used to treat allergies"
+                }
+            ]
+        }
+
+### List all drugs [GET]
+Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:
+
+```no-highlight
+https://antidote.symplicity-opensource.com/api/drugs?label=Tylenol
+```
+
++ Response 200
+
+    [Drug List][]
+
+## Drug [/drugs/{id}]
+
++ Parameters
+
+    + id: `1` (required, integer) - The drug ID
+
++ Model
+
+    + Body
+
+            {
+                "id": 1,
+                "label": "Tylenol",
+                "description": "Tylenol is used to treat pain."
+            },
+
+### Get Drug [GET]
+
++ Response 200
+
+    [Drug][]
+
+## Drug Review List [/drugs/{id}/reviews]
+
++ Model
+
+    + Body
+
+        {
+            "data": [
+                {
+                    "id": 22,
+                    "user": "See user model",
+                    "drug": "See drug model",
+                    "rating": 3,
+                    "is_covered_by_insurance": 0,
+                    "comment": "Tylenol really helped me through a lot of pain after my back surgery when nothing else would work",
+                    "created_at": "2015-06-22 18:49:03"
+                },
+                {
+                    "id": 25,
+                    "user": "See user model",
+                    "drug": "See drug model",
+                    "rating": 3,
+                    "is_covered_by_insurance": 0,
+                    "comment": "Claritin made me really sleepy most of the time.",
+                    "created_at": "2015-06-21 18:49:03"
+                }
+            ]
+        }
+
+### List all drug reviews for a drug [GET]
+Returns a list of all reviews for a drug. Example:
+
+```no-highlight
+https://antidote.symplicity-opensource.com/api/drugs/1/reviews
+```
+
++ Response 200
+
+    [Drug Review List][]
