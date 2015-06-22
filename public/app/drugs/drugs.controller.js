@@ -30,7 +30,7 @@
             {title: 'Overview', state: 'drugs.view.overview'},
             {title: 'Reviews', state: 'drugs.view.reviews'},
             {title: 'Alternative', state: 'drugs.view.alternatives'}
-        ]
+        ];
 
         function activate() {
             DrugsService.get({id: $stateParams.id}).$promise.then(function(drug) {
