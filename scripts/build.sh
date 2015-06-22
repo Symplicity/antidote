@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if [ "${APP_ROOT}" ]; then
+  cd "${APP_ROOT}"
+fi
+
 composer install --prefer-source --no-interaction
 
 # In CI we use actual env variables, just make a blank file
@@ -13,7 +17,7 @@ if [ ! -e node_modules ]; then
   npm install -g dredd
 fi
 
-bower install
+bower install --allow-root
 
 gulp
 
