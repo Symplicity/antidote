@@ -1,0 +1,26 @@
+# This will stand up a dev environment
+web:
+  image: symplicity/dev
+  ports:
+    - "80:80"
+    - "3000:3000"
+  volumes:
+    - .:/var/www
+  environment:
+    - APP_ROOT=/var/www
+  links:
+    - db
+job:
+  image: symplicity/job
+  volumes:
+    - .:/var/www
+  links:
+    - db
+db:
+  image: mariadb
+  environment:
+   - MYSQL_DATABASE=antidote
+   - MYSQL_USER=antidote
+   - MYSQL_PASSWORD=antidoteSecret
+   - MYSQL_ROOT_PASSWORD=rootSecret
+   - TERM=dumb
