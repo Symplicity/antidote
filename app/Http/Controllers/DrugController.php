@@ -10,20 +10,19 @@ use Validator;
 class DrugController extends Controller
 {
     /**
-     * Get drug detail data from ndc id.
+     * Get drug detail data from id.
      *
-     * @param int $ndc
+     * @param int $id
      */
-    public function show($ndc)
+    public function show($id)
     {
-        $fda_info = json_decode(OpenFDA::getDrugInfo($ndc), true);
+        return Drug::find($id);
+    }
 
-        //here munge our local data with response from open fda
-        $response = [
-            'fda_info' => $fda_info,
-        ];
-
-        return $response;
+    public function index()
+    {
+        $drugs = Drug::all();
+        return ['data' => $drugs];
     }
 
     /**
@@ -33,7 +32,7 @@ class DrugController extends Controller
      */
     public function getReviews($id)
     {
-        $reviews = Drug::find($id)->reviews()->get();
-        return $reviews;
+        $reviews = Drug::find($id)->reviews()->with('user')->with('drug')->get();
+        return ['data' => $reviews];
     }
 }
