@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Facades\OpenFDA;
+use App\Drug;
+use App\DrugReview;
+use Validator;
 
 class DrugController extends Controller
 {
@@ -21,5 +24,16 @@ class DrugController extends Controller
         ];
 
         return $response;
+    }
+
+    /**
+     * Get reviews for a drug by local (primary key) id.
+     *
+     * @param int $id
+     */
+    public function getReviews($id)
+    {
+        $reviews = Drug::find($id)->reviews()->get();
+        return $reviews;
     }
 }

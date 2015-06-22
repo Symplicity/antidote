@@ -11,11 +11,28 @@
 |
 */
 
-$factory->define(App\User::class, function ($faker) {
+$factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
         'password' => str_random(10),
-        'remember_token' => str_random(10),
+        'age' => $faker->numberBetween(1, 85),
+        'gender' => $faker->randomElement(['m', 'f'])
+    ];
+});
+
+$factory->define(App\Drug::class, function (Faker\Generator $faker) {
+    return [
+        'ndc' => $faker->ean8()
+    ];
+});
+
+$factory->define(App\DrugReview::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => $faker->numberBetween(1, 50),
+        'drug_id' => $faker->numberBetween(1, 50),
+        'rating' => $faker->numberBetween(1, 3),
+        'is_covered_by_insurance' => $faker->boolean(),
+        'comment' => $faker->text(250)
     ];
 });
