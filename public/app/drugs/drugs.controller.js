@@ -49,11 +49,16 @@
     }
 
     /** @ngInject */
-    function DrugsReviewsCtrl() {
+    function DrugsReviewsCtrl(DrugsService, $stateParams) {
+        this.reviews = {};
+        var that = this;
+
         activate();
 
         function activate() {
-            //TODO: add API service call here
+            DrugsService.getReviews({id: $stateParams.id}).$promise.then(function(reviews) {
+                that.reviews = reviews;
+            });
         }
     }
 

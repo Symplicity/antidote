@@ -14,6 +14,10 @@
             {
                 update: {
                     method: 'PUT'
+                },
+                getReviews: {
+                    method: 'GET',
+                    url: '/api/drugs/:id/reviews'
                 }
             }
         );
