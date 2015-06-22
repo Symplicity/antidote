@@ -9,8 +9,6 @@ var browserSyncSpa = require('browser-sync-spa');
 
 var util = require('util');
 
-var proxyMiddleware = require('http-proxy-middleware');
-
 function browserSyncInit(baseDir, browser) {
     browser = browser === undefined ? 'default' : browser;
 
@@ -27,11 +25,8 @@ function browserSyncInit(baseDir, browser) {
     };
 
     /*
-     * You can add a proxy to your backend by uncommenting the line bellow.
-     * You just have to configure a context which will we redirected and the target url.
-     * Example: $http.get('/users') requests will be automatically proxified.
-     *
-     * For more details and option, https://github.com/chimurai/http-proxy-middleware/blob/v0.0.5/README.md
+     * To add a proxy to your backend see:
+     * https://github.com/chimurai/http-proxy-middleware/blob/v0.0.5/README.md
      */
 
     browserSync.instance = browserSync.init({
