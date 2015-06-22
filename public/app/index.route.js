@@ -41,6 +41,11 @@
                 templateUrl: '/app/drugs/drugs.alternatives.html',
                 controller: 'DrugsAlternativesCtrl as drugsAlternatives'
             })
+            .state('about', {
+                url: '/about',
+                templateUrl: 'app/about/about.html',
+                controller: 'AboutCtrl as about'
+            })
             .state('login', {
                 url: '/login',
                 templateUrl: 'app/login/login.form.html',
