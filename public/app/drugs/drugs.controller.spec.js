@@ -1,15 +1,41 @@
 (function() {
     'use strict';
 
-    describe('controllers', function() {
+    var httpBackend;
 
-        beforeEach(module('entic'));
+    beforeEach(function() {
+        module('entic');
+        inject(function($httpBackend) {
+            httpBackend = $httpBackend;
+        });
+    });
 
-        it('should show a list of drugs when i search', inject(function($controller) {
-            var vm = $controller('DrugsCtrl');
+    afterEach(function() {
+        httpBackend.verifyNoOutstandingExpectation();
+        httpBackend.verifyNoOutstandingRequest();
+    });
 
-            expect(angular.isArray(vm.drugs)).toBeTruthy();
-            expect(vm.drugs.length > 5).toBeTruthy();
+    describe('DrugsListCtrl', function() {
+        it('should show call drugs service to get the list', inject(function($controller) {
+            var returnData = [{id: 1}];
+            httpBackend.expectGET('/api/drugs').respond(returnData);
+
+            var vm = $controller('DrugsListCtrl');
+
+            httpBackend.flush();
+            expect(vm.drugs[0].id).toEqual(1);
+        }));
+    });
+
+    describe('DrugsViewCtrl', function() {
+        it('should show call drugs service to get the record', inject(function($controller) {
+            var returnData = {id: 2};
+            httpBackend.expectGET('/api/drugs/2').respond(returnData);
+
+            var vm = $controller('DrugsViewCtrl', {$stateParams: {id: 2}});
+
+            httpBackend.flush();
+            expect(vm.drug.id).toEqual(2);
         }));
     });
 })();
