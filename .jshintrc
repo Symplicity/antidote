@@ -12,6 +12,8 @@
   "strict": true,
   "validthis": true,
   "globals": {
+    "require": false,
+    "exports": false,
     "angular": false,
     // Angular Mocks
     "inject": false,
