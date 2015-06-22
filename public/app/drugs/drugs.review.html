@@ -1,40 +1,33 @@
 THIS IS FOR THE REVIEW MODAL TO SUBMIT A NEW REVIEW - FOR REVIEWS LIST USE DRUGS.REVIEWS.html
 <md-content>
-    <md-card>
-        <md-toolbar>
+    <div>
+        <p>Taken DRUG</p>
+        <p>Review it to help someone out.</p>     
+    </div>
+    <div>
+        <p>Is it effective?</p>
+        <div>
             <md-icon></md-icon>
-            <h4>Review</h4>
-        </md-toolbar>
-        <div layout="row">
-            <div>
-                <md-icon></md-icon>
-                <p>Rating | Gender Age</p>
-            </div>
-            <div>
-                <p>"Review"</p>
-
-                <p>
-                    Side Effects
-                    <span>Headache</span>
-                </p>
-
-                <p>
-                    Insurance Covered?
-                    <span>Yes</span>
-                </p>
-
-                <p>
-                    Insurance Company:
-                    <span>National HealthCare</span>
-                </p>
-            </div>
-            <div layout="column">
-                <p>Is this helpful?</p>
-                <md-icon></md-icon>
-                <p>200</p>
-                <md-icon></md-icon>
-                <p>3</p>
-            </div>
+            <p>It's great</p>
         </div>
-    </md-card>
+        <div>
+            <md-icon></md-icon>
+            <p>It's fine</p>
+        </div>
+        <div>
+            <md-icon></md-icon>
+            <p>Won't use it again</p>
+        </div>
+    </div>
+    <div>
+        <p>Any side effects?</p>
+        <span>headache</span>
+        <md-button>+add new</md-button>
+    </div>
+    <div>
+        <p>Is it covered by your insurance</p>
+        <md-switch></md-switch>
+        <input type="textbox">
+    </div>
+    <md-button>Submit Review</md-button>
 </md-content>
