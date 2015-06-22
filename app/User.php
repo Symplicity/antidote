@@ -1,16 +1,11 @@
 <?php
 
-namespace app;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $table = 'users';
 
     /**
@@ -26,4 +21,9 @@ class User extends Model
      * @var array
      */
     protected $hidden = ['password', 'reset_password_token', 'reset_password_token_expiration'];
+
+    public function reviews()
+    {
+        return $this->hasMany('App\DrugReview');
+    }
 }
