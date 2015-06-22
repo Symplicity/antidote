@@ -1,72 +1,93 @@
-This is the drug overview
 <!--Effectiveness/Side Effects/Insurance-->
 <md-content layout="row">
-    <md-card>
+    <md-card flex>
         <md-toolbar class="md-toolbar-tools">
-            <md-icon class="md-fab" md-svg-src="/images/search.svg"></md-icon>
+            <md-icon class="md-fab" md-svg-src="/images/icons/md-build.svg"></md-icon>
+            <h4>Effectiveness</h4>
+        </md-toolbar>
+        <md-card-content>
+            <span class="percentage" style="font-size:56px;">70%</span>
+            <p>70% of people found Advil effective</p>
+            <span layout="row" layout-align="end">Stats</span>
+        </md-card-content>
+    </md-card>
+
+    <md-card flex>
+        <md-toolbar class="md-toolbar-tools">
+            <md-icon class="md-fab" md-svg-src="/images/icons/md-announcement.svg"></md-icon>
             <h4>Side Effects</h4>
         </md-toolbar>
-        <md-content>
-            <p></p>
-            <md-button>Stats</md-button>
-        </md-content>
+        <md-card-content>
+            <p>Side Effect Content Goes Here</p>
+            <span layout="row" layout-align="end">Stats</span>
+        </md-card-content>
     </md-card>
-    <md-card>
+
+    <md-card flex>
         <md-toolbar class="md-toolbar-tools">
-            <md-icon class="md-fab" md-svg-src="/images/search.svg"></md-icon>
-            <h4>Side Effects</h4>
+            <md-icon class="md-fab" md-svg-src="/images/icons/md-contact-phone.svg"></md-icon>
+            <h4>Insurance</h4>
         </md-toolbar>
-        <md-content>
-            <p></p>
-            <md-button>Stats</md-button>
-        </md-content>
-    </md-card>
-    <md-card>
-        <md-toolbar class="md-toolbar-tools">
-            <md-icon class="md-fab" md-svg-src="/images/search.svg"></md-icon>
-            <h4>Side Effects</h4>
-        </md-toolbar>
-        <md-content>
-            <p></p>
-            <md-button>Stats</md-button>
-        </md-content>
-    </md-card>
-</md-content>
-<!--Recalls and Interactives-->
-<md-content layout="row">
-    <md-card>
-        <md-toolbar class="md-toolbar-tools">
-            <md-icon></md-icon>
-            <h4>This medicine was recalled on DATE</h4>
-        </md-toolbar>
-        <p></p>
-    </md-card>
-    <md-card>
-        <md-toolbar class="md-toolbar-tools">
-            <md-icon></md-icon>
-            <h4>Interactives</h4>
-        </md-toolbar>
-        <div></div>
-    </md-card>
-</md-content>
-<!--Reviews-->
-<md-content layout="row">
-    <md-card>
-        <md-toolbar class="md-toolbar-tools">
-            <md-icon></md-icon>
-            <h4>Reviews</h4>
-        </md-toolbar>
-        <p></p>
-    </md-card>
-</md-content>
-<!--Tips-->
-<md-content layout="row">
-    <md-card>
-        <md-toolbar class="md-toolbar-tools">
-            <md-icon></md-icon>
-            <h4>Tips</h4>
-        </md-toolbar>
-        <p></p>
+        <md-card-content>
+            <span class="percentage" style="font-size:56px;">30%</span>
+            <p>30% of people found Advil effective</p>
+            <span layout="row" layout-align="end">Stats</span>
+        </md-card-content>
     </md-card>
 </md-content>
 
+<md-content layout="row">
+    <md-card flex>
+        <md-toolbar class="md-toolbar-tools">
+            <md-icon class="md-fab" md-svg-src="/images/icons/md-info.svg"></md-icon>
+            <h4>Interactions</h4>
+        </md-toolbar>
+        <md-card-content>
+            <p>This medication can have varying levels of adverse interactions with the following:</p>
+            <section layout="row" layout-sm="column">
+                <md-button class="md-raised">Celexa</md-button>
+                <md-button class="md-raised ">Cymbalta</md-button>
+                <md-button class="md-raised">Effexor</md-button>
+                <md-button class="md-raised">Lexapro</md-button>
+            </section>
+        </md-card-content>
+    </md-card>
+</md-content>
+
+<md-content layout="row" class="reviews">
+    <md-card flex>
+        <md-toolbar class="md-toolbar-tools">
+            <md-icon class="md-fab" md-svg-src="/images/icons/md-info.svg"></md-icon>
+            <h4>Reviews</h4>
+        </md-toolbar>
+        <md-content>
+            <div layout="row" layout-wrap>
+                <div flex="10" class="column-padding">
+                    <img class="icon-size-md" src="/images/icons/md-tag-faces.svg">
+                    <p>Effective 30 year old female</p>
+                </div>
+                <div flex="75" class="column-padding">
+                    <p>"Taking in the morning or afternoon with an hour of two for relax before takes effect. If you have ocular/eye problems/pains you will feel in 10 minutes that your whole body starts to relax but keep away from computers, tv and so."</p>
+                    <section layout="row" layout-sm="column">
+                        Side Effects:
+                        <md-button class="md-raised">Celexa</md-button>
+                        <md-button class="md-raised ">Cymbalta</md-button>
+                        <md-button class="md-raised">Effexor</md-button>
+                        <md-button class="md-raised">Lexapro</md-button>
+                    </section>
+                </div>
+                <div flex="15" class="md-vote">
+                    <div class="border-bottom">
+                        <p>Is this helpful?</p>
+                        <md-icon md-svg-src="/images/icons/md-thumb-up.svg"></md-icon>
+                        <p>86</p>
+                    </div>
+                    <div>
+                        <md-icon md-svg-src="/images/icons/md-thumb-down.svg"></md-icon>
+                        <p>86</p>
+                    </div>
+                </div>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>

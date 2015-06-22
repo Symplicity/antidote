@@ -1,0 +1,43 @@
+.icon-size-md {
+	width: 80px;
+}
+
+.icon-size-sm {
+	width: 60px;
+}
+
+.column-padding {
+	padding: 16px 16px 0;
+}
+
+.reviews {
+	line-height: 20px;
+
+	[flex*='10']:first-child {
+		padding-right: 25px;
+		text-align: center;
+	}
+}
+
+.md-vote {
+	border-left: 1px solid;
+	text-align: center;
+
+	p { text-align: center; }
+
+	.border-bottom {
+		border-bottom: 1px solid;
+		margin-bottom: 15px;
+	}
+
+	md-icon {
+		height: auto;
+		width: auto;
+		svg {
+			margin-bottom: -15px;
+			width: 55px;
+			height: 55px;
+			fill: #82D6FA;
+		}
+	}
+}
