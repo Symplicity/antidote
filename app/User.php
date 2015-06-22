@@ -20,7 +20,7 @@ class User extends Model
      *
      * @var array
      */
-    protected $hidden = ['password', 'reset_password_token', 'reset_password_token_expiration'];
+    protected $hidden = ['password', 'reset_password_token', 'reset_password_token_expiration', 'remember_token'];
 
     public function reviews()
     {
