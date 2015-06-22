@@ -26,7 +26,7 @@ This is the main drug review stage - NEED TABS HERE LINKING TO OVERVIEW, REVIEWS
 
 <md-tabs md-center-tabs="false">
     <md-tab  ng-repeat="tab in drugsView.tabs">
-        <a ui-sref="{{tab.state}}">{{tab.title}}</a>
+        <a ui-sref="{{::tab.state}}">{{::tab.title}}</a>
     </md-tab>
 </md-tabs>
 
