@@ -23,7 +23,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Drug::class, function (Faker\Generator $faker) {
     return [
-        'ndc' => $faker->ean8()
+        'ndc' => $faker->ean8(),
+        'label' => $faker->word(),
+        'description' => $faker->text(250)
     ];
 });
 
