@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(App\User::class, function ($faker) {
+$factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
@@ -21,13 +21,13 @@ $factory->define(App\User::class, function ($faker) {
     ];
 });
 
-$factory->define(App\Drug::class, function ($faker) {
+$factory->define(App\Drug::class, function (Faker\Generator $faker) {
     return [
         'ndc' => $faker->ean8()
     ];
 });
 
-$factory->define(App\DrugReview::class, function ($faker) {
+$factory->define(App\DrugReview::class, function (Faker\Generator $faker) {
     return [
         'user_id' => $faker->numberBetween(1, 50),
         'drug_id' => $faker->numberBetween(1, 50),

@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class DrugReview extends Model
 {
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
     protected $table = 'drug_reviews';
 
     public function user()

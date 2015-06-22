@@ -27,7 +27,7 @@ class DrugController extends Controller
     }
 
     /**
-     * Get reviews for a drug by id.
+     * Get reviews for a drug by local (primary key) id.
      *
      * @param int $id
      */
