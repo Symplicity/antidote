@@ -16,9 +16,14 @@
             })
             .state('drugs', {
                 url: '/drugs',
-                abstract: true,
+                abstract:true,
                 templateUrl: '/app/drugs/drugs.html',
-                controller: 'DrugsCtrl as drugs'
+                controller: 'DrugsListCtrl as drugs'
+            })
+            .state('drugs.list', {
+                url: '/',
+                templateUrl: '/app/drugs/drugs.list.html',
+                controller: 'DrugsListCtrl as drugs'
             })
             .state('drugs.view', {
                 url: '/:id',
