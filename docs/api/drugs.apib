@@ -61,12 +61,7 @@ https://antidote.symplicity-opensource.com/api/drugs?label=Tylenol
 
     [Drug][]
 
-## Drug Reviews List [/drugs/{id}/reviews]
-Returns a list of all reviews for a drug. Example:
-
-```no-highlight
-https://antidote.symplicity-opensource.com/api/drugs/1/reviews
-```
+## Drug Review List [/drugs/{id}/reviews]
 
 + Model
 
@@ -94,3 +89,14 @@ https://antidote.symplicity-opensource.com/api/drugs/1/reviews
                 }
             ]
         }
+
+### List all drug reviews for a drug [GET]
+Returns a list of all reviews for a drug. Example:
+
+```no-highlight
+https://antidote.symplicity-opensource.com/api/drugs/1/reviews
+```
+
++ Response 200
+
+    [Drug Review List][]
