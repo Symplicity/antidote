@@ -5,7 +5,6 @@ bower_components/
 .sass-cache/
 .tmp/
 dist/
-public/index.html
 public/**/*.css
 public/styles/*.css
 public/styles/*.css.map
