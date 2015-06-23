@@ -1,45 +1,60 @@
-.icon-size-md {
-	width: 80px;
-}
-
-.icon-size-sm {
-	width: 60px;
+.material-icons.icon-large {
+	//font-size: 140px;
 }
 
 .column-padding {
 	padding: 16px 16px 0;
 }
 
+.pill-row {
+	margin: 20px 0;
+}
+
 .reviews {
 	line-height: 20px;
 
-	[flex*='10']:first-child {
+	.md-tag-faces {
+		width: 125px;
+		height: 125px;
+	}
+
+	md-icon svg {
+		fill: $medium-gray;
+	}
+
+	.health-state {
 		padding-right: 25px;
 		text-align: center;
 	}
 }
 
 .md-vote {
-    border-left: 1px solid;
+    border-left: 1px solid $border-color;
     text-align: center;
+    height: 110px;
+    padding: 5px;
 
-    p {
-        text-align: center;
+    &:first-child {
+    	border-bottom: 1px solid $border-color;
+
+    	md-icon svg {
+    		margin-top: 0;
+    	}
     }
 
-    .border-bottom {
-        border-bottom: 1px solid;
-        margin-bottom: 15px;
-    }
+    p { text-align: center; }
+
+	.vote-label { margin: 5px 0 0; }
 
     md-icon {
         height: auto;
         width: auto;
+
         svg {
+        	margin-top: 18px;
             margin-bottom: -15px;
             width: 55px;
             height: 55px;
-            fill: #82D6FA;
         }
     }
 
