@@ -1,7 +1,7 @@
 # Group Drugs
 With the drugs API you can retrieve information and reviews on individual drugs as well as list all drugs.
 
-## Drug List [/drugs]
+## Drugs [/drugs]
 
 + Parameters
 
@@ -28,7 +28,7 @@ With the drugs API you can retrieve information and reviews on individual drugs 
             ]
         }
 
-### List all drugs [GET]
+### List [GET]
 Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:
 
 ```no-highlight
@@ -37,7 +37,7 @@ https://antidote.symplicity-opensource.com/api/drugs?label=Tylenol
 
 + Response 200
 
-    [Drug List][]
+    [Drugs][]
 
 ## Drug [/drugs/{id}]
 
@@ -61,7 +61,7 @@ https://antidote.symplicity-opensource.com/api/drugs?label=Tylenol
 
     [Drug][]
 
-## Drug Review List [/drugs/{id}/reviews]
+## Drug Review [/drugs/{id}/reviews]
 
 + Model
 
@@ -70,27 +70,83 @@ https://antidote.symplicity-opensource.com/api/drugs?label=Tylenol
         {
             "data": [
                 {
-                    "id": 22,
-                    "user": "See user model",
-                    "drug": "See drug model",
+                    "id": 1514,
                     "rating": 3,
-                    "is_covered_by_insurance": 0,
-                    "comment": "Tylenol really helped me through a lot of pain after my back surgery when nothing else would work",
-                    "created_at": "2015-06-22 18:49:03"
+                    "is_covered_by_insurance": 1,
+                    "comment": "Tylenol hurt my liver a lot",
+                    "created_at": "2015-06-23 02:57:19",
+                    "user": {
+                        "id": 3,
+                        "name": "Miss Kavon Murray IV",
+                        "email": "Dedric91@Hahn.com",
+                        "created_at": "2015-06-22 18:49:02",
+                        "updated_at": "2015-06-22 18:49:02",
+                        "age": 23,
+                        "gender": "m"
+                    },
+                    "drug": {
+                        "id": 5,
+                        "ndc": "33127350",
+                        "label": "Tylenol",
+                        "description": "Tylenol is a medicine used to treat pain."
+                    },
+                    "side_effects": [
+                        {
+                            "id": 1,
+                            "value": "nausea",
+                            "pivot": {
+                                "drug_review_id": 1514,
+                                "drug_side_effect_id": 1
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "value": "diarrhea",
+                            "pivot": {
+                                "drug_review_id": 1514,
+                                "drug_side_effect_id": 2
+                            }
+                        }
+                    ]
                 },
+            {
+            "data": [
                 {
-                    "id": 25,
-                    "user": "See user model",
-                    "drug": "See drug model",
+                "id": 1514,
                     "rating": 3,
-                    "is_covered_by_insurance": 0,
-                    "comment": "Claritin made me really sleepy most of the time.",
-                    "created_at": "2015-06-21 18:49:03"
+                    "is_covered_by_insurance": 1,
+                    "comment": "Makes you sleepy",
+                    "created_at": "2015-06-23 02:57:19",
+                    "user": {
+                        "id": 3,
+                        "name": "Miss Kavon Murray IV",
+                        "email": "Dedric91@Hahn.com",
+                        "created_at": "2015-06-22 18:49:02",
+                        "updated_at": "2015-06-22 18:49:02",
+                        "age": 23,
+                        "gender": "m"
+                    },
+                    "drug": {
+                        "id": 5,
+                        "ndc": "33127350",
+                        "label": "Claritin",
+                        "description": "Claritin is used to treat allergies."
+                    },
+                    "side_effects": [
+                        {
+                            "id": 1,
+                            "value": "nausea",
+                            "pivot": {
+                                "drug_review_id": 1514,
+                                "drug_side_effect_id": 1
+                            }
+                        }
+                    ]
                 }
             ]
         }
 
-### List all drug reviews for a drug [GET]
+### List All [GET]
 Returns a list of all reviews for a drug. Example:
 
 ```no-highlight
@@ -99,4 +155,41 @@ https://antidote.symplicity-opensource.com/api/drugs/1/reviews
 
 + Response 200
 
-    [Drug Review List][]
+    [Drug Review][]
+
+### Create New [POST]
+Create a new drug review
+
++ Request
+
+    + Body
+
+        {
+            "rating": "3",
+            "is_covered_by_insurance": "1",
+            "comment": "My pain has subsided considerably since I started taking this.",
+            "side_effects": [1,2,3]
+        }
+
++ Response 201
+
+        {
+            "rating": "3",
+            "comment": "My pain has subsided considerably since I started taking this.",
+            "is_covered_by_insurance": "1",
+            "created_at": "2015-06-23 03:23:39",
+            "id": 1515
+        }
+
++ Response 400
+
+    + Body
+
+            {
+              "message": {
+                "rating": [
+                  "The rating field is required."
+                ]
+              }
+            }
+
