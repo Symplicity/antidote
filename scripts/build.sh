@@ -17,7 +17,7 @@ if [ ! -e node_modules ]; then
   npm install -g dredd
 fi
 
-bower install --allow-root
+bower install --allow-root --config.interactive=false
 
 gulp
 

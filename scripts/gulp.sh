@@ -10,6 +10,6 @@ if [ ! -e node_modules ]; then
   npm install
 fi
 
-bower update --allow-root
+bower update --allow-root --config.interactive=false
 
 gulp
