@@ -57,28 +57,58 @@
             height: 55px;
         }
     }
+}
 
-    .md-drug-info {
-        margin: 0 auto;
-        padding: 25px;
+.md-drug-info {
+    margin: 0 auto;
+    padding: 25px;
+    background-color:#3F51B5;
+    color: #E8EAF6;
 
-        h1 {
-            font-weight: 500;
-            margin: 0;
-        }
-
-        .md-drug-type {
-            height: 100%;
-            margin: 8px 15px;
-            padding: 5px;
-            font-size: 13px;
-            background-color: #607D8B;
-            color: #FFFFFF;
-        }
-
-        .md-manufacturer-name {
-            font-size: 14px;
-            margin: 0;
-        }
+    h1 {
+        font-weight: 500;
+        font-size: 40px;
+        margin: 0;
     }
+
+    .md-drug-type {
+        height: 100%;
+        margin: 8px 15px;
+        padding: 5px;
+        font-size: 13px;
+        background-color: #1A237E;
+        color: #FFFFFF;
+    }
+
+    .md-manufacturer-name {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .md-accent.md-button{
+        color:#FFFFFF;
+
+    }
+
+    .md-drug-effects{
+        font-size: 12px;    
+        display: inline-block;
+        border: solid;
+        border-width: 2px;
+        border-radius: 15px;
+        padding: 1px 10px;
+        background-color: #4DB6AC;
+        border-color: #4DB6AC;
+        margin: 0 5px;
+    }
+}
+
+.md-drugs{
+    padding: 25px;
+    
+    span{
+        display:inline-block;
+        width:33%;
+    }
+
 }
