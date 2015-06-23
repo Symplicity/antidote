@@ -1,0 +1,15 @@
+.signup{
+	max-width: 600px;
+	margin: 0px auto;
+	margin-top: 50px;
+
+	h2{
+		text-align: center;
+		color: $md-primary;
+	}
+
+	form{
+		border-left: 1px solid $md-primary-light;
+		padding-left: 15px;
+	}
+}
