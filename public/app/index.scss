@@ -6,18 +6,66 @@
 // endbower
 
 @import url(http://fonts.googleapis.com/css?family=Nunito:400,300,700);
+	$medium-gray: #CCCCCD;
+	$primary-button-color: #50B6AC;
+	$text-color: #666;
+	$border-color: #DDD;
 
+	$md-primary: #3F51B5;
+	$md-primary-light: #E8EAF6;
+	$md-primary-dark: #1A237E;
+
+	$md-secondary: #4DB6AC;
+	
     html, body, h1, h2, h3, h4, h5, h6, p {
         font-family: Nunito, 'Helvetica Neue', sans-serif;
     }
 
     html, body, md-content{
-        background-color: #EEEEEE;
+        background-color: #EEEEEE;    	
+    }
+
+    p,li,ul{
+    	font-size: 14px;
     }
 
     html{
         height:100%
     }
+
+    body {
+		color: #666;
+	}
+
+	strong {
+		color: black;
+		font-weight: normal;
+	}
+
+	ul.unstyled {
+		padding: 0;
+
+		li {
+			list-style: none;
+			line-height: 26px;
+		}
+	}
+
+	.md-raised {
+		&.md-pill {
+			background-color: $primary-button-color;
+			border-radius: 50px;
+			color: white;
+			line-height: 26px;
+			min-height: inherit;
+		}
+	}
+
+	.md-button.md-raised:not([disabled]):hover {
+		background-color: lighten($primary-button-color, 15%);
+	}
+	
+    a.md-button.md-accent.md-raised, a.md-button.md-accent.md-fab, .md-button.md-accent.md-raised, .md-button.md-accent.md-fab {color:#FFF}
 
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject

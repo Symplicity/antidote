@@ -1,24 +1,17 @@
-<md-content layout-margin class="center-form">
-
-    <section class="md-whiteframe-z1" flex>
-
-        <md-toolbar class="mute-toolbar">
-            <div class="md-toolbar-tools">
-                <h3>Sign up</h3>
-            </div>
-        </md-toolbar>
-
-        <md-content layout="column" layout-gt-sm="row" layout-padding>
-            <div flex layout="column" layout-padding layout-margin>
-                <form method="post" ng-submit="signup.signup()" name="signupForm" layout="column">
-                    <md-input-container class="md-icon-float">
-                        <label>Name</label>
-                        <md-icon>person</md-icon>
-                        <input ng-model="signup.name" name="name" required autofocus>
-                        <div ng-messages="signupForm.name.$error" ng-show="signupForm.name.$touched || signupForm.$submitted">
-                            <div ng-message="required">You must enter your name.</div>
-                        </div>
-                    </md-input-container>
+<md-content class="md-padding" flex>
+    <md-card class="signup">      
+      <md-card-content>
+        <h2 class="md-title">Join Antidote</h2>
+        <div layout="row" layout-sm="column">
+          <div flex>
+            <ul>
+                <li>Awesome point about signing up.</li>
+                <li>Awesome point about signing up.</li>
+                <li>Awesome point about signing up.</li>
+            </ul>
+          </div>
+          <div flex>
+            <form method="post" ng-submit="signup.signup()" name="signupForm" layout="column">                  
                     <md-input-container class="md-icon-float">
                         <label>Email</label>
                         <md-icon>email</md-icon>
@@ -36,25 +29,13 @@
                             <div ng-message="required">Password is required.</div>
                         </div>
                     </md-input-container>
-                    <md-input-container class="md-icon-float">
-                        <label>Confirm Password</label>
-                        <md-icon></md-icon>
-                        <input password-match="signup.password" ng-model="confirmPassword" name="confirmPassword" type="password" required>
-                        <div ng-messages="signupForm.confirmPassword.$error" ng-show="signupForm.confirmPassword.$touched || signupForm.$submitted">
-                            <div ng-message="compareTo">Password must match.</div>
-                            <div ng-message="required">Password confirmation is required.</div>
-                        </div>
-                    </md-input-container>
-                    <md-button type="submit" ng-disabled="signupForm.$invalid" class="md-primary">Sign up</md-button>
                 </form>
-            </div>
-        </md-content>
-
-        <md-divider></md-divider>
-
-        <div layout layout-padding layout-align="center center">
-            <a ui-sref="login">Already have an account?</a>
+          </div>
         </div>
-    </section>
-
-</md-content>
+      </md-card-content>
+      <div class="md-actions" layout="row" layout-align="end center">
+        <md-button ui-sref="login">Already have an account? Sign In</md-button>
+        <md-button type="submit" ng-disabled="signupForm.$invalid" class="md-raised md-accent">REGISTER</md-button>
+      </div>
+    </md-card>    
+  </md-content>
