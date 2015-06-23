@@ -30,7 +30,7 @@ function browserSyncInit(baseDir, browser) {
      */
 
     browserSync.instance = browserSync.init({
-        startPath: '/index.src.html',
+        startPath: '/index.html',
         server: server,
         browser: browser
     });

@@ -3,7 +3,6 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
-var rename = require('gulp-rename');
 
 var $ = require('gulp-load-plugins')({
     pattern: ['gulp-*', 'main-bower-files', 'uglify-save-license', 'del']
@@ -91,18 +90,12 @@ gulp.task('other', function() {
 gulp.task('dev', ['html'], function() {
     return gulp.src([
         conf.paths.tmp + '/serve/**/*',
-        '!' + conf.paths.tmp + '/serve/index.src.html'
+        '!' + conf.paths.tmp + '/serve/index.html'
     ]).pipe(gulp.dest(conf.paths.src + '/'));
-});
-
-gulp.task('copy-index', ['html'], function() {
-    return gulp.src(conf.paths.tmp + '/serve/index.src.html')
-        .pipe(rename('index.html'))
-        .pipe(gulp.dest(conf.paths.src + '/'));
 });
 
 gulp.task('clean', function(done) {
     $.del([path.join(conf.paths.dist, '/'), path.join(conf.paths.tmp, '/')], done);
 });
 
-gulp.task('build', ['html', 'fonts', 'other', 'dev', 'copy-index']);
+gulp.task('build', ['html', 'fonts', 'other', 'dev']);
