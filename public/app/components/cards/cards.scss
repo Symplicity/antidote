@@ -1,4 +1,5 @@
 md-card {
+	margin-bottom: 35px;
 	font-size: 14px;
 
 	md-toolbar {
@@ -11,13 +12,6 @@ md-card {
 
 		md-icon {
 			margin: 0 10px 0 0;
-			padding: 8px;
-			background-color: #053145;
-			border-radius: 50%;
-			height: 40px;
-			width: 40px;
-			font-size: 10px;
-			text-align: center;
 
 			svg {
 				fill: white;
