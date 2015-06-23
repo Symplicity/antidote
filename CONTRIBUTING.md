@@ -37,13 +37,6 @@ NOTE: If your checkout is in a folder with a different name, the name of the con
 
 Get the IP address of your docker host and open it in a browser: `boot2docker ip`
 
-To run the gulp server with browserSync functionality:
-```bash
-docker exec -it antidote_web_1 /var/www/scripts/serve.sh
-```
-
-And open the same IP address with correct port: http://192.168.59.103:3000/
-
 ### Troubleshooting
 
 * See current running docker containers: `docker ps`
