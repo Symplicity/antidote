@@ -1,0 +1,53 @@
+.banner{
+    height: 200px;
+    margin: 0 auto;
+    padding: 25px;
+    background-color:#3F51B5;
+    color: #E8EAF6;
+
+    input{
+        width: 300px;
+        padding:10px;
+        color: #4DB6AC;
+        background-image: URL('/images/icons/md-search.svg');
+        background-repeat: no-repeat;
+        background-position: 99%;
+    }
+
+
+}
+
+.md-home-card{
+    max-width: 350px;
+    margin: 50px 25px;
+
+    div{
+        padding: 10px;
+    }
+
+    md-icon{
+        width:100px;
+        height:100px;
+    }
+
+    .material-icons{
+        font-size: 100px;
+    }
+
+    p{
+        text-align:center;
+    }
+}
+
+.md-quote{
+    color: #E8EAF6;
+    background-color:#1A237E;
+    text-align:center;
+    padding-bottom: 20px;
+
+    a.md-accent.md-button{
+        color:#FFFFFF;
+        padding: 0 15px;
+
+    }
+}

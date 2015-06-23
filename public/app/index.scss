@@ -5,7 +5,19 @@
 // bower:scss
 // endbower
 
-@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
+@import url(http://fonts.googleapis.com/css?family=Nunito:400,300,700);
+
+    html, body, h1, h2, h3, h4, h5, h6, p {
+        font-family: Nunito, 'Helvetica Neue', sans-serif;
+    }
+
+    html, body, md-content{
+        background-color: #EEEEEE;
+    }
+
+    html{
+        height:100%
+    }
 
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
