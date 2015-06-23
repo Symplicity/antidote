@@ -16,6 +16,6 @@ if [ ! -e node_modules ]; then
   npm install -g bower
 fi
 
-bower install --allow-root
+bower install --allow-root --config.interactive=false
 
 gulp
