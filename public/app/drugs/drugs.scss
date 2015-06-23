@@ -18,6 +18,10 @@
         height: 125px;
     }
 
+    md-card md-card-content {
+        padding: 0;
+    }
+
     md-icon svg {
         fill: $medium-gray;
     }
