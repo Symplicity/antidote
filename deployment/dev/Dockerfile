@@ -31,8 +31,10 @@ RUN sed -i -e "s/;daemonize\s*=\s*yes/daemonize = no/g" /etc/php5/fpm/php-fpm.co
 RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
 
 # setup directories
+RUN mv /etc/nginx/sites-enabled /etc/nginx/sites-enabled.orig
+RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
 RUN mkdir -p /var/www
-ADD build/default /etc/nginx/sites-available/default
+ADD build/nginx-sites/  /etc/nginx/sites-available/
 RUN mkdir /etc/service/nginx
 ADD build/nginx.sh /etc/service/nginx/run
 RUN chmod +x /etc/service/nginx/run
@@ -40,7 +42,7 @@ RUN mkdir /etc/service/phpfpm
 ADD build/phpfpm.sh /etc/service/phpfpm/run
 RUN chmod +x /etc/service/phpfpm/run
 
-EXPOSE 80 22
+EXPOSE 80 22 443
 #End nginx
 
 # Install Composer

@@ -15,11 +15,17 @@
         }
       ],
       "essential":true,
-      "memory":128,
+      "memory":512,
       "portMappings":[
         {
           "hostPort":80,
           "containerPort": 80
+        }
+      ],
+      "mountPoints":[
+        {
+          "sourceVolume": "antidote",
+          "comtianerPath": "/var/www/"
         }
       ]
     }
