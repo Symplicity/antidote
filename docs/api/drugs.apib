@@ -5,15 +5,25 @@ With the drugs API you can retrieve information and reviews on individual drugs 
 
 + Parameters
 
-    + label: `Tylenol` (string, optional) - Search for a drug by label
-    + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `50`
-      + Default: `10`
+    + keywords: `Tylenol` (string, optional) - Search for a drug by keywords in label or description
+    + page: `2` (integer, optional) - Page number of drugs
+    + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `500`
+      + Default: `15`
+
 
 + Model
 
     + Body
 
         {
+            "total": 150,
+            "per_page": 15,
+            "current_page": 2,
+            "last_page": 10,
+            "next_page_url": "https://antidote.symplicity-opensource.com/api/drugs?page=3",
+            "prev_page_url": "https://antidote.symplicity-opensource.com/api/drugs?page=1",
+            "from": 16,
+            "to": 30,
             "data": [
                 {
                     "id": 1,
@@ -32,7 +42,7 @@ With the drugs API you can retrieve information and reviews on individual drugs 
 Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:
 
 ```no-highlight
-https://antidote.symplicity-opensource.com/api/drugs?label=Tylenol
+https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
 ```
 
 + Response 200
@@ -63,11 +73,26 @@ https://antidote.symplicity-opensource.com/api/drugs?label=Tylenol
 
 ## Drug Review [/drugs/{id}/reviews]
 
++ Parameters
+
+    + keywords: `pain` (string, optional) - Search for a drug review by keywords in the comment
+    + page: `2` (integer, optional) - Page number
+    + limit: `25` (integer, optional) - The maximum number of drug reviews to return, up to `500`
+      + Default: `15`
+
 + Model
 
     + Body
 
         {
+            "total": 45,
+            "per_page": 15,
+            "current_page": 2,
+            "last_page": 1,
+            "next_page_url": "https://antidote.symplicity-opensource.com/api/drugs/5/reviews?page=3",
+            "prev_page_url": "https://antidote.symplicity-opensource.com/api/drugs/5/reviews?page=1",
+            "from": 16,
+            "to": 30,
             "data": [
                 {
                     "id": 1514,
@@ -147,7 +172,7 @@ https://antidote.symplicity-opensource.com/api/drugs?label=Tylenol
         }
 
 ### List All [GET]
-Returns a list of all reviews for a drug. Example:
+Returns a list of all reviews for a drug. The reviews are returned in created date descending order.  Example:
 
 ```no-highlight
 https://antidote.symplicity-opensource.com/api/drugs/1/reviews

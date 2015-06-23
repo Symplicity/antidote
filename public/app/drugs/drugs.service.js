@@ -18,6 +18,9 @@
                 getReviews: {
                     method: 'GET',
                     url: '/api/drugs/:id/reviews'
+                },
+                query: {
+                    method: 'GET'
                 }
             }
         );

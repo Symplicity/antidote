@@ -19,10 +19,21 @@ class DrugController extends Controller
         return Drug::find($id);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $drugs = Drug::all();
-        return ['data' => $drugs];
+        $limit = 15;
+
+        if ($request['limit']) {
+            $limit = $request['limit'];
+        }
+
+        if ($keywords = $request['keywords']) {
+            $drugs = Drug::where('label', 'LIKE', '%' . $keywords . '%')->orWhere('description', 'LIKE', '%' . $keywords . '%')->orderBy('label', 'ASC')->paginate($limit);
+        } else {
+            $drugs = Drug::orderBy('label', 'ASC')->paginate($limit);
+        }
+
+        return $drugs;
     }
 
     /**
@@ -30,10 +41,16 @@ class DrugController extends Controller
      *
      * @param int $id
      */
-    public function getReviews($id)
+    public function getReviews($id, Request $request)
     {
-        $reviews = Drug::find($id)->reviews()->with('user')->with('drug')->with('sideEffects')->get();
-        return ['data' => $reviews];
+        $limit = 15;
+
+        if ($request['limit']) {
+            $limit = $request['limit'];
+        }
+
+        $reviews = Drug::find($id)->reviews()->with('user')->with('drug')->with('sideEffects')->orderBy('created_at', 'DESC')->paginate($limit);
+        return $reviews;
     }
 
     /**
