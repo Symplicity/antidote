@@ -1,0 +1,27 @@
+{
+  "AWSEBDockerrunVersion":2,
+  "authentication":{
+    "bucket": "entic-docker",
+    "key": "index.docker.io/dockercfg"
+  },
+  "containerDefinitions":[
+    {
+      "name":"webserver",
+      "image": "symplicity/webserver",
+      "environment":[
+        {
+          "name":"Container",
+          "value": "PHP 5.6 + Nginx"
+        }
+      ],
+      "essential":true,
+      "memory":128,
+      "portMappings":[
+        {
+          "hostPort":80,
+          "containerPort": 80
+        }
+      ]
+    }
+  ]
+}
