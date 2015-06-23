@@ -5,15 +5,20 @@
         border: none;
         text-align:right;
         color:white;
+        background-image: URL('/images/icons/md-search-white.svg');
+        background-repeat: no-repeat;
+        background-position: 99%;
     }
 
     .nav-link:active {
       border-bottom: solid;
       border-radius: 0;
       border-width: 5px;
-      border-color: black;
+      border-color: #4DB6AC;
+      color:#4DB6AC;
       padding-top: 15px;
       padding-bottom: 8px;
+
     }    
 }
 
