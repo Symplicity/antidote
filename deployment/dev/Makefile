@@ -1,8 +1,8 @@
 NS = symplicity
 VERSION ?= latest
 
-REPO = dev
-NAME = dev
+REPO = develop
+NAME = develop
 INSTANCE = default
 
 .PHONY: build push shell run start stop rm release
