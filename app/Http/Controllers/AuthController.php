@@ -64,11 +64,15 @@ class AuthController extends Controller
             return response()->json(['message' => $validator->messages()], 400);
         }
 
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
-        $user->save();
+        try {
+            $user = new User();
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('password'));
+            $user->save();
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
 
         return response()->json(['token' => $this->createToken($user)]);
     }

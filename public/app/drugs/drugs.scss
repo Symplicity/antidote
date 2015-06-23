@@ -20,48 +20,50 @@
 }
 
 .md-vote {
-	border-left: 1px solid;
-	text-align: center;
+    border-left: 1px solid;
+    text-align: center;
 
-	p { text-align: center; }
-
-	.border-bottom {
-		border-bottom: 1px solid;
-		margin-bottom: 15px;
-	}
-
-	md-icon {
-		height: auto;
-		width: auto;
-		svg {
-			margin-bottom: -15px;
-			width: 55px;
-			height: 55px;
-			fill: #82D6FA;
-		}
-	}
-
-    .md-drug-info{
-    margin: 0 auto;
-    padding: 25px;
-
-    h1{
-        font-weight:500;
-        margin: 0;
+    p {
+        text-align: center;
     }
 
-    .md-drug-type{
-        height: 100%;
-        margin: 8px 15px;
-        padding: 5px;
-        font-size: 13px;
-        background-color: #607D8B;
-        color: #FFFFFF;
+    .border-bottom {
+        border-bottom: 1px solid;
+        margin-bottom: 15px;
     }
 
+    md-icon {
+        height: auto;
+        width: auto;
+        svg {
+            margin-bottom: -15px;
+            width: 55px;
+            height: 55px;
+            fill: #82D6FA;
+        }
+    }
 
-    .md-manufacturer-name{
-        font-size:14px;
-        margin:0;
+    .md-drug-info {
+        margin: 0 auto;
+        padding: 25px;
+
+        h1 {
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .md-drug-type {
+            height: 100%;
+            margin: 8px 15px;
+            padding: 5px;
+            font-size: 13px;
+            background-color: #607D8B;
+            color: #FFFFFF;
+        }
+
+        .md-manufacturer-name {
+            font-size: 14px;
+            margin: 0;
+        }
     }
 }

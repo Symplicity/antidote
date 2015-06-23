@@ -14,4 +14,9 @@ class DrugSideEffect extends Model
     {
         return $this->belongsToMany('App\Drug');
     }
+
+    public function drugReviews()
+    {
+        return $this->belongsToMany('App\DrugReview');
+    }
 }
