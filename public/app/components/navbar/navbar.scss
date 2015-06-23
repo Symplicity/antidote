@@ -1,0 +1,21 @@
+.md-nav-bar{
+
+    .md-global-search{
+        background: inherit;
+        border: none;
+        color: white;
+        border-bottom: solid;
+        border-width: 1px;
+        text-align:right;
+    }
+
+    .nav-link:active {
+      border-bottom: solid;
+      border-radius: 0;
+      border-width: 5px;
+      border-color: black;
+      padding-top: 15px;
+      padding-bottom: 8px;
+    }    
+}
+
