@@ -133,7 +133,7 @@ class AuthController extends Controller
         Mail::raw('Follow this link to reset your password: https://' . $_SERVER['HTTP_HOST'] . '/api/auth/reset/' . $token, function ($message) use ($email) {
             $message->from('antidote@symplicity-opensource.com');
             $message->to($email);
-            $message->subject('Antidote Password Rest');
+            $message->subject('Antidote Password Reset');
         });
 
         return ['message' => 'An email has been sent to the provided email address with further instructions'];
