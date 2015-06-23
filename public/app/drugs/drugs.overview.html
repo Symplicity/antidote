@@ -36,55 +36,44 @@
     </md-card>
 </md-content>
 
-<md-content layout="row">
-    <md-card flex>
-        <md-toolbar class="md-toolbar-tools">
-            <md-icon class="md-fab" md-svg-src="/images/icons/md-info.svg"></md-icon>
-            <h4>Interactions</h4>
-        </md-toolbar>
-        <md-card-content>
-            <p>This medication can have varying levels of adverse interactions with the following:</p>
-            <section layout="row" layout-sm="column">
-                <md-button class="md-raised">Celexa</md-button>
-                <md-button class="md-raised ">Cymbalta</md-button>
-                <md-button class="md-raised">Effexor</md-button>
-                <md-button class="md-raised">Lexapro</md-button>
-            </section>
-        </md-card-content>
-    </md-card>
-</md-content>
-
 <md-content layout="row" class="reviews">
     <md-card flex>
         <md-toolbar class="md-toolbar-tools">
-            <md-icon class="md-fab" md-svg-src="/images/icons/md-info.svg"></md-icon>
+            <md-icon>question_answer</md-icon>
             <h4>Reviews</h4>
         </md-toolbar>
         <md-content>
             <div layout="row" layout-wrap>
-                <div flex="10" class="column-padding">
-                    <img class="icon-size-md" src="/images/icons/md-tag-faces.svg">
+                <div flex="15" class="column-padding health-state">
+                    <md-icon class="md-tag-faces" md-svg-src="/images/icons/md-tag-faces.svg"></md-icon>
                     <p>Effective 30 year old female</p>
                 </div>
-                <div flex="75" class="column-padding">
+
+                <div flex="70" class="column-padding">
                     <p>"Taking in the morning or afternoon with an hour of two for relax before takes effect. If you have ocular/eye problems/pains you will feel in 10 minutes that your whole body starts to relax but keep away from computers, tv and so."</p>
-                    <section layout="row" layout-sm="column">
-                        Side Effects:
-                        <md-button class="md-raised">Celexa</md-button>
-                        <md-button class="md-raised ">Cymbalta</md-button>
-                        <md-button class="md-raised">Effexor</md-button>
-                        <md-button class="md-raised">Lexapro</md-button>
+                    <section class="pill-row" layout="row" layout-sm="column" layout-align="start center">
+                        <span><strong>Side Effects:</strong></span>
+                        <md-button class="md-raised md-pill">Celexa</md-button>
+                        <md-button class="md-raised md-pill">Cymbalta</md-button>
+                        <md-button class="md-raised md-pill">Effexor</md-button>
+                        <md-button class="md-raised md-pill">Lexapro</md-button>
                     </section>
+
+                    <ul class="unstyled">
+                        <li><strong>Insurance Covered:</strong> Yes</li>
+                        <li><strong>Insurance Company:</strong> National Healthcare</li>
+                    </ul>
                 </div>
-                <div flex="15" class="md-vote">
-                    <div class="border-bottom">
-                        <p>Is this helpful?</p>
+
+                <div flex="15">
+                    <div class="md-vote">
+                        <p class="vote-label"><strong>Is this helpful?</strong></p>
                         <md-icon md-svg-src="/images/icons/md-thumb-up.svg"></md-icon>
-                        <p>86</p>
+                        <p><strong>86</strong></p>
                     </div>
-                    <div>
+                    <div class="md-vote">
                         <md-icon md-svg-src="/images/icons/md-thumb-down.svg"></md-icon>
-                        <p>86</p>
+                        <p><strong>86</strong></p>
                     </div>
                 </div>
             </div>
