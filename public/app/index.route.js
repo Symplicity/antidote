@@ -17,19 +17,18 @@
             .state('drugs', {
                 url: '/drugs',
                 abstract:true,
-                templateUrl: '/app/drugs/drugs.html',
-                controller: 'DrugsListCtrl as drugs'
+                templateUrl: '/app/drugs/drugs.html'
             })
             .state('drugs.list', {
                 url: '/',
                 templateUrl: '/app/drugs/drugs.list.html',
-                controller: 'DrugsListCtrl as drugs'
+                controller: 'DrugsListCtrl as drugsList'
             })
             .state('drugs.view', {
                 url: '/:id',
                 abstract: true,
                 templateUrl: '/app/drugs/drugs.view.html',
-                controller: 'DrugsViewCtrl as drugsView',
+                controller: 'DrugsViewCtrl as drugsView'
             })
             .state('drugs.view.overview', {
                 url: '/overview',
