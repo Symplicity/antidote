@@ -13,3 +13,13 @@ You need to edit and change `NS` value. This is need to map to your docker hub u
 
 #### Testing
 If you want check something you can shell into the image by doing `make shell` this will drop you into the shell of the latest build of the image.
+
+
+### AWS infra
+You will see in this folder theres a `Dockerrun.aws.json` file. This is needed for running this environment in a AWS Elastic Beanstalk environment. We will document the complete process on getting Antidote by Symplicity running in AWS in another document.
+
+### Kubernetes
+Coming soon.
+
+### Docker Machine/Swarm/Compose
+In the root of the repo just do docker compose up -d and it will spool up and link up, a dev server, mysql and job server for you. 
