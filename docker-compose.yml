@@ -1,4 +1,4 @@
-# This will stand up a dev environment
+# This will stand up a dev environment, see CONTRIBUTING.md for details
 web:
   image: symplicity/dev
   ports:
@@ -10,12 +10,12 @@ web:
     - APP_ROOT=/var/www
   links:
     - db
-job:
-  image: symplicity/job
-  volumes:
-    - .:/var/www
-  links:
-    - db
+#job:
+#  image: symplicity/job
+#  volumes:
+#    - .:/var/www
+#  links:
+#    - db
 db:
   image: mariadb
   environment:
