@@ -1,41 +1,47 @@
 {{drugsReviews.reviews.data | json}}
 <!--Drug reviews list goes here-->
-<md-content>
-    <md-card>
-        <md-toolbar>
-            <md-icon></md-icon>
+{{drugsReviews.reviews.data | json}}
+<md-content layout="row" class="reviews">
+    <md-card flex>
+        <md-toolbar class="md-toolbar-tools">
+            <md-icon>question_answer</md-icon>
             <h4>Reviews</h4>
         </md-toolbar>
-        <div layout="row">
-            <div>
-                <md-icon></md-icon>
-                <p>Rating | Gender Age</p>
-            </div>
-            <div>
-                <p>"Review"</p>
+        <md-content>
+            <div layout="row" layout-wrap>
+                <div flex="15" class="column-padding health-state">
+                    <md-icon class="md-tag-faces" md-svg-src="/images/icons/md-tag-faces.svg"></md-icon>
+                    <p>Effective 30 year old female</p>
+                </div>
 
-                <p>
-                    Side Effects
-                    <span>Headache</span>
-                </p>
+                <div flex="70" class="column-padding">
+                    <p>"Taking in the morning or afternoon with an hour of two for relax before takes effect. If you have ocular/eye problems/pains you will feel in 10 minutes that your whole body starts to relax but keep away from computers, tv and so."</p>
+                    <section class="pill-row" layout="row" layout-sm="column" layout-align="start center">
+                        <span><strong>Side Effects:</strong></span>
+                        <md-button class="md-raised md-pill">Celexa</md-button>
+                        <md-button class="md-raised md-pill">Cymbalta</md-button>
+                        <md-button class="md-raised md-pill">Effexor</md-button>
+                        <md-button class="md-raised md-pill">Lexapro</md-button>
+                    </section>
 
-                <p>
-                    Insurance Covered?
-                    <span>Yes</span>
-                </p>
+                    <ul class="unstyled">
+                        <li><strong>Insurance Covered:</strong> Yes</li>
+                        <li><strong>Insurance Company:</strong> National Healthcare</li>
+                    </ul>
+                </div>
 
-                <p>
-                    Insurance Company:
-                    <span>National HealthCare</span>
-                </p>
+                <div flex="15">
+                    <div class="md-vote">
+                        <p class="vote-label"><strong>Is this helpful?</strong></p>
+                        <md-icon md-svg-src="/images/icons/md-thumb-up.svg"></md-icon>
+                        <p><strong>86</strong></p>
+                    </div>
+                    <div class="md-vote">
+                        <md-icon md-svg-src="/images/icons/md-thumb-down.svg"></md-icon>
+                        <p><strong>86</strong></p>
+                    </div>
+                </div>
             </div>
-            <div layout="column">
-                <p>Is this helpful?</p>
-                <md-icon></md-icon>
-                <p>200</p>
-                <md-icon></md-icon>
-                <p>3</p>
-            </div>
-        </div>
+        </md-card-content>
     </md-card>
 </md-content>
