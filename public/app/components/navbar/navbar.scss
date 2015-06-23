@@ -3,22 +3,14 @@
     .md-global-search{
         background: #131A5F;
         border: none;
-        text-align:right;
         color:white;
         background-image: URL('/images/icons/md-search-white.svg');
         background-repeat: no-repeat;
         background-position: 99%;
+        width:500px;
+        padding:10px;
     }
 
-    .nav-link:active {
-      border-bottom: solid;
-      border-radius: 0;
-      border-width: 5px;
-      border-color: #4DB6AC;
-      color:#4DB6AC;
-      padding-top: 15px;
-      padding-bottom: 8px;
 
-    }    
 }
 
