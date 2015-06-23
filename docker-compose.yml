@@ -10,6 +10,7 @@ web:
     - APP_ROOT=/var/www
   links:
     - db
+### Uncomment this once jobs are ready
 #job:
 #  image: symplicity/job
 #  volumes:
