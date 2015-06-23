@@ -1,6 +1,6 @@
 # This will stand up a dev environment, see CONTRIBUTING.md for details
 web:
-  image: symplicity/dev
+  image: symplicity/develop
   ports:
     - "80:80"
     - "3000:3000"
