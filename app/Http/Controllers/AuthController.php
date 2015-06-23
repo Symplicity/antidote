@@ -9,6 +9,7 @@ use App\User;
 use JWT;
 use DateTime;
 use DateInterval;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -129,9 +130,12 @@ class AuthController extends Controller
         $user->reset_password_token_expiration = $now->add(new DateInterval('PT1H30M'));
         $user->save();
 
-        //TODO: implement mailing of message
+        Mail::raw('Follow this link to reset your password: https://' . $_SERVER['HTTP_HOST'] . '/api/auth/reset/' . $token, function ($message) use ($email) {
+            $message->from('antidote@symplicity-opensource.com');
+            $message->to($email);
+            $message->subject('Antidote Password Rest');
+        });
 
-        //if mail successful then
         return ['message' => 'An email has been sent to the provided email address with further instructions'];
     }
 }
