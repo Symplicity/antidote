@@ -1,39 +1,42 @@
 <md-content>
-    <div>
-        <p>Understand what you're taking</p>
-        <input type="search" ng-model="home.search.keywords" placeholder="Search for anything" flex>
-        <md-icon ui-sref="drugs.list({keywords: home.search.keywords})" md-svg-src="/images/search.svg" alt="user"></md-icon>
+    <div class="banner md-whiteframe-z1">
+        <p class="md-display-1" layout="row" layout-align="center center">Understand what you're taking</p>
+        <p layout="row" layout-align="center center">
+            <input type="search" ng-model="home.search.keywords">
+<!--             <md-icon ui-sref="drugs.list({keywords: home.search.keywords})" alt="user"></md-icon> --> 
+       </p>
     </div>
-    <div layout="row">
-        <md-card flex>
+    <div layout="row" layout-align="center center">
+        <md-card class="md-home-card" flex>
             <md-toolbar class="md-toolbar-tools">
                 <h3>Insurance</h3>
             </md-toolbar>
-            <md-content>
-                <md-icon md-svg-src="/images/search.svg"></md-icon>
+            <div layout="column" layout-alignment="center center">
+                <md-icon>assignment</md-icon>
                 <p>Check if your plan covers your medication and what alternatives there are.</p>
-            </md-content>
+            </div>
         </md-card>
-        <md-card flex>
+        <md-card class="md-home-card" flex>
             <md-toolbar class="md-toolbar-tools">
-                <h3>Insurance</h3>
+                <h3>Personalized</h3>
             </md-toolbar>
-            <md-content>
-                <md-icon md-svg-src="/images/search.svg"></md-icon>
+            <div layout="column" layout-alignment="center center">
+                <md-icon>local_pharmacy</md-icon>
                 <p>Check if your plan covers your medication and what alternatives there are.</p>
-            </md-content>
+            </div>
         </md-card>
-        <md-card flex>
+        <md-card class="md-home-card" flex>
             <md-toolbar class="md-toolbar-tools">
-                <h3>Insurance</h3>
+                <h3>Trusted</h3>
             </md-toolbar>
-            <md-content>
-                <md-icon md-svg-src="/images/search.svg"></md-icon>
+            <div layout="column" layout-alignment="center center">
+                <md-icon>lock</md-icon>
                 <p>Check if your plan covers your medication and what alternatives there are.</p>
-            </md-content>
+            </div>
         </md-card>
     </div>
-    <div>
-        <p>quote</p>
+    <div layout="column" layout-align="center center" class="md-quote">
+        <p class="md-headline">"I love being able to do my own research about what my doctor prescribes."<br>-Betty Rice</p>
+        <md-button ui-sref="drugs.list" class="md-accent md-raised md-button">Browse Medications</md-button>
     </div>
 </md-content>

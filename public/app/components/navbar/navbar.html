@@ -1,8 +1,8 @@
 <md-toolbar ng-controller="NavbarCtrl as navbar" class="md-whiteframe-z2 md-primary md-hue-2">
     <div class="md-toolbar-tools md-nav-bar" layout-margin layout-padding>
         <a ui-sref="home" md-button>Antidote</a>
-        <input type="search" ng-model="navbar.search.keywords" class="md-global-search" placeholder="Search for anything" flex >
-        <md-icon ui-sref="drugs.list({keywords: navbar.search.keywords})">search</md-icon>
+        <input type="search" ng-model="navbar.search.keywords" class="md-global-search"flex >
+        <!--<md-icon ui-sref="drugs.list({keywords: navbar.search.keywords})"></md-icon>-->
         <a ui-sref="home" class="nav-link" md-button>Home</a>
         <a ui-sref="drugs.list" class="nav-link" md-button>Medications</a>
         <a ui-sref="about" class="nav-link" md-button>About</a>
