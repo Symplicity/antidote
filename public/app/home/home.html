@@ -1,8 +1,8 @@
 <md-content>
     <div>
         <p>Understand what you're taking</p>
-        <input type="search" placeholder="Search for anything" flex>
-        <md-icon md-svg-src="/images/search.svg" alt="user"></md-icon>
+        <input type="search" ng-model="home.search.keywords" placeholder="Search for anything" flex>
+        <md-icon ui-sref="drugs.list({keywords: home.search.keywords})" md-svg-src="/images/search.svg" alt="user"></md-icon>
     </div>
     <div layout="row">
         <md-card flex>

@@ -20,7 +20,7 @@
                 templateUrl: '/app/drugs/drugs.html'
             })
             .state('drugs.list', {
-                url: '/',
+                url: '/?keywords',
                 templateUrl: '/app/drugs/drugs.list.html',
                 controller: 'DrugsListCtrl as drugsList'
             })
