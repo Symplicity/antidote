@@ -1,16 +1,22 @@
 <md-toolbar ng-controller="NavbarCtrl as navbar" class="md-whiteframe-z2 md-primary md-hue-2">
     <div class="md-toolbar-tools md-nav-bar" layout-margin layout-padding>
-        <a ui-sref="home" md-button>Antidote</a>
-        <input type="search" ng-model="navbar.search.keywords" class="md-global-search"flex >
-        <!--<md-icon ui-sref="drugs.list({keywords: navbar.search.keywords})"></md-icon>-->
-        <a ui-sref="home" class="nav-link" md-button>Home</a>
-        <a ui-sref="drugs.list" class="nav-link" md-button>Medications</a>
-        <a ui-sref="about" class="nav-link" md-button>About</a>
-        <div>
-            <a ui-sref="profile" class="nav-link" md-button ng-if="navbar.isAuthenticated()">Profile</a>
+        <div flex>
+            <a ui-sref="home" md-button flex>Antidote</a>
         </div>
-        <a ui-sref="signup" class="nav-link" md-button ng-if="!navbar.isAuthenticated()">Sign up</a>
-        <a ui-sref="login" class="nav-link" md-button ng-if="!navbar.isAuthenticated()">Log In</a>
-        <a ui-sref="logout" class="nav-link" md-button ng-if="navbar.isAuthenticated()">Logout</a>
+        <div layout="row" layout-align="end center" flex>
+            <input type="search" ng-model="navbar.search.keywords" class="md-global-search" >
+            <!--<md-icon ui-sref="drugs.list({keywords: navbar.search.keywords})"></md-icon>-->
+        </div>
+        <div layout="row" flex>
+            <a ui-sref="home" class="nav-link" md-button>Home</a>
+            <a ui-sref="drugs.list" class="nav-link" md-button>Medications</a>
+            <a ui-sref="about" class="nav-link" md-button>About</a>
+            <div>
+                <a ui-sref="profile" class="nav-link" md-button ng-if="navbar.isAuthenticated()">Profile</a>
+            </div>
+            <a ui-sref="signup" class="nav-link" md-button ng-if="!navbar.isAuthenticated()">Sign up</a>
+            <a ui-sref="login" class="nav-link" md-button ng-if="!navbar.isAuthenticated()">Log In</a>
+            <a ui-sref="logout" class="nav-link" md-button ng-if="navbar.isAuthenticated()">Logout</a>
+            <div>
     </div>
 </md-toolbar>
