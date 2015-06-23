@@ -1,11 +1,11 @@
 {{drugsView.drug | json}}
 <!--Drug Description-->
 <md-content layout="column" class="md-drug-info" flex>
-    <div layout="row">
+    <div layout="row" layout-align="center center">
         <h1>Advil, Motrin IB (Ibuprofen) </h1>
         <span class="md-drug-type">Prescription or OTC</span>
         <md-icon></md-icon>
-        <md-button class="md-primary md-raised md-button">Review</md-button>
+        <md-button class="md-accent md-raised md-button">Review it</md-button>
 
     </div>
 
@@ -14,17 +14,17 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit
         amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et
         magnis dis parturient... <a href="##">read more</a></p>
-
+    
     <p>
-        <span>Used for:</span>
-        <span>Pain</span>
-        <span>Fever</span>
-        <span>Headache</span>
-        <span>Migraine</span>
+        <span class="md-body-2">Used for:</span>
+        <span class="md-drug-effects md-whiteframe-z1">Pain</span>
+        <span class="md-drug-effects md-whiteframe-z1">Fever</span>
+        <span class="md-drug-effects md-whiteframe-z1">Headache</span>
+        <span class="md-drug-effects md-whiteframe-z1">Migraine</span>
     </p>
 </md-content>
 
-<md-tabs md-center-tabs="false">
+<md-tabs md-center-tabs="false" class="md-whiteframe-z1">
     <md-tab  ng-repeat="tab in drugsView.tabs">
         <a ui-sref="{{::tab.state}}">{{::tab.title}}</a>
     </md-tab>
