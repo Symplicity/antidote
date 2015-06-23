@@ -138,16 +138,16 @@ a.list-group-item.heading:hover {
     max-width: 212px;
   }
 }
-</style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a data-toggle="" data-target="#drugs-menu" href="#drugs" class="list-group-item heading collapsed">Drugs</a><div id="drugs-menu"><a href="#drugs-drug-list" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>Drug List</a><a href="#drugs-drug" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>Drug</a><a href="#drugs-drug-review-list" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>Drug Review List</a></div></div><p style="text-align: center; word-wrap: break-word;"><a href="https://antidote.symplicity-opensource.com">https://antidote.symplicity-opensource.com</a></p></nav></div><div class="col-md-8"><div><header><div class="page-header"><h1 id="top">Antidote API v1.0 Documentation</h1></div></header><div class="description"><p>The Antidote API provides information on drugs and user-submitted drug reviews</p>
+</style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a data-toggle="" data-target="#drugs-menu" href="#drugs" class="list-group-item heading collapsed">Drugs</a><div id="drugs-menu"><a href="#drugs-drugs" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>Drugs</a><a href="#drugs-drug" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>Drug</a><a href="#drugs-drug-review" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item">Drug Review</a><a href="#drugs-drug-review-get" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span><span class="indent">List All</span></a><a href="#drugs-drug-review-post" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-success"><i class="fa fa-plus"></i></span><span class="indent">Create New</span></a></div></div><p style="text-align: center; word-wrap: break-word;"><a href="https://antidote.symplicity-opensource.com">https://antidote.symplicity-opensource.com</a></p></nav></div><div class="col-md-8"><div><header><div class="page-header"><h1 id="top">Antidote API v1.0 Documentation</h1></div></header><div class="description"><p>The Antidote API provides information on drugs and user-submitted drug reviews</p>
 <h2>API Reference</h2>
 <p>The Antidote API is organized around REST. Our API is designed to have predictable, resource-oriented URLs and to use HTTP response codes to indicate API errors. JSON will be returned in all responses from the API, including errors.</p>
 </div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="drugs">Drugs&nbsp;<a href="#drugs"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>With the drugs API you can retrieve information and reviews on individual drugs as well as list all drugs.</p>
-<h4 id="drugs-drug-list">Drug List&nbsp;<a href="#drugs-drug-list"><i class="fa fa-link"></i></a></h4><section id="drugs-drug-list-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List all drugs</span></div><div style="float:left"><a href="#drugs-drug-list-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs</code></div></div><div class="panel-body"><p>Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:</p>
+<h4 id="drugs-drugs">Drugs&nbsp;<a href="#drugs-drugs"><i class="fa fa-link"></i></a></h4><section id="drugs-drugs-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List</span></div><div style="float:left"><a href="#drugs-drugs-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs</code></div></div><div class="panel-body"><p>Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:</p>
 <pre><code class="language-no-highlight">https://antidote.symplicity-opensource.com/api/drugs?label=Tylenol
 </code></pre>
 </div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>label</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>Tylenol</span></span><p>Search for a drug by label</p>
 </dd><dt>limit</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>10</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>25</span></span><p>The maximum number of drugs to return, up to <code>50</code></p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#483b8df4e233fc9621fae9f73389a9fa" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="483b8df4e233fc9621fae9f73389a9fa" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#a4a3b872de454ec8363203365a6ebaea" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="a4a3b872de454ec8363203365a6ebaea" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
     "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
         {
             "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
@@ -167,30 +167,107 @@ a.list-group-item.heading:hover {
     <span class="hljs-string">"label"</span>: <span class="hljs-string">"Tylenol"</span>,
     <span class="hljs-string">"description"</span>: <span class="hljs-string">"Tylenol is used to treat pain."</span>
 },
-</code></pre></li></ul></section><h4 id="drugs-drug-review-list">Drug Review List&nbsp;<a href="#drugs-drug-review-list"><i class="fa fa-link"></i></a></h4><section id="drugs-drug-review-list-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List all drug reviews for a drug</span></div><div style="float:left"><a href="#drugs-drug-review-list-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs/{id}/reviews</code></div></div><div class="panel-body"><p>Returns a list of all reviews for a drug. Example:</p>
+</code></pre></li></ul></section><h4 id="drugs-drug-review">Drug Review&nbsp;<a href="#drugs-drug-review"><i class="fa fa-link"></i></a></h4><section id="drugs-drug-review-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List All</span></div><div style="float:left"><a href="#drugs-drug-review-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs/{id}/reviews</code></div></div><div class="panel-body"><p>Returns a list of all reviews for a drug. Example:</p>
 <pre><code class="language-no-highlight">https://antidote.symplicity-opensource.com/api/drugs/1/reviews
 </code></pre>
-</div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#49ac1cb14633b14844438d6de645824a" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="49ac1cb14633b14844438d6de645824a" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+</div><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#43cde1a3b2bb3303a05b6aca8b4ec85f" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="43cde1a3b2bb3303a05b6aca8b4ec85f" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
     "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
         {
-            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">22</span></span>,
-            "<span class="hljs-attribute">user</span>": <span class="hljs-value"><span class="hljs-string">"See user model"</span></span>,
-            "<span class="hljs-attribute">drug</span>": <span class="hljs-value"><span class="hljs-string">"See drug model"</span></span>,
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1514</span></span>,
             "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
-            "<span class="hljs-attribute">is_covered_by_insurance</span>": <span class="hljs-value"><span class="hljs-number">0</span></span>,
-            "<span class="hljs-attribute">comment</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol really helped me through a lot of pain after my back surgery when nothing else would work"</span></span>,
-            "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-22 18:49:03"</span>
+            "<span class="hljs-attribute">is_covered_by_insurance</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+            "<span class="hljs-attribute">comment</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol hurt my liver a lot"</span></span>,
+            "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-23 02:57:19"</span></span>,
+            "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
+                "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Miss Kavon Murray IV"</span></span>,
+                "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"Dedric91@Hahn.com"</span></span>,
+                "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-22 18:49:02"</span></span>,
+                "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-22 18:49:02"</span></span>,
+                "<span class="hljs-attribute">age</span>": <span class="hljs-value"><span class="hljs-number">23</span></span>,
+                "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"m"</span>
+            </span>}</span>,
+            "<span class="hljs-attribute">drug</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
+                "<span class="hljs-attribute">ndc</span>": <span class="hljs-value"><span class="hljs-string">"33127350"</span></span>,
+                "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol"</span></span>,
+                "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol is a medicine used to treat pain."</span>
+            </span>}</span>,
+            "<span class="hljs-attribute">side_effects</span>": <span class="hljs-value">[
+                {
+                    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+                    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"nausea"</span></span>,
+                    "<span class="hljs-attribute">pivot</span>": <span class="hljs-value">{
+                        "<span class="hljs-attribute">drug_review_id</span>": <span class="hljs-value"><span class="hljs-number">1514</span></span>,
+                        "<span class="hljs-attribute">drug_side_effect_id</span>": <span class="hljs-value"><span class="hljs-number">1</span>
+                    </span>}
+                </span>},
+                {
+                    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+                    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"diarrhea"</span></span>,
+                    "<span class="hljs-attribute">pivot</span>": <span class="hljs-value">{
+                        "<span class="hljs-attribute">drug_review_id</span>": <span class="hljs-value"><span class="hljs-number">1514</span></span>,
+                        "<span class="hljs-attribute">drug_side_effect_id</span>": <span class="hljs-value"><span class="hljs-number">2</span>
+                    </span>}
+                </span>}
+            ]
         </span>},
+    {
+    "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
         {
-            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">25</span></span>,
-            "<span class="hljs-attribute">user</span>": <span class="hljs-value"><span class="hljs-string">"See user model"</span></span>,
-            "<span class="hljs-attribute">drug</span>": <span class="hljs-value"><span class="hljs-string">"See drug model"</span></span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1514</span></span>,
             "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
-            "<span class="hljs-attribute">is_covered_by_insurance</span>": <span class="hljs-value"><span class="hljs-number">0</span></span>,
-            "<span class="hljs-attribute">comment</span>": <span class="hljs-value"><span class="hljs-string">"Claritin made me really sleepy most of the time."</span></span>,
-            "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-21 18:49:03"</span>
+            "<span class="hljs-attribute">is_covered_by_insurance</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+            "<span class="hljs-attribute">comment</span>": <span class="hljs-value"><span class="hljs-string">"Makes you sleepy"</span></span>,
+            "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-23 02:57:19"</span></span>,
+            "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
+                "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Miss Kavon Murray IV"</span></span>,
+                "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"Dedric91@Hahn.com"</span></span>,
+                "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-22 18:49:02"</span></span>,
+                "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-22 18:49:02"</span></span>,
+                "<span class="hljs-attribute">age</span>": <span class="hljs-value"><span class="hljs-number">23</span></span>,
+                "<span class="hljs-attribute">gender</span>": <span class="hljs-value"><span class="hljs-string">"m"</span>
+            </span>}</span>,
+            "<span class="hljs-attribute">drug</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
+                "<span class="hljs-attribute">ndc</span>": <span class="hljs-value"><span class="hljs-string">"33127350"</span></span>,
+                "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"Claritin"</span></span>,
+                "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Claritin is used to treat allergies."</span>
+            </span>}</span>,
+            "<span class="hljs-attribute">side_effects</span>": <span class="hljs-value">[
+                {
+                    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+                    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"nausea"</span></span>,
+                    "<span class="hljs-attribute">pivot</span>": <span class="hljs-value">{
+                        "<span class="hljs-attribute">drug_review_id</span>": <span class="hljs-value"><span class="hljs-number">1514</span></span>,
+                        "<span class="hljs-attribute">drug_side_effect_id</span>": <span class="hljs-value"><span class="hljs-number">1</span>
+                    </span>}
+                </span>}
+            ]
         </span>}
     ]
+</span>}
+</span></code></pre></li></ul></section><section id="drugs-drug-review-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create New</span></div><div style="float:left"><a href="#drugs-drug-review-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/drugs/{id}/reviews</code></div></div><div class="panel-body"><p>Create a new drug review</p>
+</div><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#5d73225e1cb88ebe634f7cf922035921" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="5d73225e1cb88ebe634f7cf922035921" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-string">"3"</span></span>,
+    "<span class="hljs-attribute">is_covered_by_insurance</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
+    "<span class="hljs-attribute">comment</span>": <span class="hljs-value"><span class="hljs-string">"My pain has subsided considerably since I started taking this."</span></span>,
+    "<span class="hljs-attribute">side_effects</span>": <span class="hljs-value">[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]
+</span>}
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>201</code></strong><a data-toggle="collapse" data-target="#313e69ec9d832d23597ddaf707d53f0a" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="313e69ec9d832d23597ddaf707d53f0a" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-string">"3"</span></span>,
+    "<span class="hljs-attribute">comment</span>": <span class="hljs-value"><span class="hljs-string">"My pain has subsided considerably since I started taking this."</span></span>,
+    "<span class="hljs-attribute">is_covered_by_insurance</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
+    "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-23 03:23:39"</span></span>,
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1515</span>
+</span>}
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>400</code></strong><a data-toggle="collapse" data-target="#12acd2293eca844d3895ca7aafd0d966" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="12acd2293eca844d3895ca7aafd0d966" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+  "<span class="hljs-attribute">message</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">rating</span>": <span class="hljs-value">[
+      <span class="hljs-string">"The rating field is required."</span>
+    ]
+  </span>}
 </span>}
 </code></pre></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 22 Jun 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
