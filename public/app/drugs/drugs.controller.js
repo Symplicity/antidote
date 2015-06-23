@@ -10,12 +10,12 @@
         .controller('DrugsAlternativesCtrl', DrugsAlternativesCtrl);
 
     /** @ngInject */
-    function DrugsListCtrl(DrugsService) {
+    function DrugsListCtrl(DrugsService, $stateParams) {
         var that = this;
         activate();
 
         function activate() {
-            DrugsService.query().$promise.then(function(drugs) {
+            DrugsService.query($stateParams).$promise.then(function(drugs) {
                 that.drugs = drugs;
             });
         }
