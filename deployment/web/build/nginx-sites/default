@@ -1,7 +1,7 @@
 server {
     listen  80;
 
-    root /var/www/dist;
+    root /var/www/public;
     index index.html index.php;
 
     # Make site accessible from http://set-ip-address.xip.io
