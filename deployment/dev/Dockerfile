@@ -52,7 +52,7 @@ RUN npm install -g gulp
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-### App Logic Here
+### App Fixes
 RUN rm -rf /var/www/html
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
