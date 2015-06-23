@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
+        $this->call('PicklistSeeder');
         $this->call('DrugSeeder');
         $this->call('UserSeeder');
         $this->call('DrugReviewSeeder');

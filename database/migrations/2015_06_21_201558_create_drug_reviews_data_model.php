@@ -33,28 +33,6 @@ class CreateDrugReviewsDataModel extends Migration
             $table->string('value');
         });
 
-        // Insert values for drug ratings picklist
-        DB::table('drug_ratings')->insert(
-            [
-                'id' => '1',
-                'value' => 'It Worked!'
-            ]
-        );
-
-        DB::table('drug_ratings')->insert(
-            [
-                'id' => '2',
-                'value' => 'Not So Great'
-            ]
-        );
-
-        DB::table('drug_ratings')->insert(
-            [
-                'id' => '3',
-                'value' => 'Didnt work, used another medication'
-            ]
-        );
-
         //Picklist
         Schema::create('drug_side_effects', function (Blueprint $table) {
             $table->increments('id');
