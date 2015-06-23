@@ -1,16 +1,16 @@
 <md-toolbar ng-controller="NavbarCtrl as navbar" class="md-whiteframe-z2">
-    <div class="md-toolbar-tools" layout-margin layout-padding>
+    <div class="md-toolbar-tools md-nav-bar" layout-margin layout-padding>
         <a ui-sref="home" md-button>Antidote</a>
-        <input type="search" placeholder="Search for anything" flex >
-        <md-icon md-svg-src="/images/search.svg" alt="user"></md-icon>
-        <a ui-sref="home" md-button>Home</a>
-        <a ui-sref="drugs.list" md-button>Medications</a>
-        <a ui-sref="about" md-button>About</a>
+        <input type="search" class="md-global-search" placeholder="Search for anything" flex >
+        <md-icon md-svg-src="/images/md-search.svg" alt="user"></md-icon>
+        <a ui-sref="home" class="nav-link" md-button>Home</a>
+        <a ui-sref="drugs.list" class="nav-link" md-button>Medications</a>
+        <a ui-sref="about" class="nav-link" md-button>About</a>
         <div>
-            <a ui-sref="profile" md-button ng-if="navbar.isAuthenticated()">Profile</a>
+            <a ui-sref="profile" class="nav-link" md-button ng-if="navbar.isAuthenticated()">Profile</a>
         </div>
-        <a ui-sref="signup" md-button ng-if="!navbar.isAuthenticated()">Sign up</a>
-        <a ui-sref="login" md-button ng-if="!navbar.isAuthenticated()">Log In</a>
-        <a ui-sref="logout" md-button ng-if="navbar.isAuthenticated()">Logout</a>
+        <a ui-sref="signup" class="nav-link" md-button ng-if="!navbar.isAuthenticated()">Sign up</a>
+        <a ui-sref="login" class="nav-link" md-button ng-if="!navbar.isAuthenticated()">Log In</a>
+        <a ui-sref="logout" class="nav-link" md-button ng-if="navbar.isAuthenticated()">Logout</a>
     </div>
 </md-toolbar>
