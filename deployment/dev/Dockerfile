@@ -53,14 +53,6 @@ RUN ln -s /usr/bin/nodejs /usr/bin/node
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ### App Logic Here
-ADD github/github_priv.pub /tmp/id_rsa.pub
-RUN cat /tmp/id_rsa.pub >> /root/.ssh/authorized_keys && rm -rf /tmp/your_key.pub
-ADD github/github_priv /tmp/github_priv
-RUN mv /tmp/github_priv /root/.ssh/id_rsa
 RUN rm -rf /var/www/html
-### Fixes git's ssh key host issues.
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
-### Clone applications
-#RUN git clone git@github.com:Symplicity/entic.git /var/www/
-#RUN cd /var/www/ && composer install && gulp
