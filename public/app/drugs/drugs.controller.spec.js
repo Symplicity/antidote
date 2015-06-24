@@ -17,13 +17,13 @@
 
     describe('DrugsListCtrl', function() {
         it('should show call drugs service to get the list', inject(function($controller) {
-            var returnData = [{id: 1}];
+            var returnData = {data: [{id: 1}]};
             httpBackend.expectGET('/api/drugs').respond(returnData);
 
             var vm = $controller('DrugsListCtrl');
 
             httpBackend.flush();
-            expect(vm.drugs[0].id).toEqual(1);
+            expect(vm.drugs.data[0].id).toEqual(1);
         }));
     });
 
