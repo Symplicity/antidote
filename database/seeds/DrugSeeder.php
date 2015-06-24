@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Drug;
 
 class DrugSeeder extends Seeder
 {
@@ -11,12 +12,39 @@ class DrugSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Drug', 50)->create()->each(function ($drug) {
-            $drug->sideEffects()->sync([1, 2, 3]);
+        $concepts = DB::select('select * from concepts');
 
-            $drug->alternatives()->sync([1, 2, 3]);
+        foreach($concepts as $concept) {
+            $data = json_decode($concept['data'], true);
 
-            $drug->related()->sync([1, 2, 3]);
-        });
+            Drug::create([
+                'label' => $data['name'],
+                'rxcui' => $data['rxcui'],
+                'generic' => $data['generic'],
+                'drug_forms' => json_encode($data['drug_forms'])
+            ]);
+        }
+
+        //add many-to-many relations
+        $drugs = DB::select('select rxcui, id from drugs');
+        $drug_map = array_column($drugs, 'id', 'rxcui');
+
+        foreach ($concepts as $concept) {
+            $data = json_decode($concept['data'], true);
+            $drug = Drug::where('rxcui', '=', $concept['rxcui'])->first();
+
+            if ($data['related'] && is_array($data['related'])) {
+                $related = $data['related'];
+                $rels = [];
+                foreach($related as $related_drug_rxcui) {
+                    if (isset($drug_map[$related_drug_rxcui])) {
+                        $rels[] = $drug_map[$related_drug_rxcui];
+                    }
+                }
+                $drug->related()->sync($rels);
+            }
+        }
+
+        Schema::drop('concepts');
     }
 }

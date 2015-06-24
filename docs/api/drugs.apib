@@ -33,12 +33,22 @@ With the drugs API you can retrieve information and reviews on individual drugs 
                     {
                         "id": 1,
                         "label": "Tylenol",
-                        "description": "Tylenol is used to treat pain."
+                        "description": "Tylenol is used to treat pain.",
+                        "generic": null,
+                        "drug_forms": [
+                            "Disintegrating Oral Tablet",
+                            "Oral Capsule"
+                        ]
                     },
                     {
                         "id": 2,
                         "label": "Claritin",
-                        "description": "Claritin is used to treat allergies"
+                        "description": "Claritin is used to treat allergies",
+                        "generic": null,
+                        "drug_forms": [
+                            "Disintegrating Oral Tablet",
+                            "Oral Capsule"
+                        ]
                     }
                 ]
             }
@@ -72,6 +82,10 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                 "id": 1,
                 "label": "Tylenol",
                 "description": "Tylenol is used to treat pain.",
+                "drug_forms": [
+                    "Disintegrating Oral Tablet",
+                    "Oral Capsule"
+                ],
                 "side_effects": [
                     {
                         "id": 1,
