@@ -42,9 +42,9 @@ Helpful tips:
 
 ### Developing the site
 
-## Setting up your development box
-1. Run ./setup_dev_box.sh
-2. Once complete - navigate to 192.168.10.10 in your browser
+## Setting Up Your Development Box
+1. cp .env.example .env - and change values as needed
+2. Run ./dev-setup.sh
 
 ### Deploying the site
 
