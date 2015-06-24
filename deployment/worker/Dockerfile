@@ -2,7 +2,7 @@ FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
 LABEL version="1.0"
-LABEL description="This is the Antidote Job, with PHP 5.6"
+LABEL description="This is the Antidote Worker, with PHP 5.6"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
 
@@ -33,4 +33,4 @@ RUN mkdir -p /var/www
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD jobs /etc/cron.d/entic
+ADD jobs /etc/cron.d/antidote
