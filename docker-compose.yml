@@ -12,14 +12,13 @@ web:
     - APP_ROOT=/var/www
   links:
     - db
-
 job:
   image: symplicity/worker
   volumes:
     - .:/var/www
   links:
     - db
-
+    - loggly
 db:
   image: mariadb
   ports:
@@ -30,3 +29,11 @@ db:
    - MYSQL_PASSWORD=antidoteSecret
    - MYSQL_ROOT_PASSWORD=rootSecret
    - TERM=dumb
+  links:
+    - loggly
+loggly:
+  image: sendgridlabs/loggly-docker:latest
+  environment:
+    - TAG=Docker-Antidote
+    - TOKEN=
+
