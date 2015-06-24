@@ -12,17 +12,9 @@
     <div class="md-drugs">
         <p class="md-display-3">A</p>
         <p>
-            <span>Advil</span>   
-            <span>Advil</span>
-            <span>Advil</span>
-            <span>Advil</span>
-            <span>Advil</span>
-            <span>Advil</span>
-            <span>Advil</span>
-            <span>Advil</span>
-            <span>Advil</span>
-            <span>Advil</span>
+           <span ng-if="drug.label" ng-repeat="drug in drugsList.drugs.data">
+               <a ui-sref="drugs.view.overview({id:drug.id})">{{drug.label}}</a>
+           </span>
         </p>
     </div>
 </md-content>
-{{drugsList.drugs | json}}
