@@ -28,8 +28,8 @@ md-card{
     line-height: 20px;
 
     .md-tag-faces {
-        width: 125px;
-        height: 125px;
+        width: 100px;
+        height: 100px;
     }
 
     md-card md-card-content {
@@ -47,22 +47,9 @@ md-card{
 }
 
 .md-vote {
-    border-left: 1px solid $border-color;
     text-align: center;
-    height: 110px;
-    padding: 5px;
 
-    &:first-child {
-        border-bottom: 1px solid $border-color;
-
-        md-icon svg {
-            margin-top: 0;
-        }
-    }
-
-    p { text-align: center; }
-
-    .vote-label { margin: 5px 0 0; }
+    p { text-align: center; color: #666; }
 
     md-icon {
         height: auto;
@@ -74,6 +61,12 @@ md-card{
             width: 55px;
             height: 55px;
         }
+    }
+    span{
+        display: inline-block;
+        height: 75px;
+        width: 75px; 
+        margin-bottom: 40px;
     }
 }
 
