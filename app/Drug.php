@@ -13,7 +13,16 @@ class Drug extends Model
      *
      * @var array
      */
-    protected $hidden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at', 'rxcui'];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'drug_forms' => 'array',
+    ];
 
     public function reviews()
     {
