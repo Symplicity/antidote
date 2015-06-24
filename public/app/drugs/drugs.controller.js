@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('entic')
+        .module('antidote')
         .controller('DrugsListCtrl', DrugsListCtrl)
         .controller('DrugsViewCtrl', DrugsViewCtrl)
         .controller('DrugsOverviewCtrl', DrugsOverviewCtrl)
