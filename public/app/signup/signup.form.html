@@ -1,5 +1,5 @@
 <md-content class="md-padding" flex>
-    <md-card class="signup">      
+    <md-card class="signup">
       <md-card-content>
         <h2 class="md-title">Join Antidote</h2>
         <p>Sign up is free. <strong>Antidote is safe!</strong> We wont share any information. <br />Please see our <a href="#">privacy policy</a> and use of <a href="#">cookies.</a></p>
@@ -13,7 +13,7 @@
             </ul>
           </div>
           <div flex>
-            <form method="post" ng-submit="signup.signup()" name="signupForm" layout="column">                  
+            <form method="post" ng-submit="signup.signup()" name="signupForm" layout="column">
                     <md-input-container class="md-icon-float">
                         <label>Email</label>
                         <md-icon>email</md-icon>
@@ -34,7 +34,7 @@
                     <div layout="row">
                         <md-select ng-model="Gender" placeholder="Choose Gender">
                             <md-option value="Male">Male</md-option>
-                            <md-option value="Male">Female</md-option>
+                            <md-option value="Female">Female</md-option>
                         </md-select>
                         <md-select ng-model="Age" placeholder="Choose Age">
                             <md-option value="10">10</md-option>
@@ -49,5 +49,5 @@
         <md-button class="small" ui-sref="login">Already have an account? Sign In</md-button>
         <md-button type="submit" ng-disabled="signupForm.$invalid" class="md-raised md-accent">REGISTER</md-button>
       </div>
-    </md-card>    
+    </md-card>
   </md-content>
