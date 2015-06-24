@@ -12,13 +12,14 @@ web:
     - APP_ROOT=/var/www
   links:
     - db
-### Uncomment this once jobs are ready
-#job:
-#  image: symplicity/job
-#  volumes:
-#    - .:/var/www
-#  links:
-#    - db
+
+job:
+  image: symplicity/worker
+  volumes:
+    - .:/var/www
+  links:
+    - db
+
 db:
   image: mariadb
   environment:
