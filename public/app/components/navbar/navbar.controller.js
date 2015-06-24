@@ -16,6 +16,6 @@
 
         $scope.openMenu = function(){
             $mdSidenav('md-mobile-menu').toggle();
-        }
+        };
     }
 })();
