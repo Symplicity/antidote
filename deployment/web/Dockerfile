@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.0"
+LABEL version="1.1.10"
 LABEL description="This is the Antidote webserver, with NGINX and PHP-FPM"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
@@ -17,11 +17,11 @@ CMD ["/sbin/my_init"]
 
 #php install
 RUN apt-get update
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y vim curl wget build-essential python-software-properties
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y vim curl wget build-essential software-properties-common zip unzip
 RUN add-apt-repository -y ppa:ondrej/php5-5.6
 RUN add-apt-repository -y ppa:nginx/stable
 RUN apt-get update
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y --force-yes php5-cli php5-fpm php5-mysql php5-sqlite php5-curl php5-gd php5-mcrypt php5-intl php5-imap php5-tidy git nodejs npm
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y --force-yes php5-cli php5-fpm php5-mysql php5-sqlite php5-curl php5-gd php5-mcrypt php5-intl php5-imap php5-tidy git nodejs npm rsyslog
 
 RUN sed -i "s/;date.timezone = .*/date.timezone = UTC/" /etc/php5/fpm/php.ini
 RUN sed -i "s/;date.timezone = .*/date.timezone = UTC/" /etc/php5/cli/php.ini
@@ -47,9 +47,18 @@ RUN chmod +x /etc/service/nginx/run
 RUN mkdir /etc/service/phpfpm
 ADD build/phpfpm.sh /etc/service/phpfpm/run
 RUN chmod +x /etc/service/phpfpm/run
+RUN rm -rf /etc/service/syslog-ng
 
 EXPOSE 80 443
 #End nginx
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+### Get code
+RUN touch /root/.ssh/known_hosts
+RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
+RUN git clone https://github.com/svemir/test.git
+RUN mv test/dist.zip /var/www/ && cd /var/www/ && unzip dist.zip
+ADD build/certs /var/www/certs
+ADD build/env /var/www/.env
