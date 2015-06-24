@@ -30,7 +30,7 @@ gulp.task('html', ['inject', 'partials'], function() {
     var partialsInjectOptions = {
         starttag: '<!-- inject:partials -->',
         ignorePath: path.join(conf.paths.tmp, '/partials'),
-        addRootSlash: true
+        addRootSlash: false
     };
 
     var htmlFilter = $.filter('*.html');
