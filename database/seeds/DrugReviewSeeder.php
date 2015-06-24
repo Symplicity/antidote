@@ -11,6 +11,8 @@ class DrugReviewSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\DrugReview', 500)->create();
+        factory('App\DrugReview', 500)->create()->each(function ($drug_review) {
+            $drug_review->sideEffects()->sync([1, 2, 3]);
+        });
     }
 }

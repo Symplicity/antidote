@@ -1,42 +1,47 @@
 # Group Drugs
 With the drugs API you can retrieve information and reviews on individual drugs as well as list all drugs.
 
-## Drugs [/drugs]
+## Drugs [/drugs{?keywords,alpha,page,limit}]
 
 + Parameters
 
     + keywords: `Tylenol` (string, optional) - Search for a drug by keywords in label or description
-    + page: `2` (integer, optional) - Page number of drugs
+    + alpha: `a` (string, optional) - Search for a drug by first letter of the label
+    + page: `1` (integer, optional) - Page number of drugs
     + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `500`
       + Default: `15`
 
 
 + Model
 
+    + Headers
+
+            Content-Type: application/json
+
     + Body
 
-        {
-            "total": 150,
-            "per_page": 15,
-            "current_page": 2,
-            "last_page": 10,
-            "next_page_url": "https://antidote.symplicity-opensource.com/api/drugs?page=3",
-            "prev_page_url": "https://antidote.symplicity-opensource.com/api/drugs?page=1",
-            "from": 16,
-            "to": 30,
-            "data": [
-                {
-                    "id": 1,
-                    "label": "Tylenol",
-                    "description": "Tylenol is used to treat pain."
-                },
-                {
-                    "id": 2,
-                    "label": "Claritin",
-                    "description": "Claritin is used to treat allergies"
-                }
-            ]
-        }
+            {
+                "total": 150,
+                "per_page": 15,
+                "current_page": 2,
+                "last_page": 10,
+                "next_page_url": "https://antidote.symplicity-opensource.com/api/drugs?page=3",
+                "prev_page_url": "https://antidote.symplicity-opensource.com/api/drugs?page=1",
+                "from": 16,
+                "to": 30,
+                "data": [
+                    {
+                        "id": 1,
+                        "label": "Tylenol",
+                        "description": "Tylenol is used to treat pain."
+                    },
+                    {
+                        "id": 2,
+                        "label": "Claritin",
+                        "description": "Claritin is used to treat allergies"
+                    }
+                ]
+            }
 
 ### List [GET]
 Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:
@@ -57,13 +62,35 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
 
 + Model
 
+    + Headers
+
+            Content-Type: application/json
+
     + Body
 
             {
                 "id": 1,
                 "label": "Tylenol",
-                "description": "Tylenol is used to treat pain."
-            },
+                "description": "Tylenol is used to treat pain.",
+                "side_effects": [
+                    {
+                        "id": 1,
+                        "value": "Nausea",
+                        "pivot": {
+                            "drug_id": 1,
+                            "drug_side_effect_id": 1
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "value": "Diarrhea",
+                        "pivot": {
+                            "drug_id": 1,
+                            "drug_side_effect_id": 2
+                        }
+                    }
+                ]
+            }
 
 ### Get Drug [GET]
 
@@ -71,105 +98,108 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
 
     [Drug][]
 
-## Drug Review [/drugs/{id}/reviews]
+## Drug Review [/drugs/{id}/reviews{?keywords,page,limit}]
 
 + Parameters
 
+    + id: `1` (required, integer) - The drug ID
     + keywords: `pain` (string, optional) - Search for a drug review by keywords in the comment
-    + page: `2` (integer, optional) - Page number
+    + page: `1` (integer, optional) - Page number
     + limit: `25` (integer, optional) - The maximum number of drug reviews to return, up to `500`
       + Default: `15`
 
 + Model
 
+    + Headers
+
+            Content-Type: application/json
+
     + Body
 
-        {
-            "total": 45,
-            "per_page": 15,
-            "current_page": 2,
-            "last_page": 1,
-            "next_page_url": "https://antidote.symplicity-opensource.com/api/drugs/5/reviews?page=3",
-            "prev_page_url": "https://antidote.symplicity-opensource.com/api/drugs/5/reviews?page=1",
-            "from": 16,
-            "to": 30,
-            "data": [
-                {
-                    "id": 1514,
-                    "rating": 3,
-                    "is_covered_by_insurance": 1,
-                    "comment": "Tylenol hurt my liver a lot",
-                    "created_at": "2015-06-23 02:57:19",
-                    "user": {
-                        "id": 3,
-                        "name": "Miss Kavon Murray IV",
-                        "email": "Dedric91@Hahn.com",
-                        "created_at": "2015-06-22 18:49:02",
-                        "updated_at": "2015-06-22 18:49:02",
-                        "age": 23,
-                        "gender": "m"
-                    },
-                    "drug": {
-                        "id": 5,
-                        "ndc": "33127350",
-                        "label": "Tylenol",
-                        "description": "Tylenol is a medicine used to treat pain."
-                    },
-                    "side_effects": [
-                        {
-                            "id": 1,
-                            "value": "nausea",
-                            "pivot": {
-                                "drug_review_id": 1514,
-                                "drug_side_effect_id": 1
-                            }
-                        },
-                        {
-                            "id": 2,
-                            "value": "diarrhea",
-                            "pivot": {
-                                "drug_review_id": 1514,
-                                "drug_side_effect_id": 2
-                            }
-                        }
-                    ]
-                },
             {
-            "data": [
-                {
-                "id": 1514,
-                    "rating": 3,
-                    "is_covered_by_insurance": 1,
-                    "comment": "Makes you sleepy",
-                    "created_at": "2015-06-23 02:57:19",
-                    "user": {
-                        "id": 3,
-                        "name": "Miss Kavon Murray IV",
-                        "email": "Dedric91@Hahn.com",
-                        "created_at": "2015-06-22 18:49:02",
-                        "updated_at": "2015-06-22 18:49:02",
-                        "age": 23,
-                        "gender": "m"
-                    },
-                    "drug": {
-                        "id": 5,
-                        "ndc": "33127350",
-                        "label": "Claritin",
-                        "description": "Claritin is used to treat allergies."
-                    },
-                    "side_effects": [
-                        {
-                            "id": 1,
-                            "value": "nausea",
-                            "pivot": {
-                                "drug_review_id": 1514,
-                                "drug_side_effect_id": 1
+                "total": 45,
+                "per_page": 15,
+                "current_page": 2,
+                "last_page": 1,
+                "next_page_url": "https://antidote.symplicity-opensource.com/api/drugs/5/reviews?page=3",
+                "prev_page_url": "https://antidote.symplicity-opensource.com/api/drugs/5/reviews?page=1",
+                "from": 16,
+                "to": 30,
+                "data": [
+                    {
+                        "id": 1514,
+                        "rating": 3,
+                        "is_covered_by_insurance": 1,
+                        "comment": "Tylenol hurt my liver a lot",
+                        "created_at": "2015-06-23 02:57:19",
+                        "user": {
+                            "id": 3,
+                            "name": "Miss Kavon Murray IV",
+                            "email": "Dedric91@Hahn.com",
+                            "created_at": "2015-06-22 18:49:02",
+                            "updated_at": "2015-06-22 18:49:02",
+                            "age": 23,
+                            "gender": "m"
+                        },
+                        "drug": {
+                            "id": 5,
+                            "ndc": "33127350",
+                            "label": "Tylenol",
+                            "description": "Tylenol is a medicine used to treat pain."
+                        },
+                        "side_effects": [
+                            {
+                                "id": 1,
+                                "value": "nausea",
+                                "pivot": {
+                                    "drug_review_id": 1514,
+                                    "drug_side_effect_id": 1
+                                }
+                            },
+                            {
+                                "id": 2,
+                                "value": "diarrhea",
+                                "pivot": {
+                                    "drug_review_id": 1514,
+                                    "drug_side_effect_id": 2
+                                }
                             }
-                        }
-                    ]
-                }
-            ]
-        }
+                        ]
+                    },
+                    {
+                        "id": 1514,
+                        "rating": 3,
+                        "is_covered_by_insurance": 1,
+                        "comment": "Makes you sleepy",
+                        "created_at": "2015-06-23 02:57:19",
+                        "user": {
+                            "id": 3,
+                            "name": "Miss Kavon Murray IV",
+                            "email": "Dedric91@Hahn.com",
+                            "created_at": "2015-06-22 18:49:02",
+                            "updated_at": "2015-06-22 18:49:02",
+                            "age": 23,
+                            "gender": "m"
+                        },
+                        "drug": {
+                            "id": 5,
+                            "ndc": "33127350",
+                            "label": "Claritin",
+                            "description": "Claritin is used to treat allergies."
+                        },
+                        "side_effects": [
+                            {
+                                "id": 1,
+                                "value": "Nausea",
+                                "pivot": {
+                                    "drug_review_id": 1514,
+                                    "drug_side_effect_id": 1
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
 
 ### List All [GET]
 Returns a list of all reviews for a drug. The reviews are returned in created date descending order.  Example:
@@ -186,25 +216,30 @@ https://antidote.symplicity-opensource.com/api/drugs/1/reviews
 Create a new drug review
 
 + Request
+    + Headers
+
+            Content-Type: application/json
 
     + Body
 
-        {
-            "rating": "3",
-            "is_covered_by_insurance": "1",
-            "comment": "My pain has subsided considerably since I started taking this.",
-            "side_effects": [1,2,3]
-        }
+            {
+                "rating": "3",
+                "is_covered_by_insurance": "1",
+                "comment": "My pain has subsided considerably since I started taking this.",
+                "side_effects": [1,2,3]
+            }
 
 + Response 201
 
-        {
-            "rating": "3",
-            "comment": "My pain has subsided considerably since I started taking this.",
-            "is_covered_by_insurance": "1",
-            "created_at": "2015-06-23 03:23:39",
-            "id": 1515
-        }
+    + Body
+
+            {
+                "rating": "3",
+                "comment": "My pain has subsided considerably since I started taking this.",
+                "is_covered_by_insurance": "1",
+                "created_at": "2015-06-23 03:23:39",
+                "id": 1515
+            }
 
 + Response 400
 
@@ -218,3 +253,23 @@ Create a new drug review
               }
             }
 
+
+## Drug Alternative [/drugs/{id}/alternatives{?page,limit}]
+
++ Parameters
+
+    + id: `1` (required, integer) - The drug ID
+    + page: `2` (integer, optional) - Page number
+    + limit: `25` (integer, optional) - The maximum number of drug alternatives to return, up to `50`
+      + Default: `15`
+
+### List All [GET]
+Returns a list of all alternative drugs for a drug. The drugs are returned in alphabetically sorted order.  Example:
+
+```no-highlight
+https://antidote.symplicity-opensource.com/api/drugs/1/alternatives
+```
+
++ Response 200
+
+    [Drugs][]
