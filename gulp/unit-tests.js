@@ -10,8 +10,9 @@ function runTests (singleRun, done) {
         configFile: path.join(__dirname, '/../karma.conf.js'),
         singleRun: singleRun,
         autoWatch: !singleRun
-    }, function() {
-        done();
+    }, function(exitStatus) {
+        // Karma's return status is not compatible with gulp's streams
+        done(exitStatus ? 'There are failing unit tests' : undefined);
     });
 }
 
