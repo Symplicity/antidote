@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Seeder;
 use App\Drug;
-use Illuminate\Support\Facades\Config;
 
 class DrugSeeder extends Seeder
 {
@@ -13,18 +12,17 @@ class DrugSeeder extends Seeder
      */
     public function run()
     {
-        Config::set('database.fetch', PDO::FETCH_ASSOC);
-
+        /* TODO: fetch concepts data from API in this seeder - currently using db table until that is ready */
         $concepts = DB::select('select * from concepts');
 
-        foreach($concepts as $concept) {
+        foreach ($concepts as $concept) {
             $data = json_decode($concept['data'], true);
 
             Drug::create([
                 'label' => ucfirst($data['name']),
                 'rxcui' => $data['rxcui'],
                 'generic' => ucfirst($data['generic']),
-                'drug_forms' => json_encode($data['drug_forms'])
+                'drug_forms' => $data['drug_forms']
             ]);
         }
 
@@ -39,7 +37,7 @@ class DrugSeeder extends Seeder
             if ($data['related'] && is_array($data['related'])) {
                 $related = $data['related'];
                 $rels = [];
-                foreach($related as $related_drug_rxcui) {
+                foreach ($related as $related_drug_rxcui) {
                     if (isset($drug_map[$related_drug_rxcui])) {
                         $rels[] = $drug_map[$related_drug_rxcui];
                     }
@@ -47,7 +45,5 @@ class DrugSeeder extends Seeder
                 $drug->related()->sync($rels);
             }
         }
-
-        Schema::drop('concepts');
     }
 }
