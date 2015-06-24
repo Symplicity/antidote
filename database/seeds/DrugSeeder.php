@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Drug;
+use Illuminate\Support\Facades\Config;
 
 class DrugSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class DrugSeeder extends Seeder
      */
     public function run()
     {
+        Config::set('database.fetch', PDO::FETCH_ASSOC);
+
         $concepts = DB::select('select * from concepts');
 
         foreach($concepts as $concept) {
