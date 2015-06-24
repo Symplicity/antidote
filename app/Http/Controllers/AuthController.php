@@ -130,7 +130,9 @@ class AuthController extends Controller
         $user->reset_password_token_expiration = $now->add(new DateInterval('PT1H30M'));
         $user->save();
 
-        Mail::raw('Follow this link to reset your password: https://' . $_SERVER['HTTP_HOST'] . '/api/auth/reset/' . $token, function ($message) use ($email) {
+        $protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
+
+        Mail::raw('Follow this link to reset your password: ' . $protocol . '://' . $_SERVER['HTTP_HOST'] . '/api/auth/reset/' . $token, function ($message) use ($email) {
             $message->from('antidote@symplicity-opensource.com');
             $message->to($email);
             $message->subject('Antidote Password Reset');
