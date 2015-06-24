@@ -1,13 +1,13 @@
 # This will stand up a dev environment, see CONTRIBUTING.md for details
 web:
-  image: symplicity/webserver
+  image: symplicity/develop
   ports:
     - "80:80"
     - "3000:3000"
     - "2222:22"
     - "443:443"
-#  volumes:
-#    - .:/var/www
+  volumes:
+    - .:/var/www
   environment:
     - APP_ROOT=/var/www
   links:
