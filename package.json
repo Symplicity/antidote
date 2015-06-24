@@ -1,6 +1,6 @@
 {
-    "name": "entic",
-    "version": "0.0.0",
+    "name": "antidote",
+    "version": "0.1.0",
     "dependencies": {},
     "scripts": {
         "test": "gulp test"

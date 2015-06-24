@@ -2,6 +2,6 @@
     'use strict';
 
     angular
-        .module('entic', ['ngAnimate', 'ngResource', 'ui.router', 'ngMaterial', 'satellizer', 'ngMessages']);
+        .module('antidote', ['ngAnimate', 'ngResource', 'ui.router', 'ngMaterial', 'satellizer', 'ngMessages']);
 
 })();

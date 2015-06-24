@@ -38,7 +38,7 @@ module.exports = function(config) {
 
         ngHtml2JsPreprocessor: {
             stripPrefix: 'src/',
-            moduleName: 'entic'
+            moduleName: 'antidote'
         },
 
         browsers : ['PhantomJS'],

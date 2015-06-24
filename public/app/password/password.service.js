@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('entic')
+        .module('antidote')
         .factory('Password', Password);
 
     /** @ngInject */
