@@ -21,9 +21,9 @@ class DrugSeeder extends Seeder
             $data = json_decode($concept['data'], true);
 
             Drug::create([
-                'label' => $data['name'],
+                'label' => ucfirst($data['name']),
                 'rxcui' => $data['rxcui'],
-                'generic' => $data['generic'],
+                'generic' => ucfirst($data['generic']),
                 'drug_forms' => json_encode($data['drug_forms'])
             ]);
         }
