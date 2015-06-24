@@ -4,7 +4,7 @@
     var httpBackend;
 
     beforeEach(function() {
-        module('entic');
+        module('antidote');
         inject(function($httpBackend) {
             httpBackend = $httpBackend;
         });

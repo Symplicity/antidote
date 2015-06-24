@@ -2,17 +2,17 @@
     'use strict';
 
     angular
-        .module('entic')
+        .module('antidote')
         .config(config);
 
     function config($mdThemingProvider, $authProvider) {
         $mdThemingProvider.theme('default')
-            .primaryPalette('indigo',{
+            .primaryPalette('indigo', {
                 'default':'500',
                 'hue-1':'50',
                 'hue-2':'900'
             })
-            .accentPalette('teal',{
+            .accentPalette('teal', {
                 'default':'300'
             });
 
