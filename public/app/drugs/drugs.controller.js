@@ -57,7 +57,7 @@
 
         function activate() {
             DrugsService.getReviews({id: $stateParams.id}).$promise.then(function(reviews) {
-                that.reviews = reviews;
+                that.reviews = reviews.data;
             });
         }
     }
