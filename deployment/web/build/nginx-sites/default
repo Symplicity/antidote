@@ -1,14 +1,14 @@
 server {
     listen  80;
 
-    root /var/www/public;
+    root /var/www/dist;
     index index.html index.php;
 
     # Make site accessible from http://set-ip-address.xip.io
     server_name localhost;
 
-    access_log /var/log/nginx/localhost.com-access.log;
-    error_log  /var/log/nginx/localhost.com-error.log error;
+    access_log syslog:server=loggly;
+    error_log syslog:server=loggly;
 
     charset utf-8;
 
