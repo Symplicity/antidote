@@ -12,6 +12,8 @@
     /** @ngInject */
     function DrugsListCtrl(DrugsService, $stateParams) {
         var that = this;
+        this.letters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','p','q','r','s','t','u','v','w','x','y','z'];
+
         activate();
 
         function activate() {
