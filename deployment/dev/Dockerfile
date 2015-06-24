@@ -1,4 +1,9 @@
 FROM phusion/baseimage:0.9.16
+MAINTAINER Richard Genthner <moose@symplicity.com>
+
+LABEL version="1.0"
+LABEL description="This is the Antidote Development Server, with NGINX and PHP-FPM"
+LABEL "com.symplicity.vendor"="Symplicity Corp"
 
 # Ensure UTF-8
 RUN locale-gen en_US.UTF-8
