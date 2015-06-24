@@ -1,5 +1,5 @@
 {
-  "name": "entic",
+  "name": "antidote",
   "version": "0.1.0",
   "dependencies": {
     "angular-resource": "^1.4.1",
