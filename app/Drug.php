@@ -24,4 +24,14 @@ class Drug extends Model
     {
         return $this->belongsToMany('App\DrugSideEffect');
     }
+
+    public function alternatives()
+    {
+        return $this->belongsToMany('App\Drug', 'drug_alternative_drugs', 'drug_id', 'alternative_drug_id');
+    }
+
+    public function related()
+    {
+        return $this->belongsToMany('App\Drug', 'drug_related_drugs', 'drug_id', 'related_drug_id');
+    }
 }

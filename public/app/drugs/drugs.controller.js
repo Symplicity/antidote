@@ -63,11 +63,16 @@
     }
 
     /** @ngInject */
-    function DrugsAlternativesCtrl() {
+    function DrugsAlternativesCtrl(DrugsService, $stateParams) {
+        this.alternatives = {};
+        var that = this;
+
         activate();
 
         function activate() {
-            //TODO: add API service call here
+            DrugsService.getAlternatives({id: $stateParams.id}).$promise.then(function(alternatives) {
+                that.alternatives = alternatives;
+            });
         }
     }
 })();

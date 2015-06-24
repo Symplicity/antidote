@@ -20,5 +20,6 @@ level: info
 timestamp: false
 silent: false
 path: []
-blueprint: docs/api/index.apib
+blueprint: docs/api/*.apib
 endpoint: 'http://192.168.10.10/api/'
+method: GET
