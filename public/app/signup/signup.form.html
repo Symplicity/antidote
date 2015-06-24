@@ -2,12 +2,14 @@
     <md-card class="signup">      
       <md-card-content>
         <h2 class="md-title">Join Antidote</h2>
+        <p>Sign up is free. <strong>Antidote is safe!</strong> We wont share any information. <br />Please see our <a href="#">privacy policy</a> and use of <a href="#">cookies.</a></p>
         <div layout="row" layout-sm="column">
-          <div flex>
+          <div flex=50>
             <ul>
-                <li>Awesome point about signing up.</li>
-                <li>Awesome point about signing up.</li>
-                <li>Awesome point about signing up.</li>
+                <li>Gain access to thousands of reviews from people like you</li>
+                <li>Personalize results so you can make the best decision about what you take</li>
+                <li>Earn badges for contributing to community</li>
+                <li>Trusted, with data coming straight from FDA, you can be sure you have the best facts</li>
             </ul>
           </div>
           <div flex>
@@ -29,6 +31,16 @@
                             <div ng-message="required">Password is required.</div>
                         </div>
                     </md-input-container>
+                    <div layout="row">
+                        <md-select ng-model="Gender" placeholder="Choose Gender">
+                            <md-option value="Male">Male</md-option>
+                            <md-option value="Male">Female</md-option>
+                        </md-select>
+                        <md-select ng-model="Age" placeholder="Choose Age">
+                            <md-option value="10">10</md-option>
+                            <md-option value="20">20</md-option>
+                        </md-select>
+                    </div>
                 </form>
           </div>
         </div>
