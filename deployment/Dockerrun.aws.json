@@ -24,7 +24,7 @@
       ],
       "mountPoints":[
         {
-          "sourceVolume": "antidote",
+          "sourceVolume": "ci-push",
           "comtianerPath": "/var/www/"
         }
       ]

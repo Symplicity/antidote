@@ -35,6 +35,7 @@ RUN mv /etc/nginx/sites-enabled /etc/nginx/sites-enabled.orig
 RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
 RUN mkdir -p /var/www
 ADD build/nginx-sites/  /etc/nginx/sites-available/
+ADD build/nginx.conf /etc/nginx/
 RUN mkdir /etc/service/nginx
 ADD build/nginx.sh /etc/service/nginx/run
 RUN chmod +x /etc/service/nginx/run
@@ -47,7 +48,6 @@ EXPOSE 80 22 443
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
-RUN npm install -g bower
 RUN npm install -g node
 RUN npm install -g bower
 RUN npm install -g gulp
