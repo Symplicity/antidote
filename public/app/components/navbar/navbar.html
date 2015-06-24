@@ -1,25 +1,36 @@
-<div class="navbar-background">
-    <md-toolbar  ng-controller="NavbarCtrl as navbar" class="md-whiteframe-z2 md-primary md-hue-2">
-        <div class="container">
-            <div class="md-toolbar-tools md-nav-bar" layout-margin layout-padding>
-                <div flex=15>
-                    <a ui-sref="home"><img src="images/logo.png" alt="Antidote logo" /></a>
-                </div>
-                <div layout="row" layout-align="end center" flex=40>
-                    <input type="search" ng-model="navbar.search.keywords" class="md-global-search" >
-                </div>
-                <div layout="row" flex=40>
-                    <a ui-sref="home" class="nav-link" md-button>Home</a>
-                    <a ui-sref="drugs.list" class="nav-link" md-button>Medications</a>
-                    <a ui-sref="about" class="nav-link" md-button>About</a>
-                    <div>
-                        <a ui-sref="profile" class="nav-link" md-button ng-if="navbar.isAuthenticated()">Profile</a>
-                    </div>
-                    <a ui-sref="signup" class="nav-link" md-button ng-if="!navbar.isAuthenticated()">Sign up</a>
-                    <a ui-sref="login" class="nav-link" md-button ng-if="!navbar.isAuthenticated()">Log In</a>
-                    <a ui-sref="logout" class="nav-link" md-button ng-if="navbar.isAuthenticated()">Logout</a>
-                    <div>
-                </div>
+<md-toolbar ng-controller="NavbarCtrl as navbar" class="md-whiteframe-z2 md-primary md-hue-2">
+    <div class="md-toolbar-tools md-nav-bar container" layout="row" layout-sm="column">
+        <div layout="row" layout-align="start center">
+            <md-button ui-sref="home"><img src="images/logo.png" alt="Antidote logo" /></md-button>
         </div>
-    </md-toolbar>
-</div>
+        <div layout="row" layout-align="end center" flex>
+            <input type="search" ng-model="navbar.search.keywords" class="md-global-search" >
+            <!--<md-icon ui-sref="drugs.list({keywords: navbar.search.keywords})"></md-icon>-->
+        </div>
+        <div layout="row" layout-align="end center" flex-gt-md="50" flex-gt-lg="45" >
+            <md-button ui-sref="home" class="nav-link" hide show-gt-md>Home</md-button>
+            <md-button ui-sref="drugs.list" class="nav-link" hide show-gt-md>Medications</md-button>
+            <md-button ui-sref="about" class="nav-link" hide show-gt-md>About</md-button>
+            <md-button ui-sref="profile" class="nav-link"  hide show-gt-md ng-if="navbar.isAuthenticated()">Profile</md-button>
+            <md-button ui-sref="signup" class="nav-link" hide show-gt-md ng-if="!navbar.isAuthenticated()">Sign up</md-button>
+            <md-button ui-sref="login" class="nav-link" hide show-gt-md ng-if="!navbar.isAuthenticated()">Log In</md-button>
+            <md-button ui-sref="logout" class="nav-link" hide show-gt-md ng-if="navbar.isAuthenticated()">Logout</md-button>
+            <md-button ng-click="openMenu()" hide-gt-md><md-icon>menu</md-icon></md-button>            
+        </div>
+    </div>    
+</md-toolbar>
+    <md-sidenav md-component-id="md-mobile-menu" class="md-sidenav-right md-nav-bar md-whiteframe-z2 " layout="column" layout-algin="start center">
+          <div layout="column">
+            <md-button ui-sref="home" >Home</md-button>
+            <md-button ui-sref="drugs.list" >Medications</md-button>
+            <md-button ui-sref="about">About</md-button>
+        </div>
+        <div layout="column">
+            <md-button ui-sref="profile" class="nav-link"  ng-if="navbar.isAuthenticated()" flex>Profile</md-button>
+            <md-button ui-sref="signup" class="nav-link" ng-if="!navbar.isAuthenticated()" flex>Sign up</md-button>
+            <md-button ui-sref="login" class="nav-link" ng-if="!navbar.isAuthenticated()" flex>Log In</md-button>
+            <md-button ui-sref="logout" class="nav-link" ng-if="navbar.isAuthenticated()" flex>Logout</md-button>
+        </div>
+
+
+    </md-sidenav>    
