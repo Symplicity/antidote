@@ -18,9 +18,7 @@
             'q', 'r', 's',
             't', 'u', 'v',
             'w', 'x', 'y',
-            // and
             'z'
-            // now I know my ABCs, next time won't you use a loop?
         ];
 
         activate();
