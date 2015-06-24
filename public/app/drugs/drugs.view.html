@@ -1,30 +1,29 @@
 {{drugsView.drug | json}}
 <!--Drug Description-->
 <div class="drugs-bg">
-    <md-content layout="column" class="md-drug-info container" flex>
-        <div layout="row" layout-align="center center">
-            <h1>Advil, Motrin IB (Ibuprofen) </h1>
-            <span class="md-drug-type">Prescription or OTC</span>
-            <md-icon></md-icon>
-            <md-button class="md-accent md-raised md-button">Review it</md-button>
-
-        </div>
-
-        <p class="md-manufacturer-name">Manufacturer: Pfilzer Inc.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit
-            amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et
-            magnis dis parturient... <a href="##">read more</a></p>
-        
-        <p>
-            <span class="md-body-2">Used for:</span>
-            <span class="md-drug-effects md-whiteframe-z1">Pain</span>
-            <span class="md-drug-effects md-whiteframe-z1">Fever</span>
-            <span class="md-drug-effects md-whiteframe-z1">Headache</span>
-            <span class="md-drug-effects md-whiteframe-z1">Migraine</span>
-        </p>
+    <md-content layout="row" layout-wrap class="md-drug-info container" flex >
+            <div flex="90" flex-sm="70">
+                <h1>Advil, Motrin IB (Ibuprofen) <span class="md-drug-type">OTC</span></h1>
+                <p class="md-manufacturer-name">Manufacturer: Pfilzer Inc.</p>                
+            </div>
+            <div flex="10" flex-sm="30">
+                <md-button class="md-accent md-raised md-button">Review it</md-button>
+            </div>
+            <div flex="70" flex-sm="100">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient... <a href="##">read more</a></p>    
+            </div>
+            <div flex="100" flex-sm="100">
+                <p>
+                    <span class="md-body-2">Used for:</span>
+                    <span class="md-drug-effects md-whiteframe-z1">Pain</span>
+                    <span class="md-drug-effects md-whiteframe-z1">Fever</span>
+                    <span class="md-drug-effects md-whiteframe-z1">Headache</span>
+                    <span class="md-drug-effects md-whiteframe-z1">Migraine</span>
+                </p>      
+            </div> 
     </md-content>
 </div>
+
 <div class="drugs-tabs-bg md-whiteframe-z1">
     <div class="container">
         <md-tabs md-center-tabs="false">
