@@ -2,7 +2,7 @@ server {
     listen 443;
     ssl on;
 
-    root /var/www/public;
+    root /var/www/dist;
     index index.html index.php;
 
     # Make site accessible from http://set-ip-address.xip.io
@@ -15,8 +15,8 @@ server {
     # Currently disables SSLv3 ref: POODLE
     ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
 
-    access_log /var/log/nginx/localhost.com-access.log;
-    error_log  /var/log/nginx/localhost.com-error.log error;
+    access_log syslog:server=loggly;
+    error_log syslog:server=loggly;
 
     charset utf-8;
 
