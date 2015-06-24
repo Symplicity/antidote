@@ -1,15 +1,18 @@
 <md-content>
-    <div class="banner-medication md-whiteframe-z1">
-        <h2 class="md-display-1">Medications</h2>
-        <p>Search through our list of drugs & medications to find the best solution!</p>
+<div class="drugs-list-bg">
+        <div class="banner-medication container">
+            <h2 class="md-display-1">Medications</h2>
+            <p>Search through our list of drugs & medications to find the best solution!</p>
+        </div>
+</div>
+<div class="drugs-tabs-bg md-whiteframe-z1 ng-scope">
+    <div class="container">
+        <ul>
+            <li ng-repeat="letter in drugsList.letters" ui-sref="drugs.list({'alpha':'{{letter}}'})">{{letter}}</li>
+        </ul>
     </div>
-    <md-tabs md-center-tabs="false" class="md-whiteframe-z1">
-    <!--this should be replaced with an ng-repeat filter at some point -->
-        <md-tab ng-repeat="letter in drugsList.letters">
-            <a ui-sref="drugs.list({'alpha':'{{letter}}'})">{{letter}}</a>
-        </md-tab>      
-    </md-tabs>
-    <div class="md-drugs">
+</div>   
+    <div class="md-drugs container">
         <p class="md-display-3">A</p>
         <p>
            <span ng-if="drug.label" ng-repeat="drug in drugsList.drugs.data">

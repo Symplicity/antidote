@@ -2,6 +2,10 @@ md-card{
     margin:25px;
     margin-bottom: 25px !important;
 }
+md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
+  color: $md-secondary;
+  height: 100%;
+}
 .banner-medication{
     height:130px;
     margin: 0 auto;
@@ -14,6 +18,33 @@ md-card{
 }
 .drugs-tabs-bg{
     background-color: #FFF;
+    max-height: 100%;
+    ul{
+        margin-left: 0px;
+        padding-left: 0px;
+        display: inline-block;
+        text-align: center;
+        margin-bottom: 5px;
+        li{
+            display: inline-block;
+            height: 100%;
+            font-size: 16px;
+            text-align: center;
+            padding: 10px;
+            width: 20px;
+            cursor: pointer;
+            text-transform: uppercase;
+
+            &:hover{
+                border-bottom: 5px solid $md-secondary;
+                color: $md-secondary;
+                 margin-bottom: -5px;
+            }
+        }
+    }
+}
+.drugs-list-bg{
+    background-color: $md-primary;
 }
 .content{
     padding: 25px;
