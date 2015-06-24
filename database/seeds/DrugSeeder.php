@@ -11,6 +11,12 @@ class DrugSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Drug', 50)->create();
+        factory('App\Drug', 50)->create()->each(function ($drug) {
+            $drug->sideEffects()->sync([1, 2, 3]);
+
+            $drug->alternatives()->sync([1, 2, 3]);
+
+            $drug->related()->sync([1, 2, 3]);
+        });
     }
 }

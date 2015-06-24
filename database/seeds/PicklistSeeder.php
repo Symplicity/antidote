@@ -6,6 +6,20 @@ class PicklistSeeder extends Seeder
 {
     public function run()
     {
+        DB::table('drug_side_effects')->insert(
+            [
+                [
+                    'value' => 'Nausea'
+                ],
+                [
+                    'value' => 'Diarrhea'
+                ],
+                [
+                    'value' => 'Constipation'
+                ]
+            ]
+        );
+
         // Insert values for drug ratings picklist
         DB::table('drug_ratings')->insert(
             [

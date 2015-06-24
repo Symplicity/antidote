@@ -20,9 +20,15 @@
                 templateUrl: '/app/drugs/drugs.html'
             })
             .state('drugs.list', {
-                url: '/?keywords',
+                url: '/?keywords&alpha',
                 templateUrl: '/app/drugs/drugs.list.html',
-                controller: 'DrugsListCtrl as drugsList'
+                controller: 'DrugsListCtrl as drugsList',
+                params: {
+                    alpha: {
+                        value: 'a',
+                        squash: true
+                    }
+                }
             })
             .state('drugs.view', {
                 url: '/:id',
