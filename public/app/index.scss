@@ -22,7 +22,9 @@
     }
 
     html, body, md-content{
-        background-color: #EEEEEE;    	
+        background-color: #EEEEEE;   
+        height:100%;
+        position: relative; 	
     }
 
     p,li,ul{
@@ -30,11 +32,18 @@
     }
 
     html{
-        height:100%
+        position: relative;
+  		min-height: 100%;
     }
 
     body {
 		color: #666;
+		min-height:100%;		
+	}
+
+	.container{
+		max-width: 1366px;
+		margin: 0px auto;
 	}
 
 	strong {
