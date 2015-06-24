@@ -1,8 +1,8 @@
 NS = symplicity
 VERSION ?= latest
 
-REPO = job
-NAME = job
+REPO = worker
+NAME = worker
 INSTANCE = default
 
 .PHONY: build push shell run start stop rm release
