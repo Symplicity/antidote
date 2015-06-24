@@ -70,8 +70,13 @@
 		background-color: lighten($primary-button-color, 15%);
 	}
 	
-    a.md-button.md-accent.md-raised, a.md-button.md-accent.md-fab, .md-button.md-accent.md-raised, .md-button.md-accent.md-fab {color:#FFF}
+    a.md-button.md-accent.md-raised, a.md-button.md-accent.md-fab, .md-button.md-accent.md-raised, .md-button.md-accent.md-fab {
+    	color:#FFF;
+    }
 
+    md-card .md-actions{
+    	padding: 5px;
+    }
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
  *  all your sass files automatically
