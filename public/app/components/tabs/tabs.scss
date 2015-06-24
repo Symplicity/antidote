@@ -1,12 +1,14 @@
 md-tabs {
 	background-color: #FFFFFF;
 	border-radius: 0;
+	max-width: 100%;
 
 	.md-tab {
 		a {
 			text-decoration: none;
-            color:#4DB6AC;
-            font-weight: 500;
-		}
+            color:#666;
+            font-weight: 500;            
+		}		
+
 	}
 }
