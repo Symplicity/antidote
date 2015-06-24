@@ -5,6 +5,10 @@
     background-color:#3F51B5;
     color: #E8EAF6;
 
+    h1{
+        text-align: center;
+    }
+    
     input{
         width: 300px;
         padding:10px;
@@ -19,7 +23,8 @@
 
 .md-home-card{
     max-width: 350px;
-    margin: 50px 25px;
+    margin-top: 50px;
+    margin-bottom: 0px !important;
 
     div{
         padding: 10px;
@@ -40,6 +45,7 @@
 }
 
 .md-quote{
+    margin-top: 50px;
     color: #E8EAF6;
     background-color:#1A237E;
     text-align:center;

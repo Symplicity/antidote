@@ -1,12 +1,13 @@
 <md-content>
-    <div class="banner md-whiteframe-z1">
+    <div class="banner-medication md-whiteframe-z1">
         <h2 class="md-display-1">Medications</h2>
-        <p>SOME DESCRIPTION HERE</p>
+        <p>Search through our list of drugs & medications to find the best solution!</p>
     </div>
     <md-tabs md-center-tabs="false" class="md-whiteframe-z1">
-        <md-tab >
-            <a ui-sref=></a>
-        </md-tab>
+    <!--this should be replaced with an ng-repeat filter at some point -->
+        <md-tab ng-repeat="letter in drugsList.letters">
+            <a ui-sref="drugs.list({'alpha':'{{letter}}'})">{{letter}}</a>
+        </md-tab>      
     </md-tabs>
     <div class="md-drugs">
         <p class="md-display-3">A</p>
