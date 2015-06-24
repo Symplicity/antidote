@@ -16,22 +16,24 @@ class DrugController extends Controller
      */
     public function show($id)
     {
-        return Drug::find($id);
+        return Drug::with('sideEffects')->find($id);
     }
 
     public function index(Request $request)
     {
-        $limit = 15;
+        $limit = $this->getLimit($request);
 
-        if ($request['limit']) {
-            $limit = $request['limit'];
-        }
+        $drugs = Drug::with('sideEffects');
 
         if ($keywords = $request['keywords']) {
-            $drugs = Drug::where('label', 'LIKE', '%' . $keywords . '%')->orWhere('description', 'LIKE', '%' . $keywords . '%')->orderBy('label', 'ASC')->paginate($limit);
-        } else {
-            $drugs = Drug::orderBy('label', 'ASC')->paginate($limit);
+            $drugs = $drugs->where('label', 'LIKE', '%' . $keywords . '%')->orWhere('description', 'LIKE', '%' . $keywords . '%');
         }
+
+        if ($alpha = $request['alpha']) {
+            $drugs = $drugs->where('label', 'LIKE', $alpha . '%');
+        }
+
+        $drugs = $drugs->orderBy('label', 'ASC')->paginate($limit);
 
         return $drugs;
     }
@@ -43,11 +45,7 @@ class DrugController extends Controller
      */
     public function getReviews($id, Request $request)
     {
-        $limit = 15;
-
-        if ($request['limit']) {
-            $limit = $request['limit'];
-        }
+        $limit = $this->getLimit($request);
 
         $reviews = Drug::find($id)->reviews()->with('user')->with('drug')->with('sideEffects')->orderBy('created_at', 'DESC')->paginate($limit);
         return $reviews;
@@ -84,5 +82,18 @@ class DrugController extends Controller
         }
 
         return $drug_review;
+    }
+
+    /**
+     * Get alternative drugs for a drug by local (primary key) id.
+     *
+     * @param int $id
+     */
+    public function getAlternatives($id, Request $request)
+    {
+        $limit = $this->getLimit($request);
+
+        $reviews = Drug::find($id)->alternatives()->orderBy('label', 'DESC')->paginate($limit);
+        return $reviews;
     }
 }

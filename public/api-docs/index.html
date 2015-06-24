@@ -138,17 +138,18 @@ a.list-group-item.heading:hover {
     max-width: 212px;
   }
 }
-</style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a data-toggle="" data-target="#drugs-menu" href="#drugs" class="list-group-item heading collapsed">Drugs</a><div id="drugs-menu"><a href="#drugs-drugs" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>Drugs</a><a href="#drugs-drug" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>Drug</a><a href="#drugs-drug-review" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item">Drug Review</a><a href="#drugs-drug-review-get" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span><span class="indent">List All</span></a><a href="#drugs-drug-review-post" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-success"><i class="fa fa-plus"></i></span><span class="indent">Create New</span></a></div></div><p style="text-align: center; word-wrap: break-word;"><a href="https://antidote.symplicity-opensource.com">https://antidote.symplicity-opensource.com</a></p></nav></div><div class="col-md-8"><div><header><div class="page-header"><h1 id="top">Antidote API v1.0 Documentation</h1></div></header><div class="description"><p>The Antidote API provides information on drugs and user-submitted drug reviews</p>
+</style></head><body><a href="#top" class="text-muted back-to-top"><i class="fa fa-toggle-up"></i>&nbsp;Back to top</a><div class="container"><div class="row"><div class="col-md-3"><nav id="nav" class="hidden-sm hidden-xs affix nav"><div class="list-group"><a data-toggle="" data-target="#drugs-menu" href="#drugs" class="list-group-item heading collapsed">Drugs</a><div id="drugs-menu"><a href="#drugs-drugs" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>Drugs</a><a href="#drugs-drug" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>Drug</a><a href="#drugs-drug-review" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item">Drug Review</a><a href="#drugs-drug-review-get" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span><span class="indent">List All</span></a><a href="#drugs-drug-review-post" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-success"><i class="fa fa-plus"></i></span><span class="indent">Create New</span></a><a href="#drugs-drug-alternative" style="border-top-left-radius: 0; border-top-right-radius: 0" class="list-group-item"><span class="badge alert-info"><i class="fa fa-arrow-down"></i></span>Drug Alternative</a></div></div><p style="text-align: center; word-wrap: break-word;"><a href="https://antidote.symplicity-opensource.com">https://antidote.symplicity-opensource.com</a></p></nav></div><div class="col-md-8"><div><header><div class="page-header"><h1 id="top">Antidote API v1.0 Documentation</h1></div></header><div class="description"><p>The Antidote API provides information on drugs and user-submitted drug reviews</p>
 <h2>API Reference</h2>
 <p>The Antidote API is organized around REST. Our API is designed to have predictable, resource-oriented URLs and to use HTTP response codes to indicate API errors. JSON will be returned in all responses from the API, including errors.</p>
 </div></div><div><div class="panel panel-default"><div class="panel-heading"><h3 id="drugs">Drugs&nbsp;<a href="#drugs"><i class="fa fa-link"></i></a></h3></div><div class="panel-body"><p>With the drugs API you can retrieve information and reviews on individual drugs as well as list all drugs.</p>
-<h4 id="drugs-drugs">Drugs&nbsp;<a href="#drugs-drugs"><i class="fa fa-link"></i></a></h4><section id="drugs-drugs-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List</span></div><div style="float:left"><a href="#drugs-drugs-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs</code></div></div><div class="panel-body"><p>Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:</p>
+<h4 id="drugs-drugs">Drugs&nbsp;<a href="#drugs-drugs"><i class="fa fa-link"></i></a></h4><section id="drugs-drugs-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List</span></div><div style="float:left"><a href="#drugs-drugs-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs{?keywords,alpha,page,limit}</code></div></div><div class="panel-body"><p>Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:</p>
 <pre><code class="language-no-highlight">https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
 </code></pre>
 </div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>keywords</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>Tylenol</span></span><p>Search for a drug by keywords in label or description</p>
-</dd><dt>page</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>2</span></span><p>Page number of drugs</p>
+</dd><dt>alpha</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>a</span></span><p>Search for a drug by first letter of the label</p>
+</dd><dt>page</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>Page number of drugs</p>
 </dd><dt>limit</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>15</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>25</span></span><p>The maximum number of drugs to return, up to <code>500</code></p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#5e7b65d745bdab10d8c91623f4da44d9" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="5e7b65d745bdab10d8c91623f4da44d9" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#ffccf907d64546026f9ca1b4fbf1ca1f" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="ffccf907d64546026f9ca1b4fbf1ca1f" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
     "<span class="hljs-attribute">total</span>": <span class="hljs-value"><span class="hljs-number">150</span></span>,
     "<span class="hljs-attribute">per_page</span>": <span class="hljs-value"><span class="hljs-number">15</span></span>,
     "<span class="hljs-attribute">current_page</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
@@ -171,18 +172,37 @@ a.list-group-item.heading:hover {
     ]
 </span>}
 </code></pre></li></ul></section><h4 id="drugs-drug">Drug&nbsp;<a href="#drugs-drug"><i class="fa fa-link"></i></a></h4><section id="drugs-drug-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get Drug</span></div><div style="float:left"><a href="#drugs-drug-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs/{id}</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>The drug ID</p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#f90895d1d7053109a1eeb25e27615bcf" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="f90895d1d7053109a1eeb25e27615bcf" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
-    <span class="hljs-string">"id"</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-string">"label"</span>: <span class="hljs-string">"Tylenol"</span>,
-    <span class="hljs-string">"description"</span>: <span class="hljs-string">"Tylenol is used to treat pain."</span>
-},
-</code></pre></li></ul></section><h4 id="drugs-drug-review">Drug Review&nbsp;<a href="#drugs-drug-review"><i class="fa fa-link"></i></a></h4><section id="drugs-drug-review-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List All</span></div><div style="float:left"><a href="#drugs-drug-review-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs/{id}/reviews</code></div></div><div class="panel-body"><p>Returns a list of all reviews for a drug. The reviews are returned in created date descending order.  Example:</p>
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#278c285ffc0881f547fd46b8587c9c05" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="278c285ffc0881f547fd46b8587c9c05" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol"</span></span>,
+    "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol is used to treat pain."</span></span>,
+    "<span class="hljs-attribute">side_effects</span>": <span class="hljs-value">[
+        {
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+            "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"Nausea"</span></span>,
+            "<span class="hljs-attribute">pivot</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">drug_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+                "<span class="hljs-attribute">drug_side_effect_id</span>": <span class="hljs-value"><span class="hljs-number">1</span>
+            </span>}
+        </span>},
+        {
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+            "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"Diarrhea"</span></span>,
+            "<span class="hljs-attribute">pivot</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">drug_id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+                "<span class="hljs-attribute">drug_side_effect_id</span>": <span class="hljs-value"><span class="hljs-number">2</span>
+            </span>}
+        </span>}
+    ]
+</span>}
+</code></pre></li></ul></section><h4 id="drugs-drug-review">Drug Review&nbsp;<a href="#drugs-drug-review"><i class="fa fa-link"></i></a></h4><section id="drugs-drug-review-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List All</span></div><div style="float:left"><a href="#drugs-drug-review-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs/{id}/reviews{?keywords,page,limit}</code></div></div><div class="panel-body"><p>Returns a list of all reviews for a drug. The reviews are returned in created date descending order.  Example:</p>
 <pre><code class="language-no-highlight">https://antidote.symplicity-opensource.com/api/drugs/1/reviews
 </code></pre>
-</div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>keywords</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>pain</span></span><p>Search for a drug review by keywords in the comment</p>
-</dd><dt>page</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>2</span></span><p>Page number</p>
+</div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>The drug ID</p>
+</dd><dt>keywords</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>pain</span></span><p>Search for a drug review by keywords in the comment</p>
+</dd><dt>page</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>Page number</p>
 </dd><dt>limit</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>15</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>25</span></span><p>The maximum number of drug reviews to return, up to <code>500</code></p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#f888c03e44fa96e5f7de1fc9c5edc34f" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="f888c03e44fa96e5f7de1fc9c5edc34f" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#b3076f137a02eb6ee5d82b4197f14796" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="b3076f137a02eb6ee5d82b4197f14796" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
     "<span class="hljs-attribute">total</span>": <span class="hljs-value"><span class="hljs-number">45</span></span>,
     "<span class="hljs-attribute">per_page</span>": <span class="hljs-value"><span class="hljs-number">15</span></span>,
     "<span class="hljs-attribute">current_page</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
@@ -232,10 +252,8 @@ a.list-group-item.heading:hover {
                 </span>}
             ]
         </span>},
-    {
-    "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
         {
-        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1514</span></span>,
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1514</span></span>,
             "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
             "<span class="hljs-attribute">is_covered_by_insurance</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
             "<span class="hljs-attribute">comment</span>": <span class="hljs-value"><span class="hljs-string">"Makes you sleepy"</span></span>,
@@ -258,7 +276,7 @@ a.list-group-item.heading:hover {
             "<span class="hljs-attribute">side_effects</span>": <span class="hljs-value">[
                 {
                     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
-                    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"nausea"</span></span>,
+                    "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"Nausea"</span></span>,
                     "<span class="hljs-attribute">pivot</span>": <span class="hljs-value">{
                         "<span class="hljs-attribute">drug_review_id</span>": <span class="hljs-value"><span class="hljs-number">1514</span></span>,
                         "<span class="hljs-attribute">drug_side_effect_id</span>": <span class="hljs-value"><span class="hljs-number">1</span>
@@ -268,11 +286,12 @@ a.list-group-item.heading:hover {
         </span>}
     ]
 </span>}
-</span></code></pre></li></ul></section><section id="drugs-drug-review-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create New</span></div><div style="float:left"><a href="#drugs-drug-review-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/drugs/{id}/reviews</code></div></div><div class="panel-body"><p>Create a new drug review</p>
-</div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>keywords</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>pain</span></span><p>Search for a drug review by keywords in the comment</p>
-</dd><dt>page</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>2</span></span><p>Page number</p>
+</code></pre></li></ul></section><section id="drugs-drug-review-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create New</span></div><div style="float:left"><a href="#drugs-drug-review-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/drugs/{id}/reviews{?keywords,page,limit}</code></div></div><div class="panel-body"><p>Create a new drug review</p>
+</div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>The drug ID</p>
+</dd><dt>keywords</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>pain</span></span><p>Search for a drug review by keywords in the comment</p>
+</dd><dt>page</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>Page number</p>
 </dd><dt>limit</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>15</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>25</span></span><p>The maximum number of drug reviews to return, up to <code>500</code></p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#5d73225e1cb88ebe634f7cf922035921" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="5d73225e1cb88ebe634f7cf922035921" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#1068f0a64265e91cb48da99c866ad64a" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="1068f0a64265e91cb48da99c866ad64a" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
     "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-string">"3"</span></span>,
     "<span class="hljs-attribute">is_covered_by_insurance</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
     "<span class="hljs-attribute">comment</span>": <span class="hljs-value"><span class="hljs-string">"My pain has subsided considerably since I started taking this."</span></span>,
@@ -291,6 +310,34 @@ a.list-group-item.heading:hover {
       <span class="hljs-string">"The rating field is required."</span>
     ]
   </span>}
+</span>}
+</code></pre></li></ul></section><h4 id="drugs-drug-alternative">Drug Alternative&nbsp;<a href="#drugs-drug-alternative"><i class="fa fa-link"></i></a></h4><section id="drugs-drug-alternative-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List All</span></div><div style="float:left"><a href="#drugs-drug-alternative-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs/{id}/alternatives{?page,limit}</code></div></div><div class="panel-body"><p>Returns a list of all alternative drugs for a drug. The drugs are returned in alphabetically sorted order.  Example:</p>
+<pre><code class="language-no-highlight">https://antidote.symplicity-opensource.com/api/drugs/1/alternatives
+</code></pre>
+</div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>The drug ID</p>
+</dd><dt>page</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>2</span></span><p>Page number</p>
+</dd><dt>limit</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>15</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>25</span></span><p>The maximum number of drug alternatives to return, up to <code>50</code></p>
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#af153eb790fc637d25ed71f281b78789" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="af153eb790fc637d25ed71f281b78789" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">total</span>": <span class="hljs-value"><span class="hljs-number">150</span></span>,
+    "<span class="hljs-attribute">per_page</span>": <span class="hljs-value"><span class="hljs-number">15</span></span>,
+    "<span class="hljs-attribute">current_page</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+    "<span class="hljs-attribute">last_page</span>": <span class="hljs-value"><span class="hljs-number">10</span></span>,
+    "<span class="hljs-attribute">next_page_url</span>": <span class="hljs-value"><span class="hljs-string">"https://antidote.symplicity-opensource.com/api/drugs?page=3"</span></span>,
+    "<span class="hljs-attribute">prev_page_url</span>": <span class="hljs-value"><span class="hljs-string">"https://antidote.symplicity-opensource.com/api/drugs?page=1"</span></span>,
+    "<span class="hljs-attribute">from</span>": <span class="hljs-value"><span class="hljs-number">16</span></span>,
+    "<span class="hljs-attribute">to</span>": <span class="hljs-value"><span class="hljs-number">30</span></span>,
+    "<span class="hljs-attribute">data</span>": <span class="hljs-value">[
+        {
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+            "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol"</span></span>,
+            "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol is used to treat pain."</span>
+        </span>},
+        {
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
+            "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"Claritin"</span></span>,
+            "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Claritin is used to treat allergies"</span>
+        </span>}
+    ]
 </span>}
 </code></pre></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 23 Jun 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
