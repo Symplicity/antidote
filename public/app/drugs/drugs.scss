@@ -2,7 +2,12 @@ md-card{
     margin:25px;
     margin-bottom: 25px !important;
 }
-
+.drugs-bg{
+    background-color: $md-primary;
+}
+.drugs-tabs-bg{
+    background-color: #FFF;
+}
 .content{
     padding: 25px;
 }
