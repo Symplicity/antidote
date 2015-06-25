@@ -6,6 +6,9 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
   color: $md-secondary;
   height: 100%;
 }
+.md-raised.md-pill{
+    text-transform: none;
+}
 .banner-medication{
     height:130px;
     margin: 0 auto;
@@ -63,7 +66,6 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
 }
 
 .reviews {
-    line-height: 20px;
 
     .md-tag-faces {
         width: 100px;
@@ -104,10 +106,40 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         display: inline-block;
         height: 75px;
         width: 75px; 
-        margin-bottom: 40px;
+        margin-bottom: 40px;   
     }
 }
 
+.vote-up{
+    &:hover{
+        md-icon svg{
+            fill: $md-secondary;
+        }
+        p{
+            color: $md-secondary;
+        }
+    }
+    &:active{
+        md-icon svg{
+            fill: #26a69a;
+        }
+    }
+}
+.vote-down{
+    &:hover{
+        md-icon svg{
+            fill: #e57373;
+        }
+        p{
+            color: #e57373;
+        }
+    }
+    &:active{
+        md-icon svg{
+            fill: #ef5350;
+        }
+    }
+}
 .md-drug-info {
     margin: 0 auto;
     padding: 25px;
@@ -152,6 +184,20 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
     }
 }
 
+.md-pills{
+        padding: 25px;
+        color: #FFF;
+        font-size: 12px;    
+        display: inline-block;
+        border: solid;
+        border-width: 2px;
+        border-radius: 15px;
+        padding: 1px 10px;
+        background-color: #4DB6AC;
+        border-color: #4DB6AC;
+        margin: 5px;
+}
+
 .md-drugs{
     padding: 25px;
     
@@ -167,3 +213,30 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
     }
 
 }
+
+.vote-label{
+    text-align: center;
+}
+
+.center{
+    text-align: center;
+}
+/* BREAKPOINTS */
+
+@media only screen and (max-width: 599px){
+    .md-vote{
+        display: inline-block;
+    }      
+    .vote-label{
+        text-align: center;
+    }
+    .container{
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+    .md-drug-info{
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+}
+
