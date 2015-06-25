@@ -1,0 +1,55 @@
+<md-dialog layout="column">
+    <md-toolbar class="md-toolbar-tools" >
+        <p class="md-headline" flex>Submit A Review</p>
+        <md-button ng-click="closeDialog()"><md-icon class="md-headline" >close</md-icon></md-button>
+    </md-toolbar>
+    <md-dialog-content>
+        <h2 class="md-title">Have you taken this? Tell us how you felt about it.</h2>
+        <p>Please help the community by telling us more details</p>
+        <form name="review-form">
+            <md-input-container>
+                <p>Was it effective?</p>
+                <div layout="row">
+                    <md-icon class="md-tag-faces" md-svg-src="/images/icons/md-tag-faces.svg"></md-icon>
+                    <md-icon class="md-tag-faces" md-svg-src="/images/icons/md-tag-faces.svg"></md-icon>
+                    <md-icon class="md-tag-faces" md-svg-src="/images/icons/md-tag-faces.svg"></md-icon>
+                </div>
+            </md-input-container>
+            <md-input-container>
+            <p>Did you experience any side effects?</p>
+            <div layout="row" layout-wrap>
+                <md-button class="md-raised md-pill">Celexa</md-button>
+                <md-button class="md-raised md-pill">Celexa</md-button>
+                <md-button class="md-raised md-pill">Celexa</md-button>
+                <md-button class="md-raised md-pill">Celexa</md-button>
+                <md-button class="md-raised md-pill">Celexa</md-button>
+                <md-button class="md-raised md-pill">+Add New</md-button>
+            </div>
+            </md-input-container>
+            <md-input-container>
+            <p>Did your insurance provide coverage?</p>
+            <div layout="row">
+                <md-radio-group ng-model="data.group1">
+                  <md-radio-button value="Yes">Yes</md-radio-button>
+                  <md-radio-button value="No"> No </md-radio-button>
+                </md-radio-group>
+            </div>  
+            </md-input-container>
+                
+            <div layout="row">
+                 <md-input-container flex>
+                    <label>Share any other details about the medication, or coverage experience</label>
+                    <textarea name="bio" ng-model="biography" required md-maxlength="150"></textarea>
+                    <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
+                      <div ng-message="required">This is required!</div>
+                      <div ng-message="md-maxlength">That's too long!</div>
+                    </div>
+                  </md-input-container>
+            </div>
+        </form>    
+      <div class="md-actions" layout="row" layout-align="end center">
+        <md-button>Clear</md-button>
+        <md-button class="md-accent">Submit</md-button>
+      </div>
+    </md-dialog-content>
+</md-dialog>
