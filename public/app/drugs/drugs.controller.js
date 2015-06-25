@@ -31,7 +31,7 @@
     }
 
     /** @ngInject */
-    function DrugsViewCtrl(DrugsService, $stateParams) {
+    function DrugsViewCtrl(DrugsService, $stateParams, $scope, $mdDialog) {
         var that = this;
         activate();
 
@@ -41,11 +41,28 @@
             {title: 'Alternative', state: 'drugs.view.alternatives'}
         ];
 
+        $scope.submitReview = function(ev){
+            $mdDialog.show({
+                controller: DrugsReviewModalCtrl,
+                templateUrl: '/app/drugs/drugs.review.modal.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                hasBackdrop: true
+            });
+        };
+
         function activate() {
             DrugsService.get({id: $stateParams.id}).$promise.then(function(drug) {
                 that.drug = drug;
             });
         }
+    }
+
+    function DrugsReviewModalCtrl($scope, $mdDialog){
+        $scope.closeDialog = function() {
+          $mdDialog.hide();
+        };
     }
 
     /** @ngInject */
