@@ -27,6 +27,10 @@
         position: relative; 	
     }
 
+    .md-ui-view{
+        min-height: calc(100vh - 124px);
+    }
+
     p,li,ul{
     	font-size: 14px;
     }
