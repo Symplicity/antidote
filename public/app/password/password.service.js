@@ -8,8 +8,8 @@
     /** @ngInject */
     function Password($http) {
         return {
-            forgotPassword: function(emailData) {
-                return $http.post('/api/auth/forgot', emailData);
+            forgotPassword: function(usernameData) {
+                return $http.post('/api/auth/forgot', usernameData);
             },
             resetPassword: function(token, passwordData) {
                 return $http.post('/api/auth/reset/' + token, passwordData);

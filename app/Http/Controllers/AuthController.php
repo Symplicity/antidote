@@ -32,13 +32,13 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $email = $request->input('email');
+        $username = $request->input('username');
         $password = $request->input('password');
 
-        $user = User::where('email', '=', $email)->first();
+        $user = User::where('username', '=', $username)->first();
 
         if (!$user) {
-            return response()->json(['message' => 'Wrong email and/or password'], 401);
+            return response()->json(['message' => 'Wrong username and/or password'], 401);
         }
 
         if (Hash::check($password, $user->password)) {
@@ -46,7 +46,7 @@ class AuthController extends Controller
 
             return response()->json(['token' => $this->createToken($user)]);
         } else {
-            return response()->json(['message' => 'Wrong email and/or password'], 401);
+            return response()->json(['message' => 'Wrong username and/or password'], 401);
         }
     }
 
@@ -56,7 +56,8 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users,email',
+            'username' => 'required|unique:users,username',
+            'email' => 'required|email',
             'password' => 'required'
         ]);
 
@@ -66,6 +67,7 @@ class AuthController extends Controller
 
         try {
             $user = new User();
+            $user->username = $request->input('username');
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
             $user->gender = $request->input('gender');
@@ -112,15 +114,15 @@ class AuthController extends Controller
 
     public function processForgotPassword(Request $request)
     {
-        $email = $request->input('email');
+        $username = $request->input('username');
 
         // create random token
         $token = bin2hex(openssl_random_pseudo_bytes(16));
 
-        $user = User::where('email', '=', $email)->first();
+        $user = User::where('username', '=', $username)->first();
 
         if (!$user) {
-            return response()->json(['message' => 'No account with that email address exists.'], 400);
+            return response()->json(['message' => 'No account with that username exists.'], 400);
         }
 
         // add reset token
@@ -130,6 +132,7 @@ class AuthController extends Controller
         $user->reset_password_token_expiration = $now->add(new DateInterval('PT1H30M'));
         $user->save();
 
+        $email = $user->email;
         $protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
         $site_url = $protocol . '://' . $_SERVER['HTTP_HOST'];
 

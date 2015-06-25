@@ -13,9 +13,9 @@ class AddDrugFields extends Migration
     public function up()
     {
         Schema::table('drugs', function (Blueprint $table) {
-            $table->integer('rxcui');
+            $table->integer('rxcui')->default(0);
             $table->text('generic')->nullable();
-            $table->json('drug_forms');
+            $table->json('drug_forms')->default('');
         });
     }
 

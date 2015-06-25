@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Crypt;
 
 class User extends Model
 {
@@ -25,5 +26,15 @@ class User extends Model
     public function reviews()
     {
         return $this->hasMany('App\DrugReview');
+    }
+
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = Crypt::encrypt($value);
+    }
+
+    public function getEmailAttribute($value)
+    {
+        return Crypt::decrypt($value);
     }
 }
