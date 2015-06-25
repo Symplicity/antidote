@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [ -z "$ANTIDOTE_DB_USER" ]; then
   echo "Missing \$ANTIDOTE_DB_USER"
   exit 1
@@ -56,6 +58,18 @@ else
   unzip /tmp/certs.zip -d /var/www/certs/
 fi
 
+if [ -z "$GITREPO_URL" ]; then
+  echo "Missing \sGITREPO_URL"
+  echo "You have to have some code to checkout!"
+  exit 1
+else
+  touch /root/.ssh/known_hosts
+  ssh-keyscan github.com >> /root/.ssh/known_hosts
+  git clone $GITREPO_URL /tmp/REPO
+  cd /tmp/REPO
+  unzip dist.zip -d /var/www
+fi
+
 sed -i "s/ANTIDOTE_DB_PASS/$ANTIDOTE_DB_PASS/" /var/www/.env
 sed -i "s/ANTIDOTE_DB_HOST/$ANTIDOTE_DB_HOST/" /var/www/.env
 sed -i "s/ANTIDOTE_DB_NAME/$ANTIDOTE_DB_NAME/" /var/www/.env
@@ -67,5 +81,4 @@ sed -i "s/MAILGUN_USERNAME/$MAILGUN_USERNAME/" /var/www/.env
 sed -i "s/MAILGUN_DOMAIN/$MAILGUN_DOMAIN/" /var/www/.env
 sed -i "s/FDA_TOKEN/$FDA_TOKEN/" /var/www/.env
 
-
-/sbin/my_init
+ /sbin/my_init

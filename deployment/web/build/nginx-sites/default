@@ -2,7 +2,6 @@ server {
     listen  80;
 
     root /var/www/dist;
-    rewrite ^(.+)$ /index.html last;
     index index.html index.php;
 
     # Make site accessible from http://set-ip-address.xip.io

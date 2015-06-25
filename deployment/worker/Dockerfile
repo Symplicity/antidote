@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.1.2"
+LABEL version="1.1.15"
 LABEL description="This is the Antidote Worker, with PHP 5.6"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
@@ -12,7 +12,8 @@ ENV LC_ALL  en_US.UTF-8
 
 ENV HOME /root
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
-
+ADD build/run.sh /run.sh
+RUN chmod +x /run.sh
 CMD ["/run.sh"]
 
 #php install
@@ -35,13 +36,4 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD jobs /etc/cron.d/antidote
 ### Get code
-RUN touch /root/.ssh/known_hosts
-RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
-RUN git clone https://github.com/svemir/test.git
-RUN mv test/dist.zip /var/www/ && cd /var/www/ && unzip dist.zip
-
-### Service to migrate code
-RUN mkdir /etc/service/dbupdate
-ADD build/dbupdate.sh /etc/service/dbupdate/run
-RUN chmod +x /etc/service/dbupdate/run
 ADD build/env /var/www/.env
