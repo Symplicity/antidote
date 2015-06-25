@@ -25,7 +25,10 @@ $factory->define(App\Drug::class, function (Faker\Generator $faker) {
     return [
         'ndc' => $faker->ean8(),
         'label' => ucfirst($faker->word()),
-        'description' => $faker->text(250)
+        'description' => $faker->text(250),
+        'rxcui' => $faker->ean8(),
+        'generic' => ucfirst($faker->word()),
+        'drug_forms' => [ucfirst($faker->word()), ucfirst($faker->word())]
     ];
 });
 
