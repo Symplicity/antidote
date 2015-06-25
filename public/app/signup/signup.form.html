@@ -31,6 +31,15 @@
                             <div ng-message="required">Password is required.</div>
                         </div>
                     </md-input-container>
+                    <md-input-container class="md-icon-float">
+                        <label>Confirm Password</label>
+                        <md-icon></md-icon>
+                        <input password-match="signup.password" ng-model="confirmPassword" name="confirmPassword" type="password" required>
+                            <div ng-messages="signupForm.confirmPassword.$error" ng-show="signupForm.confirmPassword.$touched || signupForm.$submitted">
+                            <div ng-message="compareTo">Password must match.</div>                            
+                            <div ng-message="required">Password confirmation is required.</div>
+                        </div>
+                    </md-input-container>
                     <div layout="row">
                         <md-select ng-model="Gender" placeholder="Choose Gender">
                             <md-option value="Male">Male</md-option>
