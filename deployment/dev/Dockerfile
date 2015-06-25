@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.0"
+LABEL version="1.2.1"
 LABEL description="This is the Antidote Development Server, with NGINX and PHP-FPM"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
@@ -22,7 +22,7 @@ RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y vim curl wget build-esse
 RUN add-apt-repository -y ppa:ondrej/php5-5.6
 RUN add-apt-repository -y ppa:nginx/stable
 RUN apt-get update
-RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y --force-yes php5-cli php5-fpm php5-mysql php5-sqlite php5-curl php5-gd php5-mcrypt php5-intl php5-imap php5-tidy git nodejs npm
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install -y --force-yes php5-cli php5-fpm php5-mysql php5-sqlite php5-curl php5-gd php5-mcrypt php5-intl php5-imap php5-tidy git nodejs npm rsyslog
 
 RUN sed -i "s/;date.timezone = .*/date.timezone = UTC/" /etc/php5/fpm/php.ini
 RUN sed -i "s/;date.timezone = .*/date.timezone = UTC/" /etc/php5/cli/php.ini
@@ -47,6 +47,8 @@ RUN chmod +x /etc/service/nginx/run
 RUN mkdir /etc/service/phpfpm
 ADD build/phpfpm.sh /etc/service/phpfpm/run
 RUN chmod +x /etc/service/phpfpm/run
+RUN rm -rf /etc/service/syslog-ng
+
 
 EXPOSE 80 22 443
 #End nginx
@@ -57,6 +59,7 @@ RUN npm install -g node
 RUN npm install -g bower
 RUN npm install -g gulp
 RUN ln -s /usr/bin/nodejs /usr/bin/node
+RUN npm install -g dredd
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ### App Fixes
