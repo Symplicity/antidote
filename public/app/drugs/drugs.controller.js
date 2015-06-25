@@ -41,11 +41,10 @@
             {title: 'Alternative', state: 'drugs.view.alternatives'}
         ];
 
-        $scope.submitReview = function(ev){
+        $scope.submitReview = function(ev) {
             $mdDialog.show({
                 controller: DrugsReviewModalCtrl,
                 templateUrl: '/app/drugs/drugs.review.modal.html',
-                parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 hasBackdrop: true
@@ -59,9 +58,9 @@
         }
     }
 
-    function DrugsReviewModalCtrl($scope, $mdDialog){
+    function DrugsReviewModalCtrl($scope, $mdDialog) {
         $scope.closeDialog = function() {
-          $mdDialog.hide();
+            $mdDialog.hide();
         };
     }
 
