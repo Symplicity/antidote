@@ -6,7 +6,8 @@
 'use strict';
 
 var MainPage = function() {
-    this.toolbarEl = element(by.css('.md-toolbar-tools'));
+    this.menuButtons = element.all(by.css('.md-toolbar-tools a.nav-link span'));
+    this.homeCards = element.all(by.css('.md-toolbar-tools h3'));
 };
 
 module.exports = new MainPage();
