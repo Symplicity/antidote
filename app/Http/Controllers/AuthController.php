@@ -83,10 +83,10 @@ class AuthController extends Controller
         $user = $this->findUserByToken($token);
 
         if (!$user) {
-            return redirect('/#/password/reset/invalid');
+            return redirect('/password/reset/invalid');
         }
 
-        return redirect('/#/password/reset/'.$token);
+        return redirect('/password/reset/'.$token);
     }
 
     public function updatePasswordFromResetToken($token, Request $request)
@@ -131,8 +131,16 @@ class AuthController extends Controller
         $user->save();
 
         $protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
+        $site_url = $protocol . '://' . $_SERVER['HTTP_HOST'];
 
-        Mail::raw('Follow this link to reset your password: ' . $protocol . '://' . $_SERVER['HTTP_HOST'] . '/api/auth/reset/' . $token, function ($message) use ($email) {
+        $data = [
+            'email' => $email,
+            'site_url' => $site_url,
+            'change_password_link' => $site_url . '/api/auth/reset/' . $token,
+            'link_expiration_time' => '24 hours'
+        ];
+
+        Mail::send('emails.forgot-password', $data, function ($message) use ($email) {
             $message->from('antidote@symplicity-opensource.com');
             $message->to($email);
             $message->subject('Antidote Password Reset');
