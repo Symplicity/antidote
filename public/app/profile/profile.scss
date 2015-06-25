@@ -1,0 +1,21 @@
+.banner-account{
+    background-color: $md-primary;
+
+    md-icon{
+        color: #fff;
+    }
+}
+
+
+.md-account-info {
+    margin: 0 auto;
+    padding: 25px;
+    background-color:#3F51B5;
+    color: #E8EAF6;
+
+    h1 {
+        font-weight: 500;
+        font-size: 40px;
+        margin: 0;
+    }
+}
