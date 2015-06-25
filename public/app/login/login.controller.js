@@ -8,7 +8,7 @@
     /** @ngInject */
     function LoginCtrl($mdToast, $auth) {
         this.login = function() {
-            $auth.login({email: this.email, password: this.password})
+            $auth.login({username: this.username, password: this.password})
                 .then(loginSuccessHandler)
                 .catch(loginErrorHandler);
         };
