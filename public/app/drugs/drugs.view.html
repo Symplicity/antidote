@@ -25,12 +25,13 @@
 <div class="drugs-tabs-bg md-whiteframe-z1">
     <div class="container">
         <md-tabs md-center-tabs="false">
-            <md-tab  ng-repeat="tab in drugsView.tabs">
-                <a ui-sref="{{::tab.state}}">{{::tab.title}}</a>
+            <md-tab  ng-repeat="tab in drugsView.tabs" ui-sref="{{::tab.state}}">
+                <md-tab-label>{{::tab.title}}</md-tab-label>
             </md-tab>
         </md-tabs>
     </div>
 </div>
+
 
 <!--Filters-->
 <!-- <div>
