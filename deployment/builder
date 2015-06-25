@@ -21,7 +21,7 @@ case $1 in
     develop)
         build_dev
         ;;
-    relase)
+    release)
 	build_release
 	;;
     *)
