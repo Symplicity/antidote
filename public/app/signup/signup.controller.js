@@ -16,9 +16,11 @@
 
         this.signup = function() {
             $auth.signup({
-                name: this.name,
+                username: this.username,
                 email: this.email,
-                password: this.password
+                password: this.password,
+                gender: this.gender,
+                age: this.age
             }).catch(loginErrorHandler);
         };
 
