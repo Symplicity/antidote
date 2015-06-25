@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.0.8"
+LABEL version="1.1.2"
 LABEL description="This is the Antidote Worker, with PHP 5.6"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
@@ -13,7 +13,7 @@ ENV LC_ALL  en_US.UTF-8
 ENV HOME /root
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
-CMD ["/sbin/my_init"]
+CMD ["/run.sh"]
 
 #php install
 RUN apt-get update
