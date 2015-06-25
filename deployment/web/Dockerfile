@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.1.20"
+LABEL version="1.1.23"
 LABEL description="This is the Antidote webserver, with NGINX and PHP-FPM"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
@@ -60,7 +60,5 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ### Get code
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
-RUN git clone https://github.com/svemir/test.git
-RUN mv test/dist.zip /var/www/ && cd /var/www/ && unzip dist.zip
 ADD build/certs /var/www/certs
 ADD build/env /var/www/.env
