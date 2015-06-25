@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+build_dev(){
+	cd dev/
+	make
+	cd ..
+	cd worker
+	make
+}
+
+build_release(){
+	cd worker/
+	make release
+	cd ..
+	cd webserver/
+	make release
+	cd ..
+}
+
+case $1 in
+    develop)
+        build_dev
+        ;;
+    relase)
+	build_release
+	;;
+    *)
+        echo "                                                                                                                                                                       
+usage: builder develop|release
+	develop: build all the images locally for testing
+	release: build the key images for a site release
+"
+        ;;
+esac

@@ -3,6 +3,7 @@ server {
     ssl on;
 
     root /var/www/public;
+    rewrite ^(.+)$ /index.html last;
     index index.html index.php;
 
     # Make site accessible from http://set-ip-address.xip.io
