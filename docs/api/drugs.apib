@@ -3,15 +3,6 @@ With the drugs API you can retrieve information and reviews on individual drugs 
 
 ## Drugs [/drugs{?keywords,alpha,page,limit}]
 
-+ Parameters
-
-    + keywords: `Tylenol` (string, optional) - Search for a drug by keywords in label or description
-    + alpha: `a` (string, optional) - Search for a drug by first letter of the label
-    + page: `1` (integer, optional) - Page number of drugs
-    + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `500`
-      + Default: `15`
-
-
 + Model
 
     + Headers
@@ -59,6 +50,14 @@ Returns a list of all drugs. The drugs are returned in alphabetically sorted ord
 ```no-highlight
 https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
 ```
+
++ Parameters
+
+    + keywords: `Tylenol` (string, optional) - Search for a drug by keywords in label or description
+    + alpha: `a` (string, optional) - Search for a drug by first letter of the label
+    + page: `1` (integer, optional) - Page number of drugs
+    + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `500`
+      + Default: `15`
 
 + Response 200
 
@@ -113,14 +112,6 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
     [Drug][]
 
 ## Drug Review [/drugs/{id}/reviews{?keywords,page,limit}]
-
-+ Parameters
-
-    + id: `1` (required, integer) - The drug ID
-    + keywords: `pain` (string, optional) - Search for a drug review by keywords in the comment
-    + page: `1` (integer, optional) - Page number
-    + limit: `25` (integer, optional) - The maximum number of drug reviews to return, up to `500`
-      + Default: `15`
 
 + Model
 
@@ -222,12 +213,28 @@ Returns a list of all reviews for a drug. The reviews are returned in created da
 https://antidote.symplicity-opensource.com/api/drugs/1/reviews
 ```
 
++ Parameters
+
+    + id: `1` (required, integer) - The drug ID
+    + keywords: `pain` (string, optional) - Search for a drug review by keywords in the comment
+    + page: `1` (integer, optional) - Page number
+    + limit: `25` (integer, optional) - The maximum number of drug reviews to return, up to `500`
+      + Default: `15`
+
 + Response 200
 
     [Drug Review][]
 
 ### Create New [POST]
 Create a new drug review
+
++ Parameters
+
+    + rating: `1` (required, integer) - The rating the user gave the drug either 1, 2, 3 - 1 is best
+    + is_covered_by_insurance: `1` (boolean, required) - Was the drug covered by insurance?
+          + Default: `0`
+    + comment: `My pain has subsided considerably since I started taking this.` (text, optional) - User comments
+    + side_effects: `[1,2,3]` (array, optional) - Side effects experienced by the user
 
 + Request
     + Headers
@@ -270,19 +277,19 @@ Create a new drug review
 
 ## Drug Alternative [/drugs/{id}/alternatives{?page,limit}]
 
-+ Parameters
-
-    + id: `1` (required, integer) - The drug ID
-    + page: `2` (integer, optional) - Page number
-    + limit: `25` (integer, optional) - The maximum number of drug alternatives to return, up to `50`
-      + Default: `15`
-
 ### List All [GET]
 Returns a list of all alternative drugs for a drug. The drugs are returned in alphabetically sorted order.  Example:
 
 ```no-highlight
 https://antidote.symplicity-opensource.com/api/drugs/1/alternatives
 ```
+
++ Parameters
+
+    + id: `1` (required, integer) - The drug ID
+    + page: `2` (integer, optional) - Page number
+    + limit: `25` (integer, optional) - The maximum number of drug alternatives to return, up to `50`
+      + Default: `15`
 
 + Response 200
 
