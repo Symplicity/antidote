@@ -56,9 +56,8 @@ class AuthController extends Controller
     public function signup(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required',
+            'password' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -67,9 +66,10 @@ class AuthController extends Controller
 
         try {
             $user = new User();
-            $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
+            $user->gender = $request->input('gender');
+            $user->age = $request->input('email');
             $user->save();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);

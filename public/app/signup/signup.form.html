@@ -13,7 +13,7 @@
             </ul>
           </div>
           <div flex>
-            <form method="post" ng-submit="signup.signup()" name="signupForm" layout="column">
+            <form method="post" name="signupForm" layout="column">
                     <md-input-container class="md-icon-float">
                         <label>Email</label>
                         <md-icon>email</md-icon>
@@ -29,6 +29,15 @@
                         <input ng-model="signup.password" name="password" type="password" required>
                         <div ng-messages="signupForm.password.$error" ng-show="signupForm.password.$touched || signupForm.$submitted">
                             <div ng-message="required">Password is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="md-icon-float">
+                        <label>Confirm Password</label>
+                        <md-icon></md-icon>
+                        <input password-match="signup.password" ng-model="confirmPassword" name="confirmPassword" type="password" required>
+                            <div ng-messages="signupForm.confirmPassword.$error" ng-show="signupForm.confirmPassword.$touched || signupForm.$submitted">
+                            <div ng-message="compareTo">Password must match.</div>                            
+                            <div ng-message="required">Password confirmation is required.</div>
                         </div>
                     </md-input-container>
                     <div layout="row">
@@ -47,7 +56,7 @@
       </md-card-content>
       <div class="md-actions" layout="row" layout-align="end center">
         <md-button class="small" ui-sref="login">Already have an account? Sign In</md-button>
-        <md-button type="submit" ng-disabled="signupForm.$invalid" class="md-raised md-accent">REGISTER</md-button>
+        <md-button type="button" ng-click="signup.signup()" ng-disabled="signupForm.$invalid" class="md-raised md-accent">REGISTER</md-button>
       </div>
     </md-card>
   </md-content>

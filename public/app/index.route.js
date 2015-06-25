@@ -17,11 +17,11 @@
             .state('drugs', {
                 url: '/drugs',
                 abstract:true,
-                templateUrl: '/app/drugs/drugs.html'
+                templateUrl: 'app/drugs/drugs.html'
             })
             .state('drugs.list', {
                 url: '/?keywords&alpha',
-                templateUrl: '/app/drugs/drugs.list.html',
+                templateUrl: 'app/drugs/drugs.list.html',
                 controller: 'DrugsListCtrl as drugsList',
                 params: {
                     alpha: {
@@ -33,22 +33,22 @@
             .state('drugs.view', {
                 url: '/:id',
                 abstract: true,
-                templateUrl: '/app/drugs/drugs.view.html',
+                templateUrl: 'app/drugs/drugs.view.html',
                 controller: 'DrugsViewCtrl as drugsView'
             })
             .state('drugs.view.overview', {
                 url: '/overview',
-                templateUrl: '/app/drugs/drugs.overview.html',
+                templateUrl: 'app/drugs/drugs.overview.html',
                 controller: 'DrugsOverviewCtrl as drugsOverview'
             })
             .state('drugs.view.reviews', {
                 url: '/reviews',
-                templateUrl: '/app/drugs/drugs.reviews.html',
+                templateUrl: 'app/drugs/drugs.reviews.html',
                 controller: 'DrugsReviewsCtrl as drugsReviews'
             })
             .state('drugs.view.alternatives', {
                 url: '/alternatives',
-                templateUrl: '/app/drugs/drugs.alternatives.html',
+                templateUrl: 'app/drugs/drugs.alternatives.html',
                 controller: 'DrugsAlternativesCtrl as drugsAlternatives'
             })
             .state('about', {

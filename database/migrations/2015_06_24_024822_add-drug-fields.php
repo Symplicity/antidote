@@ -12,11 +12,6 @@ class AddDrugFields extends Migration
      */
     public function up()
     {
-        Schema::create('concepts', function ($table) {
-            $table->integer('rxcui')->unsigned();
-            $table->text('data');
-        });
-
         Schema::table('drugs', function (Blueprint $table) {
             $table->integer('rxcui');
             $table->text('generic')->nullable();
@@ -36,7 +31,5 @@ class AddDrugFields extends Migration
             $table->dropColumn('generic');
             $table->dropColumn('drug_forms');
         });
-
-        Schema::drop('concepts');
     }
 }

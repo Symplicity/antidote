@@ -5,7 +5,10 @@
         .module('antidote')
         .config(config);
 
-    function config($mdThemingProvider, $authProvider) {
+    function config($locationProvider, $mdThemingProvider, $authProvider) {
+
+        $locationProvider.html5Mode(true);
+
         $mdThemingProvider.theme('default')
             .primaryPalette('indigo', {
                 'default':'500',
