@@ -70,6 +70,10 @@ class DrugController extends Controller
             $drug_review = new DrugReview();
             $drug_review->drug_id = $id;
             $drug_review->user_id = $request['user']['sub'];
+
+            $user = User::find($request['user']['sub']);
+
+            $drug_review->age = $user->age;
             $drug_review->rating = $request->input('rating');
             $drug_review->comment = $request->input('comment');
             $drug_review->is_covered_by_insurance = $request->input('is_covered_by_insurance');
