@@ -17,4 +17,7 @@ else
   vendor/bin/phpunit --coverage-text
 fi
 
+./node_modules/phantomjs/bin/phantomjs --webdriver=4444 2>&1 > storage/logs/phantom.log &
+gulp phantom
+
 exit 0
