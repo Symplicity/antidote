@@ -13,7 +13,7 @@ class AddDrugLabel extends Migration
     public function up()
     {
         Schema::table('drugs', function (Blueprint $table) {
-            $table->string('label');
+            $table->string('label')->default('');
             $table->string('description')->nullable();
         });
     }
