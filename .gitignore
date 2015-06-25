@@ -9,3 +9,8 @@ public/**/*.css
 public/styles/*.css
 public/styles/*.css.map
 clover.xml
+deployment/**/*.crt
+deployment/**/*.key
+docker-compose.yml
+certs/*.crt
+certs/*.key
