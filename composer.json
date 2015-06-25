@@ -10,6 +10,7 @@
         "guzzlehttp/guzzle": "~6.0.1",
         "firebase/php-jwt": "^2.1",
         "fzaninotto/faker": "^1.5.0",
+        "doctrine/dbal": "^2.5",
         "illuminate/mail": "^5.1"
     },
     "require-dev": {
