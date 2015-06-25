@@ -28,11 +28,15 @@
     });
 
     describe('DrugsViewCtrl', function() {
-        it('should show call drugs service to get the record', inject(function($controller) {
+        it('should show call drugs service to get the record', inject(function($controller, $rootScope) {
             var returnData = {id: 2};
             httpBackend.expectGET('/api/drugs/2').respond(returnData);
 
-            var vm = $controller('DrugsViewCtrl', {$stateParams: {id: 2}});
+            var scope = $rootScope.$new();
+            var vm = $controller('DrugsViewCtrl', {
+                $stateParams: {id: 2},
+                $scope: scope
+            });
 
             httpBackend.flush();
             expect(vm.drug.id).toEqual(2);
