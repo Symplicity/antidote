@@ -8,9 +8,9 @@
     /** @ngInject */
     function ForgotPasswordCtrl($mdToast, Password) {
         this.forgot = function() {
-            Password.forgotPassword({'email': this.email})
-                .then(function() {
-                    showDefaultToast('Email has been sent');
+            Password.forgotPassword({'username': this.username})
+                .then(function(response) {
+                    showDefaultToast(response.data.message);
                 })
                 .catch(function(response) {
                     showDefaultToast(response.data.message);
