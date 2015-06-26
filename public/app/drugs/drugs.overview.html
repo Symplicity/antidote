@@ -7,7 +7,7 @@
                 <h4>Effectiveness</h4>
             </md-toolbar>
             <md-card-content>
-                <span class="percentage" style="font-size:56px;">70%</span>
+                <span class="percentage">70%</span>
                 <p>70% of people found Advil effective</p>               
             </md-card-content>
             <div class="md-actions" layout="row" layout-align="end center">
@@ -21,9 +21,9 @@
                 <h4>Side Effects</h4>
             </md-toolbar>
             <md-card-content ng-if="drugsView.drug.side_effects.length > 0">
-			  <ul ng-repeat="side_effect in drugsView.drug.side_effects">
-				<li>{{::side_effect.value}}</li>
-			  </ul>
+                <ul ng-repeat="side_effect in drugsView.drug.side_effects">
+                    <li>{{::side_effect.value}}</li>
+                </ul>
             </md-card-content>
              <div class="md-actions" layout="row" layout-align="end center">
                 <md-button class="md-accent">STATS</md-button>
@@ -36,7 +36,7 @@
                 <h4>Insurance</h4>
             </md-toolbar>
             <md-card-content>
-                <span class="percentage" style="font-size:56px;">30%</span>
+                <span class="percentage">30%</span>
                 <p>30% of people found Advil effective</p>
             </md-card-content>
              <div class="md-actions" layout="row" layout-align="end center">
@@ -52,53 +52,64 @@
             <h4>Reviews</h4>
         </md-toolbar>
         <md-card-content>
-            <div layout="row" layout-wrap layout-align-sm="center center">
-                <div flex="10" flex-sm="30" flex-md="15" class="column-padding health-state">
-                    <md-icon class="md-tag-faces" md-svg-src="/images/icons/md-tag-faces.svg"></md-icon>
+            <div layout="row" layout-sm="column"  layout-align-sm="center center">
+                
+                <div flex-gt-md="10" flex-md="15" flex-sm class="health-state">
+                    <md-icon class="md-icon-big">mood</md-icon>
                 </div>
-                <div flex="15" flex-sm="60" class="column-padding health-state">
+                <div flex-gt-md="15" flex-md="25" flex-sm class="health-state">
                     <p class="bold">"Effective" <br /> Female, 30</p>
                 </div>
-                <div flex="60" flex-sm="100" flex-md="45" class="column-padding">
+                <div flex>
                     <p>"Taking in the morning or afternoon with an hour of two for relax before takes effect. If you have ocular/eye problems/pains you will feel in 10 minutes that your whole body starts to relax but keep away from computers, tv and so."</p>
                 </div>
-
-                <div flex-lg="15" flex-sm="90">
-                    <div class="md-vote">
-                        <span class="vote-up">
-                        <md-icon md-svg-src="/images/icons/md-thumb-up.svg"></md-icon>
-                        <p>86</p>
-                        </span>
-                        <span class="vote-down">
-                        <md-icon md-svg-src="/images/icons/md-thumb-down.svg"></md-icon>                        
-                        <p>12</p>
-                        </span>
+                <div layout="row" layout-align="center center" flex-gt-md="25" flex>
+                    <div class="md-vote" layout="column" layout-align="center center" flex>                           
+                        <a href="#">
+                            <span class="vote-up">
+                                <md-icon class="vote-up md-icon-big">thumb_up</md-icon>
+                                <p>86</p>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="md-vote" layout="column" layout-align="center center" flex>
+                        <a href="#">
+                            <span class="vote-down">
+                                <md-icon class="vote-down md-icon-big">thumb_down</md-icon>
+                                <p>86</p>
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
-            <br />
             <md-divider ng-if="!$last"></md-divider>
-             <div layout="row" layout-wrap layout-align-sm="center center">
-                <div flex="10" flex-sm="30" flex-md="15" class="column-padding health-state">
-                    <md-icon class="md-tag-faces" md-svg-src="/images/icons/md-tag-faces.svg"></md-icon>
+             <div layout="row" layout-sm="column"  layout-align-sm="center center">
+                
+                <div flex-gt-md="10" flex-md="15" flex-sm class="health-state">
+                    <md-icon class="md-icon-big">mood</md-icon>
                 </div>
-                <div flex="15" flex-sm="60" class="column-padding health-state">
+                <div flex-gt-md="15" flex-md="25" flex-sm class="health-state">
                     <p class="bold">"Effective" <br /> Female, 30</p>
                 </div>
-                <div flex="60" flex-sm="100" flex-md="45" class="column-padding">
+                <div flex>
                     <p>"Taking in the morning or afternoon with an hour of two for relax before takes effect. If you have ocular/eye problems/pains you will feel in 10 minutes that your whole body starts to relax but keep away from computers, tv and so."</p>
                 </div>
-
-                <div flex-lg="15" flex-sm="90">
-                    <div class="md-vote">
-                        <span class="vote-up">
-                        <md-icon md-svg-src="/images/icons/md-thumb-up.svg"></md-icon>
-                        <p>86</p>
-                        </span>
-                        <span class="vote-down">
-                        <md-icon md-svg-src="/images/icons/md-thumb-down.svg"></md-icon>                        
-                        <p>12</p>
-                        </span>
+                <div layout="row" layout-align="center center" flex-gt-md="25" flex>
+                    <div class="md-vote" layout="column" layout-align="center center" flex>                           
+                        <a href="#">
+                            <span class="vote-up">
+                                <md-icon class="vote-up md-icon-big">thumb_up</md-icon>
+                                <p>86</p>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="md-vote" layout="column" layout-align="center center" flex>
+                        <a href="#">
+                            <span class="vote-down">
+                                <md-icon class="vote-down md-icon-big">thumb_down</md-icon>
+                                <p>86</p>
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>

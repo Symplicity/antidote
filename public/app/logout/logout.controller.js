@@ -15,7 +15,7 @@
                 $mdToast.show(
                     $mdToast.simple()
                         .content('You have been logged out')
-                        .position('bottom right')
+                        .position('top right')
                         .hideDelay(3000)
                 );
 

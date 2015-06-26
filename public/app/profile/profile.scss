@@ -2,7 +2,7 @@
     background-color: $md-primary;
 
     md-icon{
-        color: #fff;
+        color: #FFFFFF;
     }
 }
 
@@ -10,8 +10,8 @@
 .md-account-info {
     margin: 0 auto;
     padding: 25px;
-    background-color:#3F51B5;
-    color: #E8EAF6;
+    background-color:$md-primary;
+    color: $md-primary-light;
 
     h1 {
         font-weight: 500;

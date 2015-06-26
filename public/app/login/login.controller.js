@@ -22,7 +22,7 @@
             $mdToast.show(
                 $mdToast.simple()
                     .content('You have successfully logged in')
-                    .position('bottom right')
+                    .position('top right')
                     .hideDelay(3000)
             );
         }
@@ -31,7 +31,7 @@
             $mdToast.show(
                 $mdToast.simple()
                     .content(response.data ? response.data.message : response)
-                    .position('bottom right')
+                    .position('top right')
                     .hideDelay(3000)
             );
         }
