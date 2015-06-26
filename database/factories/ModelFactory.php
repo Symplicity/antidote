@@ -27,7 +27,18 @@ $factory->define(App\Drug::class, function (Faker\Generator $faker) {
         'description' => $faker->text(250),
         'rxcui' => $faker->ean8(),
         'generic' => ucfirst($faker->word()),
-        'drug_forms' => [ucfirst($faker->word()), ucfirst($faker->word())]
+        'drug_forms' => [ucfirst($faker->word()), ucfirst($faker->word())],
+        'generic_id' => $faker->numberBetween(1, 50),
+        'indications' => [$faker->word(), $faker->word()],
+        'prescription_type' => $faker->word(),
+        'recalls' => [
+            [
+                'number' => $faker->ean8(),
+                'date' => $faker->date($format = 'Ymd', $max = 'now'), // '20140827'
+                'recall' => $faker->text(250),
+                'lots' => 'Lot Number: ' . $faker->ean8() . ', Exp ' . $faker->date($format = 'm / d / Y', $max = 'now')//9 / 30 / 2014'
+            ]
+        ]
     ];
 });
 
