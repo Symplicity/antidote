@@ -21,21 +21,25 @@ class DrugController extends Controller
 
     public function index(Request $request)
     {
-        $limit = $this->getLimit($request);
+        if (empty($request['autocomplete-term'])) {
+            $limit = $this->getLimit($request);
 
-        $drugs = Drug::with('sideEffects');
+            $drugs = Drug::with('sideEffects');
 
-        if ($keywords = $request['keywords']) {
-            $drugs = $drugs->where('label', 'LIKE', '%' . $keywords . '%')->orWhere('description', 'LIKE', '%' . $keywords . '%');
+            if ($keywords = $request['keywords']) {
+                $drugs = $drugs->where('label', 'LIKE', '%' . $keywords . '%')->orWhere('description', 'LIKE', '%' . $keywords . '%');
+            }
+
+            if ($alpha = $request['alpha']) {
+                $drugs = $drugs->where('label', 'LIKE', $alpha . '%');
+            }
+
+            $drugs = $drugs->orderBy('label', 'ASC')->paginate($limit);
+
+            return $drugs;
+        } else {
+            return Drug::select('id', 'label', 'generic')->where('label', 'LIKE', '%' . $request['autocomplete-term'] . '%')->get('label', 'id');
         }
-
-        if ($alpha = $request['alpha']) {
-            $drugs = $drugs->where('label', 'LIKE', $alpha . '%');
-        }
-
-        $drugs = $drugs->orderBy('label', 'ASC')->paginate($limit);
-
-        return $drugs;
     }
 
     /**
