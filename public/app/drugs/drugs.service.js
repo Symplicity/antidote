@@ -25,6 +25,10 @@
                 },
                 query: {
                     method: 'GET'
+                },
+                queryAutocomplete: {
+                    method: 'GET',
+                    isArray: true
                 }
             }
         );
