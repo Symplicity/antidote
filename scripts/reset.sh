@@ -6,7 +6,7 @@ if [ "${APP_ROOT}" ]; then
   cd "${APP_ROOT}"
 fi
 
-composer install --prefer-source --no-interaction
+composer install --prefer-dist --no-interaction
 
 ./artisan migrate:reset
 ./artisan migrate

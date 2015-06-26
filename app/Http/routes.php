@@ -27,7 +27,7 @@ $app->group(['prefix' => 'api'],
         $app->put('users/me', ['middleware' => 'auth', 'uses' => 'App\Http\Controllers\UserController@updateUser']);
 
         $app->get('drugs', 'App\Http\Controllers\DrugController@index');
-        $app->get('drugs/{ndc}', 'App\Http\Controllers\DrugController@show');
+        $app->get('drugs/{id}', 'App\Http\Controllers\DrugController@show');
         $app->get('drugs/{id}/reviews', 'App\Http\Controllers\DrugController@getReviews');
         $app->post('drugs/{id}/reviews', ['middleware' => 'auth', 'uses' => 'App\Http\Controllers\DrugController@addReview']);
 
