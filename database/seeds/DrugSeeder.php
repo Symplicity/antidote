@@ -73,7 +73,7 @@ class DrugSeeder extends Seeder
                             $picks[] = $side_effect_map[trim(strtolower($side_effect))];
                         }
                     }
-                    $drug->sideEffects()->sync($alts);
+                    $drug->sideEffects()->sync($picks);
                 }
             }
         } else {
