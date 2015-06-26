@@ -23,7 +23,7 @@ class User extends Model
      *
      * @var array
      */
-    protected $hidden = ['age', 'email', 'password', 'reset_password_token', 'reset_password_token_expiration'];
+    protected $hidden = ['email', 'password', 'reset_password_token', 'reset_password_token_expiration'];
 
     public function reviews()
     {
@@ -49,6 +49,9 @@ class User extends Model
 
     public function getAgeAttribute($value)
     {
+        if (is_scalar($value)) {
+            $value = new DateTime($value);
+        }
         $age = $value->diff(new DateTime);
         return $age->y;
     }
