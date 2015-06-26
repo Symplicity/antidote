@@ -29,6 +29,10 @@
                 queryAutocomplete: {
                     method: 'GET',
                     isArray: true
+                },
+                getAlternatives: {
+                    method: 'GET',
+                    url: '/api/drugs/:id/alternatives'
                 }
             }
         );
