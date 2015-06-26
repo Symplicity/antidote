@@ -6,7 +6,7 @@
         .controller('LogoutCtrl', LogoutCtrl);
 
     /** @ngInject */
-    function LogoutCtrl($mdToast, $auth) {
+    function LogoutCtrl($mdToast, $auth, $state) {
         if (!$auth.isAuthenticated()) {
             return;
         }
@@ -18,6 +18,8 @@
                         .position('bottom right')
                         .hideDelay(3000)
                 );
+
+                $state.go('home');
             });
     }
 })();
