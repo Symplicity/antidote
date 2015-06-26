@@ -24,6 +24,5 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
     public function setupDatabase()
     {
         Artisan::call('migrate:refresh');
-        Artisan::call('db:seed');
     }
 }
