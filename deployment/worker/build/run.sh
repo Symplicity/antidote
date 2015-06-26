@@ -58,6 +58,10 @@ else
   unzip /tmp/certs.zip -d /var/www/certs/
 fi
 
+if [ -z "$SSH_KEY" ]; then
+  echo $SSH_KEY > /root/.ssh/id_rsa
+fi
+
 if [ -z "$GITREPO_URL" ]; then
   echo "Missing \sGITREPO_URL"
   echo "You have to have some code to checkout!"
@@ -65,9 +69,14 @@ if [ -z "$GITREPO_URL" ]; then
 else
   touch /root/.ssh/known_hosts
   ssh-keyscan github.com >> /root/.ssh/known_hosts
-  git clone $GITREPO_URL /tmp/REPO
-  cd /tmp/REPO
-  unzip dist.zip -d /var/www
+  git clone $GITREPO_URL /var/www
+  cd /var/www
+  if [ -z "$GITREPO_BRANCH" ]; then
+    ## If git branch isn't there then we are just going to assume master branch
+    git checkout $GITBRANCH_REPO
+  fi
+  unzip dist.zip -q -d /var/www
+  cp /var/www/deployment/web/build/env /var/www/.env
 fi
 
 sed -i "s/ANTIDOTE_DB_PASS/$ANTIDOTE_DB_PASS/" /var/www/.env

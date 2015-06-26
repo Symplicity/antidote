@@ -66,6 +66,8 @@ environment:
   - FRONTEND_PORT=80
   - MAXCONN=4096
   - MODE=http
+  - 'SSL_BIND_CIPHERS=ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS'
+  - 'SSL_BIND_OPTIONS=no-sslv3 no-tls-tickets'
   - 'TIMEOUT=connect 5000,client 50000,server 500000'
   - 'OPTION=redispatch,httplog,dontlognull,forwardfor'
 ```
