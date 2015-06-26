@@ -8,12 +8,12 @@
 <div class="drugs-tabs-bg md-whiteframe-z1 ng-scope">
     <div class="container">
         <ul>
-            <li ng-repeat="letter in drugsList.letters" ui-sref="drugs.list({'alpha':'{{letter}}'})">{{letter}}</li>
+            <li ng-repeat="letter in drugsList.letters" ng-class="drugsList.getAlphabetFilterClass('{{letter}}')" ui-sref="drugs.list({'alpha':'{{letter}}'})">{{letter}}</li>
         </ul>
     </div>
 </div>   
     <div class="md-drugs container">
-        <p class="md-display-3">A</p>
+        <p class="md-display-3">{{drugsList.getAlphabetLetter()}}</p>
         <p>
            <span ng-if="drug.label" ng-repeat="drug in drugsList.drugs.data">
                <a ui-sref="drugs.view.overview({id:drug.id})">{{drug.label}}</a>
