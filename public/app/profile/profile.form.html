@@ -115,12 +115,7 @@
                     <label>New Password</label>
                     <md-icon>lock</md-icon>
                     <input ng-model="profile.user.newPassword" type="password">
-                </md-input-container>
-                <md-input-container class="md-icon-float" ng-if="profile.user.providers.indexOf('local') !== -1">       
-                    <label>New Password</label>
-                    <md-icon></md-icon>
-                    <input ng-model="profile.user.oldPassword" type="password" name="oldPassword" required>
-                </md-input-container>   
+                </md-input-container>                
                 <div layout="row" layout-align="start center">
                     <md-select ng-model="profile.user.gender" placeholder="Choose Gender" class="dropdown-move">
                     <md-option value="m">Male</md-option>
@@ -130,6 +125,11 @@
                     <md-option ng-repeat="n in profile.range(18,80)" value="{{n}}">{{n}}</md-option>
                     </md-select>
                 </div>
+                <md-input-container class="md-icon-float">
+                    <label>Confirm the changes with your current password</label>
+                    <md-icon></md-icon>
+                    <input ng-model="profile.user.oldPassword" type="password" name="oldPassword" required>
+                </md-input-container>
                 <div layout="row" layout-align="end center">        
                     <md-button class="md-raised md-button md-accent" ng-disabled="profileForm.$invalid">Update Information</md-button>
                 </div> 
