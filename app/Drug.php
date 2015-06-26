@@ -22,6 +22,8 @@ class Drug extends Model
      */
     protected $casts = [
         'drug_forms' => 'array',
+        'indications' => 'array',
+        'recalls' => 'array'
     ];
 
     public function reviews()
