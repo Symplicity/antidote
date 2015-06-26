@@ -19,8 +19,16 @@
                     method: 'GET',
                     url: '/api/drugs/:id/reviews'
                 },
+                postReview: {
+                    method: 'POST',
+                    url: '/api/drugs/:id/reviews'
+                },
                 query: {
                     method: 'GET'
+                },
+                queryAutocomplete: {
+                    method: 'GET',
+                    isArray: true
                 }
             }
         );

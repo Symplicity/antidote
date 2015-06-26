@@ -4,13 +4,6 @@ use Illuminate\Support\Facades\Artisan;
 
 class TestCase extends Laravel\Lumen\Testing\TestCase
 {
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->setupDatabase();
-    }
-
     /**
      * Creates the application.
      *
