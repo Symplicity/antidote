@@ -1,7 +1,7 @@
 <md-toolbar ng-controller="NavbarCtrl as navbar" class="md-whiteframe-z2 md-primary md-hue-2">
     <div class="md-toolbar-tools md-nav-bar container" layout="row" layout-sm="column">
         <div layout="row" layout-align="start center">
-            <md-button ui-sref="home"><img src="images/logo.png" alt="Antidote logo" /></md-button>
+            <md-button ui-sref="home"><img src="images/logo.png" alt="Antidote logo" aria-label="Antidote logo" /></md-button>
         </div>
         <div layout="row" layout-align="end center" flex>
             <input type="search" ng-model="navbar.search.keywords" class="md-global-search" >
@@ -33,4 +33,4 @@
         </div>
 
 
-    </md-sidenav>    
+    </md-sidenav>
