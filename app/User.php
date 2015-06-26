@@ -42,9 +42,11 @@ class User extends Model
 
     public function setAgeAttribute($value)
     {
-        $now = new DateTime();
-        $rough_birth_date = $now->sub(new DateInterval("P" . $value . "Y"));
-        $this->attributes['age'] = $rough_birth_date;
+        if ($value) {
+            $now = new DateTime();
+            $rough_birth_date = $now->sub(new DateInterval("P" . $value . "Y"));
+            $this->attributes['age'] = $rough_birth_date;
+        }
     }
 
     public function getAgeAttribute($value)

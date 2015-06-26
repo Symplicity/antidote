@@ -85,10 +85,10 @@ class AuthController extends Controller
         $user = $this->findUserByToken($token);
 
         if (!$user) {
-            return redirect('/password/reset/invalid');
+            header('Location: ' .$this->getProtocol().'://'.$_SERVER['HTTP_HOST']. '/password/reset/invalid') ;
         }
 
-        return redirect('/password/reset/'.$token);
+        header('Location: ' .$this->getProtocol().'://'.$_SERVER['HTTP_HOST']. '/password/reset/'.$token) ;
     }
 
     public function updatePasswordFromResetToken($token, Request $request)
@@ -133,7 +133,7 @@ class AuthController extends Controller
         $user->save();
 
         $email = $user->email;
-        $protocol = isset($_SERVER["HTTPS"]) ? 'https' : 'http';
+        $protocol = $this->getProtocol();
         $site_url = $protocol . '://' . $_SERVER['HTTP_HOST'];
 
         $data = [
@@ -150,5 +150,10 @@ class AuthController extends Controller
         });
 
         return ['message' => 'An email has been sent to the provided email address with further instructions'];
+    }
+
+    private function getProtocol()
+    {
+        return isset($_SERVER["HTTPS"]) ? 'https' : 'http';
     }
 }
