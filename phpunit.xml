@@ -10,13 +10,16 @@
          stopOnFailure="false"
          syntaxCheck="false">
     <testsuites>
-        <testsuite name="Entic Test Suite">
+        <testsuite name="Antidote Test Suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
             <directory suffix=".php">app/</directory>
+            <exclude>
+                <directory suffix=".php">app/Console/Commands/</directory>
+            </exclude>
         </whitelist>
     </filter>
     <php>
