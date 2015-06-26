@@ -84,6 +84,7 @@ $app->register(App\Providers\OpenFDAServiceProvider::class);
 $app->register(App\Providers\DrugProvider::class);
 $app->register(App\Providers\UserProvider::class);
 $app->register(App\Providers\GuzzleServiceProvider::class);
+$app->register(App\Providers\CommandServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
