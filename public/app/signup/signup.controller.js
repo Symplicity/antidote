@@ -8,6 +8,8 @@
     /** @ngInject */
     function SignupCtrl($mdToast, $auth) {
 
+        this.user = {};
+
         this.authenticate = function(provider) {
             $auth.authenticate(provider)
                 .then(loginSuccessHandler)
@@ -16,11 +18,11 @@
 
         this.signup = function() {
             $auth.signup({
-                username: this.username,
-                email: this.email,
-                password: this.password,
-                gender: this.gender,
-                age: this.age
+                username: this.user.username,
+                email: this.user.email,
+                password: this.user.password,
+                gender: this.user.gender,
+                age: this.user.age
             }).catch(loginErrorHandler);
         };
 
@@ -52,5 +54,14 @@
                 );
             }
         }
+
+        this.range = function(min, max, step) {
+            step = step || 1;
+            var input = [];
+            for (var i = min; i <= max; i += step) {
+                input.push(i);
+            }
+            return input;
+        };
     }
 })();
