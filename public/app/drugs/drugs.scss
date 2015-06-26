@@ -41,10 +41,15 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
             &:hover{
                 border-bottom: 5px solid $md-secondary;
                 color: $md-secondary;
-                 margin-bottom: -5px;
-            }
+                margin-bottom: -5px;
+            }            
         }
     }
+}
+.active{
+    border-bottom: 5px solid $md-secondary;
+    color: $md-secondary;
+    margin-bottom: -5px;
 }
 .drugs-list-bg{
     background-color: $md-primary;
@@ -212,6 +217,9 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         width:33%;
     }
 
+    p:first-child{
+        text-transform: uppercase;
+    }
 }
 
 .vote-label{
