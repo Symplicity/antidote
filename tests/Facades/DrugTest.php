@@ -2,6 +2,13 @@
 
 class DrugFacadeTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->setupDatabase();
+    }
+
     public function testReviews()
     {
         $drug = App\Facades\Drug::create();
