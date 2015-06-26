@@ -1,0 +1,41 @@
+ .drugs-bg{
+    background-color: $md-primary;
+}
+
+.md-drug-info {
+    margin: 0 auto;
+    padding: 25px;
+    background-color:$md-primary;
+    color: $md-primary-light;
+
+    h1 {
+        font-weight: 500;
+        font-size: 40px;
+        margin: 0;
+    }
+
+    .md-drug-type {
+        height: 100%;
+        margin: 8px 15px;
+        padding: 5px;
+        font-size: 13px;
+        background-color: $md-primary-dark;
+        color: #FFFFFF;
+    }
+
+    .md-manufacturer-name {
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .md-accent.md-button{
+        color:#FFFFFF;
+
+    }
+
+    @media only screen and (max-width: 600px){
+        padding-left: 28px;
+        padding-right: 28px;
+    }
+
+}

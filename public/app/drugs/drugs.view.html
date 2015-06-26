@@ -12,10 +12,10 @@
             </div>
             <div flex="100" flex-sm="100" ng-if="drugsView.drug.indications.length > 0">
                 <p>
-                  <span class="md-body-2">Used for:</span>
-				  <span ng-repeat="indication in drugsView.drug.indications">
-					<span class="md-drug-effects md-whiteframe-z1">{{::indication}}</span>
-				  </span>
+                    <span class="md-body-2">Used for:</span>
+                    <span ng-repeat="indication in drugsView.drug.indications">
+                        <span class="md-raised md-pills">{{::indication}}</span>
+                    </span>
                 </p>      
             </div> 
     </md-content>
@@ -31,22 +31,4 @@
     </div>
 </div>
 
-
-<!--Filters-->
-<!-- <div>
-    <select>
-        <option value="" selected="selected">Choose Gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-    </select>
-    <select>
-        <option value="" selected="selected">Choose Age</option>
-        <option value="1">0-10</option>
-        <option value="2">11-20</option>
-        <option value="3">21-30</option>
-        <option value="4">31-40</option>
-        <option value="5">41-50</option>
-        <option value="6">51-60</option>
-    </select>
-</div> -->
 <ui-view/>
