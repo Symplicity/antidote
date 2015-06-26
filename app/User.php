@@ -54,7 +54,10 @@ class User extends Model
         if (is_scalar($value)) {
             $value = new DateTime($value);
         }
-        $age = $value->diff(new DateTime);
-        return $age->y;
+        if ($value) {
+            $age = $value->diff(new DateTime);
+            return $age->y;
+        }
+        return null;
     }
 }

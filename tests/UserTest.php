@@ -24,7 +24,8 @@ class UserTest extends TestCase
     public function getAges()
     {
         return [
-            [0, 0],
+            [null, null],
+            [0, null],
             [1, 1],
             ['21', 21],
             [34, 34],
@@ -45,8 +46,7 @@ class UserTest extends TestCase
     {
         return [
             [-1],
-            ['foo'],
-            [null]
+            ['foo']
         ];
     }
 
