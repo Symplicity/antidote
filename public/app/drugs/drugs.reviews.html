@@ -1,5 +1,5 @@
 <div class="content container ng-scope">
-    <md-content layout="row" class="reviews" layout-md="column" layout-sm="column">
+    <md-content layout="column" layout-gt-md="row" class="reviews" >
     <div flex="65" flex-md="100" flex-sm="100">
         <md-card ng-repeat="review in drugsReviews.reviews">
             <md-toolbar class="md-toolbar-tools">
@@ -8,22 +8,22 @@
             </md-toolbar>
             <md-card-content>
                 <div layout="row" layout-sm="column" layout-wrap>
-                    <div flex="15" flex-sm="100" flex-md="100" flex-gt-md="100" flex-gt-lg="15" class="column-padding health-state">
-                        <md-icon class="md-tag-faces" md-svg-src="/images/icons/md-tag-faces.svg"></md-icon>
+                    <div flex-gt-sm="15" flex class="health-state">
+                        <md-icon class="md-icon-big">mood</md-icon>
                         <p class="center">Effective 30 year old female</p>
                     </div>
 
-                    <div flex="65" flex-sm="100" flex-md="75" flex-gt-md="70" flex-gt-lg="65" class="column-padding">
+                    <div flex>
                         <p>"{{review.comment}}"</p>
-                        <section class="pill-row" layout="row" layout-sm="column"  layout-md="column" layout-gt-md="column" layout-align="center center" layout-align-md="start start" layout-align-gt-md="start start">
+                        <section class="pill-row" layout="column" layout-align-sm="center center" layout-align="start start">
                             <div flex>
                                 <span><strong>Side Effects:</strong></span>
                             </div>
                             <div flex>
-                                <span class="md-pills">Celexa</span>
-                                <span class="md-pills">Cymbalta</span>
-                                <span class="md-pills">Effexor</span>
-                                <span  class="md-pills">Lexapro</span>
+                                <span class="md-raised md-pills">Celexa</span>
+                                <span class="md-raised md-pills">Cymbalta</span>
+                                <span class="md-raised md-pills">Effexor</span>
+                                <span class="md-raised md-pills">Lexapro</span>
                             </div>
                         </section>
 
@@ -33,25 +33,22 @@
                         </ul>
                     </div>
 
-                    <div flex="20" flex-sm="100" flex-md="25" flex-gt-md="30" flex-gt-lg="20" class="column-padding">                        
-                        <p class="vote-label"><strong>Is this helpful?</strong></p>
-                        <div layout="row" layout-align-sm="center center" layout-align-lg="center center">
-                            <div class="md-vote">                           
-                                <a href="#">
-                                    <span class="vote-up">
-                                        <md-icon md-svg-src="/images/icons/md-thumb-up.svg"></md-icon>
-                                        <p>86</p>
-                                    </span>
-                                </a>
-                            </div>
-                            <div class="md-vote">
-                                <a href="#">
-                                    <span class="vote-down">
-                                        <md-icon md-svg-src="/images/icons/md-thumb-down.svg"></md-icon>
-                                        <p>86</p>
-                                    </span>
-                                </a>
-                            </div>
+                    <div layout="row" layout-align="center center" flex-gt-md="35" flex>
+                        <div class="md-vote" layout="column" layout-align="center center" flex>                           
+                            <a href="#">
+                                <span class="vote-up">
+                                    <md-icon class="vote-up md-icon-big">thumb_up</md-icon>
+                                    <p>86</p>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="md-vote" layout="column" layout-align="center center" flex>
+                            <a href="#">
+                                <span class="vote-down">
+                                    <md-icon class="vote-down md-icon-big">thumb_down</md-icon>
+                                    <p>86</p>
+                                </span>
+                            </a>
                         </div>
                     </div>
                 </div>

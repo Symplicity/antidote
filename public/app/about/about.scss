@@ -5,7 +5,7 @@ blockquote {
   quotes: "\201C""\201D";
 }
 blockquote:before {
-  color: #ccc;
+  color: #CCCCCC;
   content: open-quote;
   font-size: 4em;
   line-height: 0.1em;
@@ -13,7 +13,7 @@ blockquote:before {
   vertical-align: -0.4em;
 }
 blockquote:after {
-  color: #ccc;
+  color: #CCCCCC;
   content: open-quote;
   font-size: 4em;
   line-height: 0.1em;
@@ -27,6 +27,6 @@ blockquote p {
   height: 130px;
   margin: 0 auto;
   padding: 25px;
-  background-color: #3F51B5;
-  color: #E8EAF6;
+  background-color: $md-primary;
+  color: $md-primary-light;
 }
