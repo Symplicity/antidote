@@ -29,6 +29,7 @@ $app->group(['prefix' => 'api'],
         $app->get('drugs', 'App\Http\Controllers\DrugController@index');
         $app->get('drugs/{ndc}', 'App\Http\Controllers\DrugController@show');
         $app->get('drugs/{id}/reviews', 'App\Http\Controllers\DrugController@getReviews');
-        $app->post('drugs/{id}/reviews', 'App\Http\Controllers\DrugController@addReview');
+        $app->post('drugs/{id}/reviews', ['middleware' => 'auth', 'uses' => 'App\Http\Controllers\DrugController@addReview']);
+
         $app->get('drugs/{id}/alternatives', 'App\Http\Controllers\DrugController@getAlternatives');
     });
