@@ -43,7 +43,7 @@ class DrugSeeder extends Seeder
                 $data = json_decode($concept['data'], true);
                 $drug = Drug::where('rxcui', '=', $concept['rxcui'])->first();
 
-                if ($data['related'] && is_array($data['related'])) {
+                if (!empty($data['related']) && is_array($data['related'])) {
                     $related = $data['related'];
                     $rels = [];
                     foreach ($related as $related_drug_rxcui) {
@@ -54,7 +54,7 @@ class DrugSeeder extends Seeder
                     $drug->related()->sync($rels);
                 }
 
-                if ($data['alternatives'] && is_array($data['alternatives'])) {
+                if (!empty($data['alternatives']) && is_array($data['alternatives'])) {
                     $alternatives = $data['alternatives'];
                     $alts = [];
                     foreach ($alternatives as $alternative_drug_rxcui) {
@@ -65,7 +65,7 @@ class DrugSeeder extends Seeder
                     $drug->alternatives()->sync($alts);
                 }
 
-                if ($data['side_effects'] && is_array($data['side_effects'])) {
+                if (!empty($data['side_effects']) && is_array($data['side_effects'])) {
                     $side_effects = $data['side_effects'];
                     $picks = [];
                     foreach ($side_effects as $side_effect) {

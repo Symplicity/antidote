@@ -35,7 +35,8 @@ $factory->define(App\Drug::class, function (Faker\Generator $faker) {
             [
                 'number' => $faker->ean8(),
                 'date' => $faker->date($format = 'Ymd', $max = 'now'), // '20140827'
-                'recall' => $faker->text(250)
+                'recall' => $faker->text(250),
+                'lots' => 'Lot Number: ' . $faker->ean8() . ', Exp ' . $faker->date($format = 'm / d / Y', $max = 'now')//9 / 30 / 2014'
             ]
         ]
     ];
