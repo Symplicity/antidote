@@ -1,33 +1,19 @@
-md-card{
-    margin:25px;
-    margin-bottom: 25px !important;
-}
 md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
   color: $md-secondary;
   height: 100%;
 }
-.md-raised.md-pill{
-    text-transform: none;
-}
-.banner-medication{
-    height:130px;
-    margin: 0 auto;
-    padding: 25px;
-    background-color: #3F51B5;
-    color: #E8EAF6;
-}
-.drugs-bg{
-    background-color: $md-primary;
-}
+
 .drugs-tabs-bg{
     background-color: #FFF;
     max-height: 100%;
+    
     ul{
         margin-left: 0px;
         padding-left: 0px;
         display: inline-block;
         text-align: center;
         margin-bottom: 5px;
+    
         li{
             display: inline-block;
             height: 100%;
@@ -46,146 +32,32 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         }
     }
 }
-.active{
-    border-bottom: 5px solid $md-secondary;
-    color: $md-secondary;
-    margin-bottom: -5px;
-}
-.drugs-list-bg{
-    background-color: $md-primary;
-}
+
+
+
 .content{
     padding: 25px;
 }
 
-.material-icons.icon-large {
-    //font-size: 140px;
+.percentage{
+    font-size:56px;
 }
 
-.column-padding {
-    padding: 16px 16px 0;
-}
+.md-icon-big{
+    width:100px;
+    height:100px;
 
-.pill-row {
-    margin: 20px 0;
-}
-
-.reviews {
-
-    .md-tag-faces {
-        width: 100px;
-        height: 100px;
+    .material-icons{
+        font-size:100px;
     }
 
-    md-card md-card-content {
-        padding: 0;
-    }
+   @media only screen and (max-width: 1024px){
+        width:75px;
+        height:75px;
 
-    md-icon svg {
-        fill: $medium-gray;
-    }
-
-    .health-state {
-        padding-right: 25px;
-        text-align: center;
-    }
-}
-
-.md-vote {
-    text-align: center;
-
-    p { text-align: center; color: #666; }
-
-    md-icon {
-        height: auto;
-        width: auto;
-
-        svg {
-            margin-top: 18px;
-            margin-bottom: -15px;
-            width: 55px;
-            height: 55px;
+        .material-icons{
+            font-size:75px;
         }
-    }
-    span{
-        display: inline-block;
-        height: 75px;
-        width: 75px; 
-        margin-bottom: 40px;   
-    }
-}
-
-.vote-up{
-    &:hover{
-        md-icon svg{
-            fill: $md-secondary;
-        }
-        p{
-            color: $md-secondary;
-        }
-    }
-    &:active{
-        md-icon svg{
-            fill: #26a69a;
-        }
-    }
-}
-.vote-down{
-    &:hover{
-        md-icon svg{
-            fill: #e57373;
-        }
-        p{
-            color: #e57373;
-        }
-    }
-    &:active{
-        md-icon svg{
-            fill: #ef5350;
-        }
-    }
-}
-.md-drug-info {
-    margin: 0 auto;
-    padding: 25px;
-    background-color:#3F51B5;
-    color: #E8EAF6;
-
-    h1 {
-        font-weight: 500;
-        font-size: 40px;
-        margin: 0;
-    }
-
-    .md-drug-type {
-        height: 100%;
-        margin: 8px 15px;
-        padding: 5px;
-        font-size: 13px;
-        background-color: #1A237E;
-        color: #FFFFFF;
-    }
-
-    .md-manufacturer-name {
-        font-size: 14px;
-        margin: 0;
-    }
-
-    .md-accent.md-button{
-        color:#FFFFFF;
-
-    }
-
-    .md-drug-effects{
-        font-size: 12px;    
-        display: inline-block;
-        border: solid;
-        border-width: 2px;
-        border-radius: 15px;
-        padding: 1px 10px;
-        background-color: #4DB6AC;
-        border-color: #4DB6AC;
-        margin: 0 5px;
     }
 }
 
@@ -198,53 +70,60 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         border-width: 2px;
         border-radius: 15px;
         padding: 1px 10px;
-        background-color: #4DB6AC;
-        border-color: #4DB6AC;
-        margin: 5px;
+        background-color: $md-secondary;
+        border-color: $md-secondary;
+        margin: 5px 5px 0 0;
 }
 
-.md-drugs{
-    padding: 25px;
-    
-    .md-display-3{
-        margin: 10px 0;
-        font-weight:300;
-        color: #9E9E9E;
+.md-vote {
+    text-align: center;
+    padding:10px;
+    p { 
+        text-align: center; 
+        color: #666; 
     }
 
-    span{
-        display:inline-block;
-        width:33%;
-    }
+}
 
-    p:first-child{
-        text-transform: uppercase;
+.vote-up{
+    &:hover{
+        color: $md-secondary;
+
+        p{
+            color: $md-secondary;
+        }
+    }
+    &:active{
+        color: #26a69a;
+    }
+}
+
+.vote-down{
+    &:hover{
+        color: #e57373;
+        
+        p{
+            color: #e57373;
+        }
+    }
+    &:active{
+        color: #ef5350;
     }
 }
 
 .vote-label{
     text-align: center;
+
+    @media only screen and (max-width: 600px){
+        text-align: center;
+    }
+
 }
 
 .center{
     text-align: center;
 }
-/* BREAKPOINTS */
 
-@media only screen and (max-width: 599px){
-    .md-vote{
-        display: inline-block;
-    }      
-    .vote-label{
-        text-align: center;
-    }
-    .container{
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-    .md-drug-info{
-        padding-left: 28px;
-        padding-right: 28px;
-    }
+md-divider{
+    padding: 10px 0;
 }
-

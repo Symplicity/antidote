@@ -50,6 +50,11 @@
 		margin: 0px auto;
 		padding-left: 28px;
 		padding-right: 28px;
+
+        @media only screen and (max-width: 600px){
+            padding-left: 0px;
+            padding-right: 0px;
+        }
 	}
 
 	strong {
@@ -93,8 +98,21 @@
     	color:#FFF;
     }
 
-    md-card .md-actions{
-    	padding: 5px;
+    md-card {
+        margin:25px;
+        
+        .md-actions{
+    	   padding: 5px;
+        }
+    }
+    
+    md-toast{
+        background-color:white;
+        color:black;
+    }
+
+    md-toolbar md-icon {
+        margin: 0 10px 0 0;
     }
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject

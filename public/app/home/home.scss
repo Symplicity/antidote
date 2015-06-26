@@ -2,8 +2,8 @@
     height: 200px;
     margin: 0 auto;
     padding: 25px;
-    background-color:#3F51B5;
-    color: #E8EAF6;
+    background-color:$md-primary;
+    color: $md-primary-light;
 
     h1{
         text-align: center;
@@ -46,8 +46,8 @@
 
 .md-quote{
     margin-top: 50px;
-    color: #E8EAF6;
-    background-color:#1A237E;
+    color: $md-primary-light;
+    background-color:$md-primary-dark;
     text-align:center;
     padding-bottom: 20px;
 
