@@ -1,7 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
+
 class TestCase extends Laravel\Lumen\Testing\TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->setupDatabase();
+    }
+
     /**
      * Creates the application.
      *
@@ -14,6 +23,6 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
 
     public function setupDatabase()
     {
-        \Illuminate\Support\Facades\Artisan::call('migrate');
+        Artisan::call('migrate:refresh');
     }
 }
