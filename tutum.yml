@@ -1,0 +1,90 @@
+
+db:
+  image: 'mariadb:latest'
+  tags:
+    - prod
+    #- test # Uncomment this if test site and comment - prod 
+  environment:
+    - MYSQL_DATABASE=antidote
+    - MYSQL_PASSWORD=antidoteSecret
+    - MYSQL_ROOT_PASSWORD=rootSecret
+    - MYSQL_USER=antidote
+    - TERM=dumb
+lb:
+  image: 'tutum/haproxy:latest'
+  deployment_strategy: every_node
+  environment:
+    - BACKEND_PORT=80
+    - BALANCE=roundrobin
+    - FRONTEND_PORT=80
+    - MAXCONN=4096
+    - MODE=http
+    - 'TIMEOUT=connect 5000,client 50000,server 500000'
+    - 'OPTION=redispatch,httplog,dontlognull,forwardfor'
+  #### TO fix the SSL Cert, you need to run $(awk 1 ORS='\\n' ~/cert.pem) after you concat the key file and cert file. Read me say only one \ on the \n but you need two \ on the \n.
+    - 'SSL_CERT='
+  links:
+    - loggly
+    - web
+  ports:
+    - '80:80'
+    - '443:443'
+  restart: always
+  roles:
+    - global
+  tags:
+    - prod
+    #- test  #Uncomment if test site and comment - prod
+loggly:
+  tags:
+    - prod
+    #- test  #Uncomment if test site and comment - prod
+  image: 'sendgridlabs/loggly-docker:latest'
+  environment:
+    - TAG=
+    - TOKEN=
+web:
+  tags:
+    - prod
+    #- test  #Uncomment if test site and comment - prod
+  image: 'symplicity/webserver:latest'
+  deployment_strategy: every_node
+  environment:
+    - ANTIDOTE_DB_HOST=db
+    - ANTIDOTE_DB_NAME=antidote
+    - ANTIDOTE_DB_PASS=antidoteSecret
+    - ANTIDOTE_DB_PORT=3306
+    - ANTIDOTE_DB_USER=antidote
+    - FDA_TOKEN=
+    - 'GITREPO_URL='
+    - MAILGUN_DOMAIN=
+    - MAILGUN_PASSWORD=
+    - MAILGUN_SECRET=
+    - MAILGUN_USERNAME=
+#    - TEST_SITE=yes ## Uncomment this if a test site
+  links:
+    - db
+    - loggly
+  target_num_containers: 4
+worker:
+  tags:
+    - prod
+    #- test  #Uncomment if test site and comment - prod
+  image: 'symplicity/worker:latest'
+  deployment_strategy: high_availability
+  environment:
+    - ANTIDOTE_DB_HOST=db
+    - ANTIDOTE_DB_NAME=antidote
+    - ANTIDOTE_DB_PASS=antidoteSecret
+    - ANTIDOTE_DB_PORT=3306
+    - ANTIDOTE_DB_USER=antidote
+    - FDA_TOKEN=
+    - 'GITREPO_URL='
+    - MAILGUN_DOMAIN=
+    - MAILGUN_PASSWORD=
+    - MAILGUN_SECRET=
+    - MAILGUN_USERNAME=
+#    - TEST_SITE=yes  ## Uncomment this if a test site.
+  links:
+    - db
+    - loggly

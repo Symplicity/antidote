@@ -51,3 +51,9 @@ $factory->define(App\DrugReview::class, function (Faker\Generator $faker) {
         'comment' => $faker->text(250)
     ];
 });
+
+$factory->define(App\DrugSideEffect::class, function (Faker\Generator $faker) {
+    return [
+        'value' => ucfirst($faker->unique()->word())
+    ];
+});
