@@ -60,5 +60,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ### Get code
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
-ADD build/certs /var/www/certs
-ADD build/env /var/www/.env
+ADD update.sh /update.sh
+RUN git clone https://github.com/moos3/arbeider.git /worker
+RUN mkdir /etc/service/worker
