@@ -21,6 +21,7 @@
 
         $authProvider.loginUrl = '/api/auth/login';
         $authProvider.signupUrl = '/api/auth/signup';
+        $authProvider.logoutRedirect = '/home';
     }
 
 })();
