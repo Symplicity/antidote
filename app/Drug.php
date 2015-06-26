@@ -8,6 +8,18 @@ class Drug extends Model
 {
     protected $table = 'drugs';
 
+    protected $fillable = [
+        'label',
+        'rxcui',
+        'generic',
+        'drug_forms',
+        'generic_id',
+        'indications',
+        'prescription_type',
+        'recalls',
+        'description'
+    ];
+
     /**
      * The attributes excluded from the model's JSON form.
      *
