@@ -84,7 +84,11 @@ sed -i "s/FDA_TOKEN/$FDA_TOKEN/" /var/www/.env
 cd /var/www
 if [[ ! -f /var/www/.dbcomplete ]];then
   logger 'Running PHP Artisan Migration'
-  php artisan migrate
+  if [ -z "$TEST_SITE" ]; then
+    php artisan migrate:refresh --seed
+  else
+    php artisan migrate
+  fi
   Logger 'Completed PHP Artisan Migration'
   touch /var/www/.dbcomplete
 else
