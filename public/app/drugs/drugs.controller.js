@@ -30,14 +30,14 @@
         }
 
         this.getAlphabetFilterClass = function(alphabet) {
-            if ($stateParams.alpha === alphabet){ 
-               return 'active';   
+            if ($stateParams.alpha === alphabet) {
+                return 'active';
             } else {
                 return '';
             }
         };
-        this.getAlphabetLetter = function(){
-            return $stateParams.alpha;   
+        this.getAlphabetLetter = function() {
+            return $stateParams.alpha;
         };
     }
 
@@ -85,7 +85,7 @@
     }
 
     /** @ngInject */
-    function DrugsReviewsCtrl(DrugsService, $stateParams, $http) {
+    function DrugsReviewsCtrl(DrugsService, $stateParams) {
         this.reviews = {};
         this.userReview = {};
         var that = this;
@@ -94,7 +94,7 @@
 
         this.test = function(review) {
             DrugsService.postReview({id: $stateParams.id}, review);
-        }
+        };
 
         function activate() {
             DrugsService.getReviews({id: $stateParams.id}).$promise.then(function(reviews) {
