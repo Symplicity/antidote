@@ -71,7 +71,7 @@ class AuthController extends Controller
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
             $user->gender = $request->input('gender');
-            $user->age = $request->input('email');
+            $user->age = $request->input('age');
             $user->save();
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 400);
