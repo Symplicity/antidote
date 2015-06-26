@@ -8,7 +8,5 @@
     /** @ngInject */
     function HomeCtrl() {
 
-        this.search = {};
-        this.search.keywords = '';
     }
 })();
