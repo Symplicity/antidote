@@ -13,9 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        Config::set('database.fetch', PDO::FETCH_ASSOC);
-
-        $this->call('PicklistSeeder');
         $this->call('DrugSeeder');
         $this->call('UserSeeder');
         $this->call('DrugReviewSeeder');
