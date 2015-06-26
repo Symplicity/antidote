@@ -30,16 +30,15 @@
         }
 
         this.getAlphabetFilterClass = function(alphabet) {
-            console.log(alphabet);
-            if($stateParams.alpha === alphabet) { 
+            if ($stateParams.alpha === alphabet){ 
                return 'active';   
-            }else{
+            } else {
                 return '';
             }
-        }
-        this.getAlphabetLetter = function() {
-               return $stateParams.alpha;   
-        }
+        };
+        this.getAlphabetLetter = function(){
+            return $stateParams.alpha;   
+        };
     }
 
     /** @ngInject */
