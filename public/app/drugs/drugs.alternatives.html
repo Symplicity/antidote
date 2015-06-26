@@ -2,12 +2,11 @@
 <md-content layout="row">
     <md-card flex>
         <md-toolbar class="md-toolbar-tools">
-            <md-icon>assignment</md-icon>
             <h4>Advil</h4>
         </md-toolbar>
         <md-card-content>
-            <div layout="row" layout-wrap>
-                <div flex="80">
+            <div layout-gt-md="row" layout="column" flex layout-wrap>
+                <div flex>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 
                     <section class="pill-row" layout="row" layout-sm="column" layout-align="start center">
@@ -17,15 +16,16 @@
                         <md-button class="md-raised md-pill">Discomfort</md-button>
                     </section>
                 </div>
+                <div flex="33" layout="row" layout-sm="column" layout-align="center center">
+                    <div flex layout="row" layout-align="center center">
+                        <p class="percentge">70%</p>
+                        <p>Effectiveness</p>
+                    </div>
 
-                <div flex="10" layout="row" layout-align="center center">
-                    <p class="percentge">70%</p>
-                    <p>Effectiveness</p>
-                </div>
-
-                <div flex="10" layout="row" layout-align="center center">
-                    <p class="percentge">30%</p>
-                    <p>Insurance</p>
+                    <div flex layout="row" layout-align="center center">
+                        <p class="percentge">30%</p>
+                        <p>Insurance</p>
+                    </div>
                 </div>
             </div>
         </md-card-content>
