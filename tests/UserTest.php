@@ -2,6 +2,13 @@
 
 class UserTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->setupDatabase();
+    }
+
     /**
      * @dataProvider getAges
      */
