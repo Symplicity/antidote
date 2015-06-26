@@ -85,11 +85,16 @@
     }
 
     /** @ngInject */
-    function DrugsReviewsCtrl(DrugsService, $stateParams) {
+    function DrugsReviewsCtrl(DrugsService, $stateParams, $http) {
         this.reviews = {};
+        this.userReview = {};
         var that = this;
 
         activate();
+
+        this.test = function(review) {
+            DrugsService.postReview({id: $stateParams.id}, review);
+        }
 
         function activate() {
             DrugsService.getReviews({id: $stateParams.id}).$promise.then(function(reviews) {
