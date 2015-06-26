@@ -10,13 +10,13 @@
             <div flex="70" flex-sm="100">
                 <p>{{drugsView.drug.description}}</p>    
             </div>
-            <div flex="100" flex-sm="100">
+            <div flex="100" flex-sm="100" ng-if="drugsView.drug.indications.length > 0">
                 <p>
-                    <span class="md-body-2">Used for:</span>
-                    <span class="md-raised md-pills">Pain</span>
-                    <span class="md-raised md-pills">Fever</span>
-                    <span class="md-raised md-pills">Headache</span>
-                    <span class="md-raised md-pills">Migraine</span>
+
+                  <span class="md-body-2">Used for:</span>
+				  <span ng-repeat="indication in drugsView.drug.indications">
+					<span class="md-raised md-pills">{{indication}}</span>
+				  </span>
                 </p>      
             </div> 
     </md-content>
