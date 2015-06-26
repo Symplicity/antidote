@@ -4,7 +4,7 @@ if [ "${APP_ROOT}" ]; then
   cd "${APP_ROOT}"
 fi
 
-composer install --prefer-source --no-interaction
+composer install --prefer-dist --no-interaction
 
 # In CI we use actual env variables, just make a blank file
 touch .env
