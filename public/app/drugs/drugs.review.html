@@ -1,6 +1,6 @@
     <md-card layout-padding>
       <md-card-content layout-align="column">
-        <form name="review-form">
+        <form name="review-form" no-validation ng-submit="drugsReviews.test(drugsReviews.userReview)">
             <h2 class="md-title">Have you taken this? Tell us how you felt about it.</h2>
             <p>Please help the community by telling us more details</p>
             <md-input-container>
@@ -25,9 +25,14 @@
             <md-input-container>
             <p>Did your insurance provide coverage?</p>
             <div layout="row">
-                <md-radio-group ng-model="data.group1">
-                  <md-radio-button value="Yes">Yes</md-radio-button>
-                  <md-radio-button value="No"> No </md-radio-button>
+                <md-radio-group ng-model="drugsReviews.userReview.insurance_coverage">
+                  <md-radio-button value="1">Yes</md-radio-button>
+                  <md-radio-button value="0"> No </md-radio-button>
+                </md-radio-group>
+
+                 <md-radio-group ng-model="drugsReviews.userReview.rating">
+                  <md-radio-button value="1">Yes</md-radio-button>
+                  <md-radio-button value="2"> No </md-radio-button>
                 </md-radio-group>
             </div>  
             </md-input-container>
@@ -35,17 +40,19 @@
             <div layout="row">
                  <md-input-container>
                     <label>Share any other details about the medication, or coverage experience</label>
-                    <textarea name="bio" ng-model="biography" required md-maxlength="150"></textarea>
-                    <div ng-messages="userForm.bio.$error" ng-show="userForm.bio.$dirty">
+                    <textarea name="comment" ng-model="drugsReviews.userReview.comment" required md-maxlength="150"></textarea>
+                    <div ng-messages="userForm.comment.$error" ng-show="userForm.comment.$dirty">
                       <div ng-message="required">This is required!</div>
                       <div ng-message="md-maxlength">That's too long!</div>
                     </div>
                   </md-input-container>
             </div>
+
+            <div class="md-actions" layout="row" layout-align="end center">
+                <md-button>Clear</md-button>
+                <md-button class="md-accent">Submit</md-button>
+            </div>
         </form>    
       </md-card-content>
-      <div class="md-actions" layout="row" layout-align="end center">
-        <md-button>Clear</md-button>
-        <md-button class="md-accent">Submit</md-button>
-      </div>
+     
     </md-card>
