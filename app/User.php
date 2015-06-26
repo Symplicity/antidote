@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Crypt;
+use DateTime;
+use DateInterval;
 
 class User extends Model
 {
@@ -14,14 +16,14 @@ class User extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['username', 'email', 'password'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'reset_password_token', 'reset_password_token_expiration', 'remember_token'];
+    protected $hidden = ['password', 'reset_password_token', 'reset_password_token_expiration'];
 
     public function reviews()
     {
@@ -36,5 +38,18 @@ class User extends Model
     public function getEmailAttribute($value)
     {
         return Crypt::decrypt($value);
+    }
+
+    public function setAgeAttribute($value)
+    {
+        $now = new DateTime();
+        $rough_birth_date = $now->sub(new DateInterval("P" . $value . "Y"));
+        $this->attributes['age'] = $rough_birth_date;
+    }
+
+    public function getAgeAttribute($value)
+    {
+        $age = $value->diff(new DateTime);
+        return $age->y;
     }
 }
