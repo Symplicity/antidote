@@ -5,12 +5,13 @@
                 <p><md-icon>person</md-icon> test@test.com | Female, 32</p>     
             </div>
             <div flex="10" flex-sm="30">
-                <md-button class="md-accent md-raised md-button">Review it</md-button>
+                <!--<md-button class="md-accent md-raised md-button">EDIT PROFILE</md-button>-->
             </div>
     </md-content>
 </div>
     <div class="container">
-    <md-content layout="row" class="reviews" layout-padding layout-md="column">
+    <md-content layout="column" class="reviews" layout-padding layout-md="column">
+    <div layout="row">
     <div flex="75" flex-md="100">
             <md-card>
                 <md-toolbar class="md-toolbar-tools">
@@ -88,46 +89,45 @@
             </md-card-content>
         </md-card>
         </div>
-    </md-content>
+    </div>
+<md-card>
+    <md-toolbar class="md-toolbar-tools">
+        <md-icon>question_answer</md-icon>
+        <h4>Update your Profile</h4>
+    </md-toolbar>
+    <md-card-content class="drug-padding">
+        <div layout="row" layout-wrap>
+            <form flex method="post" name="profileForm" ng-submit="profile.updateProfile()">
+        <md-input-container class="md-icon-float">
+            <label>Name</label>
+            <md-icon>person</md-icon>
+            <input ng-model="profile.user.name">
+        </md-input-container>
+        <md-input-container class="md-icon-float">
+            <label>Email Address</label>
+            <md-icon>email</md-icon>
+            <input ng-model="profile.user.email" type="email">
+        </md-input-container>
+        <md-input-container class="md-icon-float">
+            <label>New Password</label>
+            <md-icon>lock</md-icon>
+            <input ng-model="profile.user.newPassword" type="password">
+        </md-input-container>
+        <md-input-container class="md-icon-float" ng-if="profile.user.providers.indexOf('local') !== -1">       
+            <label>New Password</label>
+            <md-icon></md-icon>
+            <input ng-model="profile.user.oldPassword" type="password" name="oldPassword" required>
+        </md-input-container>   
+            <div layout="row" layout-align="end center">        
+            <md-button class="md-raised md-button md-accent" ng-disabled="profileForm.$invalid">Update Information</md-button></div>
+        </div>
+    </form>                 
+        </div>
+    </md-card-content>
+</md-card>   
+
+</md-content>
 </div>
 </md-content>
 
 
-
-<md-content layout-margin layout="column" class="center-form">
-    <section class="md-whiteframe-z1" flex>
-        <md-toolbar class="mute-toolbar">
-            <div class="md-toolbar-tools">
-                <h3>Update your profile</h3>
-            </div>
-        </md-toolbar>
-        <md-content layout-padding layput-margin layout="row">
-            <form flex method="post" name="profileForm" ng-submit="profile.updateProfile()">
-                <md-input-container class="md-icon-float">
-                    <label>Name</label>
-                    <md-icon>person</md-icon>
-                    <input ng-model="profile.user.name">
-                </md-input-container>
-                <md-input-container class="md-icon-float">
-                    <label>Email Address</label>
-                    <md-icon>email</md-icon>
-                    <input ng-model="profile.user.email" type="email">
-                </md-input-container>
-                <md-input-container class="md-icon-float">
-                    <label>New Password</label>
-                    <md-icon>lock</md-icon>
-                    <input ng-model="profile.user.newPassword" type="password">
-                </md-input-container>
-                <div layout="row">
-                    <div flex>
-                        <md-input-container ng-if="profile.user.providers.indexOf('local') !== -1">
-                            <label>Confirm the changes with your current password</label>
-                            <input ng-model="profile.user.oldPassword" type="password" name="oldPassword" required>
-                        </md-input-container>
-                    </div>
-                    <md-button class="btn-primary" ng-disabled="profileForm.$invalid">Update Information</md-button>
-                </div>
-            </form>
-        </md-content>
-    </section>
-</md-content>
