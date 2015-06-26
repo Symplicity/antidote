@@ -146,8 +146,7 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         "created_at": "2015-06-23 02:57:19",
                         "user": {
                             "id": 3,
-                            "name": "Miss Kavon Murray IV",
-                            "email": "Dedric91@Hahn.com",
+                            "username": "dedric",
                             "created_at": "2015-06-22 18:49:02",
                             "updated_at": "2015-06-22 18:49:02",
                             "age": 23,
@@ -186,8 +185,7 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         "created_at": "2015-06-23 02:57:19",
                         "user": {
                             "id": 3,
-                            "name": "Miss Kavon Murray IV",
-                            "email": "Dedric91@Hahn.com",
+                            "username": "dedric",
                             "created_at": "2015-06-22 18:49:02",
                             "updated_at": "2015-06-22 18:49:02",
                             "age": 23,
@@ -237,9 +235,8 @@ Create a new drug review
 
 + Parameters
 
-    + rating: `1` (required, integer) - The rating the user gave the drug either 1, 2, 3 - 1 is best
-    + is_covered_by_insurance: `1` (boolean, required) - Was the drug covered by insurance?
-          + Default: `0`
+    + rating: `3` (required, integer) - The rating the user gave the drug either 1, 2, 3 - 1 is best
+    + is_covered_by_insurance: `1` (integer, required) - Was the drug covered by insurance?
     + comment: `My pain has subsided considerably since I started taking this.` (text, optional) - User comments
     + side_effects: `[1,2,3]` (array, optional) - Side effects experienced by the user
 
