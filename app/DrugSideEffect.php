@@ -10,6 +10,10 @@ class DrugSideEffect extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'value',
+    ];
+
     public function drugs()
     {
         return $this->belongsToMany('App\Drug');

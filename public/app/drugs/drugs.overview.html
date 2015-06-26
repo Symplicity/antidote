@@ -20,10 +20,10 @@
                 <md-icon>announcement</md-icon>
                 <h4>Side Effects</h4>
             </md-toolbar>
-            <md-card-content>
-                <p>Side Effect Content Goes Here</p>
-                <p>Side Effect Content Goes Here</p>
-                <p>Side Effect Content Goes Here</p>
+            <md-card-content ng-if="drugsView.drug.side_effects.length > 0">
+			  <ul ng-repeat="side_effect in drugsView.drug.side_effects">
+				<li>{{side_effect.value}}</li>
+			  </ul>
             </md-card-content>
              <div class="md-actions" layout="row" layout-align="end center">
                 <md-button class="md-accent">STATS</md-button>

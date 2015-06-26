@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use App\Drug;
+use App\DrugSideEffect;
 
 class ImportDrugs extends Command
 {
@@ -105,7 +106,11 @@ class ImportDrugs extends Command
                         if (isset($side_effect_map[trim(strtolower($side_effect))])) {
                             $picks[] = $side_effect_map[trim(strtolower($side_effect))];
                         } else {
-                            //TODO: create new pick and get ID and add to $picks array
+                            $se = DrugSideEffect::create([
+                                'value' => $side_effect
+                            ]);
+                            $picks[] = $se->id;
+                            $side_effect_map[$se->id] = $side_effect;
                         }
                     }
                     $drug->sideEffects()->sync($picks);
