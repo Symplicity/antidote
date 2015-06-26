@@ -25,6 +25,24 @@ class UserTest extends TestCase
         ];
     }
 
+    /**
+     * @dataProvider getBadAges
+     * @expectedException \Exception
+     */
+    public function testSetBadAgeAttribute($age)
+    {
+        $user = factory('App\User')->create(['age' => $age]);
+    }
+
+    public function getBadAges()
+    {
+        return [
+            [-1],
+            ['foo'],
+            [null]
+        ];
+    }
+
     public function testSetEmailAttribute()
     {
         $user = factory('App\User')->create(['email' => 'foo@bar.com']);
