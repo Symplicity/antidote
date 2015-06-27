@@ -8,6 +8,8 @@ class DrugSideEffect extends Model
 {
     protected $table = 'drug_side_effects';
 
+    protected $hidden = ['pivot'];
+
     public $timestamps = false;
 
     protected $fillable = [
