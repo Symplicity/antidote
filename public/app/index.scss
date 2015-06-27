@@ -22,21 +22,21 @@
         font-family: Lato, 'Helvetica Neue', sans-serif;
     }
 
-    html, body, md-content{
+    html, body, md-content {
         background-color: #EEEEEE;   
         height:100%;
         position: relative; 	
     }
 
-    .md-ui-view{
+    .md-ui-view {
         min-height: calc(100vh - 124px);
     }
 
-    p,li,ul{
+    p,li,ul {
     	font-size: 14px;
     }
 
-    html{
+    html {
         position: relative;
   		min-height: 100%;
     }
@@ -46,7 +46,7 @@
 		min-height:100%;		
 	}
 
-	.container{
+	.container {
 		max-width: 1366px;
 		margin: 0px auto;
 		padding-left: 28px;
@@ -68,7 +68,7 @@
 		text-decoration: none;
 	}
 
-	.bold{
+	.bold {
 		font-weight: bold;
 	}
 
@@ -107,7 +107,7 @@
         }
     }
     
-    md-toast{
+    md-toast {
         background-color:white;
         color:black;
     }

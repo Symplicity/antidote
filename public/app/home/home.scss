@@ -1,17 +1,16 @@
-.banner{
+.banner {
     height: 483px;
     margin: 0 auto;
-    padding: 0px;
     position: relative;
     background-image: URL('/images/home-banner.png');
     color: $md-primary-light;
     z-index: 1;
 
-    .search-container{        
+    .search-container {        
         background-color: rgba(0, 0, 0, .3);
         height: 100%;
-
-        h1{
+ 
+        h1 {
             text-align: center;
             font-weight: bold;
             color: #FFF;
@@ -19,13 +18,13 @@
             margin: 10px;
         }
 
-        p{
+        p {
             text-align: center;
             font-size: 20pt;
             margin: 10px;
         }
         
-        input{
+        input {
             width: 450px;
             padding: 5px;
             color: #4DB6AC;
@@ -37,8 +36,8 @@
         }
 
 
-        @media only screen and (max-width: 500px){
-            input{
+        @media only screen and (max-width: 500px) {
+            input {
                 width: 350px;
             }
         }
@@ -51,29 +50,29 @@
 }
 
 
-.md-home{
+.md-home {
     position: relative;
     z-index: 2;
     margin-top: -80px;
 
-    md-content{    
+    md-content {    
         background-color: rgba(0, 0, 0, 0);
 
-        .md-home-card{
+        .md-home-card { 
             max-width: 1100px;
             border-top: 20px solid $md-secondary;    
             position: relative;
 
-            div{
+            div {
                 text-align: center;                
             }
 
-            md-icon{
+            md-icon {
                 width:100px;
                 height:100px;
             }
 
-            .material-icons{
+            .material-icons {
                 font-size: 100px;
                 color: $md-secondary-dark;
             }
