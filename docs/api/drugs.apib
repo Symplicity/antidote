@@ -88,28 +88,36 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                 "side_effects": [
                     {
                         "id": 1,
-                        "value": "Nausea",
-                        "pivot": {
-                            "drug_id": 1,
-                            "drug_side_effect_id": 1
-                        }
+                        "value": "Nausea"
                     },
                     {
                         "id": 2,
-                        "value": "Diarrhea",
-                        "pivot": {
-                            "drug_id": 1,
-                            "drug_side_effect_id": 2
-                        }
+                        "value": "Diarrhea"
                     }
                 ],
                 "generic_id": 45,
                 "indications": [
-                    "pain",
-                    "headache"
+                    {
+                        "id": "1",
+                        "value": "pulmonary arterial hypertension"
+                    },
+                    {
+                        "id": "2",
+                        "value": "plasma cell myeloma"
+                    }
                 ],
                 "prescription_type": "OTC",
-                "recalls": []
+                "recalls": [
+                    {
+                        "number": "91201096",
+                        "date": "19880508",
+                        "recall": "Quidem iure eaque eveniet placeat odit architecto. Et pariatur cum ea hic consequatur iste quia. Sed voluptates aliquid voluptate saepe quae optio. Aut voluptas quia rerum. Quia unde vel hic quasi assumenda officia.",
+                        "lots": "Lot Number: 54014927, Exp 06 / 28 / 1983"
+                    }
+                ],
+                "effectiveness_percentage": 0.18,
+                "insurance_coverage_percentage": 0.64,
+                "total_reviews": 11
             }
 
 ### Get Drug [GET]
@@ -154,26 +162,17 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         },
                         "drug": {
                             "id": 5,
-                            "ndc": "33127350",
                             "label": "Tylenol",
                             "description": "Tylenol is a medicine used to treat pain."
                         },
                         "side_effects": [
                             {
                                 "id": 1,
-                                "value": "nausea",
-                                "pivot": {
-                                    "drug_review_id": 1514,
-                                    "drug_side_effect_id": 1
-                                }
+                                "value": "nausea"
                             },
                             {
                                 "id": 2,
-                                "value": "diarrhea",
-                                "pivot": {
-                                    "drug_review_id": 1514,
-                                    "drug_side_effect_id": 2
-                                }
+                                "value": "diarrhea"
                             }
                         ]
                     },
@@ -193,18 +192,13 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         },
                         "drug": {
                             "id": 5,
-                            "ndc": "33127350",
                             "label": "Claritin",
                             "description": "Claritin is used to treat allergies."
                         },
                         "side_effects": [
                             {
                                 "id": 1,
-                                "value": "Nausea",
-                                "pivot": {
-                                    "drug_review_id": 1514,
-                                    "drug_side_effect_id": 1
-                                }
+                                "value": "Nausea"
                             }
                         ]
                     }

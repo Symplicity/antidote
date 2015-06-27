@@ -1,7 +1,7 @@
-.md-nav-bar{
+.md-nav-bar {
 
-    .md-global-search{
-        background: #131A5F;
+    .md-global-search {
+        background: #0269a6;
         border: none;
         color:white;
         background-image: URL('/images/icons/md-search-white.svg');
@@ -11,19 +11,19 @@
         padding:10px;
     }
 
-    img{
+    img {
       vertical-align: middle;
     }
 
 
-    @media only screen and (max-width: 960px){
+    @media only screen and (max-width: 960px) {
 
-        md-sidenav{
+        md-sidenav {
             background: $md-primary;
             color: $md-primary-light;
         }
 
-        .md-global-search{
+        .md-global-search {
             width: auto;
             background-position: 95%;
             padding:10px;
@@ -31,12 +31,12 @@
         }
 
 
-        img{
+        img {
             width:115px;
         }
 
 
-        .md-button{
+        .md-button {
             min-width: 25px;
         }
     }
@@ -48,20 +48,17 @@
         } 
     }
 
-    @media only screen and (min-width: 1024px) and (max-width:1200px){
+    @media only screen and (min-width: 1024px) and (max-width:1200px) {
         .md-button{
             min-width: 25px;
         }
     }
 }
 
-md-toolbar{
-    @media only screen and (max-width: 960px){
+md-toolbar {
+    @media only screen and (max-width: 960px) {
             .container{
                 padding: 0;
             }
-
-           
-        
     }
 }

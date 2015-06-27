@@ -1,23 +1,23 @@
-<div class="drugs-bg">
+<div class="header">
     <md-content layout="row" layout-wrap class="md-drug-info container" flex >
             <div flex="90" flex-sm="70">
-                <h1>{{drugsView.drug.label}} <span class="md-drug-type">OTC</span></h1>
-                <p class="md-manufacturer-name">Manufacturer: Pfilzer Inc.</p>                
+                <h1 class="md-display-1">{{drugsView.drug.label}} <span class="md-drug-type">{{drugsView.drug.prescription_type}}</span></h1>
+                <p class="md-manufacturer-name">Manufacturer: Pfilzer Inc.</p>
             </div>
             <div flex="10" flex-sm="30">
                 <md-button class="md-accent md-raised md-button" ng-click="submitReview($event)">Review it</md-button>
             </div>
             <div flex="70" flex-sm="100">
-                <p>{{drugsView.drug.description}}</p>    
+                <p>{{drugsView.drug.description}}</p>
             </div>
             <div flex="100" flex-sm="100" ng-if="drugsView.drug.indications.length > 0">
                 <p>
                     <span class="md-body-2">Used for:</span>
                     <span ng-repeat="indication in drugsView.drug.indications">
-                        <span class="md-raised md-pills">{{::indication}}</span>
+                        <span class="md-raised md-pills">{{::indication.value | capitalize}}</span>
                     </span>
-                </p>      
-            </div> 
+                </p>
+            </div>
     </md-content>
 </div>
 

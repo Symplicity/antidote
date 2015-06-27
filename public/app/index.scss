@@ -5,37 +5,42 @@
 // bower:scss
 // endbower
 
-@import url(http://fonts.googleapis.com/css?family=Nunito:400,300,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 	$medium-gray: #CCCCCD;
-	$primary-button-color: #50B6AC;
+	$primary-button-color: #ffc400;
 	$text-color: #666;
 	$border-color: #DDD;
 
-	$md-primary: #3F51B5;
-	$md-primary-light: #E8EAF6;
-	$md-primary-dark: #1A237E;
+	$md-primary: #0288d1;
+	$md-primary-light: #e1f5fe;
+	$md-primary-dark: #0277bd;
 
-	$md-secondary: #4DB6AC;
+	$md-secondary: #ffc400;
+	$md-secondary-dark: #ffab00;
 	
     html, body, h1, h2, h3, h4, h5, h6, p {
-        font-family: Nunito, 'Helvetica Neue', sans-serif;
+        font-family: Lato, 'Helvetica Neue', sans-serif;
     }
 
-    html, body, md-content{
+    html, body, md-content {
         background-color: #EEEEEE;   
         height:100%;
         position: relative; 	
     }
 
-    .md-ui-view{
+    h1 {font-size: 34px;}
+    h2 {font-size: 30px;}
+    h3 {font-size: 20px;}
+
+    .md-ui-view {
         min-height: calc(100vh - 124px);
     }
 
-    p,li,ul{
+    p,li,ul {
     	font-size: 14px;
     }
 
-    html{
+    html {
         position: relative;
   		min-height: 100%;
     }
@@ -45,7 +50,7 @@
 		min-height:100%;		
 	}
 
-	.container{
+	.container {
 		max-width: 1366px;
 		margin: 0px auto;
 		padding-left: 28px;
@@ -55,6 +60,17 @@
             padding-left: 0px;
             padding-right: 0px;
         }
+	}
+
+	.header {
+	    background-color: $md-primary;
+
+	    .container { 
+	        height:130px;
+	        margin: 0 auto;
+	        padding: 25px;
+	        color: $md-primary-light;
+	    }
 	}
 
 	strong {
@@ -67,7 +83,7 @@
 		text-decoration: none;
 	}
 
-	.bold{
+	.bold {
 		font-weight: bold;
 	}
 
@@ -80,14 +96,18 @@
 		}
 	}
 
-	.md-raised {
-		&.md-pill {
-			background-color: $primary-button-color;
-			border-radius: 50px;
-			color: white;
-			line-height: 26px;
-			min-height: inherit;
-		}
+	.md-pills {
+        padding: 25px;
+        color: #FFF;
+        font-size: 12px;    
+        display: inline-block;
+        border: solid;
+        border-width: 2px;
+        border-radius: 15px;
+        padding: 1px 10px;
+        background-color: $md-primary-dark;
+        border-color: $md-primary-dark;
+        margin: 5px 5px 0 0;
 	}
 
 	.md-button.md-raised:not([disabled]):hover {
@@ -95,7 +115,7 @@
 	}
 	
     a.md-button.md-accent.md-raised, a.md-button.md-accent.md-fab, .md-button.md-accent.md-raised, .md-button.md-accent.md-fab {
-    	color:#FFF;
+    	color:#000;
     }
 
     md-card {
@@ -106,7 +126,7 @@
         }
     }
     
-    md-toast{
+    md-toast {
         background-color:white;
         color:black;
     }

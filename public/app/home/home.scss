@@ -1,58 +1,94 @@
-.banner{
-    height: 200px;
+.banner {
+    height: 483px;
     margin: 0 auto;
-    padding: 25px;
-    background-color:$md-primary;
+    position: relative;
+    background-image: URL('/images/home-banner.png');
     color: $md-primary-light;
+    z-index: 1;
 
-    h1{
-        text-align: center;
+    .search-container {        
+        background-color: rgba(0, 0, 0, .3);
+        height: 100%;
+ 
+        h1 {
+            text-align: center;
+            font-weight: bold;
+            color: #FFF;
+            font-size: 34pt;
+            margin: 10px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 20pt;
+            margin: 10px;
+        }
+        
+        input {
+            width: 450px;
+            padding: 5px;
+            color: #4DB6AC;
+            background-image: URL('/images/icons/md-search.svg');
+            background-repeat: no-repeat;
+            background-position: 99%;
+            background-color: #FFF;
+            color: $md-primary;
+        }
+
+
+        @media only screen and (max-width: 500px) {
+            input {
+                width: 350px;
+            }
+        }
+
+
+        md-input-container label:not(.md-no-float), md-input-container .md-placeholder:not(.md-select-label) {
+            padding-left: 13px;
+        }
     }
-    
-    input{
-        width: 300px;
-        padding:10px;
-        color: #4DB6AC;
-        background-image: URL('/images/icons/md-search.svg');
-        background-repeat: no-repeat;
-        background-position: 99%;
-    }
-
-
 }
 
-.md-home-card{
-    max-width: 350px;
-    margin-top: 50px;
-    margin-bottom: 0px !important;
 
-    div{
-        padding: 10px;
-    }
+.md-home {
+    position: relative;
+    z-index: 2;
+    margin-top: -80px;
 
-    md-icon{
-        width:100px;
-        height:100px;
-    }
+    md-content {    
+        background-color: rgba(0, 0, 0, 0);
 
-    .material-icons{
-        font-size: 100px;
-    }
+        .md-home-card { 
+            max-width: 1100px;
+            border-top: 20px solid $md-secondary;    
+            position: relative;
 
-    p{
-        text-align:center;
+            div {
+                text-align: center;                
+            }
+
+            md-icon {
+                width:100px;
+                height:100px;
+            }
+
+            .material-icons {
+                font-size: 100px;
+                color: $md-secondary-dark;
+            }
+        }
     }
 }
 
 .md-quote{
     margin-top: 50px;
-    color: $md-primary-light;
-    background-color:$md-primary-dark;
+    color: #FFF;
+    background-color:$md-primary;
     text-align:center;
     padding-bottom: 20px;
 
     a.md-accent.md-button{
-        color:#FFFFFF;
+        color:#000;
         padding: 0 15px;
 
     }

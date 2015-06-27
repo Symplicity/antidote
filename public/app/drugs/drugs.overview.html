@@ -7,8 +7,9 @@
                 <h4>Effectiveness</h4>
             </md-toolbar>
             <md-card-content>
-                <span class="percentage">70%</span>
-                <p>70% of people found Advil effective</p>               
+                <span class="percentage">{{drugsView.drug.effectiveness_percentage | percentage}}</span>
+                <p>{{drugsView.drug.effectiveness_percentage | percentage}} of people found
+                    {{drugsView.drug.label}} effective</p>
             </md-card-content>
             <div class="md-actions" layout="row" layout-align="end center">
                 <md-button class="md-accent">STATS</md-button>
@@ -22,7 +23,7 @@
             </md-toolbar>
             <md-card-content ng-if="drugsView.drug.side_effects.length > 0">
                 <ul ng-repeat="side_effect in drugsView.drug.side_effects">
-                    <li>{{::side_effect.value}}</li>
+                    <li>{{::side_effect.value | capitalize}}</li>
                 </ul>
             </md-card-content>
              <div class="md-actions" layout="row" layout-align="end center">
@@ -36,8 +37,8 @@
                 <h4>Insurance</h4>
             </md-toolbar>
             <md-card-content>
-                <span class="percentage">30%</span>
-                <p>30% of people found Advil effective</p>
+                <span class="percentage">{{drugsView.drug.insurance_coverage_percentage | percentage}}</span>
+                <p>{{drugsView.drug.insurance_coverage_percentage | percentage}} of people found {{drugsView.drug.label}} covered by their insurance company</p>
             </md-card-content>
              <div class="md-actions" layout="row" layout-align="end center">
                 <md-button class="md-accent">STATS</md-button>
@@ -53,7 +54,7 @@
         </md-toolbar>
         <md-card-content>
             <div layout="row" layout-sm="column"  layout-align-sm="center center">
-                
+
                 <div flex-gt-md="10" flex-md="15" flex-sm class="health-state">
                     <md-icon class="md-icon-big">mood</md-icon>
                 </div>
@@ -64,7 +65,7 @@
                     <p>"Taking in the morning or afternoon with an hour of two for relax before takes effect. If you have ocular/eye problems/pains you will feel in 10 minutes that your whole body starts to relax but keep away from computers, tv and so."</p>
                 </div>
                 <div layout="row" layout-align="center center" flex-gt-md="25" flex>
-                    <div class="md-vote" layout="column" layout-align="center center" flex>                           
+                    <div class="md-vote" layout="column" layout-align="center center" flex>
                         <a href="#">
                             <span class="vote-up">
                                 <md-icon class="vote-up md-icon-big">thumb_up</md-icon>
@@ -84,7 +85,7 @@
             </div>
             <md-divider ng-if="!$last"></md-divider>
              <div layout="row" layout-sm="column"  layout-align-sm="center center">
-                
+
                 <div flex-gt-md="10" flex-md="15" flex-sm class="health-state">
                     <md-icon class="md-icon-big">mood</md-icon>
                 </div>
@@ -95,7 +96,7 @@
                     <p>"Taking in the morning or afternoon with an hour of two for relax before takes effect. If you have ocular/eye problems/pains you will feel in 10 minutes that your whole body starts to relax but keep away from computers, tv and so."</p>
                 </div>
                 <div layout="row" layout-align="center center" flex-gt-md="25" flex>
-                    <div class="md-vote" layout="column" layout-align="center center" flex>                           
+                    <div class="md-vote" layout="column" layout-align="center center" flex>
                         <a href="#">
                             <span class="vote-up">
                                 <md-icon class="vote-up md-icon-big">thumb_up</md-icon>

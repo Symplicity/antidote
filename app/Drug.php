@@ -14,10 +14,22 @@ class Drug extends Model
         'generic',
         'drug_forms',
         'generic_id',
-        'indications',
         'prescription_type',
         'recalls',
         'description'
+    ];
+
+    /**
+     * Any attributes listed in the $appends property will automatically
+     * be included in the array or JSON form of the model,
+     * provided that you've added the appropriate accessor
+     *
+     * @var array
+     */
+    protected $appends = [
+        'effectiveness_percentage',
+        'insurance_coverage_percentage',
+        'total_reviews'
     ];
 
     /**
@@ -48,6 +60,11 @@ class Drug extends Model
         return $this->belongsToMany('App\DrugSideEffect');
     }
 
+    public function indications()
+    {
+        return $this->belongsToMany('App\DrugIndication');
+    }
+
     public function alternatives()
     {
         return $this->belongsToMany('App\Drug', 'drug_alternative_drugs', 'drug_id', 'alternative_drug_id');
@@ -56,5 +73,28 @@ class Drug extends Model
     public function related()
     {
         return $this->belongsToMany('App\Drug', 'drug_related_drugs', 'drug_id', 'related_drug_id');
+    }
+
+    public function getEffectivenessPercentageAttribute()
+    {
+        $reviews = $this->getTotalReviewsAttribute();
+        if (!empty($reviews)) {
+            return round(count($this->reviews()->where('rating', '1')->get()) / $this->getTotalReviewsAttribute(), 2);
+        }
+        return 0;
+    }
+
+    public function getInsuranceCoveragePercentageAttribute()
+    {
+        $reviews = $this->getTotalReviewsAttribute();
+        if (!empty($reviews)) {
+            return round(count($this->reviews()->where('is_covered_by_insurance', '1')->get()) / $this->getTotalReviewsAttribute(), 2);
+        }
+        return 0;
+    }
+
+    public function getTotalReviewsAttribute()
+    {
+        return count($this->reviews()->get());
     }
 }
