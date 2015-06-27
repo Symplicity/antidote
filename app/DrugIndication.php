@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class DrugSideEffect extends Model
+class DrugIndication extends Model
 {
-    protected $table = 'drug_side_effects';
+    protected $table = 'drug_indications';
 
     protected $hidden = ['pivot'];
 
@@ -19,10 +19,5 @@ class DrugSideEffect extends Model
     public function drugs()
     {
         return $this->belongsToMany('App\Drug');
-    }
-
-    public function drugReviews()
-    {
-        return $this->belongsToMany('App\DrugReview');
     }
 }

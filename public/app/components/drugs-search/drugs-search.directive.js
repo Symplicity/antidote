@@ -9,7 +9,7 @@
     function drugsSearch() {
         return {
             restrict: 'E',
-            templateUrl: '/app/components/drugs-search/drugs-search.html',
+            templateUrl: 'app/components/drugs-search/drugs-search.html',
             controller: 'DrugsSearchCtrl as drugsSearch',
             link: function() {
 

@@ -149,7 +149,9 @@ class AuthController extends Controller
             $message->subject('Antidote Password Reset');
         });
 
-        return ['message' => 'An email has been sent to the provided email address with further instructions'];
+        return response()->json([
+            'message' => 'An email has been sent to the provided email address with further instructions'
+        ]);
     }
 
     private function getProtocol()

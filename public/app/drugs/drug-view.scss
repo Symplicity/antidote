@@ -1,8 +1,6 @@
- .drugs-bg{
-    background-color: $md-primary;
-}
 
 .md-drug-info {
+    height: 100% !important;
     margin: 0 auto;
     padding: 25px;
     background-color:$md-primary;
@@ -19,23 +17,23 @@
         margin: 8px 15px;
         padding: 5px;
         font-size: 13px;
-        background-color: $md-primary-dark;
+        background-color: #043045;
         color: #FFFFFF;
     }
 
     .md-manufacturer-name {
         font-size: 14px;
         margin: 0;
-    }
-
-    .md-accent.md-button{
-        color:#FFFFFF;
-
+        font-weight: bold;
     }
 
     @media only screen and (max-width: 600px){
         padding-left: 28px;
         padding-right: 28px;
+    }
+
+    .md-body-2{
+        font-weight: bold;
     }
 
 }

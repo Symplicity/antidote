@@ -1,43 +1,39 @@
 <md-content>
     <div class="banner md-whiteframe-z1">
-        <h1 class="md-display-1" layout="row" layout-align="center center">Understand what you're taking</h1>
-        <p layout="row" layout-align="center center">
-            <drugs-search></drugs-search>
-            <!-- <input type="search" ng-model="home.search.keywords"> -->
-<!--             <md-icon ui-sref="drugs.list({keywords: home.search.keywords})" alt="user"></md-icon> -->
-       </p>
+        <div layout="column" layout-align="center center" class="search-container">
+            <h1 class="md-display-1" layout="row" layout-align="center center">Understand what you're taking</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <drugs-search></drugs-search>           
+        </div>
     </div>
-    <div layout="row" layout-align="center center" layout-sm="column">
-        <md-card class="md-home-card" flex flex-sm="100">
-            <md-toolbar class="md-toolbar-tools">
-                <h3>Insurance</h3>
-            </md-toolbar>
-            <div layout="column" layout-alignment="center center">
-                <md-icon>assignment</md-icon>
-                <p>Check if your medication is covered by insurance and what alternatives there are.</p>
-            </div>
-        </md-card>
-        <md-card class="md-home-card" flex flex-sm="100">
-            <md-toolbar class="md-toolbar-tools">
-                <h3>Personalized</h3>
-            </md-toolbar>
-            <div layout="column" layout-alignment="center center">
-                <md-icon>local_pharmacy</md-icon>
-                <p>Find results that matter to you. Easily search based on your perferences.</p>
-            </div>
-        </md-card>
-        <md-card class="md-home-card" flex flex-sm="100">
-            <md-toolbar class="md-toolbar-tools">
-                <h3>Trusted</h3>
-            </md-toolbar>
-            <div layout="column" layout-alignment="center center">
-                <md-icon>lock</md-icon>
-                <p>OpenFDA is your one-stop for trustworthy information with more than 100,000+ entries from the FDA</p>
-            </div>
-        </md-card>
+
+
+    <div layout="row" class="md-home" layout-align="center center">        
+        <md-content class="md-padding">
+            <md-card class="md-home-card">              
+              <md-card-content layout="row" layout-sm="column" layout-align="center center">
+                <div flex="33" flex-sm="100" class="md-padding">                   
+                    <md-icon>assignment</md-icon>
+                    <h2 class="md-title">Insurance</h2>
+                    <p>Check if your medication is covered by insurance and what alternatives there are.</p>
+                </div>
+                <div flex="33" flex-sm="100"  class="md-padding">                    
+                    <md-icon>local_pharmacy</md-icon>
+                    <h2 class="md-title">Personalized</h2>
+                    <p>Find results that matter to you. Easily search based on your perferences.</p>
+                </div>
+               <div flex="33" flex-sm="100"  class="md-padding">                    
+                    <md-icon>lock</md-icon>
+                    <h2 class="md-title">Trusted</h2>
+                    <p>OpenFDA is your one-stop for trustworthy information with more than 100,000+ entries from the FDA</p>
+                </div>
+              </md-card-content>
+            </md-card>
+        </md-content>
     </div>
+
     <div layout="column" layout-align="center center" class="md-quote">
-        <p class="md-headline">"I use Antidote to quickly find the information I need when picking up medication"<br>-Betty Rice</p>
+        <p class="md-headline">"I love being able to do my own research about what my doctor perscribes"<br>-Betty Rice</p>
         <md-button ui-sref="drugs.list" class="md-accent md-raised md-button">Browse Medications</md-button>
     </div>
 </md-content>
