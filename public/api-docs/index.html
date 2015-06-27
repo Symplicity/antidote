@@ -182,7 +182,7 @@ a.list-group-item.heading:hover {
     ]
 </span>}
 </code></pre></li></ul></section><h4 id="drugs-drug">Drug&nbsp;<a href="#drugs-drug"><i class="fa fa-link"></i></a></h4><section id="drugs-drug-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get Drug</span></div><div style="float:left"><a href="#drugs-drug-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs/{id}</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>The drug ID</p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#42b005f18a7a114293d9c67880156ce0" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="42b005f18a7a114293d9c67880156ce0" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#207c046b6f2bb777e6676ab05586e5fd" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="207c046b6f2bb777e6676ab05586e5fd" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol"</span></span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol is used to treat pain."</span></span>,
@@ -210,8 +210,22 @@ a.list-group-item.heading:hover {
     ]</span>,
     "<span class="hljs-attribute">generic_id</span>": <span class="hljs-value"><span class="hljs-number">45</span></span>,
     "<span class="hljs-attribute">indications</span>": <span class="hljs-value">[
-        <span class="hljs-string">"pain"</span>,
-        <span class="hljs-string">"headache"</span>
+        {
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
+            "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"pulmonary arterial hypertension"</span></span>,
+            "<span class="hljs-attribute">pivot</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">drug_id</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
+                "<span class="hljs-attribute">drug_indication_id</span>": <span class="hljs-value"><span class="hljs-string">"1"</span>
+            </span>}
+        </span>},
+        {
+            "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"2"</span></span>,
+            "<span class="hljs-attribute">value</span>": <span class="hljs-value"><span class="hljs-string">"plasma cell myeloma"</span></span>,
+            "<span class="hljs-attribute">pivot</span>": <span class="hljs-value">{
+                "<span class="hljs-attribute">drug_id</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
+                "<span class="hljs-attribute">drug_indication_id</span>": <span class="hljs-value"><span class="hljs-string">"2"</span>
+            </span>}
+        </span>}
     ]</span>,
     "<span class="hljs-attribute">prescription_type</span>": <span class="hljs-value"><span class="hljs-string">"OTC"</span></span>,
     "<span class="hljs-attribute">recalls</span>": <span class="hljs-value">[

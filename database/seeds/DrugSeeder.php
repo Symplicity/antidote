@@ -14,9 +14,12 @@ class DrugSeeder extends Seeder
         $faker = Faker\Factory::create();
 
         factory('App\DrugSideEffect', 50)->create();
+        factory('App\DrugIndication', 50)->create();
 
         factory('App\Drug', 50)->create()->each(function ($drug) use ($faker) {
             $drug->sideEffects()->sync([$faker->numberBetween(1, 50), $faker->numberBetween(1, 50), $faker->numberBetween(1, 50)]);
+
+            $drug->indications()->sync([$faker->numberBetween(1, 50), $faker->numberBetween(1, 50), $faker->numberBetween(1, 50)]);
 
             $drug->alternatives()->sync([$faker->numberBetween(1, 50), $faker->numberBetween(1, 50), $faker->numberBetween(1, 50)]);
 

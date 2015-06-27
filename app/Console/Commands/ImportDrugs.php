@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use App\Drug;
 use App\DrugSideEffect;
+use App\DrugIndication;
 
 class ImportDrugs extends Command
 {
+    private $side_effects_map;
+    private $indications_map;
+
     /**
      * The name and signature of the console command.
      *
@@ -71,7 +75,10 @@ class ImportDrugs extends Command
             $drug_map = array_column($drugs, 'id', 'rxcui');
 
             $all_side_effects = DB::select('select value, id from drug_side_effects');
-            $side_effect_map = array_column($all_side_effects, 'id', 'value');
+            $this->side_effects_map = array_column($all_side_effects, 'id', 'value');
+
+            $all_indications = DB::select('select value, id from drug_indications');
+            $this->indications_map = array_column($all_indications, 'id', 'value');
 
             foreach ($concepts as $concept) {
                 $data = json_decode($concept['data'], true);
@@ -99,25 +106,51 @@ class ImportDrugs extends Command
                     $drug->alternatives()->sync($alts);
                 }
 
-                if (!empty($data['side_effects']) && is_array($data['side_effects'])) {
-                    $side_effects = $data['side_effects'];
-                    $picks = [];
-                    foreach ($side_effects as $side_effect) {
-                        if (isset($side_effect_map[trim(strtolower($side_effect))])) {
-                            $picks[] = $side_effect_map[trim(strtolower($side_effect))];
-                        } else {
-                            $se = DrugSideEffect::create([
-                                'value' => $side_effect
-                            ]);
-                            $picks[] = $se->id;
-                            $side_effect_map[$se->id] = $side_effect;
-                        }
-                    }
-                    $drug->sideEffects()->sync($picks);
+                $side_effects = $this->extractPicks('side_effects', $data);
+                $indications = $this->extractPicks('indications', $data);
+
+                if (!empty($side_effects)) {
+                    $drug->sideEffects()->sync($side_effects);
+                }
+
+                if (!empty($indications)) {
+                    $drug->indications()->sync($indications);
                 }
             }
         }
 
         $this->info('Drug import finished!');
+    }
+
+    private function extractPicks($field, $data)
+    {
+        $map_array = $field . '_map';
+        $map = $this->$map_array;
+        $picks = [];
+
+        if (!empty($data[$field]) && is_array($data[$field])) {
+            $raw_picks = $data[$field];
+            foreach ($raw_picks as $raw_pick) {
+                if (isset($map[trim(strtolower($raw_pick))])) {
+                    $picks[] = $map[trim(strtolower($raw_pick))];
+                } else {
+                    switch ($field) {
+                        case 'side_effects':
+                            $pick = DrugSideEffect::create([
+                                'value' => trim(strtolower($raw_pick))
+                            ]);
+                            break;
+                        case 'indications':
+                            $pick = DrugIndication::create([
+                                'value' => trim(strtolower($raw_pick))
+                            ]);
+                            break;
+                    }
+                    $picks[] = $pick->id;
+                    $map[$pick->value] = $pick->id;
+                }
+            }
+        }
+        return $picks;
     }
 }
