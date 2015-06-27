@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.1.23"
+LABEL version="1.2.8"
 LABEL description="This is the Antidote webserver, with NGINX and PHP-FPM"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
@@ -43,7 +43,7 @@ RUN mkdir -p /var/www
 RUN mv /etc/nginx/sites-enabled /etc/nginx/sites-enabled.orig
 RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
 RUN mkdir /etc/service/nginx
-ADD build/nginx-sites/  /etc/nginx/sites-available/
+ADD build/nginx-sites/default  /etc/nginx/sites-available/default
 ADD build/nginx.sh /etc/service/nginx/run
 RUN chmod +x /etc/service/nginx/run
 RUN mkdir /etc/service/phpfpm
@@ -60,6 +60,10 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ### Get code
 RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
+ADD hithub /root/.ssh/id_rsa
+RUN chmod 0600 /root/.ssh/id_rsa
 ADD update.sh /update.sh
 RUN git clone https://github.com/moos3/arbeider.git /worker
+RUN cd /worker && composer install
 RUN mkdir /etc/service/worker
+RUN cp /worker/run /etc/service/run
