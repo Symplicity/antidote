@@ -1,18 +1,17 @@
-<md-content class="md-padding" flex>
-    <md-card class="signup">
-      <md-card-content>
-        <h2 class="md-title">Join Antidote</h2>
-        <p>Sign up is free. <strong>Antidote is safe!</strong> We wont share any information. <br />Please see our <a href="#">privacy policy</a> and use of <a href="#">cookies.</a></p>
-        <div layout="row" layout-sm="column">
-          <div flex=50>
+<md-content class="md-padding signup" flex>
+    <md-card class="signup-card">
+      <md-card-content layout="row" layout-sm="column">
+      <div flex class="left-side" layout-align="center center" flex-sm="100">
+            <img src="/images/big-logo.png" alt="Antidote Logo" />
+            <p>All. Together. Now.</a></p>
+            <hr /><br />
             <ul>
-                <li>Gain access to thousands of reviews from people like you</li>
-                <li>Personalize results so you can make the best decision about what you take</li>
-                <li>Earn badges for contributing to community</li>
-                <li>Trusted, with data coming straight from FDA, you can be sure you have the best facts</li>
+                <li><md-icon>group</md-icon>Access to reviews from people like you</li>
+                <li><md-icon>account_circle</md-icon>See personalized results</li>
+                <li><md-icon>loyalty</md-icon>Earn badges for contributing to the community</li>
             </ul>
-          </div>
-          <div flex>
+      </div>
+      <div flex class="right-side" flex-sm="100">
             <form method="post" name="signupForm" layout="column">
                     <md-input-container class="md-icon-float">
                         <label>Username</label>
@@ -58,12 +57,14 @@
                         </md-select>
                     </div>
                 </form>
-          </div>
-        </div>
+      </div>
       </md-card-content>
-      <div class="md-actions" layout="row" layout-align="end center">
-        <md-button class="small" ui-sref="login">Already have an account? Sign In</md-button>
-        <md-button type="button" ng-click="signup.signup()" ng-disabled="signupForm.$invalid" class="md-raised md-accent">REGISTER</md-button>
+      <div class="md-actions" layout="row" flex-sm="100" flex>
+        <div flex class="left-side" flex-sm="0" hide-sm></div>
+        <div flex layout="row" layout-align="end end" flex-sm="100">
+            <md-button class="small" ui-sref="login">Already have an account? Sign In</md-button>
+            <md-button type="button" ng-click="signup.signup()" ng-disabled="signupForm.$invalid" class="md-raised md-accent">REGISTER</md-button>
+        </div>
       </div>
     </md-card>
   </md-content>

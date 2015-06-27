@@ -1,30 +1,80 @@
-.signup{
-	max-width: 800px;
-	margin: 0px auto;
-	margin-top: 50px;
+.signup {
+	background: url('/images/image-background.png') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	min-height: 94vh;
+	margin-bottom: -60px;
 
-	h2{
-		text-align: center;
-		color: $md-primary;
-	}
+	@media only screen and (max-width: 500px) {
+	    .signup-card{
+	    	margin-top: 50px !important;
 
-	p{
-		text-align: center;
-		margin-bottom: 30px;
-	}
-
-	form{
-		border-left: 1px solid $md-primary-light;
-		padding-left: 15px;
+	    }
 	}
 
-	md-select{
-		padding-right: 20px;
+	md-card md-card-content {
+	  padding: 0px;
 	}
-	li{
-		padding-bottom: 15px;
-	}
-	.small{
-		font-size: 12px;
+
+	.signup-card {
+		max-width: 800px;
+		margin: 0px auto;
+		margin-top: 180px;
+		background-color: rgba(2, 136, 209, 0.8);
+
+		.left-side {
+			padding: 15px;
+
+			img {
+
+			}
+			p {
+				color: #FFF;
+				font-size: 18px;
+			}
+			hr{
+				width: 150px;
+				float: left;
+				color: #cddc39;
+			}
+			ul {
+				padding-left: 5px;
+			}
+			li {
+				list-style-type: none;
+				color: #FFF;
+				padding-bottom: 10px;
+			}
+			md-icon {
+				color: #FFF;
+				padding-right: 10px;
+			}
+		}
+
+		.right-side {
+			padding: 10px !important;
+			background: #FFF;
+			padding: 0px;
+			margin: 0px;
+
+			form{
+				padding: 18px;
+			}
+		}
+
+		.md-actions div:nth-child(2){
+			background-color: #FFF;
+			padding: 10px;
+
+			.small{
+				font-size: 11px;
+			}
+
+		}
+		.md-actions{
+			padding: 0px;
+		}
 	}
 }
