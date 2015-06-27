@@ -10,13 +10,13 @@
         $locationProvider.html5Mode(true);
 
         $mdThemingProvider.theme('default')
-            .primaryPalette('indigo', {
-                'default':'500',
+            .primaryPalette('light-blue', {
+                'default':'800',
                 'hue-1':'50',
                 'hue-2':'900'
             })
-            .accentPalette('teal', {
-                'default':'300'
+            .accentPalette('amber', {
+                'default':'500'
             });
 
         $authProvider.loginUrl = '/api/auth/login';
