@@ -10,7 +10,8 @@
             'satellizer',
             'ngMessages',
             'chart.js',
-            'percentage'
+            'percentage',
+            'angular-capitalize-filter'
         ]);
 })();
 
