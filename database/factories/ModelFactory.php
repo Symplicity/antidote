@@ -54,6 +54,6 @@ $factory->define(App\DrugReview::class, function (Faker\Generator $faker) {
 
 $factory->define(App\DrugSideEffect::class, function (Faker\Generator $faker) {
     return [
-        'value' => ucfirst($faker->unique()->word())
+        'value' => $faker->unique()->word()
     ];
 });

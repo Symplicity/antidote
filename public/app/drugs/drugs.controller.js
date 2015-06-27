@@ -49,7 +49,7 @@
         this.tabs = [
             {title: 'Overview', state: 'drugs.view.overview'},
             {title: 'Reviews', state: 'drugs.view.reviews'},
-            {title: 'Alternative', state: 'drugs.view.alternatives'}
+            {title: 'Alternatives', state: 'drugs.view.alternatives'}
         ];
 
         $scope.submitReview = function(ev) {
