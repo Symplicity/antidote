@@ -80,15 +80,14 @@ class AuthController extends Controller
         return response()->json(['token' => $this->createToken($user)]);
     }
 
-    public function verifyResetPasswordToken($token)
+    public function verifyResetPasswordToken($token, Request $request)
     {
         $user = $this->findUserByToken($token);
-
-        if (!$user) {
-            header('Location: ' .$this->getProtocol().'://'.$_SERVER['HTTP_HOST']. '/password/reset/invalid') ;
+        if ($user) {
+            header('Location: ' . $request->root() . '/password/reset/' . $token);
+        } else {
+            header('Location: ' . $request->root() . '/password/reset/invalid');
         }
-
-        header('Location: ' .$this->getProtocol().'://'.$_SERVER['HTTP_HOST']. '/password/reset/'.$token) ;
     }
 
     public function updatePasswordFromResetToken($token, Request $request)
@@ -133,8 +132,7 @@ class AuthController extends Controller
         $user->save();
 
         $email = $user->email;
-        $protocol = $this->getProtocol();
-        $site_url = $protocol . '://' . $_SERVER['HTTP_HOST'];
+        $site_url = $request->root();
 
         $data = [
             'email' => $email,
@@ -152,10 +150,5 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'An email has been sent to the provided email address with further instructions'
         ]);
-    }
-
-    private function getProtocol()
-    {
-        return isset($_SERVER["HTTPS"]) ? 'https' : 'http';
     }
 }
