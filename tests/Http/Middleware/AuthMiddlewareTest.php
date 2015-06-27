@@ -38,7 +38,7 @@ class AuthMiddlewareTest extends TestCase
 
     public function testHandleSansToken()
     {
-        $this->request->shouldReceive('header')->once()->with('Authorization')->andReturn('foo bar');
+        $this->request->shouldReceive('header')->twice()->with('Authorization')->andReturn('foo bar');
 
         $response = $this->middle->handle($this->request, function () {});
 
