@@ -92,5 +92,6 @@ sed -i "s/MAILGUN_PASSWORD/$MAILGUN_PASSWORD/" /var/www/.env
 sed -i "s/MAILGUN_USERNAME/$MAILGUN_USERNAME/" /var/www/.env
 sed -i "s/MAILGUN_DOMAIN/$MAILGUN_DOMAIN/" /var/www/.env
 sed -i "s/FDA_TOKEN/$FDA_TOKEN/" /var/www/.env
+ln -s /worker /var/www/dist/webhook
 
  /sbin/my_init
