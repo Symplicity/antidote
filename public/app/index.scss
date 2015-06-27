@@ -5,37 +5,38 @@
 // bower:scss
 // endbower
 
-@import url(http://fonts.googleapis.com/css?family=Nunito:400,300,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 	$medium-gray: #CCCCCD;
-	$primary-button-color: #50B6AC;
+	$primary-button-color: #ffc400;
 	$text-color: #666;
 	$border-color: #DDD;
 
-	$md-primary: #3F51B5;
-	$md-primary-light: #E8EAF6;
-	$md-primary-dark: #1A237E;
+	$md-primary: #0277bd;
+	$md-primary-light: #e1f5fe;
+	$md-primary-dark: #01579b;
 
-	$md-secondary: #4DB6AC;
+	$md-secondary: #ffc400;
+	$md-secondary-dark: #ffab00;
 	
     html, body, h1, h2, h3, h4, h5, h6, p {
-        font-family: Nunito, 'Helvetica Neue', sans-serif;
+        font-family: Lato, 'Helvetica Neue', sans-serif;
     }
 
-    html, body, md-content{
+    html, body, md-content {
         background-color: #EEEEEE;   
         height:100%;
         position: relative; 	
     }
 
-    .md-ui-view{
+    .md-ui-view {
         min-height: calc(100vh - 124px);
     }
 
-    p,li,ul{
+    p,li,ul {
     	font-size: 14px;
     }
 
-    html{
+    html {
         position: relative;
   		min-height: 100%;
     }
@@ -45,7 +46,7 @@
 		min-height:100%;		
 	}
 
-	.container{
+	.container {
 		max-width: 1366px;
 		margin: 0px auto;
 		padding-left: 28px;
@@ -67,7 +68,7 @@
 		text-decoration: none;
 	}
 
-	.bold{
+	.bold {
 		font-weight: bold;
 	}
 
@@ -106,7 +107,7 @@
         }
     }
     
-    md-toast{
+    md-toast {
         background-color:white;
         color:black;
     }
