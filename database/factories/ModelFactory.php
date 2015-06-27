@@ -29,7 +29,6 @@ $factory->define(App\Drug::class, function (Faker\Generator $faker) {
         'generic' => ucfirst($faker->word()),
         'drug_forms' => [ucfirst($faker->word()), ucfirst($faker->word())],
         'generic_id' => $faker->numberBetween(1, 50),
-        'indications' => [$faker->word(), $faker->word()],
         'prescription_type' => $faker->word(),
         'recalls' => [
             [
@@ -53,6 +52,12 @@ $factory->define(App\DrugReview::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\DrugSideEffect::class, function (Faker\Generator $faker) {
+    return [
+        'value' => $faker->unique()->word()
+    ];
+});
+
+$factory->define(App\DrugIndication::class, function (Faker\Generator $faker) {
     return [
         'value' => $faker->unique()->word()
     ];
