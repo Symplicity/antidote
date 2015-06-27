@@ -9,7 +9,8 @@
             'ngMaterial',
             'satellizer',
             'ngMessages',
-            'chart.js'
+            'chart.js',
+            'percentage'
         ]);
 })();
 
