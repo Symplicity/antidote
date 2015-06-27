@@ -76,7 +76,7 @@ else
   cd /var/www
   if [ -z "$GITREPO_BRANCH" ]; then
     ## If git branch isn't there then we are just going to assume master branch
-    git checkout $GITBRANCH_REPO
+    git checkout $GITREPO_BRANCH
   fi
   unzip -q dist.zip -d /var/www
   cp /var/www/deployment/web/build/env /var/www/.env

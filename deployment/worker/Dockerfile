@@ -43,4 +43,4 @@ RUN chmod 0600 /root/.ssh/id_rsa
 RUN git clone https://github.com/moos3/arbeider.git /worker
 RUN cd /worker && composer install
 RUN mkdir /etc/service/worker
-RUN cp /worker/run /etc/service/worker/
+RUN ln -s /worker/run /etc/service/run
