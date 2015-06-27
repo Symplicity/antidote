@@ -28,6 +28,10 @@
         position: relative; 	
     }
 
+    h1 {font-size: 34px;}
+    h2 {font-size: 30px;}
+    h3 {font-size: 20px;}
+
     .md-ui-view {
         min-height: calc(100vh - 124px);
     }
@@ -56,6 +60,17 @@
             padding-left: 0px;
             padding-right: 0px;
         }
+	}
+
+	.header {
+	    background-color: $md-primary;
+
+	    .container { 
+	        height:130px;
+	        margin: 0 auto;
+	        padding: 25px;
+	        color: $md-primary-light;
+	    }
 	}
 
 	strong {
