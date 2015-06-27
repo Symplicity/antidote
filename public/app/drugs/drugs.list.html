@@ -1,6 +1,6 @@
 <md-content>
-<div class="drugs-list-bg">
-        <div class="banner-medication container">
+<div class="header">
+        <div class="container">
             <h2 class="md-display-1">Medications</h2>
             <p>Search through our list of drugs & medications to find the best solution!</p>
         </div>
@@ -13,7 +13,7 @@
     </div>
 </div>   
     <div class="md-drugs container">
-        <p class="md-display-3">{{drugsList.getAlphabetLetter()}}</p>
+        <h3>{{drugsList.getAlphabetLetter()}}</h3>
         <p>
            <span ng-if="drug.label" ng-repeat="drug in drugsList.drugs.data">
                <a ui-sref="drugs.view.overview({id:drug.id})">{{drug.label}}</a>

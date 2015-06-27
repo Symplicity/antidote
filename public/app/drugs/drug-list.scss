@@ -1,36 +1,28 @@
-.banner-medication{
-    height:130px;
-    margin: 0 auto;
-    padding: 25px;
-    background-color: #3F51B5;
-    color: $md-primary-light;
-}
-
-.drugs-list-bg{
-    background-color: $md-primary;
-}
-
-
-.md-drugs{
+.md-drugs {
     padding: 25px;
     
-    .md-display-3{
-        margin: 10px 0;
-        font-weight:300;
-        color: #9E9E9E;
+    h3 {
+        text-transform: uppercase;
+        font-size: 50px;
+        font-weight: 300;
+        margin: 0;
     }
 
-    span{
+    span {
         display:inline-block;
         width:33%;
+
+        a {
+            color: $md-secondary-dark;
+        }
     }
 
-    p:first-child{
+    p:first-child {
         text-transform: uppercase;
     }
 }
 
-.active{
+.active {
     border-bottom: 5px solid $md-secondary;
     color: $md-secondary;
     margin-bottom: -5px;
