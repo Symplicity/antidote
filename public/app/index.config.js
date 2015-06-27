@@ -11,9 +11,9 @@
 
         $mdThemingProvider.theme('default')
             .primaryPalette('light-blue', {
-                'default':'800',
+                'default':'700',
                 'hue-1':'50',
-                'hue-2':'900'
+                'hue-2':'800'
             })
             .accentPalette('amber', {
                 'default':'500'
