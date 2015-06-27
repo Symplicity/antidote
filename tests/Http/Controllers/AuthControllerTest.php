@@ -90,4 +90,16 @@ class AuthControllerTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertContains('token', $response->getContent());
     }
+
+    public function testBadPasswordUpdate()
+    {
+        $request = new Illuminate\Http\Request([
+            'password' => 'foobar'
+        ]);
+
+        $response = $this->ctrl->updatePasswordFromResetToken('foo', $request);
+
+        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertContains('token is invalid', $response->getContent());
+    }
 }
