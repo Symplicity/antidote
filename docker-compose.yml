@@ -10,6 +10,7 @@ web:
     - .:/var/www
   environment:
     - APP_ROOT=/var/www
+    - TERM=xterm
   links:
     - db
 job:
