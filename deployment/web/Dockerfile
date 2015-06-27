@@ -66,4 +66,4 @@ ADD update.sh /update.sh
 RUN git clone https://github.com/moos3/arbeider.git /worker
 RUN cd /worker && composer install
 RUN mkdir /etc/service/worker
-RUN cp /worker/run /etc/service/run
+RUN ln -s /worker/run /etc/service/run
