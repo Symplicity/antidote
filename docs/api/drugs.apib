@@ -105,8 +105,22 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                 ],
                 "generic_id": 45,
                 "indications": [
-                    "pain",
-                    "headache"
+                    {
+                        "id": "1",
+                        "value": "pulmonary arterial hypertension",
+                        "pivot": {
+                            "drug_id": "1",
+                            "drug_indication_id": "1"
+                        }
+                    },
+                    {
+                        "id": "2",
+                        "value": "plasma cell myeloma",
+                        "pivot": {
+                            "drug_id": "1",
+                            "drug_indication_id": "2"
+                        }
+                    }
                 ],
                 "prescription_type": "OTC",
                 "recalls": [
