@@ -102,4 +102,32 @@ class AuthControllerTest extends TestCase
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertContains('token is invalid', $response->getContent());
     }
+
+    public function testBadForgotPassword()
+    {
+        $request = new Illuminate\Http\Request([
+            'username' => 'non_existing_user'
+        ]);
+
+        $response = $this->ctrl->processForgotPassword($request);
+
+        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertContains('No account with that username', $response->getContent());
+    }
+
+    public function testForgotPassword()
+    {
+        $request = new Illuminate\Http\Request([
+            'username' => 'existing_user'
+        ]);
+
+        Mail::shouldReceive('send')
+            ->with('emails.forgot-password', \Mockery::type('array'), \Mockery::type('callable'))
+            ->once();
+
+        $_SERVER['HTTP_HOST'] = 'test.com';
+        $response = $this->ctrl->processForgotPassword($request);
+
+        $this->assertContains('An email has been sent', $response->getContent());
+    }
 }
