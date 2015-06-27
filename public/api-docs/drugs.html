@@ -179,7 +179,7 @@ a.list-group-item.heading:hover {
     ]
 </span>}
 </code></pre></li></ul></section><h4 id="drugs-drug">Drug&nbsp;<a href="#drugs-drug"><i class="fa fa-link"></i></a></h4><section id="drugs-drug-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Get Drug</span></div><div style="float:left"><a href="#drugs-drug-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs/{id}</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>The drug ID</p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#36889bf88bc816a1437c00f937fa1beb" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="36889bf88bc816a1437c00f937fa1beb" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#42b005f18a7a114293d9c67880156ce0" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="42b005f18a7a114293d9c67880156ce0" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
     "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
     "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol"</span></span>,
     "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol is used to treat pain."</span></span>,
@@ -211,7 +211,17 @@ a.list-group-item.heading:hover {
         <span class="hljs-string">"headache"</span>
     ]</span>,
     "<span class="hljs-attribute">prescription_type</span>": <span class="hljs-value"><span class="hljs-string">"OTC"</span></span>,
-    "<span class="hljs-attribute">recalls</span>": <span class="hljs-value">[]
+    "<span class="hljs-attribute">recalls</span>": <span class="hljs-value">[
+        {
+            "<span class="hljs-attribute">number</span>": <span class="hljs-value"><span class="hljs-string">"91201096"</span></span>,
+            "<span class="hljs-attribute">date</span>": <span class="hljs-value"><span class="hljs-string">"19880508"</span></span>,
+            "<span class="hljs-attribute">recall</span>": <span class="hljs-value"><span class="hljs-string">"Quidem iure eaque eveniet placeat odit architecto. Et pariatur cum ea hic consequatur iste quia. Sed voluptates aliquid voluptate saepe quae optio. Aut voluptas quia rerum. Quia unde vel hic quasi assumenda officia."</span></span>,
+            "<span class="hljs-attribute">lots</span>": <span class="hljs-value"><span class="hljs-string">"Lot Number: 54014927, Exp 06 / 28 / 1983"</span>
+        </span>}
+    ]</span>,
+    "<span class="hljs-attribute">effectiveness_percentage</span>": <span class="hljs-value"><span class="hljs-number">0.18</span></span>,
+    "<span class="hljs-attribute">insurance_coverage_percentage</span>": <span class="hljs-value"><span class="hljs-number">0.64</span></span>,
+    "<span class="hljs-attribute">total_reviews</span>": <span class="hljs-value"><span class="hljs-number">11</span>
 </span>}
 </code></pre></li></ul></section><h4 id="drugs-drug-review">Drug Review&nbsp;<a href="#drugs-drug-review"><i class="fa fa-link"></i></a></h4><section id="drugs-drug-review-get" class="panel panel-info"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">List All</span></div><div style="float:left"><a href="#drugs-drug-review-get" class="btn btn-xs btn-primary">GET</a></div><div style="overflow:hidden"><code>/drugs/{id}/reviews{?keywords,page,limit}</code></div></div><div class="panel-body"><p>Returns a list of all reviews for a drug. The reviews are returned in created date descending order.  Example:</p>
 <pre><code class="language-no-highlight">https://antidote.symplicity-opensource.com/api/drugs/1/reviews
@@ -220,7 +230,7 @@ a.list-group-item.heading:hover {
 </dd><dt>keywords</dt><dd><code>string</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>pain</span></span><p>Search for a drug review by keywords in the comment</p>
 </dd><dt>page</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>Page number</p>
 </dd><dt>limit</dt><dd><code>integer</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>15</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>25</span></span><p>The maximum number of drug reviews to return, up to <code>500</code></p>
-</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#b3076f137a02eb6ee5d82b4197f14796" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="b3076f137a02eb6ee5d82b4197f14796" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
+</dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#456727304d59e4cd44828221623b1efb" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="456727304d59e4cd44828221623b1efb" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
     "<span class="hljs-attribute">total</span>": <span class="hljs-value"><span class="hljs-number">45</span></span>,
     "<span class="hljs-attribute">per_page</span>": <span class="hljs-value"><span class="hljs-number">15</span></span>,
     "<span class="hljs-attribute">current_page</span>": <span class="hljs-value"><span class="hljs-number">2</span></span>,
@@ -238,8 +248,7 @@ a.list-group-item.heading:hover {
             "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-23 02:57:19"</span></span>,
             "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
                 "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
-                "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Miss Kavon Murray IV"</span></span>,
-                "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"Dedric91@Hahn.com"</span></span>,
+                "<span class="hljs-attribute">username</span>": <span class="hljs-value"><span class="hljs-string">"dedric"</span></span>,
                 "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-22 18:49:02"</span></span>,
                 "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-22 18:49:02"</span></span>,
                 "<span class="hljs-attribute">age</span>": <span class="hljs-value"><span class="hljs-number">23</span></span>,
@@ -247,7 +256,6 @@ a.list-group-item.heading:hover {
             </span>}</span>,
             "<span class="hljs-attribute">drug</span>": <span class="hljs-value">{
                 "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
-                "<span class="hljs-attribute">ndc</span>": <span class="hljs-value"><span class="hljs-string">"33127350"</span></span>,
                 "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol"</span></span>,
                 "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Tylenol is a medicine used to treat pain."</span>
             </span>}</span>,
@@ -278,8 +286,7 @@ a.list-group-item.heading:hover {
             "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-23 02:57:19"</span></span>,
             "<span class="hljs-attribute">user</span>": <span class="hljs-value">{
                 "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">3</span></span>,
-                "<span class="hljs-attribute">name</span>": <span class="hljs-value"><span class="hljs-string">"Miss Kavon Murray IV"</span></span>,
-                "<span class="hljs-attribute">email</span>": <span class="hljs-value"><span class="hljs-string">"Dedric91@Hahn.com"</span></span>,
+                "<span class="hljs-attribute">username</span>": <span class="hljs-value"><span class="hljs-string">"dedric"</span></span>,
                 "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-22 18:49:02"</span></span>,
                 "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-22 18:49:02"</span></span>,
                 "<span class="hljs-attribute">age</span>": <span class="hljs-value"><span class="hljs-number">23</span></span>,
@@ -287,7 +294,6 @@ a.list-group-item.heading:hover {
             </span>}</span>,
             "<span class="hljs-attribute">drug</span>": <span class="hljs-value">{
                 "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">5</span></span>,
-                "<span class="hljs-attribute">ndc</span>": <span class="hljs-value"><span class="hljs-string">"33127350"</span></span>,
                 "<span class="hljs-attribute">label</span>": <span class="hljs-value"><span class="hljs-string">"Claritin"</span></span>,
                 "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"Claritin is used to treat allergies."</span>
             </span>}</span>,
@@ -305,8 +311,8 @@ a.list-group-item.heading:hover {
     ]
 </span>}
 </code></pre></li></ul></section><section id="drugs-drug-review-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create New</span></div><div style="float:left"><a href="#drugs-drug-review-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/drugs/{id}/reviews{?keywords,page,limit}</code></div></div><div class="panel-body"><p>Create a new drug review</p>
-</div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>rating</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>The rating the user gave the drug either 1, 2, 3 - 1 is best</p>
-</dd><dt>is_covered_by_insurance</dt><dd><code>boolean</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-info default"><strong>Default:&nbsp;</strong><span>0</span></span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>Was the drug covered by insurance?</p>
+</div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>rating</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>3</span></span><p>The rating the user gave the drug either 1, 2, 3 - 1 is best</p>
+</dd><dt>is_covered_by_insurance</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>Was the drug covered by insurance?</p>
 </dd><dt>comment</dt><dd><code>text</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>My pain has subsided considerably since I started taking this.</span></span><p>User comments</p>
 </dd><dt>side_effects</dt><dd><code>array</code>&nbsp;<span>(optional)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>[1,2,3]</span></span><p>Side effects experienced by the user</p>
 </dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#1068f0a64265e91cb48da99c866ad64a" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="1068f0a64265e91cb48da99c866ad64a" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
@@ -367,7 +373,7 @@ a.list-group-item.heading:hover {
         </span>}
     ]
 </span>}
-</code></pre></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 26 Jun 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
+</code></pre></li></ul></section></div></div></div></div></div></div><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 27 Jun 2015</p><div id="localFile" style="display: none; position: absolute; top: 0; left: 0; width: 100%; color: white; background: red; font-size: 150%; text-align: center; padding: 1em;">This page may not display correctly when opened as a local file. Instead, view it from a web server.
 
 </div></body><script src="//code.jquery.com/jquery-1.11.0.min.js"></script><script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script>(function() {
   if (location.protocol === 'file:') {
