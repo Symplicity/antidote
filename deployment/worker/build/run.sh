@@ -50,16 +50,17 @@ if [ -z "$MAILGUN_SECRET" ]; then
   exit 1
 fi
 
+if [ -z "$ANTIDOTE_API_KEY" ]; then
+  echo "Missing \$ANTIDOTE_API_KEY"
+  exit 1
+fi
+
 if [ -z "$SSL_CERTS_URL" ]; then
   echo "Missing \$SSL_CERTS_URL"
   echo "Proceeding with localhost SSL Cert"
 else
   curl -O /tmp/certs.zip $SSL_CERTS_URL
   unzip /tmp/certs.zip -d /var/www/certs/
-fi
-
-if [ -z "$SSH_KEY" ]; then
-  echo $SSH_KEY > /root/.ssh/id_rsa
 fi
 
 if [ -z "$GITREPO_URL" ]; then
@@ -69,16 +70,19 @@ if [ -z "$GITREPO_URL" ]; then
 else
   touch /root/.ssh/known_hosts
   ssh-keyscan github.com >> /root/.ssh/known_hosts
+  chmod 0700 /root/.ssh
+  chmod 0600 /root/.ssh/id_rsa
   git clone $GITREPO_URL /var/www
   cd /var/www
   if [ -z "$GITREPO_BRANCH" ]; then
     ## If git branch isn't there then we are just going to assume master branch
     git checkout $GITBRANCH_REPO
   fi
-  unzip dist.zip -q -d /var/www
+  unzip -q dist.zip -d /var/www
   cp /var/www/deployment/web/build/env /var/www/.env
 fi
 
+sed -i "s/ANTIDOTE_API_KEY/$ANTIDOTE_API_KEY/" /var/www/.env
 sed -i "s/ANTIDOTE_DB_PASS/$ANTIDOTE_DB_PASS/" /var/www/.env
 sed -i "s/ANTIDOTE_DB_HOST/$ANTIDOTE_DB_HOST/" /var/www/.env
 sed -i "s/ANTIDOTE_DB_NAME/$ANTIDOTE_DB_NAME/" /var/www/.env

@@ -23,3 +23,5 @@ if [ "$ANTIDOTE_ROLE" == "worker" ]; then
     php artisan migrate
   fi
 fi
+
+/var/www/scripts/notify.sh SUCCESS "Deploy happened"
