@@ -3,18 +3,18 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
   height: 100%;
 }
 
-.drugs-tabs-bg{
+.drugs-tabs-bg {
     background-color: #FFF;
     max-height: 100%;
     
-    ul{
+    ul {
         margin-left: 0px;
         padding-left: 0px;
         display: inline-block;
         text-align: center;
         margin-bottom: 5px;
     
-        li{
+        li {
             display: inline-block;
             height: 100%;
             font-size: 16px;
@@ -32,26 +32,23 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         }
     }
 }
-
-
-
-.content{
+.content {
     padding: 25px;
 }
 
-.percentage{
+.percentage {
     font-size:56px;
 }
 
-.md-icon-big{
-    width:100px;
-    height:100px;
+.md-icon-big {
+    width:80px;
+    height:80px;
 
     .material-icons{
-        font-size:100px;
+        font-size:80px;
     }
 
-   @media only screen and (max-width: 1024px){
+   @media only screen and (max-width: 1024px) {
         width:75px;
         height:75px;
 
@@ -59,20 +56,6 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
             font-size:75px;
         }
     }
-}
-
-.md-pills{
-        padding: 25px;
-        color: #FFF;
-        font-size: 12px;    
-        display: inline-block;
-        border: solid;
-        border-width: 2px;
-        border-radius: 15px;
-        padding: 1px 10px;
-        background-color: $md-secondary;
-        border-color: $md-secondary;
-        margin: 5px 5px 0 0;
 }
 
 .md-vote {
@@ -85,33 +68,33 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
 
 }
 
-.vote-up{
-    &:hover{
+.vote-up {
+    &:hover {
         color: $md-secondary;
 
         p{
             color: $md-secondary;
         }
     }
-    &:active{
+    &:active {
         color: #26a69a;
     }
 }
 
-.vote-down{
-    &:hover{
+.vote-down {
+    &:hover {
         color: #e57373;
         
-        p{
+        p {
             color: #e57373;
         }
     }
-    &:active{
+    &:active {
         color: #ef5350;
     }
 }
 
-.vote-label{
+.vote-label {
     text-align: center;
 
     @media only screen and (max-width: 600px){
@@ -120,10 +103,10 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
 
 }
 
-.center{
+.center {
     text-align: center;
 }
 
-md-divider{
+md-divider {
     padding: 10px 0;
 }
