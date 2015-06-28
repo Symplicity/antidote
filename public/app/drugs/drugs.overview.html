@@ -6,10 +6,11 @@
                 <md-icon>build</md-icon>
                 <h4>Effectiveness</h4>
             </md-toolbar>
-            <md-card-content>
-                <span class="percentage">{{::drugsView.drug.effectiveness_percentage | percentage}}</span>
-                <p>{{::drugsView.drug.effectiveness_percentage | percentage}} of people found
-                    {{::drugsView.drug.label}} effective</p>
+            <md-card-content class="top-3">                           
+                <canvas id="doughnut" class="chart chart-doughnut" data="drugsView.effectivenessChartData" labels="drugsOverview.effectiveLabels" colours="drugsOverview.effectiveColours"></canvas>
+                <p class="percentage">{{::drugsView.drug.effectiveness_percentage | percentage}}</p>  
+                 <p>{{::drugsView.drug.effectiveness_percentage | percentage}} of people found
+                {{::drugsView.drug.label}} effective</p>
             </md-card-content>
             <div class="md-actions" layout="row" layout-align="end center">
                 <md-button class="md-accent">STATS</md-button>
@@ -21,8 +22,9 @@
                 <md-icon>announcement</md-icon>
                 <h4>Side Effects</h4>
             </md-toolbar>
-            <md-card-content ng-if="drugsView.drug.side_effects.length > 0">
-                <ul ng-repeat="side_effect in drugsView.drug.side_effects">
+            <md-card-content class="top-3" ng-if="drugsView.drug.side_effects.length > 0">               
+                <canvas id="pie" class="chart chart-pie" data="drugsView.sideEffectsData" labels="drugsOverview.seLabels" colours="drugsOverview.seColours"></canvas>
+                 <ul ng-repeat="side_effect in drugsView.drug.side_effects">
                     <li>{{::side_effect.value | capitalize}}</li>
                 </ul>
             </md-card-content>
@@ -36,11 +38,10 @@
                 <md-icon>contact_phone</md-icon>
                 <h4>Insurance</h4>
             </md-toolbar>
-            <md-card-content>
-                <span class="percentage">{{::drugsView.drug.insurance_coverage_percentage | percentage}}</span>
+            <md-card-content class="top-3">                
+                 <canvas id="doughnut" class="chart chart-doughnut" data="drugsView.insuranceChartData" labels="drugsOverview.iLabels" colours="drugsOverview.iColours"></canvas>
+                 <p class="percentage">{{::drugsView.drug.insurance_coverage_percentage | percentage}}</p>
                 <p>{{::drugsView.drug.insurance_coverage_percentage | percentage}} of people found {{::drugsView.drug.label}} covered by their insurance company</p>
-                <canvas id="line" class="chart chart-line" data="drugsOverview.data" labels="drugsOverview.labels"
-                        legend="true" series="drugsOverview.series"></canvas>
             </md-card-content>
              <div class="md-actions" layout="row" layout-align="end center">
                 <md-button class="md-accent">STATS</md-button>
