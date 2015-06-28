@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.3.4"
+LABEL version="1.3.5"
 LABEL description="This is the Antidote Worker, with PHP 5.6"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
