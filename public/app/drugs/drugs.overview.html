@@ -7,9 +7,9 @@
                 <h4>Effectiveness</h4>
             </md-toolbar>
             <md-card-content>
-                <span class="percentage">{{drugsView.drug.effectiveness_percentage | percentage}}</span>
-                <p>{{drugsView.drug.effectiveness_percentage | percentage}} of people found
-                    {{drugsView.drug.label}} effective</p>
+                <span class="percentage">{{::drugsView.drug.effectiveness_percentage | percentage}}</span>
+                <p>{{::drugsView.drug.effectiveness_percentage | percentage}} of people found
+                    {{::drugsView.drug.label}} effective</p>
             </md-card-content>
             <div class="md-actions" layout="row" layout-align="end center">
                 <md-button class="md-accent">STATS</md-button>
@@ -37,8 +37,8 @@
                 <h4>Insurance</h4>
             </md-toolbar>
             <md-card-content>
-                <span class="percentage">{{drugsView.drug.insurance_coverage_percentage | percentage}}</span>
-                <p>{{drugsView.drug.insurance_coverage_percentage | percentage}} of people found {{drugsView.drug.label}} covered by their insurance company</p>
+                <span class="percentage">{{::drugsView.drug.insurance_coverage_percentage | percentage}}</span>
+                <p>{{::drugsView.drug.insurance_coverage_percentage | percentage}} of people found {{::drugsView.drug.label}} covered by their insurance company</p>
             </md-card-content>
              <div class="md-actions" layout="row" layout-align="end center">
                 <md-button class="md-accent">STATS</md-button>
