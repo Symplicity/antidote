@@ -1,20 +1,29 @@
 <?php
 
+use \App\Http\Controllers\DrugController;
+
 class DrugControllerTest extends TestCase
 {
+    /**
+     * @var DrugController
+     */
     private $ctrl;
     private $stubQuery;
     private $mockModel;
+    private $mockUser;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->ctrl = new \App\Http\Controllers\DrugController;
+        $this->ctrl = new DrugController;
 
         $this->stubQuery = \Mockery::mock('\Illuminate\Database\Eloquent\Builder');
         $this->mockModel = \Mockery::mock('\App\Drug');
         $this->app->instance('Drug', $this->mockModel);
+
+        $this->mockUser = \Mockery::mock('\App\User');
+        $this->app->instance('User', $this->mockUser);
     }
 
     public function testShow()
@@ -59,5 +68,37 @@ class DrugControllerTest extends TestCase
         $request = new Illuminate\Http\Request($params);
 
         $this->ctrl->index($request);
+    }
+
+    public function testAddReviewSansRating()
+    {
+        $request = new Illuminate\Http\Request([
+            'user' => ['sub' => 'foo'],
+            'comment' => 'Foo'
+        ]);
+
+        $response = $this->ctrl->addReview('foo', $request);
+
+        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertContains('rating field is required', $response->getContent());
+    }
+
+    public function testAddReview()
+    {
+        $this->setupDatabase();
+
+        $request = new Illuminate\Http\Request([
+            'user' => ['sub' => 'foo'],
+            'rating' => 2,
+            'is_covered_by_insurance' => 0,
+            'comment' => 'Foo'
+        ]);
+
+        $this->mockUser->shouldReceive('getAttribute')->once()->with('age')->andReturn(22);
+        $this->mockUser->shouldReceive('find')->once()->with('foo')->andReturn($this->mockUser);
+
+        $review = $this->ctrl->addReview('foo', $request);
+
+        $this->assertInstanceOf('\App\DrugReview', $review);
     }
 }
