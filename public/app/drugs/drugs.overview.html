@@ -39,6 +39,8 @@
             <md-card-content>
                 <span class="percentage">{{::drugsView.drug.insurance_coverage_percentage | percentage}}</span>
                 <p>{{::drugsView.drug.insurance_coverage_percentage | percentage}} of people found {{::drugsView.drug.label}} covered by their insurance company</p>
+                <canvas id="line" class="chart chart-line" data="drugsOverview.data" labels="drugsOverview.labels"
+                        legend="true" series="drugsOverview.series"></canvas>
             </md-card-content>
              <div class="md-actions" layout="row" layout-align="end center">
                 <md-button class="md-accent">STATS</md-button>
