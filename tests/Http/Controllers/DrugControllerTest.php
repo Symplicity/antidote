@@ -29,6 +29,7 @@ class DrugControllerTest extends TestCase
     public function testShow()
     {
         $this->stubQuery->shouldReceive('find')->once()->with(1);
+        $this->stubQuery->shouldReceive('with')->once()->with('reviews')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('with')->once()->with('indications')->andReturn($this->stubQuery);
         $this->mockModel->shouldReceive('with')
             ->once()

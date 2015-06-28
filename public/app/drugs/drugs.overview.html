@@ -54,70 +54,10 @@
             <md-icon>question_answer</md-icon>
             <h4>Reviews</h4>
         </md-toolbar>
-        <md-card-content>
-            <div layout="row" layout-sm="column"  layout-align-sm="center center">
-
-                <div flex-gt-md="10" flex-md="15" flex-sm class="health-state">
-                    <md-icon class="md-icon-big">mood</md-icon>
-                </div>
-                <div flex-gt-md="15" flex-md="25" flex-sm class="health-state">
-                    <p class="bold">"Effective" <br /> Female, 30</p>
-                </div>
-                <div flex>
-                    <p>"Taking in the morning or afternoon with an hour of two for relax before takes effect. If you have ocular/eye problems/pains you will feel in 10 minutes that your whole body starts to relax but keep away from computers, tv and so."</p>
-                </div>
-                <div layout="row" layout-align="center center" flex-gt-md="25" flex>
-                    <div class="md-vote" layout="column" layout-align="center center" flex>
-                        <a href="#">
-                            <span class="vote-up">
-                                <md-icon class="vote-up md-icon-big">thumb_up</md-icon>
-                                <p>86</p>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="md-vote" layout="column" layout-align="center center" flex>
-                        <a href="#">
-                            <span class="vote-down">
-                                <md-icon class="vote-down md-icon-big">thumb_down</md-icon>
-                                <p>86</p>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <md-divider ng-if="!$last"></md-divider>
-             <div layout="row" layout-sm="column"  layout-align-sm="center center">
-
-                <div flex-gt-md="10" flex-md="15" flex-sm class="health-state">
-                    <md-icon class="md-icon-big">mood</md-icon>
-                </div>
-                <div flex-gt-md="15" flex-md="25" flex-sm class="health-state">
-                    <p class="bold">"Effective" <br /> Female, 30</p>
-                </div>
-                <div flex>
-                    <p>"Taking in the morning or afternoon with an hour of two for relax before takes effect. If you have ocular/eye problems/pains you will feel in 10 minutes that your whole body starts to relax but keep away from computers, tv and so."</p>
-                </div>
-                <div layout="row" layout-align="center center" flex-gt-md="25" flex>
-                    <div class="md-vote" layout="column" layout-align="center center" flex>
-                        <a href="#">
-                            <span class="vote-up">
-                                <md-icon class="vote-up md-icon-big">thumb_up</md-icon>
-                                <p>86</p>
-                            </span>
-                        </a>
-                    </div>
-                    <div class="md-vote" layout="column" layout-align="center center" flex>
-                        <a href="#">
-                            <span class="vote-down">
-                                <md-icon class="vote-down md-icon-big">thumb_down</md-icon>
-                                <p>86</p>
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </md-card-content>
-         <div class="md-actions" layout="row" layout-align="end center">
+        <md-card ng-repeat="review in drugsView.drug.reviews">
+            <drugs-review-view review="review"></drugs-review-view>
+        </md-card>
+        <div class="md-actions" layout="row" layout-align="end center">
                 <md-button ui-sref="drugs.view.reviews({id: drugsView.drug.id})" class="md-accent">SEE MORE REVIEWS</md-button>
             </div>
     </md-card>
