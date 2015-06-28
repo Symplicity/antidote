@@ -95,18 +95,18 @@ sed -i "s/FDA_TOKEN/$FDA_TOKEN/" /var/www/.env
 
 ln -s /worker /var/www/dist/webhook
 
-if [[ "$ANTIDOTE_ROLE" == "worker" ]]; then
+if [ "$ANTIDOTE_ROLE" = "worker" ]; then
   cd /var/www
-  if [[ ! -f /var/www/.dbcomplete ]];then
-    logger 'Running PHP Artisan Migration'
+  if [ ! -f /var/www/.dbcomplete ];then
+    echo 'Running PHP Artisan Migration'
     if [ -z "$TEST_SITE" ]; then
       php artisan migrate:refresh --seed
     else
       php artisan migrate --force
     fi
-    Logger 'Completed PHP Artisan Migration'
+    echo 'Completed PHP Artisan Migration'
     touch /var/www/.dbcomplete
   else
-    logger "DB Migrations already Completed"
+    echo "DB Migrations already Completed"
   fi
 fi
