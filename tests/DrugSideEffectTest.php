@@ -4,8 +4,8 @@ class DrugSideEffectTest extends TestCase
 {
     public function testRelations()
     {
-        $review = factory('App\DrugSideEffect')->make();
-        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $review->drugs());
-        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $review->drugReviews());
+        $effect = factory('App\DrugSideEffect')->make();
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $effect->drugs());
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $effect->drugReviews());
     }
 }
