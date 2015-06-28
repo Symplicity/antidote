@@ -6,18 +6,11 @@
             <md-input-container>
                 <p>Was it effective?</p>
                 <div layout="row" flex>
-                    <div layout="column" layout-align="center center" flex>
-                        <md-icon class="md-icon-big">mood</md-icon>
-                        <p>It was great!</p>
-                    </div>
-                    <div layout="column" layout-align="center center" flex>
-                        <md-icon class="md-icon-big">mood</md-icon>
-                        <p>MEHH</p>
-                    </div>
-                    <div layout="column" layout-align="center center" flex>
-                        <md-icon class="md-icon-big">mood_bad</md-icon>
-                        <p>Piece of garbage!</p>
-                    </div>
+                    <md-radio-group ng-model="data.group1">
+                      <md-radio-button value="Good" class="md-primary"><md-icon class="md-icon-big">mood</md-icon>Good</md-radio-button>
+                      <md-radio-button value="Meh"><md-icon class="md-icon-big">mood</md-icon>Meh</md-radio-button>
+                      <md-radio-button value="Bad"><md-icon class="md-icon-big">mood_bad</md-icon>Bad</md-radio-button>
+                    </md-radio-group>
                 </div>
             </md-input-container>
             <md-input-container>
@@ -39,11 +32,7 @@
                 <md-radio-group ng-model="drugsReviews.userReview.insurance_coverage">
                     <md-radio-button value="1">Yes</md-radio-button>
                     <md-radio-button value="0"> No </md-radio-button>
-                </md-radio-group>
-                <md-radio-group ng-model="drugsReviews.userReview.rating">
-                    <md-radio-button value="1">Yes</md-radio-button>
-                    <md-radio-button value="2"> No </md-radio-button>
-                </md-radio-group>
+                </md-radio-group>                
             </div>  
             </md-input-container>
                 
