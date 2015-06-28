@@ -18,13 +18,13 @@ class PopulateDrugRatings extends Migration
         DB::table('drug_ratings')->insert(
             [
                 [
-                    'value' => 'It Worked!'
+                    'value' => 'Bad'
                 ],
                 [
-                    'value' => 'Not So Great'
+                    'value' => 'Good'
                 ],
                 [
-                    'value' => 'Didn\'t work, used another medication'
+                    'value' => 'Best'
                 ]
             ]
         );

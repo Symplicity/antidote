@@ -29,12 +29,12 @@ class DrugTest extends TestCase
         $this->drug = factory('App\Drug')->create();
         $this->drug->reviews()->save(factory('App\DrugReview')->make([
             'is_covered_by_insurance' => '1',
-            'rating' => '1'
+            'rating' => '3'
         ]));
 
         $this->drug->reviews()->save(factory('App\DrugReview')->make([
             'is_covered_by_insurance' => '0',
-            'rating' => '1'
+            'rating' => '3'
         ]));
 
         $this->drug->reviews()->save(factory('App\DrugReview')->make([
@@ -44,7 +44,7 @@ class DrugTest extends TestCase
 
         $this->drug->reviews()->save(factory('App\DrugReview')->make([
             'is_covered_by_insurance' => '0',
-            'rating' => '3'
+            'rating' => '1'
         ]));
     }
 

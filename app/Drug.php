@@ -79,7 +79,7 @@ class Drug extends Model
     {
         $reviews = $this->getTotalReviewsAttribute();
         if (!empty($reviews)) {
-            return round(count($this->reviews()->where('rating', '1')->get()) / $this->getTotalReviewsAttribute(), 2);
+            return round(count($this->reviews()->where('rating', '3')->get()) / $this->getTotalReviewsAttribute(), 2);
         }
         return 0;
     }
