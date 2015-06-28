@@ -68,8 +68,8 @@ class AuthMiddlewareTest extends TestCase
     {
         $payload = [
             'sub' => 'foo',
-            'iat' => time() -10,
-            'exp' => time() -1
+            'iat' => time() - 10,
+            'exp' => time() - 1
         ];
 
         $token = JWT::encode($payload, env('APP_KEY'));
