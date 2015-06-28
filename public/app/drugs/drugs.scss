@@ -32,12 +32,19 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         }
     }
 }
+
+.top-3 {
+    p, span {
+        text-align: center;
+    }
+}
 .content {
     padding: 25px;
 }
 
 .percentage {
     font-size:56px;
+    margin: 5px;
 }
 
 .md-icon-big {
