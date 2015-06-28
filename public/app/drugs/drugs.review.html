@@ -51,7 +51,7 @@
                 <div layout="row">
                      <md-input-container>
                         <label>Share any other details about the medication, or coverage experience</label>
-                        <textarea name="comment" ng-model="drugsReviews.userReview.comment" required md-maxlength="150"></textarea>
+                        <textarea name="comment" ng-model="drugsReviews.userReview.comment" md-maxlength="150"></textarea>
                         <div ng-messages="reviewForm.comment.$error" ng-show="reviewForm.comment.$dirty">
                             <div ng-message="md-maxlength">That's too long!</div>
                         </div>
