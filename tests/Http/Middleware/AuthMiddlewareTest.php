@@ -44,4 +44,39 @@ class AuthMiddlewareTest extends TestCase
 
         $this->assertContains('Token could not be decoded', $response->getContent());
     }
+
+    public function testHandleWithToken()
+    {
+        $payload = [
+            'sub' => 'foo',
+            'iat' => time() - 1,
+            'exp' => time() + 10
+        ];
+
+        $token = JWT::encode($payload, env('APP_KEY'));
+        $this->request->shouldReceive('header')->twice()->with('Authorization')->andReturn('foo ' . $token);
+        $this->request->shouldReceive('offsetSet')->once();
+        $this->request->shouldReceive('getResponse')->once();
+
+        $response = $this->middle->handle($this->request, function ($request) {
+            $request->getResponse();
+        });
+        $this->assertNull($response);
+    }
+
+    public function testExpiredToken()
+    {
+        $payload = [
+            'sub' => 'foo',
+            'iat' => time() - 10,
+            'exp' => time() - 1
+        ];
+
+        $token = JWT::encode($payload, env('APP_KEY'));
+        $this->request->shouldReceive('header')->twice()->with('Authorization')->andReturn('foo ' . $token);
+
+        $response = $this->middle->handle($this->request, function () {});
+
+        $this->assertContains('Token has expired', $response->getContent());
+    }
 }
