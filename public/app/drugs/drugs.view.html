@@ -5,7 +5,7 @@
                 <p class="md-manufacturer-name">Manufacturer: Pfilzer Inc.</p>
             </div>
             <div flex="10" flex-sm="30">
-                <md-button class="md-accent md-raised md-button" ng-click="submitReview($event)">Review it</md-button>
+                <md-button class="md-accent md-raised md-button" ng-click="drugsView.openReviewModal($event)">Review it</md-button>
             </div>
             <div flex="70" flex-sm="100">
                 <p>{{drugsView.drug.description}}</p>
@@ -24,8 +24,14 @@
 <div class="drugs-tabs-bg md-whiteframe-z1">
     <div class="container">
         <md-tabs md-center-tabs="false">
-            <md-tab  ng-repeat="tab in drugsView.tabs" ui-sref="{{::tab.state}}">
-                <md-tab-label>{{::tab.title}}</md-tab-label>
+            <md-tab ui-sref="drugs.view.overview">
+                <md-tab-label>Overview</md-tab-label>
+            </md-tab>
+            <md-tab ui-sref="drugs.view.reviews">
+                <md-tab-label>Reviews ({{::drugsView.drug.total_reviews}})</md-tab-label>
+            </md-tab>
+            <md-tab ui-sref="drugs.view.alternatives">
+                <md-tab-label>Alternatives</md-tab-label>
             </md-tab>
         </md-tabs>
     </div>
