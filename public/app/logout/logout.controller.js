@@ -15,7 +15,7 @@
                 $mdToast.show(
                     $mdToast.simple()
                         .content('You have been logged out')
-                        .position('top right')
+                        .position('top left')
                         .hideDelay(3000)
                 );
             });
