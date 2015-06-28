@@ -58,7 +58,7 @@
             $mdDialog.show({
                 controller: 'DrugsReviewModalCtrl',
                 controllerAs: 'drugsReviewModal',
-                templateUrl: '/app/drugs/drugs.review.modal.html',
+                templateUrl: 'app/drugs/drugs.review.modal.html',
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 hasBackdrop: true
