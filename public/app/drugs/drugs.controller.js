@@ -7,7 +7,9 @@
         .controller('DrugsViewCtrl', DrugsViewCtrl)
         .controller('DrugsOverviewCtrl', DrugsOverviewCtrl)
         .controller('DrugsReviewsCtrl', DrugsReviewsCtrl)
-        .controller('DrugsAlternativesCtrl', DrugsAlternativesCtrl);
+        .controller('DrugsAlternativesCtrl', DrugsAlternativesCtrl)
+        .controller('DrugsReviewCtrl', DrugsReviewCtrl)
+        .controller('DrugsReviewModalCtrl', DrugsReviewModalCtrl);
 
     /** @ngInject */
     function DrugsListCtrl(DrugsService, $stateParams) {
@@ -54,7 +56,8 @@
 
         this.openReviewModal = function(ev) {
             $mdDialog.show({
-                controller: DrugsReviewModalCtrl,
+                controller: 'DrugsReviewModalCtrl',
+                controllerAs: 'drugsReviewModal',
                 templateUrl: '/app/drugs/drugs.review.modal.html',
                 targetEvent: ev,
                 clickOutsideToClose: true,
@@ -69,9 +72,25 @@
         }
     }
 
-    function DrugsReviewModalCtrl($scope, $mdDialog) {
-        $scope.closeDialog = function() {
+    /** @ngInject */
+    function DrugsReviewModalCtrl($mdDialog) {
+        this.closeDialog = function() {
             $mdDialog.hide();
+        };
+    }
+
+    /** controller for review form **/
+    /** @ngInject */
+    function DrugsReviewCtrl(DrugsService, $stateParams) {
+        var that = this;
+        this.review = {};
+        this.reviewSubmitted = false;
+
+        this.submitReview = function() {
+            DrugsService.postReview({id: $stateParams.id}, this.review).$promise.then(function() {
+                that.reviewSubmitted = true;
+            });
+            //TODO: add server error handling to display messages to user
         };
     }
 
@@ -94,14 +113,9 @@
     /** @ngInject */
     function DrugsReviewsCtrl(DrugsService, $stateParams) {
         this.reviews = {};
-        this.userReview = {};
         var that = this;
 
         activate();
-
-        this.test = function(review) {
-            DrugsService.postReview({id: $stateParams.id}, review);
-        };
 
         function activate() {
             DrugsService.getReviews({id: $stateParams.id}).$promise.then(function(reviews) {
