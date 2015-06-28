@@ -42,7 +42,7 @@
     }
 
     /** @ngInject */
-    function DrugsViewCtrl(DrugsService, $stateParams, $scope, $mdDialog) {
+    function DrugsViewCtrl(DrugsService, $stateParams, $mdDialog) {
         var that = this;
         activate();
 
@@ -52,7 +52,7 @@
             {title: 'Alternatives', state: 'drugs.view.alternatives'}
         ];
 
-        $scope.submitReview = function(ev) {
+        this.openReviewModal = function(ev) {
             $mdDialog.show({
                 controller: DrugsReviewModalCtrl,
                 templateUrl: '/app/drugs/drugs.review.modal.html',
