@@ -124,30 +124,35 @@ class ImportDrugs extends Command
 
     private function extractPicks($field, $data)
     {
-        $map_array = $field . '_map';
-        $map = $this->$map_array;
         $picks = [];
 
         if (!empty($data[$field]) && is_array($data[$field])) {
             $raw_picks = $data[$field];
             foreach ($raw_picks as $raw_pick) {
-                if (isset($map[trim(strtolower($raw_pick))])) {
-                    $picks[] = $map[trim(strtolower($raw_pick))];
-                } else {
-                    switch ($field) {
-                        case 'side_effects':
+                $val = trim(strtolower($raw_pick));
+                switch ($field) {
+                    case 'side_effects':
+                        if (isset($this->side_effects_map[$val])) {
+                            $picks[] = $this->side_effects_map[$val];
+                        } else {
                             $pick = DrugSideEffect::create([
-                                'value' => trim(strtolower($raw_pick))
+                                'value' => $val
                             ]);
-                            break;
-                        case 'indications':
+                            $this->side_effects_map[$pick->value] = $pick->id;
+                            $picks[] = $pick->id;
+                        }
+                        break;
+                    case 'indications':
+                        if (isset($this->indications_map[$val])) {
+                            $picks[] = $this->indications_map[$val];
+                        } else {
                             $pick = DrugIndication::create([
-                                'value' => trim(strtolower($raw_pick))
+                                'value' => $val
                             ]);
-                            break;
-                    }
-                    $picks[] = $pick->id;
-                    $map[$pick->value] = $pick->id;
+                            $this->indications_map[$pick->value] = $pick->id;
+                            $picks[] = $pick->id;
+                        }
+                        break;
                 }
             }
         }
