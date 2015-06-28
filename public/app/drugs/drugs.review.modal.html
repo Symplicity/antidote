@@ -9,10 +9,19 @@
         <form name="review-form">
             <md-input-container>
                 <p>Was it effective?</p>
-                <div layout="row">
-                    <md-icon class="md-icon-big">mood</md-icon>
-                    <md-icon class="md-icon-big">mood</md-icon>
-                    <md-icon class="md-icon-big">mood_bad</md-icon>
+                <div layout="row" flex>
+                    <div layout="column" layout-align="center center" flex>
+                        <md-icon class="md-icon-big">mood</md-icon>
+                        <p>It was great!</p>
+                    </div>
+                    <div layout="column" layout-align="center center" flex>
+                        <md-icon class="md-icon-big">mood</md-icon>
+                        <p>MEHH</p>
+                    </div>
+                    <div layout="column" layout-align="center center" flex>
+                        <md-icon class="md-icon-big">mood_bad</md-icon>
+                        <p>Piece of garbage!</p>
+                    </div>
                 </div>
             </md-input-container>
             <md-input-container>

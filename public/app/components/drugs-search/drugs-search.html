@@ -2,10 +2,11 @@
     md-no-cache="false"
     md-selected-item="drugsSearch.search.selectedItem"
     md-autofocus="true"
+    md-autoselect="true"
     md-search-text="drugsSearch.search.searchText"
     md-items="item in drugsSearch.getMatches(drugsSearch.search.searchText)"
     md-item-text="item.label"
-    md-floating-label="search by medication"
+    placeholder="search by medication"
     md-search-text-change="drugsSearch.textChange()"
     md-selected-item-change="drugsSearch.itemChange(item)">
     <md-item-template>

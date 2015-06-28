@@ -33,7 +33,14 @@
             background-position: 99%;
             background-color: #FFF;
             color: $md-primary;
+            
+            &:focus{
+                background-image:none;
+            }
+
         }
+
+
 
 
         @media only screen and (max-width: 500px) {
