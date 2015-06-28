@@ -29,7 +29,7 @@ $factory->define(App\Drug::class, function (Faker\Generator $faker) {
         'generic' => ucfirst($faker->word()),
         'drug_forms' => [ucfirst($faker->word()), ucfirst($faker->word())],
         'generic_id' => $faker->numberBetween(1, 50),
-        'prescription_type' => $faker->word(),
+        'prescription_type' => $faker->randomElement(['Prescription and OTC', 'Prescription', '-', 'OTC']), //TODO: see if we should make this a multi-pick instead
         'recalls' => [
             [
                 'number' => $faker->ean8(),
