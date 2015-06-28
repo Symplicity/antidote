@@ -149,6 +149,14 @@
 
         function activate() {
             DrugsService.getAlternatives({id: $stateParams.id}).$promise.then(function(alternatives) {
+                angular.forEach(alternatives.data, function(alternative) {
+                    alternative.chartData = {
+                        'somekey': [],
+                        'anotherkey': 'value',
+                        'and': 'so on'
+                    };
+                });
+
                 that.alternatives = alternatives;
             });
         }
