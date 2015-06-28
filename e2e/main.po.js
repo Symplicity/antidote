@@ -7,7 +7,7 @@
 
 var MainPage = function() {
     this.menuButtons = element.all(by.css('.md-toolbar-tools a.nav-link span'));
-    this.homeCards = element.all(by.css('.md-toolbar-tools h3'));
+    this.homeCards = element.all(by.css('.md-home-card h2'));
 };
 
 module.exports = new MainPage();
