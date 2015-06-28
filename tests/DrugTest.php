@@ -14,6 +14,16 @@ class DrugTest extends TestCase
         $this->seedTestDrugAndReviews();
     }
 
+    public function testRelations()
+    {
+        $drug = factory('App\Drug')->make();
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\HasMany', $drug->reviews());
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $drug->sideEffects());
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $drug->indications());
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $drug->alternatives());
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $drug->related());
+    }
+
     public function seedTestDrugAndReviews()
     {
         $this->drug = factory('App\Drug')->create();
@@ -40,18 +50,27 @@ class DrugTest extends TestCase
 
     public function testGetEffectivenessPercentageAttribute()
     {
+        $drug = factory('App\Drug')->make();
+        $this->assertSame(0, $drug->effectiveness_percentage, 'New records should return zero for stats');
+
         $drug = Drug::find($this->drug->id);
         $this->assertSame(0.5, $drug->effectiveness_percentage);
     }
 
     public function testGetInsuranceCoveragePercentageAttribute()
     {
+        $drug = factory('App\Drug')->make();
+        $this->assertSame(0, $drug->insurance_coverage_percentage, 'New records should return zero for stats');
+
         $drug = Drug::find($this->drug->id);
         $this->assertSame(0.5, $drug->insurance_coverage_percentage);
     }
 
     public function testGetTotalReviewsAttribute()
     {
+        $drug = factory('App\Drug')->make();
+        $this->assertSame(0, $drug->total_reviews, 'New records should return zero for stats');
+
         $drug = Drug::find($this->drug->id);
         $this->assertSame(4, $drug->total_reviews);
     }
