@@ -37,7 +37,7 @@ class Drug extends Model
      *
      * @var array
      */
-    protected $hidden = ['created_at', 'updated_at', 'rxcui'];
+    protected $hidden = ['created_at', 'updated_at', 'rxcui', 'pivot'];
 
     /**
      * The attributes that should be casted to native types.

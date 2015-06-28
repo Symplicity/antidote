@@ -25,10 +25,30 @@ With the drugs API you can retrieve information and reviews on individual drugs 
                         "id": 1,
                         "label": "Tylenol",
                         "description": "Tylenol is used to treat pain.",
-                        "generic": null,
+                        "generic": "Acetaminophen",
                         "drug_forms": [
                             "Disintegrating Oral Tablet",
                             "Oral Capsule"
+                        ],
+                        "generic_id": null,
+                        "prescription_type": "OTC",
+                        "recalls": [],
+                        "effectiveness_percentage": 0,
+                        "insurance_coverage_percentage": 0,
+                        "total_reviews": 0,
+                        "side_effects": [
+                            {
+                                "id": "1",
+                                "value": "fatigue"
+                            },
+                            {
+                                "id": "2",
+                                "value": "weight-loss"
+                            },
+                            {
+                                "id": "3",
+                                "value": "reduced visual acuity"
+                            }
                         ]
                     },
                     {
@@ -39,6 +59,26 @@ With the drugs API you can retrieve information and reviews on individual drugs 
                         "drug_forms": [
                             "Disintegrating Oral Tablet",
                             "Oral Capsule"
+                        ],
+                        "generic_id": null,
+                        "prescription_type": "Prescription and OTC",
+                        "recalls": [],
+                        "effectiveness_percentage": 0.75,
+                        "insurance_coverage_percentage": 0.25,
+                        "total_reviews": 50,
+                        "side_effects": [
+                            {
+                                "id": "3",
+                                "value": "reduced visual acuity"
+                            },
+                            {
+                                "id": "4",
+                                "value": "blurred vision"
+                            },
+                            {
+                                "id": "5",
+                                "value": "varicose vein"
+                            }
                         ]
                     }
                 ]

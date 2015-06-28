@@ -1,27 +1,29 @@
-{{drugsAlternatives.alternatives | json}}
-<md-content layout="row">
+<md-content ng-repeat="drug in drugsAlternatives.alternatives.data" layout="row">
     <md-card flex>
         <md-toolbar class="md-toolbar-tools">
-            <h4>Advil</h4>
+            <h4>{{::drug.label}}</h4>
         </md-toolbar>
         <md-card-content>
             <div layout-gt-md="row" layout="column" flex layout-wrap>
                 <div flex>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <p>{{::drug.description}}</p>
 
                     <section class="pill-row" layout="row" layout-sm="column" layout-align="start center">
                         <span><strong>Top Side Effects:</strong></span>
-                        <span class="md-raised md-pills">Headache</span>
+                        <span ng-repeat="side_effect in drug.side_effects">
+                            <span class="md-raised md-pills">{{::side_effect.value | capitalize}}</span>
+                        </span>
                     </section>
+
                 </div>
                 <div flex="33" layout="row" layout-sm="column" layout-align="center center">
                     <div flex layout="row" layout-align="center center">
-                        <p class="percentge">70%</p>
+                        <p class="percentage">{{::drug.effectiveness_percentage | percentage}}</p>
                         <p>Effectiveness</p>
                     </div>
 
                     <div flex layout="row" layout-align="center center">
-                        <p class="percentge">30%</p>
+                        <p class="percentage">{{::drug.insurance_coverage_percentage | percentage}}</p>
                         <p>Insurance</p>
                     </div>
                 </div>
