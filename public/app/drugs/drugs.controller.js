@@ -46,6 +46,7 @@
     /** @ngInject */
     function DrugsViewCtrl(DrugsService, $stateParams, $mdDialog) {
         var that = this;
+
         activate();
 
         this.tabs = [
@@ -68,6 +69,18 @@
         function activate() {
             DrugsService.get({id: $stateParams.id}).$promise.then(function(drug) {
                 that.drug = drug;
+
+                var covered = drug.insurance_coverage_percentage * 100;
+                var uncovered = (1 - drug.insurance_coverage_percentage) * 100;
+
+                var effectiveness = drug.effectiveness_percentage * 100;
+                var uneffectiveness = (1 - drug.effectiveness_percentage) * 100;
+
+                var sideEffects = ['60','30','10'];
+
+                that.insuranceChartData = [covered, uncovered];
+                that.effectivenessChartData = [effectiveness, uneffectiveness];
+                that.sideEffectsData = sideEffects;
             });
         }
     }
@@ -98,12 +111,15 @@
     function DrugsOverviewCtrl() {
         activate();
 
-        this.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-        this.series = ['Series A', 'Series B'];
-        this.data = [
-            [65, 59, 80, 81, 56, 55, 40],
-            [28, 48, 40, 19, 86, 27, 90]
-        ];
+
+        this.effectiveLabels = ['Effective', 'Not Effective'];        
+        this.effectiveColours =['#673AB7', '#D1C4E9'];       
+
+        this.seLabels = ['Spleen Explosion', 'Headache','Nausea'];
+        this.seColours =['#4CAF50', '#81C784', '#E8F5E9'];
+
+        this.iLabels = ['Covered', 'Not Covered'];
+        this.iColours =['#FF5722', '#FFCCBC'];
 
         function activate() {
             //TODO: add API service call here
