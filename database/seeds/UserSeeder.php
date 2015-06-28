@@ -11,6 +11,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        //test user
+        factory('App\User')->create([
+            'username' => 'test'
+        ]);
         factory('App\User', 50)->create();
     }
 }
