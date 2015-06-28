@@ -49,6 +49,18 @@ class DrugControllerTest extends TestCase
         $this->ctrl->index($request);
     }
 
+    public function testIndexAutocomplete()
+    {
+        $params = ['autocomplete-term' => 'foo'];
+        $this->stubQuery->shouldReceive('get')->once()->with('label', 'id');
+        $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', '%' . $params['autocomplete-term'] . '%')->andReturn($this->stubQuery);
+        $this->mockModel->shouldReceive('select')->once()->with('id', 'label', 'generic')->andReturn($this->stubQuery);
+
+        $request = new Illuminate\Http\Request($params);
+
+        $this->ctrl->index($request);
+    }
+
     public function testIndexFull()
     {
         $params = [
@@ -68,6 +80,21 @@ class DrugControllerTest extends TestCase
         $request = new Illuminate\Http\Request($params);
 
         $this->ctrl->index($request);
+    }
+
+    public function testGetReviews()
+    {
+        $this->stubQuery->shouldReceive('paginate')->once()->with(15);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('created_at', 'DESC')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('with')->with('sideEffects')->once()->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('with')->with('drug')->once()->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('with')->with('user')->once()->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('reviews')->once()->andReturn($this->stubQuery);
+        $this->mockModel->shouldReceive('find')->once()->with('foo')->andReturn($this->stubQuery);
+
+        $request = new Illuminate\Http\Request;
+
+        $this->ctrl->getReviews('foo', $request);
     }
 
     public function testAddReviewSansRating()
@@ -100,5 +127,18 @@ class DrugControllerTest extends TestCase
         $review = $this->ctrl->addReview('foo', $request);
 
         $this->assertInstanceOf('\App\DrugReview', $review);
+    }
+
+    public function testGetAlternatives()
+    {
+        $this->stubQuery->shouldReceive('paginate')->once()->with(15);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'DESC')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('with')->with('sideEffects')->once()->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('alternatives')->once()->andReturn($this->stubQuery);
+        $this->mockModel->shouldReceive('find')->once()->with('foo')->andReturn($this->stubQuery);
+
+        $request = new Illuminate\Http\Request;
+
+        $this->ctrl->getAlternatives('foo', $request);
     }
 }
