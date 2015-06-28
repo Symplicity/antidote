@@ -4,14 +4,14 @@ echo "Running Update Now\n"
 
 MIGRATION=$1
 
-if [ "$ANTIDOTE_ROLE" == "web" ]; then
+if [ "$ANTIDOTE_ROLE" = "web" ]; then
   cd /var/www
   echo "Pulling Latest code from $GITREPO_BRANCH"
   git pull origin $GITREPO_BRANCH
   unzip dist.zip /var/www/
 fi
 
-if [ "$ANTIDOTE_ROLE" == "worker" ]; then
+if [ "$ANTIDOTE_ROLE" = "worker" ]; then
   cd /var/www
   echo "Pulling Latest code from $GITREPO_BRANCH"
   git pull origin $GITREPO_BRANCH
@@ -23,5 +23,4 @@ if [ "$ANTIDOTE_ROLE" == "worker" ]; then
     php artisan migrate
   fi
 fi
-
-/var/www/scripts/notify.sh SUCCESS "Deploy happened"
+/var/www/scripts/notify.sh SUCCESS "Deploy happened."

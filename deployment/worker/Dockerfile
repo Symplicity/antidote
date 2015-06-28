@@ -37,6 +37,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ADD jobs /etc/cron.d/antidote
 ### Get code
 ADD update.sh /update.sh
+RUN chmod +x /update.sh
 RUN touch /root/.ssh/known_hosts && ssh-keyscan github.com >> /root/.ssh/known_hosts
 ADD hithub /root/.ssh/id_rsa
 RUN chmod 0600 /root/.ssh/id_rsa
