@@ -24,20 +24,20 @@
             </ul>
         </div>
 
-        <div layout="row" layout-align="center center" flex-gt-md="35" flex>
+        <div layout="row" layout-align="center center" flex-gt-md="35" flex ng-controller="DrugsReviewVoteCtrl as drugsReviewVote">
             <div class="md-vote" layout="column" layout-align="center center" flex>
                 <a href="#">
                                 <span class="vote-up">
-                                    <md-icon class="vote-up md-icon-big">thumb_up</md-icon>
-                                    <p>86</p>
+                                    <md-icon ng-click="drugsReviewVote.vote(review, 1)" class="vote-up md-icon-big">thumb_up</md-icon>
+                                    <p>{{review.upvotes}}</p>
                                 </span>
                 </a>
             </div>
             <div class="md-vote" layout="column" layout-align="center center" flex>
                 <a href="#">
                                 <span class="vote-down">
-                                    <md-icon class="vote-down md-icon-big">thumb_down</md-icon>
-                                    <p>86</p>
+                                    <md-icon ng-click="drugsReviewVote.vote(review, -1)" class="vote-down md-icon-big">thumb_down</md-icon>
+                                    <p>{{review.downvotes}}</p>
                                 </span>
                 </a>
             </div>

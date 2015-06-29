@@ -9,7 +9,8 @@
         .controller('DrugsReviewsCtrl', DrugsReviewsCtrl)
         .controller('DrugsAlternativesCtrl', DrugsAlternativesCtrl)
         .controller('DrugsReviewCtrl', DrugsReviewCtrl)
-        .controller('DrugsReviewModalCtrl', DrugsReviewModalCtrl);
+        .controller('DrugsReviewModalCtrl', DrugsReviewModalCtrl)
+        .controller('DrugsReviewVoteCtrl', DrugsReviewVoteCtrl);
 
     /** @ngInject */
     function DrugsListCtrl(DrugsService, $stateParams) {
@@ -112,8 +113,8 @@
         activate();
 
 
-        this.effectiveLabels = ['Effective', 'Not Effective'];        
-        this.effectiveColours =['#673AB7', '#D1C4E9'];       
+        this.effectiveLabels = ['Effective', 'Not Effective'];
+        this.effectiveColours =['#673AB7', '#D1C4E9'];
 
         this.seLabels = ['Spleen Explosion', 'Headache','Nausea'];
         this.seColours =['#4CAF50', '#81C784', '#E8F5E9'];
@@ -160,5 +161,23 @@
                 that.alternatives = alternatives;
             });
         }
+    }
+
+    /** @ngInject */
+    function DrugsReviewVoteCtrl(DrugsService) {
+        this.vote = function(review, vote) {
+            DrugsService.voteOnReview(
+                {
+                    'id': review.id,
+                    'vote': vote
+                }
+            ).$promise.then(function() {
+                   if (vote === 1) {
+                       review.upvotes++;
+                   } else {
+                       review.downvotes++;
+                   }
+                });
+        };
     }
 })();
