@@ -75,6 +75,8 @@ else
   unzip /tmp/certs.zip -d /var/www/certs/
 fi
 
+rm -rf /var/www
+
 if [ -z "$GITREPO_URL" ]; then
   echo "Missing \sGITREPO_URL"
   echo "You have to have some code to checkout!"
@@ -107,6 +109,8 @@ sed -i "s/MAILGUN_PASSWORD/$MAILGUN_PASSWORD/" /var/www/.env
 sed -i "s/MAILGUN_USERNAME/$MAILGUN_USERNAME/" /var/www/.env
 sed -i "s/MAILGUN_DOMAIN/$MAILGUN_DOMAIN/" /var/www/.env
 sed -i "s/FDA_TOKEN/$FDA_TOKEN/" /var/www/.env
+sed -i "s/;error_log = syslog/error_log = syslog/" /etc/php5/cli/php.ini
+sed -i "s/;error_log = syslog/error_log = syslog/" /etc/php5/fpm/php.ini
 
 
 ln -s /worker /var/www/dist/webhook
