@@ -6,7 +6,7 @@ fi
 
 gulp test
 
-dredd
+dredd docs/api/*.apib http://127.0.0.1/api --reporter=dots -h "Authorization:JWT `php artisan --no-ansi make:token --user=test --expire=300`"
 
 if [ "${CODECLIMATE_REPO_TOKEN}" ]; then
   vendor/bin/phpunit --coverage-clover clover.xml
@@ -18,6 +18,6 @@ else
 fi
 
 ./node_modules/phantomjs/bin/phantomjs --webdriver=4444 2>&1 > storage/logs/phantom.log &
-gulp phantom
+gulp protractor
 
 exit 0
