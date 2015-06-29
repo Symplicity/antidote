@@ -18,6 +18,6 @@ else
 fi
 
 ./node_modules/phantomjs/bin/phantomjs --webdriver=4444 2>&1 > storage/logs/phantom.log &
-gulp phantom
+gulp protractor
 
 exit 0
