@@ -283,7 +283,14 @@ https://antidote.symplicity-opensource.com/api/drugs/1/reviews
     [Drug Review][]
 
 ### Create New [POST /drugs/{id}/reviews]
-Create a new drug review
+Create a new drug review using this action. It takes a JSON object containing the following fields:
+
+    - rating: `3` (required, integer) - The rating the user gave the drug either 1, 2, 3 - 3 is best
+    - is_covered_by_insurance: `1` (integer, required) - Was the drug covered by insurance?
+    - comment: `My pain has subsided considerably since I started taking this.` (text, optional) - User comments
+    - side_effects: `[1,2,3]` (array, optional) - Side effects experienced by the user
+
++ Authentication: bearer
 
 + Parameters
     + id: `1` (required, integer) - The drug ID
@@ -358,7 +365,11 @@ https://antidote.symplicity-opensource.com/api/drugs/1/alternatives
 ## Voting [/drug-reviews/{id}/vote]
 
 ### Create New [POST /drug-reviews/{id}/vote]
-Vote on a drug review (-1 for downvote, 1 for upvote)
+Vote on a drug review using this action. It takes a JSON object containing the following field:
+
+    - vote: `1` (required, integer) - The user's vote - either 1 for upvote, or -1 for downvote
+
++ Authentication: bearer
 
 + Parameters
     + id: `1` (required, integer) - The drug review ID
