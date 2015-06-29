@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon as Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class DrugReview extends Model
@@ -47,5 +48,11 @@ class DrugReview extends Model
     public function getDownvotesAttribute()
     {
         return $this->votes()->where('vote', -1)->get()->count();
+    }
+
+    /** override this to get iso 8601 formatted string for output - move to common if required in other areas */
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->toIso8601String();
     }
 }

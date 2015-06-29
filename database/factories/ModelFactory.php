@@ -16,7 +16,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'username' => $faker->userName,
         'email' => $faker->email,
         'password' => Hash::make('123'),
-        'age' => $faker->numberBetween(1, 85),
+        'age' => $faker->numberBetween(18, 85),
         'gender' => $faker->randomElement(['m', 'f'])
     ];
 });
@@ -44,7 +44,7 @@ $factory->define(App\Drug::class, function (Faker\Generator $faker) {
 $factory->define(App\DrugReview::class, function (Faker\Generator $faker) {
     return [
         'user_id' => $faker->numberBetween(1, 50),
-        'age' => $faker->numberBetween(1, 85),
+        'age' => $faker->numberBetween(18, 85),
         'drug_id' => $faker->numberBetween(1, 50),
         'rating' => $faker->numberBetween(1, 3),
         'is_covered_by_insurance' => $faker->boolean(),
