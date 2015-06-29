@@ -1,29 +1,41 @@
-.login{
-	max-width: 500px;
-	margin: 0px auto;
-	margin-top: 50px;
+.login {
+	background: url('/images/image-background.png') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	min-height: 94vh;
+	margin-bottom: -60px;
 
-	h2{
-		text-align: center;
-		color: $md-primary;
-	}
+	@media only screen and (max-width: 500px) {
+	    .login-card {
+	    	margin-top: 50px !important;
 
-	p{
-		text-align: center;
-		margin-bottom: 30px;
+	    }
 	}
+ 
+	.login-card {
+		max-width: 500px;
+		margin: 0px auto;
+		margin-top: 180px;
+		padding: 25px;
 
-	form{
-		padding-left: 15px;
-	}
+		h2 {
+			text-align: center;
+			color: $md-primary;
+			font-size: 24px;
+		}
 
-	md-select{
-		padding-right: 20px;
-	}
-	li{
-		padding-bottom: 15px;
-	}
-	.small{
-		font-size: 12px;
+		p {
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		li {
+			padding-bottom: 15px;
+		}
+		.small {
+			font-size: 12px;
+		}
 	}
 }
