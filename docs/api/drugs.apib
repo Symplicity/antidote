@@ -1,7 +1,7 @@
 # Group Drugs
 With the drugs API you can retrieve information and reviews on individual drugs as well as list all drugs.
 
-## Drugs [/drugs{?keywords,alpha,page,limit}]
+## Drugs [/drugs]
 
 + Model
 
@@ -84,7 +84,7 @@ With the drugs API you can retrieve information and reviews on individual drugs 
                 ]
             }
 
-### List [GET]
+### List [GET /drugs{?keywords,alpha,page,limit}]
 Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:
 
 ```no-highlight
@@ -165,7 +165,9 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         "is_covered_by_insurance": "1",
                         "age": "22",
                         "comment": "Had a great experience!",
-                        "created_at": "2015-06-28 16:06:00"
+                        "created_at": "2015-06-28 16:06:00",
+                        "upvotes": 24,
+                        "downvotes": 26
                     }
                 ]
             }
@@ -176,7 +178,9 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
 
     [Drug][]
 
-## Drug Review [/drugs/{id}/reviews{?keywords,page,limit}]
+## Drug Review [/drugs/{id}/reviews]
++ Parameters
+    + id: `1` (required, integer) - The drug ID
 
 + Model
 
@@ -202,6 +206,8 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         "is_covered_by_insurance": 1,
                         "comment": "Tylenol hurt my liver a lot",
                         "created_at": "2015-06-23 02:57:19",
+                        "upvotes": 24,
+                        "downvotes": 26,
                         "user": {
                             "id": 3,
                             "username": "dedric",
@@ -232,6 +238,8 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         "is_covered_by_insurance": 1,
                         "comment": "Makes you sleepy",
                         "created_at": "2015-06-23 02:57:19",
+                        "upvotes": 400,
+                        "downvotes": 100,
                         "user": {
                             "id": 3,
                             "username": "dedric",
@@ -255,7 +263,7 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                 ]
             }
 
-### List All [GET]
+### List All [GET /drugs/{id}/reviews{?keywords,page,limit}]
 Returns a list of all reviews for a drug. The reviews are returned in created date descending order.  Example:
 
 ```no-highlight
@@ -274,15 +282,11 @@ https://antidote.symplicity-opensource.com/api/drugs/1/reviews
 
     [Drug Review][]
 
-### Create New [POST]
+### Create New [POST /drugs/{id}/reviews]
 Create a new drug review
 
 + Parameters
-
-    + rating: `3` (required, integer) - The rating the user gave the drug either 1, 2, 3 - 3 is best
-    + is_covered_by_insurance: `1` (integer, required) - Was the drug covered by insurance?
-    + comment: `My pain has subsided considerably since I started taking this.` (text, optional) - User comments
-    + side_effects: `[1,2,3]` (array, optional) - Side effects experienced by the user
+    + id: `1` (required, integer) - The drug ID
 
 + Request
     + Headers
@@ -322,10 +326,9 @@ Create a new drug review
               }
             }
 
+## Drug Alternative [/drugs/{id}/alternatives]
 
-## Drug Alternative [/drugs/{id}/alternatives{?page,limit}]
-
-### List All [GET]
+### List All [GET /drugs/{id}/alternatives{?page,limit}]
 Returns a list of all alternative drugs for a drug. The drugs are returned in alphabetically sorted order.  Example:
 
 ```no-highlight
@@ -342,3 +345,44 @@ https://antidote.symplicity-opensource.com/api/drugs/1/alternatives
 + Response 200
 
     [Drugs][]
+
+## Voting [/drug-reviews/{id}/vote]
+
+### Create New [POST /drug-reviews/{id}/vote]
+Vote on a drug review (-1 for downvote, 1 for upvote)
+
++ Parameters
+    + id: `1` (required, integer) - The drug review ID
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "vote": "1"
+            }
+
++ Response 201
+
+    + Body
+
+            {
+                "vote": "1",
+                "created_at": "2015-06-23 03:23:39",
+                "id": 1515
+            }
+
++ Response 400
+
+    + Body
+
+            {
+              "message": {
+                "rating": [
+                  "The vote field is required."
+                ]
+              }
+            }
