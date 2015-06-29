@@ -290,6 +290,8 @@ Create a new drug review using this action. It takes a JSON object containing th
     - comment: `My pain has subsided considerably since I started taking this.` (text, optional) - User comments
     - side_effects: `[1,2,3]` (array, optional) - Side effects experienced by the user
 
++ Authentication: bearer
+
 + Parameters
     + id: `1` (required, integer) - The drug ID
 
@@ -366,6 +368,8 @@ https://antidote.symplicity-opensource.com/api/drugs/1/alternatives
 Vote on a drug review using this action. It takes a JSON object containing the following field:
 
     - vote: `1` (required, integer) - The user's vote - either 1 for upvote, or -1 for downvote
+
++ Authentication: bearer
 
 + Parameters
     + id: `1` (required, integer) - The drug review ID
