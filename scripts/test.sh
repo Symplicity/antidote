@@ -6,7 +6,7 @@ fi
 
 gulp test
 
-dredd
+dredd docs/api/*.apib http://127.0.0.1/api --reporter=apiary
 
 if [ "${CODECLIMATE_REPO_TOKEN}" ]; then
   vendor/bin/phpunit --coverage-clover clover.xml
