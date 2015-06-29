@@ -145,15 +145,27 @@
         this.alternatives = {};
         var that = this;
 
+        this.effectiveLabels = ['Effective', 'Not Effective'];        
+        this.effectiveColours =['#673AB7', '#D1C4E9'];
+        
+        this.insuranceLabels = ['Covered', 'Not Covered'];
+        this.insuranceColours =['#FF5722', '#FFCCBC'];
+        
         activate();
 
         function activate() {
             DrugsService.getAlternatives({id: $stateParams.id}).$promise.then(function(alternatives) {
                 angular.forEach(alternatives.data, function(alternative) {
+
+                    var covered = alternative.insurance_coverage_percentage * 100;
+                    var uncovered = (1 - alternative.insurance_coverage_percentage) * 100;
+
+                    var effectiveness = alternative.effectiveness_percentage * 100;
+                    var uneffectiveness = (1 - alternative.effectiveness_percentage) * 100;
+
                     alternative.chartData = {
-                        'somekey': [],
-                        'anotherkey': 'value',
-                        'and': 'so on'
+                        'insuranceChartData' : [covered, uncovered],
+                        'effectivenessChartData' : [effectiveness, uneffectiveness]
                     };
                 });
 
