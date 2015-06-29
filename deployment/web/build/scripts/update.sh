@@ -7,6 +7,7 @@ echo "Pulling Latest code from $GITREPO_BRANCH"
 git pull origin $GITREPO_BRANCH
 rm -rf /var/www/{dist,vendor}
 unzip -q dist.zip -d /var/www/
+ln -s /worker/ /var/www/webhook/
 
 if [ "$ANTIDOTE_ROLE" = "worker" ]; then
   echo "Running Migrations"
