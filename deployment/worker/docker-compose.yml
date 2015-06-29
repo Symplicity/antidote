@@ -1,0 +1,38 @@
+db:
+  image: 'mariadb:latest'
+  environment:
+    - MYSQL_DATABASE=antidote
+    - MYSQL_PASSWORD=antidoteSecret
+    - MYSQL_ROOT_PASSWORD=rootSecret
+    - MYSQL_USER=antidote
+    - TERM=dumb
+worker:
+  image: 'symplicity/worker:latest'
+  environment:
+    - ANTIDOTE_API_KEY=<random api key here>
+    - ANTIDOTE_DB_HOST=db
+    - ANTIDOTE_DB_NAME=antidote
+    - ANTIDOTE_DB_PASS=antidoteSecret
+    - ANTIDOTE_DB_PORT=3306
+    - ANTIDOTE_DB_USER=antidote
+    - ANTIDOTE_ROLE=worker
+    - CODESHIP_PROJECT_ID=<codeship project id>
+    - FDA_TOKEN=<open fda api>
+    - MAILGUN_DOMAIN=<mailgun-domain>
+    - MAILGUN_PASSWORD=<mailgun-password>
+    - MAILGUN_SECRET=<mailgun-secret-key>
+    - MAILGUN_USERNAME=<mailgun username>
+    - WORKER_API_KEY=<insert random api key here>
+    - GITREPO_URL=git@github.com:Symplicity/antidote.git
+    - GITREPO_BRANCH=production
+    - WEBHOOK_API_KEY=<insert random apikey here>
+    - RABBITMQ_NODE=rabbitmq
+    - RABBITMQ_PORT=5672
+    - RABBITMQ_NAME=hello
+  links:
+    - db
+    - rabbitmq
+rabbitmq:
+  image: 'rabbitmq:3-management'
+  environment:
+    - RABBITMQ_NODENAME=jobs
