@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Console\Commands\ImportDrugs;
+use App\Console\Commands;
 
 class CommandServiceProvider extends ServiceProvider
 {
@@ -15,11 +15,16 @@ class CommandServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('import.drugs', function () {
-            return new ImportDrugs();
+            return new Commands\ImportDrugs();
+        });
+
+        $this->app->singleton('make.token', function () {
+            return new Commands\MakeToken();
         });
 
         $this->commands(
-            'import.drugs'
+            'import.drugs',
+            'make.token'
         );
     }
 }
