@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.3.18"
+LABEL version="1.3.20"
 LABEL description="This is the Antidote webserver, with NGINX and PHP-FPM"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
@@ -48,7 +48,9 @@ RUN mv /etc/nginx/sites-enabled /etc/nginx/sites-enabled.orig
 RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
 RUN mkdir /etc/service/nginx
 ADD build/nginx/nginx-sites/default  /etc/nginx/sites-available/default
+ADD build/nginx/nginx.log /etc/nginx/conf.d/nginx-log.conf
 ADD build/phpfpm/www.conf /etc/php5/fpm/pool.d/www.conf
+ADD build/rsyslog/45-nginx-access.log /etc/rsyslog.d/45-nginx-access.conf
 ADD build/nginx/nginx.sh /etc/service/nginx/run
 RUN chmod +x /etc/service/nginx/run
 RUN mkdir /etc/service/phpfpm
