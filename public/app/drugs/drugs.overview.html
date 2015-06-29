@@ -55,9 +55,11 @@
             <md-icon>question_answer</md-icon>
             <h4>Reviews</h4>
         </md-toolbar>
-        <md-card ng-repeat="review in drugsView.drug.reviews">
-            <drugs-review-view review="review"></drugs-review-view>
-        </md-card>
+        <md-card-content>
+            <div ng-repeat="review in drugsView.drug.reviews | limitTo: 2" class="review-content">
+                <drugs-review-view review="review"></drugs-review-view>
+            </div>
+        </md-card-content>
         <div class="md-actions" layout="row" layout-align="end center">
                 <md-button ui-sref="drugs.view.reviews({id: drugsView.drug.id})" class="md-accent">SEE MORE REVIEWS</md-button>
             </div>

@@ -63,3 +63,9 @@ $factory->define(App\DrugIndication::class, function (Faker\Generator $faker) {
         'value' => $faker->unique()->word()
     ];
 });
+
+$factory->define(App\DrugReviewVote::class, function (Faker\Generator $faker) {
+    return [
+        'vote' => $faker->randomElement([-1, 1])
+    ];
+});

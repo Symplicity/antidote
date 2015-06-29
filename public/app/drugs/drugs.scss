@@ -32,7 +32,20 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         }
     }
 }
-
+.review-content{
+    border-bottom: 1px solid #ECECEC;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+}
+.review-content:last-child{
+    border-bottom: none;
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+.neutral{
+    position: absolute;
+    top: 32px;
+}
 .top-3 {
     p, span {
         text-align: center;
@@ -88,7 +101,7 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         }
     }
     &:active {
-        color: #26a69a;
+        color: $md-secondary-dark;
     }
 }
 

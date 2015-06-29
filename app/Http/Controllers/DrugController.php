@@ -90,7 +90,7 @@ class DrugController extends Controller
             return response()->json(['message' => $e->getMessage()], 400);
         }
 
-        return $drug_review;
+        return response()->json($drug_review, 201);
     }
 
     /**

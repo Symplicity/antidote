@@ -9,7 +9,7 @@
                     <div layout="row" flex>
                         <md-radio-group ng-model="drugsReview.review.rating">
                           <md-radio-button value="3" class="md-primary"><md-icon class="md-icon-big">mood</md-icon>Good</md-radio-button>
-                          <md-radio-button value="2"><md-icon class="md-icon-big">mood</md-icon>Meh</md-radio-button>
+                          <md-radio-button value="2"><img src="images/icons/md-neutral.png" alt="neutral face" class="md-icon-big" /><span class="neutral">Meh</span></md-radio-button>
                           <md-radio-button value="1"><md-icon class="md-icon-big">mood_bad</md-icon>Bad</md-radio-button>
                         </md-radio-group>
                         <div ng-messages="reviewForm.rating.$error" ng-show="reviewForm.rating.$dirty">
@@ -51,7 +51,7 @@
                 <div layout="row">
                      <md-input-container>
                         <label>Share any other details about the medication, or coverage experience</label>
-                        <textarea name="comment" ng-model="drugsReviews.userReview.comment" md-maxlength="150"></textarea>
+                        <textarea name="comment" ng-model="drugsReview.review.comment" md-maxlength="150"></textarea>
                         <div ng-messages="reviewForm.comment.$error" ng-show="reviewForm.comment.$dirty">
                             <div ng-message="md-maxlength">That's too long!</div>
                         </div>
