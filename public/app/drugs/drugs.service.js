@@ -33,6 +33,10 @@
                 getAlternatives: {
                     method: 'GET',
                     url: '/api/drugs/:id/alternatives'
+                },
+                voteOnReview: {
+                    method: 'POST',
+                    url: '/api/drug-reviews/:id/vote'
                 }
             }
         );
