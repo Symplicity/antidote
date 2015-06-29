@@ -9,6 +9,7 @@
             'ngMaterial',
             'satellizer',
             'ngMessages',
+            'ngAria',
             'chart.js',
             'percentage',
             'angular-capitalize-filter'
