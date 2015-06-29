@@ -355,7 +355,12 @@ a.list-group-item.heading:hover {
         </span>}
     ]
 </span>}
-</code></pre></li></ul></section><section id="drugs-drug-review-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create New</span></div><div style="float:left"><a href="#drugs-drug-review-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/drugs/{id}/reviews</code></div></div><div class="panel-body"><p>Create a new drug review</p>
+</code></pre></li></ul></section><section id="drugs-drug-review-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create New</span></div><div style="float:left"><a href="#drugs-drug-review-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/drugs/{id}/reviews</code></div></div><div class="panel-body"><p>Create a new drug review using this action. It takes a JSON object containing the following fields:</p>
+<pre><code>- rating: `3` (required, integer) - The rating the user gave the drug either 1, 2, 3 - 3 is best
+- is_covered_by_insurance: `1` (integer, required) - Was the drug covered by insurance?
+- comment: `My pain has subsided considerably since I started taking this.` (text, optional) - User comments
+- side_effects: `[1,2,3]` (array, optional) - Side effects experienced by the user
+</code></pre>
 </div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>The drug ID</p>
 </dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#1068f0a64265e91cb48da99c866ad64a" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="1068f0a64265e91cb48da99c866ad64a" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
     "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-string">"3"</span></span>,
@@ -363,14 +368,17 @@ a.list-group-item.heading:hover {
     "<span class="hljs-attribute">comment</span>": <span class="hljs-value"><span class="hljs-string">"My pain has subsided considerably since I started taking this."</span></span>,
     "<span class="hljs-attribute">side_effects</span>": <span class="hljs-value">[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]
 </span>}
-</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>201</code></strong><a data-toggle="collapse" data-target="#313e69ec9d832d23597ddaf707d53f0a" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="313e69ec9d832d23597ddaf707d53f0a" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>201</code></strong><a data-toggle="collapse" data-target="#095ac4f867636c155edecd204cb5fdff" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="095ac4f867636c155edecd204cb5fdff" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">age</span>": <span class="hljs-value"><span class="hljs-number">82</span></span>,
     "<span class="hljs-attribute">rating</span>": <span class="hljs-value"><span class="hljs-string">"3"</span></span>,
     "<span class="hljs-attribute">comment</span>": <span class="hljs-value"><span class="hljs-string">"My pain has subsided considerably since I started taking this."</span></span>,
     "<span class="hljs-attribute">is_covered_by_insurance</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
-    "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-23 03:23:39"</span></span>,
-    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1515</span>
+    "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-29 16:01:00"</span></span>,
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">503</span></span>,
+    "<span class="hljs-attribute">upvotes</span>": <span class="hljs-value"><span class="hljs-number">0</span></span>,
+    "<span class="hljs-attribute">downvotes</span>": <span class="hljs-value"><span class="hljs-number">0</span>
 </span>}
-</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>400</code></strong><a data-toggle="collapse" data-target="#12acd2293eca844d3895ca7aafd0d966" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="12acd2293eca844d3895ca7aafd0d966" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>400</code></strong><a data-toggle="collapse" data-target="#3248af9e16334bd38e66bd7530c4f393" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="3248af9e16334bd38e66bd7530c4f393" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">message</span>": <span class="hljs-value">{
     "<span class="hljs-attribute">rating</span>": <span class="hljs-value">[
       <span class="hljs-string">"The rating field is required."</span>
@@ -455,15 +463,20 @@ a.list-group-item.heading:hover {
         </span>}
     ]
 </span>}
-</code></pre></li></ul></section><h4 id="drugs-voting">Voting&nbsp;<a href="#drugs-voting"><i class="fa fa-link"></i></a></h4><section id="drugs-voting-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create New</span></div><div style="float:left"><a href="#drugs-voting-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/drug-reviews/{id}/vote</code></div></div><div class="panel-body"><p>Vote on a drug review (-1 for downvote, 1 for upvote)</p>
+</code></pre></li></ul></section><h4 id="drugs-voting">Voting&nbsp;<a href="#drugs-voting"><i class="fa fa-link"></i></a></h4><section id="drugs-voting-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Create New</span></div><div style="float:left"><a href="#drugs-voting-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/drug-reviews/{id}/vote</code></div></div><div class="panel-body"><p>Vote on a drug review using this action. It takes a JSON object containing the following field:</p>
+<pre><code>- vote: `1` (required, integer) - The user's vote - either 1 for upvote, or -1 for downvote
+</code></pre>
 </div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>id</dt><dd><code>integer</code>&nbsp;<span class="required">(required)</span>&nbsp;<span class="text-muted example"><strong>Example:&nbsp;</strong><span>1</span></span><p>The drug review ID</p>
 </dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Request</strong><a data-toggle="collapse" data-target="#a98b026afa5da5a15b6178d89b17693e" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="a98b026afa5da5a15b6178d89b17693e" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
     "<span class="hljs-attribute">vote</span>": <span class="hljs-value"><span class="hljs-string">"1"</span>
 </span>}
-</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>201</code></strong><a data-toggle="collapse" data-target="#b23e29943ac8b4ba87b28b677fd2505c" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="b23e29943ac8b4ba87b28b677fd2505c" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
-    "<span class="hljs-attribute">vote</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
-    "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-23 03:23:39"</span></span>,
-    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-number">1515</span>
+</code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>201</code></strong><a data-toggle="collapse" data-target="#2857a9d31d8018468e2bbfbb01daf65e" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="2857a9d31d8018468e2bbfbb01daf65e" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
+    "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"2"</span></span>,
+    "<span class="hljs-attribute">user_id</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
+    "<span class="hljs-attribute">drug_review_id</span>": <span class="hljs-value"><span class="hljs-string">"1"</span></span>,
+    "<span class="hljs-attribute">vote</span>": <span class="hljs-value"><span class="hljs-number">1</span></span>,
+    "<span class="hljs-attribute">created_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-29 14:51:47"</span></span>,
+    "<span class="hljs-attribute">updated_at</span>": <span class="hljs-value"><span class="hljs-string">"2015-06-29 14:51:47"</span>
 </span>}
 </code></pre></li><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>400</code></strong><a data-toggle="collapse" data-target="#ea5d4a52dc2eb130f3ce8cc88b10ba30" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="ea5d4a52dc2eb130f3ce8cc88b10ba30" class="list-group-item panel-collapse collapse"><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">message</span>": <span class="hljs-value">{
