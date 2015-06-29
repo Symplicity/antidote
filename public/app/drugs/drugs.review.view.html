@@ -1,6 +1,7 @@
-<div layout="row" layout-sm="column" layout-wrap>
+<div layout="row" layout-sm="column" layout-wrap style="position:relative">
+    <span am-time-ago="review.created_at"></span>
     <div flex-gt-sm="15" flex class="health-state">
-        <drugs-review-rating rating="3"></drugs-review-rating>
+        <drugs-review-rating rating="review.rating"></drugs-review-rating>
         <p class="center">{{review.age}} year old
             <span ng-if="review.user.gender == 'f'">Female</span>
             <span ng-if="review.user.gender == 'm'">Male</span>
@@ -19,7 +20,7 @@
         </section>
 
         <ul class="unstyled">
-            <li><strong>Insurance Covered:</strong>{{review.is_covered_by_insurance == '1' ? 'Yes' : 'No'}}</li>
+            <li><strong>Insurance Covered:&nbsp</strong>{{review.is_covered_by_insurance == '1' ? 'Yes' : 'No'}}</li>
         </ul>
     </div>
 
