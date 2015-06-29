@@ -26,6 +26,6 @@ class DrugReviewsController extends Controller
             $drug_review_vote->save();
         }
 
-        return $drug_review_vote;
+        return response()->json($drug_review_vote, 201);
     }
 }
