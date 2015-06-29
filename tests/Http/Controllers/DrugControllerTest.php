@@ -125,9 +125,11 @@ class DrugControllerTest extends TestCase
         $this->mockUser->shouldReceive('getAttribute')->once()->with('age')->andReturn(22);
         $this->mockUser->shouldReceive('find')->once()->with('foo')->andReturn($this->mockUser);
 
-        $review = $this->ctrl->addReview('foo', $request);
+        $response = $this->ctrl->addReview('foo', $request);
 
-        $this->assertInstanceOf('\App\DrugReview', $review);
+        $this->assertEquals(201, $response->getStatusCode());
+        $review = json_decode($response->getContent());
+        $this->assertEquals('Foo', $review->comment);
     }
 
     public function testGetAlternatives()
