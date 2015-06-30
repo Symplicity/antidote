@@ -7,7 +7,7 @@ remove_dangling() {
  
 remove_stopped_containers() {
     echo "Removing stopped containers ..."
-    docker rm $(docker ps -qa)
+    docker rm -f $(docker ps -qa)
 }
  
 case $1 in

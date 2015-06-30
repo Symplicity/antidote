@@ -1,0 +1,17 @@
+module(load=”imfile” PollingInterval=”10")
+template(name=”nginxAccessTemplate” type=”string” string=”%msg%\n”)
+input(type=”imfile”
+ File=”/var/log/nginx/access.log”
+ Tag=”nginx.access”
+ StateFile=”stat-file-api-nginx-access”
+ Severity=”info”
+ Facility=”user”
+ ruleset=”nginx-access”)
+ruleset(name=”nginx-access”)
+{
+ action(type=”omfwd”
+ template=”nginxAccessTemplate”
+ Target=”logstash”
+ Port=”5000"
+ Protocol=”udp”)
+}
