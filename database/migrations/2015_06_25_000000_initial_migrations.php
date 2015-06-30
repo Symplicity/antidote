@@ -7,8 +7,6 @@ class InitialMigrations extends Migration
 {
     public function up()
     {
-        down();
-        
         Schema::create('drug_prescription_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('value')->unique();
