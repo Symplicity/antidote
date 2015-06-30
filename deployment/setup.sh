@@ -25,6 +25,18 @@ if [ -z "$ANTIDOTE_DB_HOST" ]; then
   exit 1
 fi
 
+if [ -z "$ANTIDOTE_SESSION_DRIVER" ]; then
+  export ANTIDOTE_SESSION_DRIVER=array
+fi
+
+if [ -z "$ANTIDOTE_QUEUE_DRIVER" ]; then
+  export ANTIDOTE_QUEUE_DRIVER=array
+fi
+
+if [ -z "$ANTIDOTE_CACHE_DRIVER" ]; then
+  export ANTIDOTE_CACHE_DRIVER=array
+fi
+
 if [ -z "$FDA_TOKEN" ]; then
   echo "Missing \$FDA_TOKEN"
   exit 1
@@ -87,11 +99,15 @@ sed -i "s/ANTIDOTE_DB_HOST/$ANTIDOTE_DB_HOST/" /var/www/.env
 sed -i "s/ANTIDOTE_DB_NAME/$ANTIDOTE_DB_NAME/" /var/www/.env
 sed -i "s/ANTIDOTE_DB_USER/$ANTIDOTE_DB_USER/" /var/www/.env
 sed -i "s/ANTIDOTE_DB_PORT/$ANTIDOTE_DB_PORT/" /var/www/.env
+sed -i "s/ANTIDOTE_CACHE_DRIVER/$ANTIDOTE_CACHE_DRIVER/" /var/www/.env
+sed -i "s/ANTIDOTE_SESSION_DRIVER/$ANTIDOTE_SESSION_DRIVER/" /var/www/.env
+sed -i "s/ANTIDOTE_QUEUE_DRIVER/$ANTIDOTE_QUEUE_DRIVER/" /var/www/.env
 sed -i "s/MAILGUN_SECRET/$MAILGUN_SECRET/" /var/www/.env
 sed -i "s/MAILGUN_PASSWORD/$MAILGUN_PASSWORD/" /var/www/.env
 sed -i "s/MAILGUN_USERNAME/$MAILGUN_USERNAME/" /var/www/.env
 sed -i "s/MAILGUN_DOMAIN/$MAILGUN_DOMAIN/" /var/www/.env
 sed -i "s/FDA_TOKEN/$FDA_TOKEN/" /var/www/.env
+
 
 ln -s /worker /var/www/dist/webhook
 
@@ -101,6 +117,9 @@ if [ "$ANTIDOTE_ROLE" = "worker" ]; then
     echo 'Running PHP Artisan Migration'
     if [ -z "$TEST_SITE" ]; then
       php artisan migrate:refresh --seed
+  #  elif [ ! -f /var/www/.importdrugs ];then
+  #    php artisan import:drugs
+  #    touch /var/www/.importdrugs
     else
       php artisan migrate --force
     fi

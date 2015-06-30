@@ -22,9 +22,9 @@ class AuthControllerTest extends TestCase
     /**
      * @dataProvider getUserNames
      */
-    public function testBadLogin()
+    public function testBadLogin($username)
     {
-        $request = new Illuminate\Http\Request(['username' => 'existing_user']);
+        $request = new Illuminate\Http\Request(['username' => $username]);
 
         $response = $this->ctrl->login($request);
 

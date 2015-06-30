@@ -1,25 +1,30 @@
-blockquote {
-  background: #f9f9f9;
-  margin: 1.5em 10px;
-  padding: 0.5em 10px;
-  quotes: "\201C""\201D";
+.about { 
+  margin: 0px auto;
+  height: 400px;
+  width: 800px;
+  max-width: 100%;
+  margin-top: 80px;
+  margin-bottom: 80px;
+  padding-top: 60px;
+
+  md-card-content {
+    padding: 0px;
+
+    .right-side {
+      padding: 16px;
+      background-color: #FFF;   
+    }
+  }  
 }
-blockquote:before {
-  color: #CCCCCC;
-  content: open-quote;
-  font-size: 4em;
-  line-height: 0.1em;
-  margin-right: 0.15em;
-  vertical-align: -0.4em;
-}
-blockquote:after {
-  color: #CCCCCC;
-  content: open-quote;
-  font-size: 4em;
-  line-height: 0.1em;
-  margin-right: 0.25em;
-  vertical-align: -0.4em;
-}
-blockquote p {
-  display: inline;
+
+/*IE + Mobile Fix*/
+@media only screen and (max-width: 600px) {
+  .about {
+    margin-top: 10px !important;
+    margin-bottom: 10px;
+
+    div {
+      display: block;
+    }
+  }  
 }

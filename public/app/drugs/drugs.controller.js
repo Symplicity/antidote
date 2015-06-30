@@ -9,7 +9,8 @@
         .controller('DrugsReviewsCtrl', DrugsReviewsCtrl)
         .controller('DrugsAlternativesCtrl', DrugsAlternativesCtrl)
         .controller('DrugsReviewCtrl', DrugsReviewCtrl)
-        .controller('DrugsReviewModalCtrl', DrugsReviewModalCtrl);
+        .controller('DrugsReviewModalCtrl', DrugsReviewModalCtrl)
+        .controller('DrugsReviewVoteCtrl', DrugsReviewVoteCtrl);
 
     /** @ngInject */
     function DrugsListCtrl(DrugsService, $stateParams) {
@@ -26,26 +27,24 @@
         activate();
 
         function activate() {
-            DrugsService.query($stateParams).$promise.then(function(drugs) {
+            DrugsService.queryAutocomplete($stateParams).$promise.then(function(drugs) {
                 that.drugs = drugs;
             });
         }
 
         this.getAlphabetFilterClass = function(alphabet) {
-            if ($stateParams.alpha === alphabet) {
+            if ($stateParams.term === alphabet) {
                 return 'active';
             } else {
                 return '';
             }
-        };
-        this.getAlphabetLetter = function() {
-            return $stateParams.alpha;
         };
     }
 
     /** @ngInject */
     function DrugsViewCtrl(DrugsService, $stateParams, $mdDialog) {
         var that = this;
+
         activate();
 
         this.tabs = [
@@ -58,7 +57,7 @@
             $mdDialog.show({
                 controller: 'DrugsReviewModalCtrl',
                 controllerAs: 'drugsReviewModal',
-                templateUrl: '/app/drugs/drugs.review.modal.html',
+                templateUrl: 'app/drugs/drugs.review.modal.html',
                 targetEvent: ev,
                 clickOutsideToClose: true,
                 hasBackdrop: true
@@ -68,6 +67,22 @@
         function activate() {
             DrugsService.get({id: $stateParams.id}).$promise.then(function(drug) {
                 that.drug = drug;
+
+                var covered = drug.insurance_coverage_percentage * 100;
+                var uncovered = (1 - drug.insurance_coverage_percentage) * 100;
+
+                var effectiveness = drug.effectiveness_percentage * 100;
+                var uneffectiveness = (1 - drug.effectiveness_percentage) * 100;
+
+                var sideEffects = ['60', '30', '10'];
+
+                that.insuranceChartData = [covered, uncovered];
+                that.effectivenessChartData = [effectiveness, uneffectiveness];
+                that.sideEffectsData = sideEffects;
+            });
+
+            DrugsService.getReviews({id: $stateParams.id, limit: 2}).$promise.then(function(reviews) {
+                that.topReviews = reviews.data;
             });
         }
     }
@@ -98,12 +113,14 @@
     function DrugsOverviewCtrl() {
         activate();
 
-        this.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-        this.series = ['Series A', 'Series B'];
-        this.data = [
-            [65, 59, 80, 81, 56, 55, 40],
-            [28, 48, 40, 19, 86, 27, 90]
-        ];
+        this.effectiveLabels = ['Effective', 'Not Effective'];
+        this.effectiveColours = ['#673AB7', '#D1C4E9'];
+
+        this.seLabels = ['Spleen Explosion', 'Headache', 'Nausea'];
+        this.seColours = ['#4CAF50', '#81C784', '#E8F5E9'];
+
+        this.iLabels = ['Covered', 'Not Covered'];
+        this.iColours = ['#FF5722', '#FFCCBC'];
 
         function activate() {
             //TODO: add API service call here
@@ -129,12 +146,50 @@
         this.alternatives = {};
         var that = this;
 
+        this.effectiveLabels = ['Effective', 'Not Effective'];
+        this.effectiveColours = ['#673AB7', '#D1C4E9'];
+
+        this.insuranceLabels = ['Covered', 'Not Covered'];
+        this.insuranceColours = ['#FF5722', '#FFCCBC'];
+
         activate();
 
         function activate() {
             DrugsService.getAlternatives({id: $stateParams.id}).$promise.then(function(alternatives) {
+                angular.forEach(alternatives.data, function(alternative) {
+
+                    var covered = alternative.insurance_coverage_percentage * 100;
+                    var uncovered = (1 - alternative.insurance_coverage_percentage) * 100;
+
+                    var effectiveness = alternative.effectiveness_percentage * 100;
+                    var uneffectiveness = (1 - alternative.effectiveness_percentage) * 100;
+
+                    alternative.chartData = {
+                        'insuranceChartData' : [covered, uncovered],
+                        'effectivenessChartData' : [effectiveness, uneffectiveness]
+                    };
+                });
+
                 that.alternatives = alternatives;
             });
         }
+    }
+
+    /** @ngInject */
+    function DrugsReviewVoteCtrl(DrugsService) {
+        this.vote = function(review, vote) {
+            DrugsService.voteOnReview(
+                {
+                    'id': review.id,
+                    'vote': vote
+                }
+            ).$promise.then(function() {
+                if (vote === 1) {
+                    review.upvotes++;
+                } else {
+                    review.downvotes++;
+                }
+            });
+        };
     }
 })();

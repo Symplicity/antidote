@@ -27,12 +27,17 @@
                     method: 'GET'
                 },
                 queryAutocomplete: {
+                    url: '/api/autocomplete/drugs',
                     method: 'GET',
                     isArray: true
                 },
                 getAlternatives: {
                     method: 'GET',
                     url: '/api/drugs/:id/alternatives'
+                },
+                voteOnReview: {
+                    method: 'POST',
+                    url: '/api/drug-reviews/:id/vote'
                 }
             }
         );

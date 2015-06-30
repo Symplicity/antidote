@@ -55,6 +55,7 @@
 		margin: 0px auto;
 		padding-left: 28px;
 		padding-right: 28px;
+        padding-top: 5px;
 
         @media only screen and (max-width: 600px){
             padding-left: 0px;
@@ -87,6 +88,10 @@
 		font-weight: bold;
 	}
 
+    .center{
+        text-align: center;
+    }
+
 	ul.unstyled {
 		padding: 0;
 
@@ -98,16 +103,16 @@
 
 	.md-pills {
         padding: 25px;
-        color: #FFF;
+        color: #212121;
         font-size: 12px;    
         display: inline-block;
         border: solid;
         border-width: 2px;
         border-radius: 15px;
         padding: 1px 10px;
-        background-color: $md-primary-dark;
-        border-color: $md-primary-dark;
-        margin: 5px 5px 0 0;
+        background-color: $md-secondary;
+        border-color: $md-secondary;
+        margin: 0 6px;
 	}
 
 	.md-button.md-raised:not([disabled]):hover {
@@ -127,13 +132,31 @@
     }
     
     md-toast {
-        background-color:white;
+        background-color:$md-secondary;
         color:black;
+        margin-top:70px;
+        font-size:18px;
     }
 
     md-toolbar md-icon {
         margin: 0 10px 0 0;
     }
+
+    /*Universal solution to IE + Mobile*/
+    .ie-fix {
+        display: block;
+    }
+    @media only screen and (max-width: 1000px) {
+        .medium-ie-fix {
+            display: block;
+        }    
+    }
+    @media only screen and (max-width: 600px) {
+        .mobile-fix {
+            display: block;
+        }    
+    }
+    
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
  *  all your sass files automatically

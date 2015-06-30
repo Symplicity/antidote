@@ -4,10 +4,9 @@
             <md-button ui-sref="home"><img src="images/logo.png" alt="Antidote logo" aria-label="Antidote logo" /></md-button>
         </div>
         <div layout="row" layout-align="end center" flex>
-            <drugs-search class="md-global-search no-float"></drugs-search> 
-            <!--<md-icon ui-sref="drugs.list({keywords: navbar.search.keywords})"></md-icon>-->
+            <drugs-search ></drugs-search>
         </div>
-        <div layout="row" layout-align="end center" flex-gt-md="50" flex-gt-lg="45" >
+        <div layout="row" layout-align="end center" flex-gt-md="45" >
             <md-button ui-sref="home" class="nav-link" hide show-gt-md>Home</md-button>
             <md-button ui-sref="drugs.list" class="nav-link" hide show-gt-md>Medications</md-button>
             <md-button ui-sref="about" class="nav-link" hide show-gt-md>About</md-button>
@@ -15,22 +14,20 @@
             <md-button ui-sref="signup" class="nav-link" hide show-gt-md ng-if="!navbar.isAuthenticated()">Sign up</md-button>
             <md-button ui-sref="login" class="nav-link" hide show-gt-md ng-if="!navbar.isAuthenticated()">Log In</md-button>
             <md-button ui-sref="logout" class="nav-link" hide show-gt-md ng-if="navbar.isAuthenticated()">Logout</md-button>
-            <md-button ng-click="openMenu()" hide-gt-md><md-icon>menu</md-icon></md-button>            
+            <md-button ng-click="navbar.openMenu()" hide-gt-md><md-icon>menu</md-icon></md-button>
         </div>
-    </div>    
+    </div>
 </md-toolbar>
-    <md-sidenav md-component-id="md-mobile-menu" class="md-sidenav-right md-nav-bar md-whiteframe-z2 " layout="column" layout-algin="start center">
-          <div layout="column">
-            <md-button ui-sref="home" >Home</md-button>
-            <md-button ui-sref="drugs.list" >Medications</md-button>
-            <md-button ui-sref="about">About</md-button>
-        </div>
-        <div layout="column">
-            <md-button ui-sref="profile" class="nav-link"  ng-if="navbar.isAuthenticated()" flex>Profile</md-button>
-            <md-button ui-sref="signup" class="nav-link" ng-if="!navbar.isAuthenticated()" flex>Sign up</md-button>
-            <md-button ui-sref="login" class="nav-link" ng-if="!navbar.isAuthenticated()" flex>Log In</md-button>
-            <md-button ui-sref="logout" class="nav-link" ng-if="navbar.isAuthenticated()" flex>Logout</md-button>
-        </div>
-
-
-    </md-sidenav>
+<md-sidenav md-component-id="md-mobile-menu" class="md-sidenav-right md-nav-bar md-whiteframe-z2 md-mobile-menu " layout="column" layout-algin="start center">
+    <div layout="column">
+        <md-button class="nav-link" ui-sref="home" >Home</md-button>
+        <md-button class="nav-link" ui-sref="drugs.list" >Medications</md-button>
+        <md-button class="nav-link" ui-sref="about">About</md-button>
+    </div>
+    <div layout="column">
+        <md-button ui-sref="profile" class="nav-link"  ng-if="navbar.isAuthenticated()" flex>Profile</md-button>
+        <md-button ui-sref="signup" class="nav-link" ng-if="!navbar.isAuthenticated()" flex>Sign up</md-button>
+        <md-button ui-sref="login" class="nav-link" ng-if="!navbar.isAuthenticated()" flex>Log In</md-button>
+        <md-button ui-sref="logout" class="nav-link" ng-if="navbar.isAuthenticated()" flex>Logout</md-button>
+    </div>
+</md-sidenav>

@@ -10,7 +10,7 @@
         this.search = {};
 
         this.getMatches = function(searchText) {
-            return DrugsService.queryAutocomplete({'autocomplete-term': searchText}).$promise.then(function(resp) {
+            return DrugsService.queryAutocomplete({'term': searchText}).$promise.then(function(resp) {
                 return resp;
             });
         };

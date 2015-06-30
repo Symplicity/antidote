@@ -7,4 +7,19 @@ The Antidote API provides information on drugs and user-submitted drug reviews
 ## API Reference
 The Antidote API is organized around REST. Our API is designed to have predictable, resource-oriented URLs and to use HTTP response codes to indicate API errors. JSON will be returned in all responses from the API, including errors.
 
+## Authentication
+The allowed authentication schemes for the API server are defined below.  Some routes require authentication, such as submitting drug reviews or rating individual drug reviews.
+
++ Authentication Schemes
+    + bearer
+        + Headers
+            + Authorization: Bearer abcd1234
+
++ Response 401 (application/json)
+
+        {
+          "error": "Requires Authentication"
+        }
+
+
 <!-- include(docs/api/drugs.apib) -->

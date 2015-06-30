@@ -14,8 +14,12 @@
             return $auth.isAuthenticated();
         };
 
-        $scope.openMenu = function(){
+        this.openMenu = function() {
             $mdSidenav('md-mobile-menu').toggle();
         };
+
+        $scope.$on('$stateChangeSuccess', function() {
+            $mdSidenav('md-mobile-menu').close();
+        });
     }
 })();
