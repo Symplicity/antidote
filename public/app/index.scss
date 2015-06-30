@@ -146,6 +146,11 @@
     .ie-fix {
         display: block;
     }
+    @media only screen and (max-width: 1000px) {
+        .medium-ie-fix {
+            display: block;
+        }    
+    }
     @media only screen and (max-width: 600px) {
         .mobile-fix {
             display: block;
