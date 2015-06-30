@@ -27,7 +27,7 @@
         activate();
 
         function activate() {
-            DrugsService.queryAutocomplete($stateParams).$promise.then(function (drugs) {
+            DrugsService.queryAutocomplete($stateParams).$promise.then(function(drugs) {
                 that.drugs = drugs;
             });
         }
@@ -74,7 +74,7 @@
                 var effectiveness = drug.effectiveness_percentage * 100;
                 var uneffectiveness = (1 - drug.effectiveness_percentage) * 100;
 
-                var sideEffects = ['60','30','10'];
+                var sideEffects = ['60', '30', '10'];
 
                 that.insuranceChartData = [covered, uncovered];
                 that.effectivenessChartData = [effectiveness, uneffectiveness];
@@ -109,15 +109,14 @@
     function DrugsOverviewCtrl() {
         activate();
 
-
         this.effectiveLabels = ['Effective', 'Not Effective'];
-        this.effectiveColours =['#673AB7', '#D1C4E9'];
+        this.effectiveColours = ['#673AB7', '#D1C4E9'];
 
-        this.seLabels = ['Spleen Explosion', 'Headache','Nausea'];
-        this.seColours =['#4CAF50', '#81C784', '#E8F5E9'];
+        this.seLabels = ['Spleen Explosion', 'Headache', 'Nausea'];
+        this.seColours = ['#4CAF50', '#81C784', '#E8F5E9'];
 
         this.iLabels = ['Covered', 'Not Covered'];
-        this.iColours =['#FF5722', '#FFCCBC'];
+        this.iColours = ['#FF5722', '#FFCCBC'];
 
         function activate() {
             //TODO: add API service call here
@@ -144,10 +143,10 @@
         var that = this;
 
         this.effectiveLabels = ['Effective', 'Not Effective'];
-        this.effectiveColours =['#673AB7', '#D1C4E9'];
+        this.effectiveColours = ['#673AB7', '#D1C4E9'];
 
         this.insuranceLabels = ['Covered', 'Not Covered'];
-        this.insuranceColours =['#FF5722', '#FFCCBC'];
+        this.insuranceColours = ['#FF5722', '#FFCCBC'];
 
         activate();
 
@@ -181,12 +180,12 @@
                     'vote': vote
                 }
             ).$promise.then(function() {
-                   if (vote === 1) {
-                       review.upvotes++;
-                   } else {
-                       review.downvotes++;
-                   }
-                });
+                if (vote === 1) {
+                    review.upvotes++;
+                } else {
+                    review.downvotes++;
+                }
+            });
         };
     }
 })();
