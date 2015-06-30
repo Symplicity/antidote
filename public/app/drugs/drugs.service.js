@@ -27,6 +27,7 @@
                     method: 'GET'
                 },
                 queryAutocomplete: {
+                    url: '/api/autocomplete/drugs',
                     method: 'GET',
                     isArray: true
                 },

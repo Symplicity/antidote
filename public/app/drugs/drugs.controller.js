@@ -27,20 +27,17 @@
         activate();
 
         function activate() {
-            DrugsService.query($stateParams).$promise.then(function(drugs) {
+            DrugsService.queryAutocomplete($stateParams).$promise.then(function (drugs) {
                 that.drugs = drugs;
             });
         }
 
         this.getAlphabetFilterClass = function(alphabet) {
-            if ($stateParams.alpha === alphabet) {
+            if ($stateParams.term === alphabet) {
                 return 'active';
             } else {
                 return '';
             }
-        };
-        this.getAlphabetLetter = function() {
-            return $stateParams.alpha;
         };
     }
 
@@ -146,12 +143,12 @@
         this.alternatives = {};
         var that = this;
 
-        this.effectiveLabels = ['Effective', 'Not Effective'];        
+        this.effectiveLabels = ['Effective', 'Not Effective'];
         this.effectiveColours =['#673AB7', '#D1C4E9'];
-        
+
         this.insuranceLabels = ['Covered', 'Not Covered'];
         this.insuranceColours =['#FF5722', '#FFCCBC'];
-        
+
         activate();
 
         function activate() {

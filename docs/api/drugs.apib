@@ -84,7 +84,7 @@ With the drugs API you can retrieve information and reviews on individual drugs 
                 ]
             }
 
-### List [GET /drugs{?keywords,alpha,page,limit}]
+### List [GET /drugs{?keywords,page,limit}]
 Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:
 
 ```no-highlight
@@ -94,7 +94,6 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
 + Parameters
 
     + keywords: `Tylenol` (string, optional) - Search for a drug by keywords in label or description
-    + alpha: `a` (string, optional) - Search for a drug by first letter of the label
     + page: `1` (integer, optional) - Page number of drugs
     + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `500`
       + Default: `15`
@@ -412,3 +411,34 @@ Vote on a drug review using this action. It takes a JSON object containing the f
                 ]
               }
             }
+
+## Autocomplete [/autocomplete/drugs]
+You can use the autocomplete API on various resources to get an optimized list of id and value pairs.
+
+## Drugs [GET /autocomplete/drugs{?term,limit}]
+Returns a list of drugs. The drugs are returned in alphabetically sorted order. Example:
+
+```no-highlight
+https://antidote.symplicity-opensource.com/api/autocomplete/drugs?term=Tyl
+```
+
++ Parameters
+
+    + term: `Tyl` (string, optional) - Search for a drug by label
+    + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `500`
+      + Default: `15`
+
++ Response 200
+
+        [
+            {
+                "id": "3",
+                "label": "Tylenol",
+                "generic": "Acetaminophen"
+            },
+            {
+                "id": "16",
+                "label": "Tylenol III",
+                "generic": "Codeine"
+            }
+        ]
