@@ -1,0 +1,13 @@
+.privacy{
+    text-align: justify;
+    padding: 50px 100px;
+
+    @media only screen and (min-width : 300px) and (max-width : 600px) {
+        padding: 5px 25px
+
+    }
+    @media only screen and (min-width: 600px) and (max-width : 960px) {
+        padding: 25px 50px;
+
+    }
+}  
