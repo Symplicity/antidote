@@ -17,6 +17,5 @@ class DatabaseSeeder extends Seeder
         $this->call('DrugIndicationSeeder');
         $this->call('DrugSideEffectSeeder');
         $this->call('DrugSeeder');
-        $this->call('DrugReviewSeeder');
     }
 }

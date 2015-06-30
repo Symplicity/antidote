@@ -14,7 +14,7 @@ class DrugSeeder extends Seeder
         $faker = Faker\Factory::create();
         $ids = range(1, 50);
 
-        factory('App\Drug', 50)->create()->each(function ($drug) use ($faker) {
+        factory('App\Drug', 50)->create()->each(function ($drug) use ($faker, $ids) {
 
             $drug->alternatives()->sync($faker->randomElements($ids, $faker->numberBetween(0, 10)));
             $drug->related()->sync($faker->randomElements($ids, $faker->numberBetween(0, 10)));
@@ -22,6 +22,11 @@ class DrugSeeder extends Seeder
             $drug->indications()->sync($faker->randomElements($ids, $faker->numberBetween(0, 10)));
 
             $drug->prescriptionTypes()->sync($faker->randomElements([1, 2], $faker->numberBetween(0, 2)));
+
+            $users = $faker->randomElements($ids, $faker->numberBetween(0, 50));
+            foreach ($users as $user) {
+                $drug->reviews()->save(factory('App\DrugReview')->make(['user_id' => $user]));
+            }
         });
     }
 }

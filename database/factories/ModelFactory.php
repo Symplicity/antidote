@@ -54,13 +54,17 @@ $factory->define(App\Drug::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\DrugReview::class, function (Faker\Generator $faker) {
+    $upvotes = $faker->numberBetween(0, 50);
     return [
         'user_id' => $faker->numberBetween(1, 50),
         'drug_id' => $faker->numberBetween(1, 50),
         'rating' => $faker->numberBetween(1, 3),
         'is_covered_by_insurance' => $faker->boolean(),
-        'age' => $faker->numberBetween(18, 85),        
-        'comment' => $faker->text(250)
+        'gender' => $faker->randomElement(['m', 'f']),
+        'age' => $faker->numberBetween(18, 85),
+        'comment' => $faker->text(250),
+        'upvotes_cache' => $upvotes,
+        'downvotes_cache' => $faker->numberBetween($upvotes, 50) - $upvotes,
     ];
 });
 
