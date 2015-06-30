@@ -8,7 +8,7 @@ class DrugReview extends Model
 {
     protected $table = 'drug_reviews';
 
-    protected $hidden = ['updated_at', 'drug_id', 'user_id'];
+    protected $hidden = ['updated_at', 'pivot', 'drug_id', 'user_id'];
 
     public function user()
     {
@@ -18,6 +18,11 @@ class DrugReview extends Model
     public function drug()
     {
         return $this->belongsTo('App\Drug');
+    }
+
+    public function rating()
+    {
+        return $this->belongsTo('App\DrugRating', 'rating');
     }
 
     public function sideEffects()
