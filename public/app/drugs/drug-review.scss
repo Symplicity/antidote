@@ -9,3 +9,40 @@
         text-align: center;
     }
 }
+
+.drug-modal {
+	padding: 0px !important;
+	height: 800px;
+	min-height: 100%;
+
+	md-card {
+		margin: 0px !important;
+		width: 600px;
+		max-width: 100%;
+
+		p {
+			font-weight: bold;
+		}
+
+		md-radio-button {
+			display: inline-block;
+		}
+
+		fieldset {
+			border: none;
+		}
+		md-checkbox {
+			display: inline-block
+		}
+
+		.neutral-face {
+			margin-right: 30px;
+		}
+		.happy-face{
+			color: #81c784;
+		}
+		.sad-face{
+			color: #ef5350;
+		}
+	}	
+}

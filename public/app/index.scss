@@ -141,6 +141,17 @@
     md-toolbar md-icon {
         margin: 0 10px 0 0;
     }
+
+    /*Universal solution to IE + Mobile*/
+    .ie-fix {
+        display: block;
+    }
+    @media only screen and (max-width: 600px) {
+        .mobile-fix {
+            display: block;
+        }    
+    }
+    
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
  *  all your sass files automatically
