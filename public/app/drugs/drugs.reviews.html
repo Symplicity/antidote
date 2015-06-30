@@ -1,7 +1,8 @@
 <div class="content container ng-scope">
-    <md-content class="reviews">
-            <md-card>
-                <md-toolbar>
+    <md-content layout="column" layout-gt-md="row" class="reviews">
+        <div flex="65" flex-md="100" flex-sm="100">
+            <md-card flex>
+                <md-toolbar class="md-toolbar-tools">
                     <md-icon>question_answer</md-icon>
                     <h4>Reviews</h4>
                 </md-toolbar>
@@ -11,5 +12,9 @@
                     </div>
                 </md-card-content>
             </md-card>
+        </div>
+        <div flex="35" flex-md="100" flex-sm="100">
+            <div ng-include="'app/drugs/drugs.review.html'"></div>
+        </div>
     </md-content>
 </div>
