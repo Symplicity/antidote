@@ -21,6 +21,17 @@ class Drug extends Model
         'total_reviews'
     ];
 
+    //added var to disable appends in some cases (autocomplete, etc.)
+    public static $without_appends = false;
+
+    protected function getArrayableAppends()
+    {
+        if (self::$without_appends) {
+            return [];
+        }
+        return parent::getArrayableAppends();
+    }
+
     /**
      * The attributes excluded from the model's JSON form.
      *

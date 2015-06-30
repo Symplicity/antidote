@@ -6,13 +6,7 @@
 	background-size: cover;
 	min-height: 94vh;
 	margin-bottom: -60px;
-
-	@media only screen and (max-width: 500px) {
-	    .signup-card{
-	    	margin-top: 50px !important;
-
-	    }
-	}
+	padding-bottom: 150px;
 
 	md-card md-card-content {
 	  padding: 0px;
@@ -21,9 +15,9 @@
 	.signup-card {
 		max-width: 800px;
 		margin: 0px auto;
-		margin-top: 180px;
-		background-color: rgba(2, 136, 209, 0.8);
-
+		margin-top: 80px;
+		background-color: rgba(2, 136, 209, 0.8);		
+		
 		.left-side {
 			padding: 15px;
 
@@ -59,8 +53,20 @@
 			padding: 0px;
 			margin: 0px;
 
-			form{
+			form {
 				padding: 18px;
+
+				md-select {
+					margin-right: 15px;
+
+					md-select-label {
+						display: inline-block;
+
+						span{
+							display: inline-block; 
+						}
+					}
+				}
 			}
 		}
 
@@ -72,9 +78,19 @@
 				font-size: 11px;
 			}
 
-		}
-		.md-actions{
-			padding: 0px;
-		}
+		}		
+	}
+
+	/*IE + Mobile Fix*/
+	@media only screen and (max-width: 600px) {
+		.signup-card{
+			margin: 0;
+			margin-top: 30px !important;
+			margin-bottom: 10px;
+
+			md-card-content{
+				display: block;
+			}
+		}		
 	}
 }

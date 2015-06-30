@@ -1,7 +1,7 @@
 # Group Drugs
 With the drugs API you can retrieve information and reviews on individual drugs as well as list all drugs.
 
-## Drugs [/drugs{?keywords,alpha,page,limit}]
+## Drugs [/drugs]
 
 + Model
 
@@ -84,7 +84,7 @@ With the drugs API you can retrieve information and reviews on individual drugs 
                 ]
             }
 
-### List [GET]
+### List [GET /drugs{?keywords,page,limit}]
 Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:
 
 ```no-highlight
@@ -94,7 +94,6 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
 + Parameters
 
     + keywords: `Tylenol` (string, optional) - Search for a drug by keywords in label or description
-    + alpha: `a` (string, optional) - Search for a drug by first letter of the label
     + page: `1` (integer, optional) - Page number of drugs
     + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `500`
       + Default: `15`
@@ -157,17 +156,7 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                 ],
                 "effectiveness_percentage": 0.18,
                 "insurance_coverage_percentage": 0.64,
-                "total_reviews": 11,
-                "reviews": [
-                    {
-                        "id": "68",
-                        "rating": "2",
-                        "is_covered_by_insurance": "1",
-                        "age": "22",
-                        "comment": "Had a great experience!",
-                        "created_at": "2015-06-28 16:06:00"
-                    }
-                ]
+                "total_reviews": 11
             }
 
 ### Get Drug [GET]
@@ -176,7 +165,9 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
 
     [Drug][]
 
-## Drug Review [/drugs/{id}/reviews{?keywords,page,limit}]
+## Drug Review [/drugs/{id}/reviews]
++ Parameters
+    + id: `1` (required, integer) - The drug ID
 
 + Model
 
@@ -202,6 +193,8 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         "is_covered_by_insurance": 1,
                         "comment": "Tylenol hurt my liver a lot",
                         "created_at": "2015-06-23 02:57:19",
+                        "upvotes": 24,
+                        "downvotes": 26,
                         "user": {
                             "id": 3,
                             "username": "dedric",
@@ -232,6 +225,8 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         "is_covered_by_insurance": 1,
                         "comment": "Makes you sleepy",
                         "created_at": "2015-06-23 02:57:19",
+                        "upvotes": 400,
+                        "downvotes": 100,
                         "user": {
                             "id": 3,
                             "username": "dedric",
@@ -255,7 +250,7 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                 ]
             }
 
-### List All [GET]
+### List All [GET /drugs/{id}/reviews{?keywords,page,limit}]
 Returns a list of all reviews for a drug. The reviews are returned in created date descending order.  Example:
 
 ```no-highlight
@@ -274,15 +269,18 @@ https://antidote.symplicity-opensource.com/api/drugs/1/reviews
 
     [Drug Review][]
 
-### Create New [POST]
-Create a new drug review
+### Create New [POST /drugs/{id}/reviews]
+Create a new drug review using this action. It takes a JSON object containing the following fields:
+
+    - rating: `3` (required, integer) - The rating the user gave the drug either 1, 2, 3 - 3 is best
+    - is_covered_by_insurance: `1` (integer, required) - Was the drug covered by insurance?
+    - comment: `My pain has subsided considerably since I started taking this.` (text, optional) - User comments
+    - side_effects: `[1,2,3]` (array, optional) - Side effects experienced by the user
+
++ Authentication: bearer
 
 + Parameters
-
-    + rating: `3` (required, integer) - The rating the user gave the drug either 1, 2, 3 - 3 is best
-    + is_covered_by_insurance: `1` (integer, required) - Was the drug covered by insurance?
-    + comment: `My pain has subsided considerably since I started taking this.` (text, optional) - User comments
-    + side_effects: `[1,2,3]` (array, optional) - Side effects experienced by the user
+    + id: `1` (required, integer) - The drug ID
 
 + Request
     + Headers
@@ -299,18 +297,27 @@ Create a new drug review
             }
 
 + Response 201
+    + Headers
+
+            Content-Type: application/json
 
     + Body
 
             {
+                "age": 82,
                 "rating": "3",
                 "comment": "My pain has subsided considerably since I started taking this.",
                 "is_covered_by_insurance": "1",
-                "created_at": "2015-06-23 03:23:39",
-                "id": 1515
+                "created_at": "2015-06-29 16:01:00",
+                "id": 503,
+                "upvotes": 0,
+                "downvotes": 0
             }
 
 + Response 400
+    + Headers
+
+            Content-Type: application/json
 
     + Body
 
@@ -322,10 +329,9 @@ Create a new drug review
               }
             }
 
+## Drug Alternative [/drugs/{id}/alternatives]
 
-## Drug Alternative [/drugs/{id}/alternatives{?page,limit}]
-
-### List All [GET]
+### List All [GET /drugs/{id}/alternatives{?page,limit}]
 Returns a list of all alternative drugs for a drug. The drugs are returned in alphabetically sorted order.  Example:
 
 ```no-highlight
@@ -342,3 +348,85 @@ https://antidote.symplicity-opensource.com/api/drugs/1/alternatives
 + Response 200
 
     [Drugs][]
+
+## Voting [/drug-reviews/{id}/vote]
+
+### Create New [POST /drug-reviews/{id}/vote]
+Vote on a drug review using this action. It takes a JSON object containing the following field:
+
+    - vote: `1` (required, integer) - The user's vote - either 1 for upvote, or -1 for downvote
+
++ Authentication: bearer
+
++ Parameters
+    + id: `1` (required, integer) - The drug review ID
+
++ Request
+    + Headers
+
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "vote": "1"
+            }
+
++ Response 201
+    + Headers
+
+            Content-Type: application/json
+
+    + Body
+
+            {
+                "id": "2",
+                "user_id": "1",
+                "drug_review_id": "1",
+                "vote": 1,
+                "created_at": "2015-06-29 14:51:47",
+                "updated_at": "2015-06-29 14:51:47"
+            }
+
++ Response 400
+
+    + Body
+
+            {
+              "message": {
+                "rating": [
+                  "The vote field is required."
+                ]
+              }
+            }
+
+## Autocomplete [/autocomplete/drugs]
+You can use the autocomplete API on various resources to get an optimized list of id and value pairs.
+
+## Drugs [GET /autocomplete/drugs{?term,limit}]
+Returns a list of drugs. The drugs are returned in alphabetically sorted order. Example:
+
+```no-highlight
+https://antidote.symplicity-opensource.com/api/autocomplete/drugs?term=Tyl
+```
+
++ Parameters
+
+    + term: `Tyl` (string, optional) - Search for a drug by label
+    + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `500`
+      + Default: `15`
+
++ Response 200
+
+        [
+            {
+                "id": "3",
+                "label": "Tylenol",
+                "generic": "Acetaminophen"
+            },
+            {
+                "id": "16",
+                "label": "Tylenol III",
+                "generic": "Codeine"
+            }
+        ]

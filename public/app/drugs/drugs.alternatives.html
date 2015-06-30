@@ -1,33 +1,40 @@
-<md-content ng-repeat="drug in drugsAlternatives.alternatives.data" layout="row">
-    <md-card flex>
-        <md-toolbar class="md-toolbar-tools">
-            <h4>{{::drug.label}}</h4>
-        </md-toolbar>
-        <md-card-content>
-            <div layout-gt-md="row" layout="column" flex layout-wrap>
-                <div flex>
-                    <p>{{::drug.description}}</p>
-
-                    <section class="pill-row" layout="row" layout-sm="column" layout-align="start center">
-                        <span><strong>Top Side Effects:</strong></span>
-                        <span ng-repeat="side_effect in drug.side_effects">
-                            <span class="md-raised md-pills">{{::side_effect.value | capitalize}}</span>
-                        </span>
-                    </section>
-
+<div class="content container">
+    <md-content ng-repeat="drug in drugsAlternatives.alternatives.data" layout="row">
+        <md-card flex>
+            <md-toolbar class="md-toolbar-tools">
+                <h4>{{::drug.label}}</h4>
+            </md-toolbar>
+            <md-card-content>
+                <div layout="row" layout-sm="column" flex layout-wrap class="mobile-fix">
+                    <div flex="60" flex-sm="100">
+                        <div layout="column" flex class="ie-fix">
+                            <div flex>
+                                <p>{{::drug.description}}</p>
+                            </div>
+                            <div flex>
+                                <p class="bold">Top Side Effects:</p>
+                            </div>
+                            <div flex>
+                                <span ng-repeat="side_effect in drug.side_effects">
+                                    <span class="md-raised md-pills">{{::side_effect.value | capitalize}}</span>
+                                </span>
+                            </div>                  
+                        </div>
+                    </div>              
+                    <div class="percentages" flex="40" flex-sm="100" layout="row" layout-sm="row">  
+                        <div flex="50" flex-sm="50" class="center">
+                            <canvas id="doughnut" class="chart chart-doughnut" data="drug.chartData.effectivenessChartData" labels="drugsAlternatives.effectiveLabels" colours="drugsAlternatives.effectiveColours"></canvas>
+                            <p class="percentage">{{::drug.effectiveness_percentage | percentage}}</p>
+                            <p>Effectiveness</p>
+                        </div>
+                        <div flex="50" flex-sm="50" class="center">
+                            <canvas id="doughnut" class="chart chart-doughnut" data="drug.chartData.insuranceChartData" labels="drugsAlternatives.insuranceLabels" colours="drugsAlternatives.insuranceColours"></canvas>
+                            <p class="percentage">{{::drug.insurance_coverage_percentage | percentage}}</p>
+                            <p>Insurance</p>
+                        </div>     
+                    </div>           
                 </div>
-                <div flex="33" layout="row" layout-sm="column" layout-align="center center">
-                    <div flex layout="row" layout-align="center center">
-                        <p class="percentage">{{::drug.effectiveness_percentage | percentage}}</p>
-                        <p>Effectiveness</p>
-                    </div>
-
-                    <div flex layout="row" layout-align="center center">
-                        <p class="percentage">{{::drug.insurance_coverage_percentage | percentage}}</p>
-                        <p>Insurance</p>
-                    </div>
-                </div>
-            </div>
-        </md-card-content>
-    </md-card>
-</md-content>
+            </md-card-content>
+        </md-card>
+    </md-content>
+</div>

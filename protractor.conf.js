@@ -4,13 +4,14 @@ var paths = require('./.yo-rc.json')['generator-gulp-angular'].props.paths;
 
 // An example configuration file.
 exports.config = {
-    // The address of a running selenium server.
-    //seleniumAddress: 'http://localhost:4444/wd/hub',
-    //seleniumServerJar: deprecated, this should be set on node_modules/protractor/config.json
+    baseUrl: 'http://127.0.0.1/',
+
+    seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
 
     // Capabilities to be passed to the webdriver instance.
     capabilities: {
-        'browserName': 'chrome'
+        'browserName': 'phantomjs',
+        'phantomjs.binary.path':'./node_modules/phantomjs/bin/phantomjs'
     },
 
     // Spec patterns are relative to the current working directly when

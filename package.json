@@ -1,6 +1,11 @@
 {
     "name": "antidote",
-    "version": "0.1.0",
+    "description": "Collection of npm modules used in Antidote development process",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/Symplicity/antidote"
+    },
+    "license": "MIT",
     "dependencies": {},
     "scripts": {
         "test": "gulp test"

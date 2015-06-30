@@ -37,7 +37,6 @@
             }
             return input;
         };
-        
         function showDefaultToast(message) {
             $mdToast.show(
                 $mdToast.simple()

@@ -17,6 +17,13 @@
         }
     }
 
+     @media only screen and (max-width: 500px) {
+        span{
+            display:inline-block;
+            width: 100%;
+        }
+    }
+
     p:first-child {
         text-transform: uppercase;
     }

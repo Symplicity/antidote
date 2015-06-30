@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.3.6"
+LABEL version="1.3.27"
 LABEL description="This is the Antidote webserver, with NGINX and PHP-FPM"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
@@ -13,8 +13,12 @@ ENV LC_ALL  en_US.UTF-8
 
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
-ADD build/run.sh /run.sh
+ADD build/scripts/run.sh /run.sh
 RUN chmod +x /run.sh
+ADD build/scripts/setup.sh /setup.sh
+RUN chmod +x /setup.sh
+ADD build/scripts/update.sh /update.sh
+RUN chmod +x /update.sh
 CMD ["/run.sh"]
 
 #php install
@@ -43,11 +47,14 @@ RUN mkdir -p /var/www
 RUN mv /etc/nginx/sites-enabled /etc/nginx/sites-enabled.orig
 RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
 RUN mkdir /etc/service/nginx
-ADD build/nginx-sites/default  /etc/nginx/sites-available/default
-ADD build/nginx.sh /etc/service/nginx/run
+ADD build/nginx/nginx-sites/default  /etc/nginx/sites-available/default
+ADD build/nginx/nginx-log.conf /etc/nginx/conf.d/nginx-log.conf
+ADD build/phpfpm/www.conf /etc/php5/fpm/pool.d/www.conf
+ADD build/rsyslog/45-nginx-access.log /etc/rsyslog.d/45-nginx-access.conf
+ADD build/nginx/nginx.sh /etc/service/nginx/run
 RUN chmod +x /etc/service/nginx/run
 RUN mkdir /etc/service/phpfpm
-ADD build/phpfpm.sh /etc/service/phpfpm/run
+ADD build/phpfpm/phpfpm.sh /etc/service/phpfpm/run
 RUN chmod +x /etc/service/phpfpm/run
 RUN rm -rf /etc/service/syslog-ng
 
@@ -62,8 +69,6 @@ RUN touch /root/.ssh/known_hosts
 RUN ssh-keyscan github.com >> /root/.ssh/known_hosts
 ADD hithub /root/.ssh/id_rsa
 RUN chmod 0600 /root/.ssh/id_rsa
-ADD update.sh /update.sh
-RUN chmod +x /update.sh
 RUN git clone https://github.com/moos3/arbeider.git /worker
 RUN cd /worker && composer install
 RUN mkdir /etc/service/worker

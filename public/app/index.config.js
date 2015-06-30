@@ -19,8 +19,7 @@
                 'default':'500'
             });
 
-        $authProvider.loginUrl = '/api/auth/login';
-        $authProvider.signupUrl = '/api/auth/signup';
+        $authProvider.baseUrl = '/api';
         $authProvider.logoutRedirect = '/home';
     }
 

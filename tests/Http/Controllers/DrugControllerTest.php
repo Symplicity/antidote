@@ -29,7 +29,6 @@ class DrugControllerTest extends TestCase
     public function testShow()
     {
         $this->stubQuery->shouldReceive('find')->once()->with(1);
-        $this->stubQuery->shouldReceive('with')->once()->with('reviews')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('with')->once()->with('indications')->andReturn($this->stubQuery);
         $this->mockModel->shouldReceive('with')
             ->once()
@@ -50,29 +49,29 @@ class DrugControllerTest extends TestCase
         $this->ctrl->index($request);
     }
 
-    public function testIndexAutocomplete()
+    public function testAutocompleteSearch()
     {
-        $params = ['autocomplete-term' => 'foo'];
+        $params = ['term' => 'foo'];
         $this->stubQuery->shouldReceive('get')->once()->with('label', 'id');
-        $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', '%' . $params['autocomplete-term'] . '%')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', '%' . $params['term'] . '%')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('limit')->once()->with(15)->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
         $this->mockModel->shouldReceive('select')->once()->with('id', 'label', 'generic')->andReturn($this->stubQuery);
 
         $request = new Illuminate\Http\Request($params);
 
-        $this->ctrl->index($request);
+        $this->ctrl->autocompleteSearch($request);
     }
 
     public function testIndexFull()
     {
         $params = [
             'limit' => 20,
-            'keywords' => 'foo',
-            'alpha' => 'c'
+            'keywords' => 'foo'
         ];
         $this->stubQuery->shouldReceive('paginate')->once()->with(20);
         $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', '%foo%')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orWhere')->once()->with('description', 'LIKE', '%foo%')->andReturn($this->stubQuery);
-        $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', 'c%')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
 
         $this->mockModel->shouldReceive('with')->once()->with('sideEffects')
@@ -125,9 +124,11 @@ class DrugControllerTest extends TestCase
         $this->mockUser->shouldReceive('getAttribute')->once()->with('age')->andReturn(22);
         $this->mockUser->shouldReceive('find')->once()->with('foo')->andReturn($this->mockUser);
 
-        $review = $this->ctrl->addReview('foo', $request);
+        $response = $this->ctrl->addReview('foo', $request);
 
-        $this->assertInstanceOf('\App\DrugReview', $review);
+        $this->assertEquals(201, $response->getStatusCode());
+        $review = json_decode($response->getContent());
+        $this->assertEquals('Foo', $review->comment);
     }
 
     public function testGetAlternatives()

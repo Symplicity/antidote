@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.3.5"
+LABEL version="1.3.27"
 LABEL description="This is the Antidote Worker, with PHP 5.6"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
@@ -12,8 +12,13 @@ ENV LC_ALL  en_US.UTF-8
 
 ENV HOME /root
 RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
-ADD build/run.sh /run.sh
+ADD build/scripts/run.sh /run.sh
 RUN chmod +x /run.sh
+ADD build/scripts/setup.sh /setup.sh
+RUN chmod +x /setup.sh
+ADD build/scripts/update.sh /update.sh
+RUN chmod +x /update.sh
+ADD build/jobs /etc/cron.d/antidote
 CMD ["/run.sh"]
 
 #php install
@@ -34,10 +39,7 @@ RUN mkdir -p /var/www
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD jobs /etc/cron.d/antidote
 ### Get code
-ADD update.sh /update.sh
-RUN chmod +x /update.sh
 RUN touch /root/.ssh/known_hosts && ssh-keyscan github.com >> /root/.ssh/known_hosts
 ADD hithub /root/.ssh/id_rsa
 RUN chmod 0600 /root/.ssh/id_rsa

@@ -32,4 +32,7 @@ $app->group(['prefix' => 'api'],
         $app->post('drugs/{id}/reviews', ['middleware' => 'auth', 'uses' => 'App\Http\Controllers\DrugController@addReview']);
 
         $app->get('drugs/{id}/alternatives', 'App\Http\Controllers\DrugController@getAlternatives');
+        $app->post('drug-reviews/{id}/vote', ['middleware' => 'auth', 'uses' => 'App\Http\Controllers\DrugReviewsController@vote']);
+
+        $app->get('autocomplete/drugs', 'App\Http\Controllers\DrugController@autocompleteSearch');
     });

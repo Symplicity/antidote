@@ -79,6 +79,19 @@ class ConsolidatedDevMigrations extends Migration
             $table->index(['age']);
         });
 
+        Schema::create('drug_review_votes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('drug_review_id')->unsigned();
+            $table->integer('vote');
+            $table->timestamps();
+
+        $table->foreign('user_id')->references('id')->on('users');
+        $table->foreign('drug_id')->references('id')->on('drug_reviews')->onDelete('cascade');
+
+            $table->index(['vote']);
+        });
+
         Schema::create('drug_side_effects', function (Blueprint $table) {
             $table->increments('id');
             $table->string('value')->unique();
@@ -174,5 +187,6 @@ class ConsolidatedDevMigrations extends Migration
         Schema::drop('drug_drug_indication');
         Schema::drop('drug_drug_side_effect');
         Schema::drop('drug_review_drug_side_effect');
+        Schema::drop('drug_review_votes');
     }
 }
