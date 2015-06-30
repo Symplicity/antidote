@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.3.29"
+LABEL version="1.3.30"
 LABEL description="This is the Antidote Worker, with PHP 5.6"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
@@ -18,7 +18,7 @@ ADD build/scripts/setup.sh /setup.sh
 RUN chmod +x /setup.sh
 ADD build/scripts/update.sh /update.sh
 RUN chmod +x /update.sh
-ADD build/jobs /etc/cron.d/antidote
+RUN ln -s /var/www/deployment/jobs/antidote-cron /etc/cron.d/antidote
 CMD ["/run.sh"]
 
 #php install
