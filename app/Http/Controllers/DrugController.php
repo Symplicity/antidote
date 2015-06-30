@@ -22,25 +22,28 @@ class DrugController extends Controller
 
     public function index(Request $request)
     {
-        if (empty($request['autocomplete-term'])) {
-            $limit = $this->getLimit($request);
+        $limit = $this->getLimit($request);
 
-            $drugs = Drug::with('sideEffects');
+        $drugs = Drug::with('sideEffects');
 
-            if ($keywords = $request['keywords']) {
-                $drugs = $drugs->where('label', 'LIKE', '%' . $keywords . '%')->orWhere('description', 'LIKE', '%' . $keywords . '%');
-            }
-
-            if ($alpha = $request['alpha']) {
-                $drugs = $drugs->where('label', 'LIKE', $alpha . '%');
-            }
-
-            $drugs = $drugs->orderBy('label', 'ASC')->paginate($limit);
-
-            return $drugs;
-        } else {
-            return Drug::select('id', 'label', 'generic')->where('label', 'LIKE', '%' . $request['autocomplete-term'] . '%')->get('label', 'id');
+        if ($keywords = $request['keywords']) {
+            $drugs = $drugs->where('label', 'LIKE', '%' . $keywords . '%')->orWhere('description', 'LIKE', '%' . $keywords . '%');
         }
+
+        $drugs = $drugs->orderBy('label', 'ASC')->paginate($limit);
+
+        return $drugs;
+    }
+
+    public function autocompleteSearch(Request $request)
+    {
+        $term = $request->input('term');
+        $limit = $this->getLimit($request);
+
+        //disable extra appends specified in the model
+        \App\Drug::$without_appends = true;
+
+        return Drug::select('id', 'label', 'generic')->where('label', 'LIKE', $term . '%')->limit($limit)->orderBy('label', 'ASC')->get('label', 'id');
     }
 
     /**

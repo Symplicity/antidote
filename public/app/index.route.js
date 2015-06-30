@@ -20,12 +20,16 @@
                 templateUrl: 'app/drugs/drugs.html'
             })
             .state('drugs.list', {
-                url: '/?keywords&alpha',
+                url: '/?term&limit',
                 templateUrl: 'app/drugs/drugs.list.html',
                 controller: 'DrugsListCtrl as drugsList',
                 params: {
-                    alpha: {
+                    term: {
                         value: 'a',
+                        squash: true
+                    },
+                    limit: {
+                        value: "500",
                         squash: true
                     }
                 }
