@@ -15,22 +15,43 @@
         &:focus{
             background-image:none;
         }
+
     }
    
     img {
       vertical-align: middle;
     }
 
+    @media only screen and (min-width : 300px) and (max-width : 600px)  {
+        md-autocomplete{
+            min-width:inherit
 
-    @media only screen and (max-width: 960px) {
+        }
+
+        md-autocomplete input{
+            background-position: 99%;
+            max-width:300px;
+        } 
+
+        .md-button {
+            min-width: 25px;
+        }
+
+        img {
+            width:115px;
+        }
+
+
+    }
+
+    @media only screen and (min-width:600px) and (max-width: 960px) {
 
         md-sidenav {
             background: $md-primary;
             color: $md-primary-light;
         }
 
-        .md-global-search {
-            width: auto;
+        md-autocomplete input {
             background-position: 95%;
             padding:10px;
             width:300px;
@@ -47,13 +68,6 @@
         }
     }
 
-    @media only screen and (min-width:601px) and (max-width: 960px) {
-        .md-global-search{
-            background-position: 99%;
-            width:500px;
-        } 
-    }
-
     @media only screen and (min-width: 900px) and (max-width:1200px) {
         .md-button{
             min-width: 25px;
@@ -66,5 +80,29 @@ md-toolbar {
             .container{
                 padding: 0;
             }
+    }
+}
+md-sidenav{
+    width:200px;
+    min-width:200px;
+    position:fixed;
+}
+md-backdrop{
+    position:fixed;
+}
+.md-mobile-menu{ 
+    background: #0269a6;
+    
+
+    .nav-link{
+        color: #FFFFFF;
+        text-align: left;
+        padding-left: 15px;
+
+        &:hover, &:not([disabled]):hover{
+            background: $md-primary;
+            text-align: left;
+            padding-left: 15px;
+        }
     }
 }
