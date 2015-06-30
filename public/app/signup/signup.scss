@@ -53,8 +53,13 @@
 			padding: 0px;
 			margin: 0px;
 
-			form{
+			form {
 				padding: 18px;
+
+				md-select {
+					margin-right: 20px;
+					padding-left: 15px;
+				}
 			}
 		}
 
@@ -66,10 +71,7 @@
 				font-size: 11px;
 			}
 
-		}
-		.md-actions{
-			padding: 0px;
-		}
+		}		
 	}
 
 	/*IE + Mobile Fix*/
