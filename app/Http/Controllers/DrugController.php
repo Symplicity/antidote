@@ -55,7 +55,12 @@ class DrugController extends Controller
     {
         $limit = $this->getLimit($request);
 
-        $reviews = Drug::find($id)->reviews()->with('user')->with('drug')->with('sideEffects')->orderBy('created_at', 'DESC')->paginate($limit);
+        $reviews = DrugReview::where('drug_id', $id)
+            ->with('sideEffects')
+            ->orderBy('upvotes_cache', 'DESC')
+            ->orderBy('downvotes_cache', 'ASC')
+            ->paginate($limit);
+
         return $reviews;
     }
 
@@ -82,6 +87,7 @@ class DrugController extends Controller
             $user = User::find($request['user']['sub']);
 
             $drug_review->age = $user->age;
+            $drug_review->gender = $user->gender;//save here redundantly to avoid unnecessary join on read
             $drug_review->rating = $request->input('rating');
             $drug_review->comment = $request->input('comment');
             $drug_review->is_covered_by_insurance = $request->input('is_covered_by_insurance');
