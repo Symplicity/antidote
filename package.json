@@ -53,7 +53,6 @@
         "chalk": "~1.0.0",
         "uglify-save-license": "~0.4.1",
         "wrench": "~1.5.8",
-        "gulp-aglio": "~0.0.7",
         "jscs": "~1.13.1",
         "jshint": "~2.8.0"
     },
