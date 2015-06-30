@@ -11,6 +11,7 @@
         background-repeat: no-repeat; 
         background-position: 99%; 
         width: 500px;
+        max-width: 100%; 
         color: #FFFFFF;
 
         &:focus{
@@ -18,7 +19,15 @@
         }
 
     }
-   
+    
+    /*IE FIX*/
+    @media all and (-ms-high-contrast: none) and (max-width: 1240px), (-ms-high-contrast: active) {
+        md-autocomplete input{            
+            width: 300px;
+            max-width: 100%;
+        }
+    }
+
     img {
       vertical-align: middle;
     }
