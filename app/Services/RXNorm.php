@@ -8,21 +8,16 @@ use Illuminate\Support\Facades\Config;
 
 class RXNorm
 {
-    private $client = null;
-    private $limit = 20;
-    private $api_base_uri = '';
+    private $client;
+    private $api_base_uri = 'http://rxnav.nlm.nih.gov/REST/Prescribe';
+    private $rate_limit = 8;
 
     private static $requests = 0;
 
     public function __construct(Client $client = null)
     {
-        // Create a client with a base URI
         $this->client = $client;
-        $this->api_base_uri = $config['api_base_uri'];
-
-        if (!empty($config['rate_limit'])) {
-            $this->rate_limit = $config['rate_limit'];
-        }
+        $this->rate_limit = env('RXNORM_RATE_LIMIT', $this->rate_limit);
     }
 
     public function getLabel($prop)

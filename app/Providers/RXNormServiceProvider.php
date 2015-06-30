@@ -13,7 +13,7 @@ class RXNormServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('RXNorm', function ($app) {
-            return new RXNorm($app['Guzzle'], $app['config']['rxnorm']);
+            return new RXNorm($app['Guzzle']);
         });
     }
 }

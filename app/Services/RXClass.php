@@ -8,19 +8,14 @@ use Illuminate\Support\Facades\Config;
 
 class RXClass
 {
-    private $client = null;
-    private $api_base_uri = '';
-    private $rate_limit = 20;
+    private $client;
+    private $api_base_uri = 'http://rxnav.nlm.nih.gov/REST/rxclass';
+    private $rate_limit = 8;
 
-    public function __construct(Client $client = null, $config)
+    public function __construct(Client $client = null)
     {
-        // Create a client with a base URI
         $this->client = $client;
-        $this->api_base_uri = $config['api_base_uri'];
-
-        if (!empty($config['rate_limit'])) {
-            $this->rate_limit = $config['rate_limit'];
-        }
+        $this->rate_limig = env('RXCLASS_RATE_LIMIT', $this->rate_limit);
     }
 
     private function limitRate()
