@@ -53,13 +53,13 @@
                             <md-option value="f">Female</md-option>
                         </md-select>
                         <md-select ng-model="signup.user.age" placeholder="Choose Age">
-                            <md-option ng-repeat="n in signup.range(18,80)" value="{{n}}">{{n}}</md-option>
+                            <md-option ng-repeat="n in [] | range:18:80" value="{{n}}">{{n}}</md-option>
                         </md-select>
                     </div>
                     <md-button class="small" ui-sref="login">Already have an account? Sign In</md-button>
                     <md-button type="button" ng-click="signup.signup()" ng-disabled="signupForm.$invalid" class="md-raised md-accent">REGISTER</md-button>
                 </form>
       </div>
-      </md-card-content>     
+      </md-card-content>
     </md-card>
 </md-content>
