@@ -128,9 +128,20 @@
     }
 
     /** @ngInject */
-    function DrugsReviewsCtrl(DrugsService, $stateParams) {
+    function DrugsReviewsCtrl(DrugsService, $stateParams, $mdDialog) {
         this.reviews = {};
         var that = this;
+
+        this.openSignupModal = function(ev) {
+            $mdDialog.show({
+                controller: 'DrugsReviewModalCtrl',
+                controllerAs: 'drugsReviewModal',
+                templateUrl: 'app/drugs/drugs.signup.modal.html',
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                hasBackdrop: true
+            });
+        };
 
         activate();
 
