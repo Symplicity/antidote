@@ -59,4 +59,25 @@ class UserControllerTest extends TestCase
 
         $this->assertInstanceOf('\App\User', $user);
     }
+
+    public function testUpdateUserPassword()
+    {
+        $this->mockModel->shouldReceive('getAttribute')->with('password');
+        $this->mockModel->shouldReceive('setAttribute');
+        $this->mockModel->shouldReceive('save')->once();
+        $this->mockModel->shouldReceive('find')->once()->with('foo')->andReturn($this->mockModel);
+
+        $request = new Illuminate\Http\Request([
+            'user' => ['sub' => 'foo'],
+            'oldPassword' => 'foo',
+            'newPassword' => 'bar'
+        ]);
+
+        Hash::shouldReceive('check')->once()->andReturn(true);
+        Hash::shouldReceive('make')->once()->with('bar')->andReturn('hashbar');
+
+        $user = $this->ctrl->updateUser($request);
+
+        $this->assertInstanceOf('\App\User', $user);
+    }
 }
