@@ -74,4 +74,16 @@ class DrugTest extends TestCase
         $drug = Drug::find($this->drug->id);
         $this->assertSame(4, $drug->total_reviews);
     }
+
+    public function testAttributes()
+    {
+        $drug = factory('App\Drug')->make();
+        $all_fields = array_keys($drug->toArray());
+
+        \App\Drug::$without_appends = true;
+        $fields = array_keys($drug->toArray());
+
+        $this->assertGreaterThan(0, count(array_diff($all_fields, $fields)));
+        \App\Drug::$without_appends = false;
+    }
 }

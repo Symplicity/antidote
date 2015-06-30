@@ -19,4 +19,11 @@ class DrugReviewVoteTest extends TestCase
             ]);
         $this->assertSame(1, $drug_review->vote);
     }
+
+    public function testRelations()
+    {
+        $review = factory('App\DrugReviewVote')->make();
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsTo', $review->user());
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsTo', $review->drugReview());
+    }
 }
