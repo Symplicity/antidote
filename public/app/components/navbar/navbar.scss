@@ -2,7 +2,7 @@
 
     md-autocomplete-wrap {
         background: #0269a6;
-        display: block;
+       
     }
 
     md-autocomplete input{
@@ -11,6 +11,7 @@
         background-repeat: no-repeat; 
         background-position: 99%; 
         width: 500px;
+        max-width: 100%; 
         color: #FFFFFF;
 
         &:focus{
@@ -18,7 +19,20 @@
         }
 
     }
-   
+    
+    /*IE FIX*/
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        md-autocomplete-wrap {
+            display: block;
+        }
+    }
+    @media all and (-ms-high-contrast: none) and (max-width: 1240px), (-ms-high-contrast: active) {
+        md-autocomplete input {  
+            width: 300px;
+            max-width: 100%;
+        }
+    }
+
     img {
       vertical-align: middle;
     }
@@ -32,6 +46,7 @@
         md-autocomplete input{
             background-position: 99%;
             max-width:300px;
+            background-image: none;
         } 
 
         .md-button {

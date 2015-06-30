@@ -14,6 +14,10 @@
                 templateUrl: 'app/home/home.html',
                 controller: 'HomeCtrl as home'
             })
+            .state('privacy', {
+                url: '/privacy',
+                templateUrl: 'app/privacy/privacy.html'
+            })
             .state('drugs', {
                 url: '/drugs',
                 abstract:true,
@@ -29,7 +33,7 @@
                         squash: true
                     },
                     limit: {
-                        value: "500",
+                        value: '500',
                         squash: true
                     }
                 }

@@ -2,9 +2,13 @@
     <div flex-gt-sm="15" flex class="health-state">
         <p>{{review.created_at | date}} / {{review.created_at | date:'h:m a'}}</p>
         <drugs-review-rating rating="review.rating"></drugs-review-rating>
+        <p class="center">{{review.age}} year old
+            <span ng-if="review.gender == 'f'">Female</span>
+            <span ng-if="review.gender == 'm'">Male</span>
+        </p>
     </div>
     <div flex>
-        <p>"{{review.comment}}"</p>
+        <p><strong>"{{review.comment}}"</strong></p>
         <section class="pill-row" layout="column" layout-align-sm="start start" layout-align="start start">
             <div flex>
                 <span class="md-body-1">Side Effects:</span>
@@ -12,7 +16,7 @@
             </div>
         </section>
         <ul class="unstyled">
-            <li><strong>Insurance Covered:&nbsp</strong>{{review.is_covered_by_insurance == '1' ? 'Yes' : 'No'}}</li>
+            <li>Insurance Covered:&nbsp</strong>{{review.is_covered_by_insurance == '1' ? 'Yes' : 'No'}}</li>
         </ul>
     </div>
     <div layout="row" layout-align="center center" flex-gt-md="10" flex ng-controller="DrugsReviewVoteCtrl as drugsReviewVote">
@@ -20,7 +24,7 @@
             <a href="#">
                 <span class="vote-up">
                     <md-icon ng-click="drugsReviewVote.vote(review, 1)" class="vote-up">thumb_up</md-icon>
-                    <p>{{review.upvotes}}</p>
+                    <p><strong>{{review.upvotes}}</strong></p>
                 </span>
             </a>
         </div>
@@ -28,7 +32,7 @@
             <a href="#">
                 <span class="vote-down">
                     <md-icon ng-click="drugsReviewVote.vote(review, -1)" class="vote-down">thumb_down</md-icon>
-                    <p>{{review.downvotes}}</p>
+                    <p><strong>{{review.downvotes}}</strong></p>
                 </span>
             </a>
         </div>

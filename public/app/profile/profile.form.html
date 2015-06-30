@@ -2,7 +2,7 @@
     <md-content layout="row" layout-wrap class="container md-account-info" flex>
             <div flex="90" flex-sm="70">
                 <h1>My Account</h1>
-                <p><md-icon>person</md-icon> test@test.com | Female, 32</p>     
+                <p><md-icon>person</md-icon> test@test.com | Female, 32</p>
             </div>
             <div flex="10" flex-sm="30">
                 <!--<md-button class="md-accent md-raised md-button">EDIT PROFILE</md-button>-->
@@ -20,7 +20,7 @@
                 </md-toolbar>
                 <md-card-content>
                     <div layout="row" layout-wrap>
-                        <div flex="15" class="column-padding">                        
+                        <div flex="15" class="column-padding">
                             <p><strong>Added:<br/>April 11, 2015</strong></p>
                         </div>
                         <div flex="85" class="column-padding">
@@ -38,13 +38,13 @@
                                 <li><strong>Insurance Company:</strong> National Healthcare</li>
                             </ul>
                         </div>
-                       
+
                     </div>
                 </md-card-content>
                 <md-divider></md-divider>
                 <md-card-content>
                     <div layout="row" layout-wrap>
-                        <div flex="15" class="column-padding">                        
+                        <div flex="15" class="column-padding">
                             <p><strong>Added:<br/>April 11, 2015</strong></p>
                         </div>
                         <div flex="85" class="column-padding">
@@ -62,7 +62,7 @@
                                 <li><strong>Insurance Company:</strong> National Healthcare</li>
                             </ul>
                         </div>
-                       
+
                     </div>
                 </md-card-content>
             </md-card>
@@ -75,7 +75,7 @@
             </md-toolbar>
             <md-card-content>
                 <div layout="row" layout-wrap>
-                    <div flex>                        
+                    <div flex>
                         <ul>
                             <li>Cymbalta</li>
                             <li>Cymbalta</li>
@@ -84,7 +84,7 @@
                             <li>Cymbalta</li>
                             <li>Cymbalta</li>
                         </ul>
-                    </div>                   
+                    </div>
                 </div>
             </md-card-content>
         </md-card>
@@ -115,14 +115,14 @@
                     <label>New Password</label>
                     <md-icon>lock</md-icon>
                     <input ng-model="profile.user.newPassword" type="password">
-                </md-input-container>                
+                </md-input-container>
                 <div layout="row" layout-align="start center">
                     <md-select ng-model="profile.user.gender" placeholder="Choose Gender" class="dropdown-move">
                     <md-option value="m">Male</md-option>
                     <md-option value="f">Female</md-option>
                     </md-select>
                     <md-select ng-model="profile.user.age" placeholder="Choose Age" class="dropdown-move">
-                    <md-option ng-repeat="n in profile.range(18,80)" value="{{n}}">{{n}}</md-option>
+                    <md-option ng-repeat="n in [] | range:18:80" value="{{n}}">{{n}}</md-option>
                     </md-select>
                 </div>
                 <md-input-container class="md-icon-float">
@@ -130,14 +130,14 @@
                     <md-icon></md-icon>
                     <input ng-model="profile.user.oldPassword" type="password" name="oldPassword" required>
                 </md-input-container>
-                <div layout="row" layout-align="end center">        
+                <div layout="row" layout-align="end center">
                     <md-button class="md-raised md-button md-accent" ng-disabled="profileForm.$invalid">Update Information</md-button>
-                </div> 
-            </form>        
-        </div>                            
+                </div>
+            </form>
+        </div>
         </div>
     </md-card-content>
-</md-card>   
+</md-card>
 
 </md-content>
 </div>

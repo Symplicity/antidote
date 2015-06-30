@@ -403,7 +403,7 @@ Vote on a drug review using this action. It takes a JSON object containing the f
 ## Autocomplete [/autocomplete/drugs]
 You can use the autocomplete API on various resources to get an optimized list of id and value pairs.
 
-## Drugs [GET /autocomplete/drugs{?term,limit}]
+## Drugs [GET /autocomplete/drugs{?term,limit,include_generics}]
 Returns a list of drugs. The drugs are returned in alphabetically sorted order. Example:
 
 ```no-highlight
@@ -413,6 +413,7 @@ https://antidote.symplicity-opensource.com/api/autocomplete/drugs?term=Tyl
 + Parameters
 
     + term: `Tyl` (string, optional) - Search for a drug by label
+    + include_generics: `1` (integer, optional) - Include generic label in search
     + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `500`
       + Default: `15`
 

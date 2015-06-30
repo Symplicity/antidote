@@ -1,0 +1,144 @@
+db:
+  image: 'mariadb:latest'
+  environment:
+    - MYSQL_DATABASE=antidote
+    - MYSQL_PASSWORD=antidoteSecret
+    - MYSQL_ROOT_PASSWORD=rootSecret
+    - MYSQL_USER=antidote
+    - TERM=dumb
+elasticsearch:
+  image: 'elasticsearch:1.5'
+  ports:
+    - '9200:9200'
+  tags:
+    - nodecluster-name=BeefLogMon
+  volumes:
+    - '/elasticsearch/data:/usr/share/elasticsearch/data'
+kibana:
+  image: 'vfarcic/kibana:latest'
+  environment:
+    - 'ELASTICSEARCH=http://elasticsearch:9200'
+  links:
+    - elasticsearch
+  ports:
+    - '5601:5601'
+  tags:
+    - nodecluster-name=BeefLogMon
+lb:
+  image: 'tutum/haproxy:latest'
+  environment:
+    - BACKEND_PORT=80
+    - BALANCE=roundrobin
+    - FRONTEND_PORT=80
+    - MAXCONN=4096
+    - MODE=http
+    - 'OPTION=redispatch,httplog,dontlognull,forwardfor'
+    - 'RSYSLOG_DESTINATION=logstash:5000'
+    - 'SSL_BIND_CIPHERS=ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!MD5:!DSS'
+    - 'SSL_BIND_OPTIONS=no-sslv3 no-tls-tickets'
+    - 'SSL_CERT='
+    - 'TIMEOUT=connect 5000,client 50000,server 500000'
+  links:
+    - logstash
+    - web
+  ports:
+    - '80:80'
+    - '443:443'
+    - '1936:1936'
+  restart: always
+  roles:
+    - global
+  tags:
+    - lb_node
+logspout:
+  image: 'gliderlabs/logspout:latest'
+  command: '-c ''/bin/logspout syslog://$LOGSTASH_PORT_5000_UDP_ADDR:5000'''
+  entrypoint: /bin/sh
+  links:
+    - logstash
+  tags:
+    - nodecluster-name=BeefLogMon
+  volumes:
+    - '/var/run/docker.sock:/tmp/docker.sock'
+logstash:
+  image: 'logstash:latest'
+  command: 'logstash -f /logstash/antidote.conf'
+  expose:
+    - '5000'
+    - 5000/udp
+  links:
+    - elasticsearch
+  tags:
+    - nodecluster-name=BeefLogMon
+  volumes:
+    - '/logstash:/logstash'
+memc:
+  image: 'memcached:latest'
+rabbitmq:
+  image: 'rabbitmq:latest'
+  environment:
+    - RABBITMQ_NODENAME=jobs
+web:
+  image: 'symplicity/webserver:latest'
+  environment:
+    - ANTIDOTE_API_KEY=
+    - ANTIDOTE_CACHE_DRIVER=memcached
+    - ANTIDOTE_DB_HOST=db
+    - ANTIDOTE_DB_NAME=antidote
+    - ANTIDOTE_DB_PASS=antidoteSecret
+    - ANTIDOTE_DB_PORT=3306
+    - ANTIDOTE_DB_USER=antidote
+    - ANTIDOTE_ROLE=web
+    - CODESHIP_PROJECT_ID=
+    - FDA_TOKEN=
+    - GITREPO_BRANCH=production
+    - 'GITREPO_URL=git@github.com:Symplicity/antidote.git'
+    - MAILGUN_DOMAIN=
+    - MAILGUN_PASSWORD=
+    - MAILGUN_SECRET=
+    - MAILGUN_USERNAME=
+    - MEMCACHED_HOST=memc
+    - RABBITMQ_NAME=hello
+    - RABBITMQ_NODE=rabbitmq
+    - RABBITMQ_PORT=5672
+    - WEBHOOK_API_KEY=
+    - WORKER_API_KEY=
+  links:
+    - db
+    - logstash
+    - memc
+    - rabbitmq
+  tags:
+    - test
+  target_num_containers: 4
+worker:
+  image: 'symplicity/worker:latest'
+  environment:
+    - ANTIDOTE_API_KEY=
+    - ANTIDOTE_DB_HOST=db
+    - ANTIDOTE_DB_NAME=antidote
+    - ANTIDOTE_DB_PASS=antidoteSecret
+    - ANTIDOTE_DB_PORT=3306
+    - ANTIDOTE_DB_USER=antidote
+    - ANTIDOTE_ROLE=worker
+    - FDA_TOKEN=
+    - GITREPO_BRANCH=production
+    - 'GITREPO_URL=git@github.com:Symplicity/antidote.git'
+    - MAILGUN_DOMAIN=
+    - MAILGUN_PASSWORD=
+    - MAILGUN_SECRET=
+    - MAILGUN_USERNAME=
+    - 'PUSH_GATEWAY_URL=http://pushgateway.monstack.noc-symp.svc.tutum.io:9091/metrics/jobs/curl_perf/instances'
+    - RABBITMQ_NAME=hello
+    - RABBITMQ_NODE=rabbitmq
+    - RABBITMQ_PORT=5672
+    - SLACK_TOKEN=
+    - WEBHOOK_API_KEY=
+    - WORKER_API_KEY=
+  links:
+    - db
+    - logstash
+    - memc
+    - rabbitmq
+  tags:
+    - test
