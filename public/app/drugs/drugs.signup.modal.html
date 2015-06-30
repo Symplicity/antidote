@@ -1,0 +1,15 @@
+<md-dialog layout="column">
+    <md-toolbar class="md-toolbar-tools" >
+        <p class="md-headline" flex>Please Login</p>
+        <md-button ng-click="drugsReviewModal.closeDialog()"><md-icon class="md-headline" >close</md-icon></md-button>
+    </md-toolbar>
+    <md-dialog-content class="md-padding" flex>
+        <div>
+            <p>You need to be logged in to submit and rate reviews. Please create an account or log in.</p>
+        </div>
+        <div class="md-actions" layout="row" layout-align="end center">
+            <md-button class="md-accent md-raised" ui-sref="signup">Sign Up</md-button>
+            <md-button class="md-accent md-raised" ui-sref="login">Login</md-button>
+        </div>
+    </mid-dialog-content>
+</md-dialog>
