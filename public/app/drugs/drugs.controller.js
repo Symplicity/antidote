@@ -80,6 +80,10 @@
                 that.effectivenessChartData = [effectiveness, uneffectiveness];
                 that.sideEffectsData = sideEffects;
             });
+
+            DrugsService.getReviews({id: $stateParams.id, limit: 2}).$promise.then(function(reviews) {
+                that.topReviews = reviews.data;
+            });
         }
     }
 

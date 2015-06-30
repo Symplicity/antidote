@@ -17,7 +17,7 @@ class DrugController extends Controller
      */
     public function show($id)
     {
-        return Drug::with('sideEffects')->with('indications')->with('reviews')->find($id);//TODO filter only to top rated review and select single with collborative filtering
+        return Drug::with('sideEffects')->with('indications')->find($id);
     }
 
     public function index(Request $request)
