@@ -113,9 +113,6 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
 |
 */
 
-$app->configure('openfda');
-$app->configure('rxnorm');
-$app->configure('rxclass');
 $app->configure('mail');
 
 return $app;
