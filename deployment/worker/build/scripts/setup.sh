@@ -109,6 +109,8 @@ sed -i "s/MAILGUN_DOMAIN/$MAILGUN_DOMAIN/" /var/www/.env
 sed -i "s/FDA_TOKEN/$FDA_TOKEN/" /var/www/.env
 sed -i "s/;error_log = syslog/error_log = syslog/" /etc/php5/cli/php.ini
 
+git config --global user.name "Automated Monkeys"
+git config --global user.email automated_monkeys@example.com
 
 ln -s /worker /var/www/dist/webhook
 
