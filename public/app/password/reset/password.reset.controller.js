@@ -22,7 +22,7 @@
             $mdToast.show(
                 $mdToast.simple()
                     .content(message)
-                    .position('top left')
+                    .position('top right')
                     .hideDelay(3000)
             );
         }

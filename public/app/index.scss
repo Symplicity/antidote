@@ -131,8 +131,10 @@
     }
     
     md-toast {
-        background-color:white;
+        background-color:$md-secondary;
         color:black;
+        margin-top:70px;
+        font-size:18px;
     }
 
     md-toolbar md-icon {
