@@ -11,6 +11,18 @@
 |
 */
 
+$factory->define(App\DrugSideEffect::class, function (Faker\Generator $faker) {
+    return [
+        'value' => $faker->unique()->word()
+    ];
+});
+
+$factory->define(App\DrugIndication::class, function (Faker\Generator $faker) {
+    return [
+        'value' => $faker->unique()->word()
+    ];
+});
+
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'username' => $faker->userName,
@@ -23,13 +35,13 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Drug::class, function (Faker\Generator $faker) {
     return [
-        'label' => ucfirst($faker->word()),
-        'description' => $faker->text(250),
         'rxcui' => $faker->ean8(),
+        'type' => $faker->randomElement(['brand', 'generic']),
+        'label' => ucfirst($faker->word()),
         'generic' => ucfirst($faker->word()),
-        'drug_forms' => [ucfirst($faker->word()), ucfirst($faker->word())],
         'generic_id' => $faker->numberBetween(1, 50),
-        'prescription_type' => $faker->randomElement(['Prescription and OTC', 'Prescription', '-', 'OTC']), //TODO: see if we should make this a multi-pick instead
+        'description' => $faker->paragraph(3),
+        'drug_forms' => [ucfirst($faker->word()), ucfirst($faker->word())],
         'recalls' => [
             [
                 'number' => $faker->ean8(),
@@ -44,22 +56,10 @@ $factory->define(App\Drug::class, function (Faker\Generator $faker) {
 $factory->define(App\DrugReview::class, function (Faker\Generator $faker) {
     return [
         'user_id' => $faker->numberBetween(1, 50),
-        'age' => $faker->numberBetween(1, 85),
         'drug_id' => $faker->numberBetween(1, 50),
         'rating' => $faker->numberBetween(1, 3),
         'is_covered_by_insurance' => $faker->boolean(),
+        'age' => $faker->numberBetween(1, 85),
         'comment' => $faker->text(250)
-    ];
-});
-
-$factory->define(App\DrugSideEffect::class, function (Faker\Generator $faker) {
-    return [
-        'value' => $faker->unique()->word()
-    ];
-});
-
-$factory->define(App\DrugIndication::class, function (Faker\Generator $faker) {
-    return [
-        'value' => $faker->unique()->word()
     ];
 });

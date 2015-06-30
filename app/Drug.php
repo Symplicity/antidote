@@ -8,17 +8,6 @@ class Drug extends Model
 {
     protected $table = 'drugs';
 
-    protected $fillable = [
-        'label',
-        'rxcui',
-        'generic',
-        'drug_forms',
-        'generic_id',
-        'prescription_type',
-        'recalls',
-        'description'
-    ];
-
     /**
      * Any attributes listed in the $appends property will automatically
      * be included in the array or JSON form of the model,
@@ -37,7 +26,7 @@ class Drug extends Model
      *
      * @var array
      */
-    protected $hidden = ['created_at', 'updated_at', 'rxcui', 'pivot'];
+    protected $hidden = ['created_at', 'updated_at', 'pivot', 'rxcui'];
 
     /**
      * The attributes that should be casted to native types.
@@ -46,18 +35,22 @@ class Drug extends Model
      */
     protected $casts = [
         'drug_forms' => 'array',
-        'indications' => 'array',
         'recalls' => 'array'
     ];
 
-    public function reviews()
+    public function generic()
     {
-        return $this->hasMany('App\DrugReview');
+        return $this->hasOne('App\Drug', 'generic_id');
     }
 
-    public function sideEffects()
+    public function alternatives()
     {
-        return $this->belongsToMany('App\DrugSideEffect');
+        return $this->belongsToMany('App\Drug', 'drug_alternatives', 'drug_id', 'alternative_id');
+    }
+
+    public function related()
+    {
+        return $this->belongsToMany('App\Drug', 'drug_related', 'drug_id', 'related_id');
     }
 
     public function indications()
@@ -65,36 +58,49 @@ class Drug extends Model
         return $this->belongsToMany('App\DrugIndication');
     }
 
-    public function alternatives()
+    public function sideEffects()
     {
-        return $this->belongsToMany('App\Drug', 'drug_alternative_drugs', 'drug_id', 'alternative_drug_id');
+        return $this->belongsToMany('App\DrugSideEffect');
     }
 
-    public function related()
+    public function prescriptionTypes()
     {
-        return $this->belongsToMany('App\Drug', 'drug_related_drugs', 'drug_id', 'related_drug_id');
+        return $this->belongsToMany('App\DrugPrescriptionType');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\DrugReview');
     }
 
     public function getEffectivenessPercentageAttribute()
     {
+        $effectiveness = 0;
+
         $reviews = $this->getTotalReviewsAttribute();
         if (!empty($reviews)) {
-            return round(count($this->reviews()->where('rating', '3')->get()) / $this->getTotalReviewsAttribute(), 2);
+            $effective = $this->reviews()->where('rating', '3')->get()->count();
+            $efectiveness = round($effective * 100 / $reviews);
         }
-        return 0;
+
+        return $effectiveness;
     }
 
     public function getInsuranceCoveragePercentageAttribute()
     {
+        $coverage = 0;
+
         $reviews = $this->getTotalReviewsAttribute();
         if (!empty($reviews)) {
-            return round(count($this->reviews()->where('is_covered_by_insurance', '1')->get()) / $this->getTotalReviewsAttribute(), 2);
+            $covered = $this->reviews()->where('is_covered_by_insurance', '1')->get()->count();
+            $coverage = round($covered * 100 / $reviews);
         }
-        return 0;
+
+        return $coverage;
     }
 
     public function getTotalReviewsAttribute()
     {
-        return count($this->reviews()->get());
+        return $this->reviews()->get()->count();
     }
 }

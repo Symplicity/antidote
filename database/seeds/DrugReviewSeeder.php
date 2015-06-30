@@ -11,8 +11,11 @@ class DrugReviewSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker\Factory::create();
+        $ids = range(1, 50);
+        
         factory('App\DrugReview', 500)->create()->each(function ($drug_review) {
-            $drug_review->sideEffects()->sync([1, 2, 3]);
-        });
+            $drug_review->sideEffects()->sync($faker->randomElements($ids, $faker->numberBetween(0, 10)));
+       });
     }
 }
