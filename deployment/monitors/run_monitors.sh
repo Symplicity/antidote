@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-lockfile -r 0 /tmp/run_monitors.lock || exit 1
+if [ -f /tmp/run_monitors.lock ]; then
+	echo 'already running'
+	exit 1
+else
+	touch /tmp/run_monitors.lock
+fi
 
 CURL_TEST_BIN='/var/www/deployment/monitors/web_curl_test.sh'
 
