@@ -1,44 +1,35 @@
 <div layout="row" layout-sm="column" layout-wrap style="position:relative">
-    <span am-time-ago="review.created_at"></span>
     <div flex-gt-sm="15" flex class="health-state">
+        <p>{{review.created_at | date}} / {{review.created_at | date:'h:m a'}}</p>
         <drugs-review-rating rating="review.rating"></drugs-review-rating>
-        <p class="center">{{review.age}} year old
-            <span ng-if="review.user.gender == 'f'">Female</span>
-            <span ng-if="review.user.gender == 'm'">Male</span>
-        </p>
     </div>
-
     <div flex>
         <p>"{{review.comment}}"</p>
         <section class="pill-row" layout="column" layout-align-sm="start start" layout-align="start start">
             <div flex>
-                <span><strong>Side Effects:</strong></span>
-            </div>
-            <div flex>
+                <span class="md-body-1">Side Effects:</span>
                 <span ng-repeat="side_effect in review.side_effects" class="md-raised md-pills">{{::side_effect.value | capitalize}}</span>
             </div>
         </section>
-
         <ul class="unstyled">
             <li><strong>Insurance Covered:&nbsp</strong>{{review.is_covered_by_insurance == '1' ? 'Yes' : 'No'}}</li>
         </ul>
     </div>
-
-    <div layout="row" layout-align="center center" flex-gt-md="35" flex ng-controller="DrugsReviewVoteCtrl as drugsReviewVote">
+    <div layout="row" layout-align="center center" flex-gt-md="10" flex ng-controller="DrugsReviewVoteCtrl as drugsReviewVote">
         <div class="md-vote" layout="column" layout-align="center center" flex>
             <a href="#">
-                            <span class="vote-up">
-                                <md-icon ng-click="drugsReviewVote.vote(review, 1)" class="vote-up md-icon-big">thumb_up</md-icon>
-                                <p>{{review.upvotes}}</p>
-                            </span>
+                <span class="vote-up">
+                    <md-icon ng-click="drugsReviewVote.vote(review, 1)" class="vote-up">thumb_up</md-icon>
+                    <p>{{review.upvotes}}</p>
+                </span>
             </a>
         </div>
         <div class="md-vote" layout="column" layout-align="center center" flex>
             <a href="#">
-                            <span class="vote-down">
-                                <md-icon ng-click="drugsReviewVote.vote(review, -1)" class="vote-down md-icon-big">thumb_down</md-icon>
-                                <p>{{review.downvotes}}</p>
-                            </span>
+                <span class="vote-down">
+                    <md-icon ng-click="drugsReviewVote.vote(review, -1)" class="vote-down">thumb_down</md-icon>
+                    <p>{{review.downvotes}}</p>
+                </span>
             </a>
         </div>
     </div>

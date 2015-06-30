@@ -32,6 +32,17 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         }
     }
 }
+.reviews {
+    md-toolbar {
+        background-color: transparent;
+        h4 {
+            color: $md-primary-dark;
+        }
+        md-icon {
+            color: $md-primary-dark;
+        }
+    }
+}
 .review-content{
     border-bottom: 1px solid #ECECEC;
     margin-bottom: 20px;
