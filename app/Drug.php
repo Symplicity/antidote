@@ -91,7 +91,7 @@ class Drug extends Model
         $reviews = $this->getTotalReviewsAttribute();
         if (!empty($reviews)) {
             $effective = $this->reviews()->where('rating', '3')->get()->count();
-            $efectiveness = round($effective * 100 / $reviews);
+            $efectiveness = round($effective / $reviews);
         }
 
         return $effectiveness;
@@ -104,7 +104,7 @@ class Drug extends Model
         $reviews = $this->getTotalReviewsAttribute();
         if (!empty($reviews)) {
             $covered = $this->reviews()->where('is_covered_by_insurance', '1')->get()->count();
-            $coverage = round($covered * 100 / $reviews);
+            $coverage = round($covered / $reviews);
         }
 
         return $coverage;
