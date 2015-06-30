@@ -12,18 +12,16 @@ class DrugSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-
-        factory('App\DrugSideEffect', 50)->create();
-        factory('App\DrugIndication', 50)->create();
+        $ids = range(1, 50);
 
         factory('App\Drug', 50)->create()->each(function ($drug) use ($faker) {
-            $drug->sideEffects()->sync([$faker->numberBetween(1, 50), $faker->numberBetween(1, 50), $faker->numberBetween(1, 50)]);
 
-            $drug->indications()->sync([$faker->numberBetween(1, 50), $faker->numberBetween(1, 50), $faker->numberBetween(1, 50)]);
+            $drug->alternatives()->sync($faker->randomElements($ids, $faker->numberBetween(0, 10)));
+            $drug->related()->sync($faker->randomElements($ids, $faker->numberBetween(0, 10)));
+            $drug->sideEffects()->sync($faker->randomElements($ids, $faker->numberBetween(0, 10)));
+            $drug->indications()->sync($faker->randomElements($ids, $faker->numberBetween(0, 10)));
 
-            $drug->alternatives()->sync([$faker->numberBetween(1, 50), $faker->numberBetween(1, 50), $faker->numberBetween(1, 50)]);
-
-            $drug->related()->sync([$faker->numberBetween(1, 50), $faker->numberBetween(1, 50), $faker->numberBetween(1, 50)]);
+            $drug->prescriptionTypes()->sync($faker->randomElements([1, 2], $faker->numberBetween(0, 2)));
         });
     }
 }

@@ -11,6 +11,7 @@ class DrugReview extends Model
 
     protected $hidden = [
         'updated_at',
+        'pivot',
         'drug_id',
         'user_id'
     ];
@@ -33,6 +34,10 @@ class DrugReview extends Model
     public function votes()
     {
         return $this->hasMany('App\DrugReviewVote');
+
+    public function rating()
+    {
+        return $this->belongsTo('App\DrugRating', 'rating');
     }
 
     public function sideEffects()
