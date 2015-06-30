@@ -12,8 +12,6 @@
             'ngAria',
             'chart.js',
             'percentage',
-            'angular-capitalize-filter',
-            'angularMoment'
+            'angular-capitalize-filter'
         ]);
 })();
-
