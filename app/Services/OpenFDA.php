@@ -8,24 +8,18 @@ use Illuminate\Support\Facades\Config;
 
 class OpenFDA
 {
-    private $client = null;
-    private $api_base_uri = '';
+    private $client;
+    private $api_base_uri = 'https://api.fda.gov/';
+    private $api_key = '';
     private $rate_limit = 4;
 
     private static $requests = 0;
 
-    public function __construct(Client $client = null, $config)
+    public function __construct(Client $client = null)
     {
-        // Create a client with a base URI
         $this->client = $client;
-        $this->api_base_uri = $config['api_base_uri'];
-        $this->api_key = $config['api_key'];
-
-        if (!empty($config['rate_limit'])) {
-            $this->rate_limit = $config['rate_limit'];
-        } elseif (!empty($this->api_key)) {
-            $this->rate_limit = 2; //40 requests per minute per ip
-        }
+        $this->api_key = env('OPENFDA_API_KEY', '');
+        $this->rate_limit = env('OPENFDA_RATE_LIMIT', 4);
     }
 
     public function sanitizeName($name)
