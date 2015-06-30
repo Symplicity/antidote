@@ -2,8 +2,7 @@
 
 lockfile -r 0 /tmp/run_monitors.lock || exit 1
 
-#CURL_TEST_BIN='/var/www/deployment/monitors/web_curl_test.sh'
-CURL_TEST_BIN='/Users/wcombs/Documents/antidote/deployment/monitors/web_curl_test.sh'
+CURL_TEST_BIN='/var/www/deployment/monitors/web_curl_test.sh'
 
 CHECK_THESE=('https://antidote.symplicity-opensource.com/api/drugs'
 'https://antidote.symplicity-opensource.com/api/drugs/1'
