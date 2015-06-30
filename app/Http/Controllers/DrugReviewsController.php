@@ -15,7 +15,7 @@ class DrugReviewsController extends Controller
         // Grab the vote if it already exists.
         $drug_review_vote = DrugReviewVote::where('user_id', $user)->where('drug_review_id', $id)->first();
 
-        if ($drug_review_vote->count()) {
+        if ($drug_review_vote && $drug_review_vote->count()) {
             $drug_review_vote->vote = $vote;
             $drug_review_vote->save();
         } else {
