@@ -47,7 +47,7 @@
             <h4>Reviews</h4>
         </md-toolbar>
         <md-card-content>
-            <div ng-repeat="review in drugsView.drug.reviews | limitTo: 2" class="review-content">
+            <div ng-repeat="review in drugsView.topReviews | limitTo: 2" class="review-content">
                 <drugs-review-view review="review"></drugs-review-view>
             </div>
         </md-card-content>
