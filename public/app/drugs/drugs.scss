@@ -101,7 +101,12 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         color: #666; 
     }
 
+    md-icon {
+        color: $md-gray-accent;
+    }
 }
+
+
 
 .vote-up {
     &:hover {
