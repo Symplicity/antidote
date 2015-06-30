@@ -13,12 +13,19 @@ class DrugReview extends Model
         'updated_at',
         'pivot',
         'drug_id',
-        'user_id'
+        'user_id',
+        'upvotes_cache',
+        'downvotes_cache'
     ];
 
     protected $appends = [
         'upvotes',
         'downvotes'
+    ];
+
+    protected $casts = [
+        'upvotes_cache' => 'int',
+        'downvotes_cache' => 'int'
     ];
 
     public function user()
@@ -47,12 +54,18 @@ class DrugReview extends Model
 
     public function getUpvotesAttribute()
     {
-        return $this->votes()->where('vote', 1)->get()->count();
+        if (isset($this->attributes['upvotes_cache'])) {
+            return $this->attributes['upvotes_cache'];
+        }
+        return 0;
     }
 
     public function getDownvotesAttribute()
     {
-        return $this->votes()->where('vote', -1)->get()->count();
+        if (isset($this->attributes['downvotes_cache'])) {
+            return $this->attributes['downvotes_cache'];
+        }
+        return 0;
     }
 
     /** override this to get iso 8601 formatted string for output - move to common if required in other areas */
