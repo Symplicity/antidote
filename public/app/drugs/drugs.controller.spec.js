@@ -28,9 +28,9 @@
     });
 
     describe('DrugsViewCtrl', function() {
-        it('should show call drugs service to get the record', inject(function($controller, $rootScope) {
-            var returnData = {id: 2};
-            httpBackend.expectGET('/api/drugs/2').respond(returnData);
+        it('should call drugs service to get the record and top 2 reviews', inject(function($controller, $rootScope) {
+            httpBackend.expectGET('/api/drugs/2').respond({id: 2});
+            httpBackend.expectGET('/api/drugs/2/reviews?limit=2').respond({data: [{id: 1}, {id: 2}]});
 
             var scope = $rootScope.$new();
             var vm = $controller('DrugsViewCtrl', {
