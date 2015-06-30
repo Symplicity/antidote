@@ -20,8 +20,7 @@
                 <h4>Side Effects</h4>
             </md-toolbar>
             <md-card-content class="top-3" ng-if="drugsView.drug.side_effects.length > 0">
-                <canvas id="pie" class="chart chart-pie" data="drugsView.sideEffectsData" labels="drugsOverview.seLabels" colours="drugsOverview.seColours"></canvas>
-                 <ul ng-repeat="side_effect in drugsView.drug.side_effects">
+                <ul ng-repeat="side_effect in drugsView.drug.side_effects">
                     <li>{{::side_effect.value | capitalize}}</li>
                 </ul>
             </md-card-content>
