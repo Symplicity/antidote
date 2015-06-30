@@ -55,10 +55,10 @@ class ImportDrugs extends Command
     {
         $this->info('Starting drug import...');
 
-        $this->drugs_map = App\Drug::lists('id', 'rxcui');
+#        $this->importConcepts();
+#        $this->importConceptRelations();
 
-        $this->importConcepts();
-        $this->importConceptRelations();
+    $this->info('Drug Import Done!');
     }
 
     private function getConcept($rxcui)
@@ -89,7 +89,7 @@ class ImportDrugs extends Command
         $drug->drug_forms = array_get($concept, 'dose_forms', null);
 
         $labels = $this->getLabels($concept);
-        $drug->description = $this->getDescription($concept, $labels);
+        $drug->description = $this->getConceptDescription($concept, $labels);
  
         $prescription_types = $this->getPrescriptionTypes($concept, $labels);
         $drug->prescriptionTypes()->sync($prescription_types);
@@ -206,7 +206,7 @@ class ImportDrugs extends Command
         return $types;
     }
 
-    private function getDescription($concept, $labels)
+    private function getConceptDescription($concept, $labels)
     {
         $type = $concept['type'];
         if ($type == 'brand') {
