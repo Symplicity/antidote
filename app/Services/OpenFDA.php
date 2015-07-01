@@ -21,7 +21,7 @@ class OpenFDA
         $this->api_key = env('OPENFDA_API_KEY', '');
         $this->rate_limit = env('OPENFDA_RATE_LIMIT', 4);
     }
-
+/*
     public function sanitizeName($name)
     {
         if ($name && ($sanitized = preg_replace('/\+{2,}/', '+', preg_replace('/\W/', '+', $name)))) {
@@ -228,4 +228,6 @@ class OpenFDA
 
         return $description;
     }
+
+*/
 }

@@ -58,9 +58,10 @@ class ImportDrugs extends Command
 #        $this->importConcepts();
 #        $this->importConceptRelations();
 
-    $this->info('Drug Import Done!');
+        $this->info('Drug Import Done!');
     }
 
+    /*
     private function getConcept($rxcui)
     {
         $concept = ['rxcui' => $rxcui, 'type' => 'generic'];
@@ -270,4 +271,5 @@ class ImportDrugs extends Command
     {
         return $this->openfda->getRecalls($concept['rxcui']);
     }
+    */
 }

@@ -19,7 +19,7 @@ class RXNorm
         $this->client = $client;
         $this->rate_limit = env('RXNORM_RATE_LIMIT', $this->rate_limit);
     }
-
+/*
     public function getLabel($prop)
     {
         return empty($prop['synonym']) ? $prop['name'] : $prop['synonym'];
@@ -187,4 +187,6 @@ class RXNorm
 
         return $ttys;
     }
+
+*/
 }

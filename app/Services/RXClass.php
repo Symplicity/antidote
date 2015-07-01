@@ -17,7 +17,7 @@ class RXClass
         $this->client = $client;
         $this->rate_limig = env('RXCLASS_RATE_LIMIT', $this->rate_limit);
     }
-
+/*
     private function limitRate()
     {
         $this->requests++;
@@ -97,4 +97,5 @@ class RXClass
 
         return $concepts;
     }
+*/
 }
