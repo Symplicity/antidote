@@ -21,8 +21,13 @@
     }
     
     /*IE FIX*/
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        md-autocomplete-wrap {
+            display: block;
+        }
+    }
     @media all and (-ms-high-contrast: none) and (max-width: 1240px), (-ms-high-contrast: active) {
-        md-autocomplete input{            
+        md-autocomplete input {  
             width: 300px;
             max-width: 100%;
         }
@@ -41,6 +46,7 @@
         md-autocomplete input{
             background-position: 99%;
             max-width:300px;
+            background-image: none;
         } 
 
         .md-button {
