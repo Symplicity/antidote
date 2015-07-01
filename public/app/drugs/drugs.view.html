@@ -1,7 +1,8 @@
 <div class="header">
     <md-content layout="row" layout-wrap class="md-drug-info container" flex >
             <div flex="90" flex-sm="70">
-                <h1 class="md-display-1">{{drugsView.drug.label}} ({{drugsView.drug.generic}}) <span class="md-drug-type">{{drugsView.drug.prescription_type}}</span></h1>
+                <h1 class="md-display-1">{{drugsView.drug.label}} ({{drugsView.drug.generic}}) <span
+                    ng-repeat="prescription_type in drugsView.drug.prescription_types" class="md-drug-type">{{prescription_type.value}}</span></div></h1>
             </div>
             <div flex="10" flex-sm="30">
                 <md-button class="md-accent md-raised md-button" ng-click="drugsView.openReviewModal($event)">Review it</md-button>

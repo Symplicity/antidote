@@ -34,6 +34,11 @@ class DrugControllerTest extends TestCase
             ->once()
             ->with('sideEffects')
             ->andReturn($this->stubQuery);
+        $this->mockModel->shouldReceive('with')
+            ->once()
+            ->with('prescriptionTypes')
+            ->andReturn($this->stubQuery);
+
 
         $this->ctrl->show(1);
     }
