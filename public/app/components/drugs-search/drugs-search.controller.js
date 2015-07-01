@@ -12,7 +12,7 @@
         this.getMatches = function(searchText) {
             return DrugsService.queryAutocomplete({
                 'term': searchText,
-                'include-generics': 1
+                'include_generics': 1
             }).$promise.then(function(resp) {
                 return resp;
             });

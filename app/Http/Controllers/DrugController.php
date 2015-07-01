@@ -45,7 +45,7 @@ class DrugController extends Controller
 
         $drugs = Drug::select('id', 'label', 'generic')->where('label', 'LIKE', $term . '%');
 
-        if (!empty($request->input('include-generics'))) {
+        if (!empty($request->input('include_generics'))) {
             $drugs = $drugs->orWhere('generic', 'LIKE', $term . '%');
         }
 
