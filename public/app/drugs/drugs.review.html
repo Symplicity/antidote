@@ -21,17 +21,8 @@
                     <p>Did you experience any side effects?</p>
                     <div layout="row" layout-wrap>
                         <fieldset class="standard">
-                            <md-checkbox class="md-primary" ng-model="data.cb1">
-                                Celexa
-                            </md-checkbox>
-                            <md-checkbox class="md-primary" ng-model="data.cb2">
-                                Vicodin
-                            </md-checkbox>
-                            <md-checkbox class="md-primary" ng-model="data.cb3">
-                                Advil
-                            </md-checkbox>
-                            <md-checkbox class="md-primary" ng-model="data.cb4">
-                                Coca Cola
+                            <md-checkbox ng-repeat="item in drugsReviewModal.drug_side_effects" ng-checked="drugsReviewModal.exists(item.id, drugsReview.review.side_effects)" ng-click="drugsReviewModal.toggle(item.id, drugsReview.review.side_effects)">
+                                {{item.value | capitalize}}
                             </md-checkbox>
                         </fieldset>
                     </div>
