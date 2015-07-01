@@ -2,142 +2,64 @@
     <md-content layout="row" layout-wrap class="container md-account-info" flex>
             <div flex="90" flex-sm="70">
                 <h1>My Account</h1>
-                <p><md-icon>person</md-icon> test@test.com | Female, 32</p>
+                <p><md-icon>person</md-icon> {{profile.user.email}} | <span ng-if="profile.user.gender == 'm'">Male</span><span ng-if="profile.user.gender == 'f'">Female</span>, {{profile.user.age}}</p>
             </div>
             <div flex="10" flex-sm="30">
                 <!--<md-button class="md-accent md-raised md-button">EDIT PROFILE</md-button>-->
             </div>
     </md-content>
 </div>
-    <div class="container">
-    <md-content layout="column" class="reviews" layout-padding layout-md="column">
-    <div layout="row">
-    <div flex="75" flex-md="100">
-            <md-card>
-                <md-toolbar class="md-toolbar-tools">
-                    <md-icon>people</md-icon>
-                    <h4>Your Reviews</h4>
-                </md-toolbar>
-                <md-card-content>
-                    <div layout="row" layout-wrap>
-                        <div flex="15" class="column-padding">
-                            <p><strong>Added:<br/>April 11, 2015</strong></p>
-                        </div>
-                        <div flex="85" class="column-padding">
-                            <p>"Taking in the morning or afternoon with an hour of two for relax before takes effect. If you have ocular/eye problems/pains you will feel in 10 minutes that your whole body starts to relax but keep away from computers, tv and so."</p>
-                            <section class="pill-row" layout="row" layout-sm="column" layout-align="start center">
-                                <span class="md-body-1">Side Effects:</span>
-                                <md-button class="md-raised md-pills">Celexa</md-button>
-                                <md-button class="md-raised md-pills">Cymbalta</md-button>
-                                <md-button class="md-raised md-pills">Effexor</md-button>
-                                <md-button class="md-raised md-pills">Lexapro</md-button>
-                            </section>
-
-                            <ul class="unstyled">
-                                <li><strong>Insurance Covered:</strong> Yes</li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </md-card-content>
-                <md-divider></md-divider>
-                <md-card-content>
-                    <div layout="row" layout-wrap>
-                        <div flex="15" class="column-padding">
-                            <p><strong>Added:<br/>April 11, 2015</strong></p>
-                        </div>
-                        <div flex="85" class="column-padding">
-                            <p>"Taking in the morning or afternoon with an hour of two for relax before takes effect. If you have ocular/eye problems/pains you will feel in 10 minutes that your whole body starts to relax but keep away from computers, tv and so."</p>
-                            <section class="pill-row" layout="row" layout-sm="column" layout-align="start center">
-                                <span class="md-body-1">Side Effects:</span>
-                                <md-button class="md-raised md-pills">Celexa</md-button>
-                                <md-button class="md-raised md-pills">Cymbalta</md-button>
-                                <md-button class="md-raised md-pills">Effexor</md-button>
-                                <md-button class="md-raised md-pills">Lexapro</md-button>
-                            </section>
-
-                            <ul class="unstyled">
-                                <li><strong>Insurance Covered:</strong> Yes</li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </md-card-content>
-            </md-card>
-        </div>
-        <div flex="25" flex-md="100">
-            <md-card>
+<div class="content-container">
+    <md-content layout="column" class="cardTitles" layout-padding layout-md="column">    
+        <md-card>
             <md-toolbar class="md-toolbar-tools">
                 <md-icon>question_answer</md-icon>
-                <h4>Recently Viewed</h4>
+                <h4>Update your Profile</h4>
             </md-toolbar>
-            <md-card-content>
+            <md-card-content class="drug-padding">
                 <div layout="row" layout-wrap>
-                    <div flex>
-                        <ul>
-                            <li>Cymbalta</li>
-                            <li>Cymbalta</li>
-                            <li>Cymbalta</li>
-                            <li>Cymbalta</li>
-                            <li>Cymbalta</li>
-                            <li>Cymbalta</li>
-                        </ul>
-                    </div>
+                    <form flex method="post" name="profileForm" ng-submit="profile.updateProfile()">
+                        <md-input-container class="md-icon-float">
+                            <label>Username</label>
+                            <md-icon>person</md-icon>
+                            <input ng-model="profile.user.username" name="username" required autofocus>
+                            <div ng-messages="profile.username.$error" ng-show="profile.username.$touched || profile.$submitted">
+                            <div ng-message="required">You must enter your username.</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="md-icon-float">
+                            <label>Email Address</label>
+                            <md-icon>email</md-icon>
+                            <input ng-model="profile.user.email" type="email">
+                        </md-input-container>
+                        <md-input-container class="md-icon-float">
+                            <label>New Password</label>
+                            <md-icon>lock</md-icon>
+                            <input ng-model="profile.user.newPassword" type="password">
+                        </md-input-container>
+                        <div layout="row" layout-align="start center">
+                            <md-select ng-model="profile.user.gender" placeholder="Choose Gender" class="dropdown-move">
+                            <md-option value="m">Male</md-option>
+                            <md-option value="f">Female</md-option>
+                            </md-select>
+                            <md-select ng-model="profile.user.age" placeholder="Choose Age" class="dropdown-move">
+                            <md-option ng-repeat="n in [] | range:18:80" value="{{n}}">{{n}}</md-option>
+                            </md-select>
+                        </div>
+                        <md-input-container class="md-icon-float">
+                            <label>Confirm the changes with your current password</label>
+                            <md-icon></md-icon>
+                            <input ng-model="profile.user.oldPassword" type="password" name="oldPassword" required>
+                        </md-input-container>
+                        <div layout="row" layout-align="end center">
+                            <md-button class="md-raised md-button md-accent" ng-disabled="profileForm.$invalid">Update Information</md-button>
+                        </div>
+                    </form>
+                </div>
                 </div>
             </md-card-content>
         </md-card>
-        </div>
-    </div>
-<md-card>
-    <md-toolbar class="md-toolbar-tools">
-        <md-icon>question_answer</md-icon>
-        <h4>Update your Profile</h4>
-    </md-toolbar>
-    <md-card-content class="drug-padding">
-        <div layout="row" layout-wrap>
-            <form flex method="post" name="profileForm" ng-submit="profile.updateProfile()">
-                <md-input-container class="md-icon-float">
-                    <label>Username</label>
-                    <md-icon>person</md-icon>
-                    <input ng-model="profile.user.username" name="username" required autofocus>
-                    <div ng-messages="profile.username.$error" ng-show="profile.username.$touched || profile.$submitted">
-                    <div ng-message="required">You must enter your username.</div>
-                    </div>
-                </md-input-container>
-                <md-input-container class="md-icon-float">
-                    <label>Email Address</label>
-                    <md-icon>email</md-icon>
-                    <input ng-model="profile.user.email" type="email">
-                </md-input-container>
-                <md-input-container class="md-icon-float">
-                    <label>New Password</label>
-                    <md-icon>lock</md-icon>
-                    <input ng-model="profile.user.newPassword" type="password">
-                </md-input-container>
-                <div layout="row" layout-align="start center">
-                    <md-select ng-model="profile.user.gender" placeholder="Choose Gender" class="dropdown-move">
-                    <md-option value="m">Male</md-option>
-                    <md-option value="f">Female</md-option>
-                    </md-select>
-                    <md-select ng-model="profile.user.age" placeholder="Choose Age" class="dropdown-move">
-                    <md-option ng-repeat="n in [] | range:18:80" value="{{n}}">{{n}}</md-option>
-                    </md-select>
-                </div>
-                <md-input-container class="md-icon-float">
-                    <label>Confirm the changes with your current password</label>
-                    <md-icon></md-icon>
-                    <input ng-model="profile.user.oldPassword" type="password" name="oldPassword" required>
-                </md-input-container>
-                <div layout="row" layout-align="end center">
-                    <md-button class="md-raised md-button md-accent" ng-disabled="profileForm.$invalid">Update Information</md-button>
-                </div>
-            </form>
-        </div>
-        </div>
-    </md-card-content>
-</md-card>
-
-</md-content>
+    </md-content>
 </div>
 </md-content>
 
