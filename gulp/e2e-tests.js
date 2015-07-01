@@ -3,8 +3,7 @@
 var path = require('path');
 var gulp = require('gulp');
 var conf = require('./conf');
-
-var $ = require('gulp-load-plugins')();
+var protractor = require('gulp-protractor');
 
 function runProtractor (done) {
     var params = process.argv;
@@ -14,7 +13,7 @@ function runProtractor (done) {
     }
 
     gulp.src(path.join(conf.paths.e2e, '/**/*.js'))
-    .pipe($.protractor.protractor({
+    .pipe(protractor.protractor({
         configFile: 'protractor.conf.js',
         args: args
     }))
