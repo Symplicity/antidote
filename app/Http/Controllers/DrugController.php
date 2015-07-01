@@ -17,7 +17,7 @@ class DrugController extends Controller
      */
     public function show($id)
     {
-        return Drug::with('sideEffects')->with('indications')->find($id);
+        return Drug::with('sideEffects')->with('indications')->with('prescriptionTypes')->find($id);
     }
 
     public function index(Request $request)

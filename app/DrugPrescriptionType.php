@@ -10,6 +10,8 @@ class DrugPrescriptionType extends Model
 
     public $timestamps = false;
 
+    protected $hidden = ['pivot'];
+
     public function drugs()
     {
         return $this->belongsToMany('App\Drug');
