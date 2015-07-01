@@ -54,7 +54,6 @@ $factory->define(App\Drug::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\DrugReview::class, function (Faker\Generator $faker) {
-    $upvotes = $faker->numberBetween(0, 50);
     return [
         'user_id' => $faker->numberBetween(1, 50),
         'drug_id' => $faker->numberBetween(1, 50),
@@ -62,8 +61,6 @@ $factory->define(App\DrugReview::class, function (Faker\Generator $faker) {
         'gender' => $faker->randomElement(['m', 'f']),
         'rating' => $faker->numberBetween(1, 3),
         'is_covered_by_insurance' => $faker->boolean(),
-        'upvotes_cache' => $upvotes,
-        'downvotes_cache' => $faker->numberBetween($upvotes, 50) - $upvotes,
         'comment' => $faker->text(250)
     ];
 });
