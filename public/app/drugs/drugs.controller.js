@@ -161,18 +161,18 @@
     /** @ngInject */
     function DrugsOverviewCtrl() {
         this.effectiveLabels = ['Effective', 'Not Effective'];
-        this.effectiveColours = ['#0288D1', '#B3E5FC'];
+        this.effectiveColours = ['#5e35b1', '#d1c4e9'];
         this.effectiveOptions = {
             animationEasing: 'easeOutQuart',
-            percentageInnerCutout: 80,
+            percentageInnerCutout: 75,
             segmentShowStroke : false
         };
 
         this.iLabels = ['Covered', 'Not Covered'];
-        this.iColours = ['#0288D1', '#B3E5FC'];
+        this.iColours = ['#FF9800', '#FFE0B2'];
         this.iOptions = {
             animationEasing: 'easeOutQuart',
-            percentageInnerCutout: 80,
+            percentageInnerCutout: 75,
             segmentShowStroke : false
         };
     }
@@ -197,7 +197,7 @@
         var that = this;
 
         this.effectiveLabels = ['Effective', 'Not Effective'];
-        this.effectiveColours = ['#0288D1', '#B3E5FC'];
+        this.effectiveColours = ['#5e35b1', '#d1c4e9'];
         this.effectiveOptions = {
             animationEasing: 'easeOutQuart',
             percentageInnerCutout: 80,
@@ -205,7 +205,7 @@
         };
 
         this.insuranceLabels = ['Covered', 'Not Covered'];
-        this.insuranceColours = ['#0288D1', '#B3E5FC'];
+        this.insuranceColours = ['#FF9800', '#FFE0B2'];
         this.insuranceOptions = {
             animationEasing: 'easeOutQuart',
             percentageInnerCutout: 80,
