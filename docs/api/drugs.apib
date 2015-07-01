@@ -31,7 +31,6 @@ With the drugs API you can retrieve information and reviews on individual drugs 
                             "Oral Capsule"
                         ],
                         "generic_id": null,
-                        "prescription_type": "OTC",
                         "recalls": [],
                         "effectiveness_percentage": 0,
                         "insurance_coverage_percentage": 0,
@@ -61,7 +60,6 @@ With the drugs API you can retrieve information and reviews on individual drugs 
                             "Oral Capsule"
                         ],
                         "generic_id": null,
-                        "prescription_type": "Prescription and OTC",
                         "recalls": [],
                         "effectiveness_percentage": 0.75,
                         "insurance_coverage_percentage": 0.25,
@@ -145,7 +143,16 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         "value": "plasma cell myeloma"
                     }
                 ],
-                "prescription_type": "OTC",
+                "prescription_types": [
+                    {
+                        "id": "2",
+                        "value": "Over The Counter"
+                    },
+                    {
+                        "id": "1",
+                        "value": "Prescription"
+                    }
+                ],
                 "recalls": [
                     {
                         "number": "91201096",
@@ -195,19 +202,7 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         "created_at": "2015-06-23 02:57:19",
                         "upvotes": 24,
                         "downvotes": 26,
-                        "user": {
-                            "id": 3,
-                            "username": "dedric",
-                            "created_at": "2015-06-22 18:49:02",
-                            "updated_at": "2015-06-22 18:49:02",
-                            "age": 23,
-                            "gender": "m"
-                        },
-                        "drug": {
-                            "id": 5,
-                            "label": "Tylenol",
-                            "description": "Tylenol is a medicine used to treat pain."
-                        },
+                        "gender": "m",
                         "side_effects": [
                             {
                                 "id": 1,
@@ -227,19 +222,7 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                         "created_at": "2015-06-23 02:57:19",
                         "upvotes": 400,
                         "downvotes": 100,
-                        "user": {
-                            "id": 3,
-                            "username": "dedric",
-                            "created_at": "2015-06-22 18:49:02",
-                            "updated_at": "2015-06-22 18:49:02",
-                            "age": 23,
-                            "gender": "m"
-                        },
-                        "drug": {
-                            "id": 5,
-                            "label": "Claritin",
-                            "description": "Claritin is used to treat allergies."
-                        },
+                        "gender": "m",
                         "side_effects": [
                             {
                                 "id": 1,
