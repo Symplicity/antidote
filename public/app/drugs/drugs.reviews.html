@@ -7,6 +7,14 @@
                     <h4>Reviews</h4>
                 </md-toolbar>
                 <md-card-content>
+                    <div layout="column" layout-align="center center" flex ng-if="drugsReviews.reviews.length < 0" class="special-ie-fix">
+                        <div flex>
+                            <p>Sorry! No reviews at this time. Be the first to share your experience!</p>
+                        </div>
+                        <div flex>
+                            <md-button class="md-raised md-primary" ng-click="drugsView.openReviewModal($event)">Review It</md-button>
+                        </div>                        
+                    </div>
                     <div ng-repeat="review in drugsReviews.reviews" class="review-content">            
                         <drugs-review-view review="review"></drugs-review-view>            
                     </div>
