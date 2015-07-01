@@ -80,11 +80,13 @@ $app->routeMiddleware([
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
-$app->register(App\Providers\OpenFDAServiceProvider::class);
 $app->register(App\Providers\DrugProvider::class);
 $app->register(App\Providers\UserProvider::class);
 $app->register(App\Providers\GuzzleServiceProvider::class);
 $app->register(App\Providers\CommandServiceProvider::class);
+$app->register(App\Providers\OpenFDAServiceProvider::class);
+$app->register(App\Providers\RXNormServiceProvider::class);
+$app->register(App\Providers\RXClassServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -111,7 +113,6 @@ $app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
 |
 */
 
-$app->configure('openfda');
 $app->configure('mail');
 
 return $app;

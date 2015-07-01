@@ -8,13 +8,14 @@ class DrugIndication extends Model
 {
     protected $table = 'drug_indications';
 
-    protected $hidden = ['pivot'];
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = ['created_at', 'updated_at', 'pivot'];
 
-    public $timestamps = false;
-
-    protected $fillable = [
-        'value',
-    ];
+    protected $fillable = ['value'];
 
     public function drugs()
     {
