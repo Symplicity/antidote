@@ -58,13 +58,24 @@
 		margin: 0px auto;
 		padding-left: 28px;
 		padding-right: 28px;
-        padding-top: 5px;
 
         @media only screen and (max-width: 600px){
             padding-left: 0px;
             padding-right: 0px;
         }
 	}
+
+    /*separate container needed for inside content*/
+    .content-container{
+        max-width: 1366px;
+        margin: 0px auto; 
+        margin-top: 50px;     
+
+        @media only screen and (max-width: 600px){
+            padding-left: 0px;
+            padding-right: 0px;
+        }       
+    }
 
 	.header {
 	    background-color: $md-primary;
