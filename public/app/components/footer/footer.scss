@@ -11,9 +11,25 @@ footer {
         color:#FFFFFF;
         text-decoration: none;
         text-align: center;
+
+        &:hover{
+            text-decoration: underline;
+
+        }
     }
 
     span {
         margin: 0 5px;
+    }
+
+    @media only screen and (min-width : 300px) and (max-width : 960px) {
+        height:auto;
+
+        a {
+            color:#FFFFFF;
+            text-decoration: none;
+            text-align: left;
+            padding: 10px;
+        }
     }
 }
