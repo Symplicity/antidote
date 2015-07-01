@@ -58,7 +58,7 @@
             </div>
         </md-card-content>
         <div class="md-actions" layout="row" layout-align="end center">
-            <md-button ng-if="drugsView.topReviews.length > 0" ui-sref="drugs.view.reviews({id: drugsView.drug.id})" class="md-accent">SEE MORE REVIEWS</md-button>
+            <md-button ng-if="drugsView.topReviews.length > 0" ui-sref="drugs.view.reviews({id: drugsView.drug.id})" ng-click="drugsView.updateReviewTabState()" class="md-accent">SEE MORE REVIEWS</md-button>
         </div>
     </md-card>
 </md-content>
