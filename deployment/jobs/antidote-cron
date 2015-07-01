@@ -1,3 +1,4 @@
 # This file on build gets copied to the containers /etc/crontab
 # TIME SETTINGS <USERNAME> <script>
 * * * * *  root /var/www/deployment/monitors/run_monitors.sh
+* * * * *  root /var/www/artisan schedule:run
