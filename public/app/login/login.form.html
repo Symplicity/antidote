@@ -3,7 +3,7 @@
       <md-card-content>
         <h2 class="md-title">Log In</h2>
         <p>Not a user? <a ui-sref="signup">Join Today!</a></p>
-             <form method="post" name="loginForm" layout="column">
+             <form method="post" ng-submit="login.login()" name="loginForm" layout="column">
                     <md-input-container class="md-icon-float">
                         <label>Username</label>
                         <md-icon>person</md-icon>
@@ -14,11 +14,11 @@
                         <md-icon>lock</md-icon>
                         <input ng-model="login.password" name="password" type="password" required>
                     </md-input-container>
+                     <md-button type="submit" ng-disabled="loginForm.$invalid" class="md-raised md-accent">SIGN IN</md-button>
                 </form>
       </md-card-content>
       <div class="md-actions" layout="row" layout-align="end center">
-        <md-button class="small" ui-sref="password.forgot">Forgot your password?</md-button>
-        <md-button type="button" ng-click="login.login()" ng-disabled="loginForm.$invalid" class="md-raised md-accent">SIGN IN</md-button>
+        <md-button class="small" ui-sref="password.forgot">Forgot your password?</md-button>       
       </div>
     </md-card>    
   </md-content>
