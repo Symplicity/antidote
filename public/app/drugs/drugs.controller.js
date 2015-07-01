@@ -68,7 +68,7 @@
                 this.selectedIndex = 0;
         }
 
-        this.updateTabState = function() {
+        this.updateReviewTabState = function() {
             this.selectedIndex = 1;
         };
 
