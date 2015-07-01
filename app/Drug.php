@@ -91,7 +91,7 @@ class Drug extends Model
         $reviews = $this->getTotalReviewsAttribute();
         if (!empty($reviews)) {
             $effective = $this->reviews()->where('rating', '3')->get()->count();
-            $efectiveness = round($effective / $reviews);
+            $effectiveness = round($effective / $reviews);
         }
 
         return $effectiveness;
