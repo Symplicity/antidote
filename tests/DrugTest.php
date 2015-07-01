@@ -54,7 +54,7 @@ class DrugTest extends TestCase
         $this->assertSame(0, $drug->effectiveness_percentage, 'New records should return zero for stats');
 
         $drug = Drug::find($this->drug->id);
-        $this->assertSame(1.0, $drug->effectiveness_percentage);
+        $this->assertSame(0.5, $drug->effectiveness_percentage);
     }
 
     public function testGetInsuranceCoveragePercentageAttribute()
@@ -63,7 +63,7 @@ class DrugTest extends TestCase
         $this->assertSame(0, $drug->insurance_coverage_percentage, 'New records should return zero for stats');
 
         $drug = Drug::find($this->drug->id);
-        $this->assertSame(1.0, $drug->insurance_coverage_percentage);
+        $this->assertSame(0.5, $drug->insurance_coverage_percentage);
     }
 
     public function testGetTotalReviewsAttribute()
