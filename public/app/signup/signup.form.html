@@ -12,7 +12,7 @@
             </ul>
       </div>
       <div flex class="right-side" flex-sm="100">
-            <form method="post" name="signupForm" layout="column">
+            <form method="post" ng-submit="signup.signup()" name="signupForm" layout="column">
                     <md-input-container class="md-icon-float">
                         <label>Username</label>
                         <md-icon>person</md-icon>
@@ -56,8 +56,8 @@
                             <md-option ng-repeat="n in [] | range:18:80" value="{{n}}">{{n}}</md-option>
                         </md-select>
                     </div>
+                    <md-button type="submit" ng-disabled="signupForm.$invalid" class="md-raised md-accent">REGISTER</md-button>
                     <md-button class="small" ui-sref="login">Already have an account? Sign In</md-button>
-                    <md-button type="button" ng-click="signup.signup()" ng-disabled="signupForm.$invalid" class="md-raised md-accent">REGISTER</md-button>
                 </form>
       </div>
       </md-card-content>
