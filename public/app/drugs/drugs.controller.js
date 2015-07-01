@@ -10,8 +10,7 @@
         .controller('DrugsAlternativesCtrl', DrugsAlternativesCtrl)
         .controller('DrugsReviewCtrl', DrugsReviewCtrl)
         .controller('DrugsReviewModalCtrl', DrugsReviewModalCtrl)
-        .controller('DrugsReviewVoteCtrl', DrugsReviewVoteCtrl)
-        .controller('DrugsSignupModalCtrl', DrugsSignupModalCtrl);
+        .controller('DrugsReviewVoteCtrl', DrugsReviewVoteCtrl);
 
     /** @ngInject */
     function DrugsListCtrl(DrugsService, $stateParams) {
@@ -43,7 +42,7 @@
     }
 
     /** @ngInject */
-    function DrugsViewCtrl(DrugsService, $stateParams, $mdDialog, $auth, $state) {
+    function DrugsViewCtrl(DrugsService, $stateParams, SignupModalService, $auth, $mdDialog, $state) {
         var that = this;
 
         activate();
@@ -73,13 +72,7 @@
         };
 
         this.openSignupModal = function() {
-            $mdDialog.show({
-                controller: 'DrugsSignupModalCtrl',
-                controllerAs: 'drugsSignupModal',
-                templateUrl: 'app/drugs/drugs.signup.modal.html',
-                clickOutsideToClose: true,
-                hasBackdrop: true
-            });
+            SignupModalService.open();
         };
 
         this.openReviewModal = function(ev) {
@@ -236,17 +229,11 @@
     }
 
     /** @ngInject */
-    function DrugsReviewVoteCtrl(DrugsService, $mdDialog, $auth, $mdToast) {
+    function DrugsReviewVoteCtrl(DrugsService, $auth, $mdToast, SignupModalService) {
         var that = this;
 
         this.openSignupModal = function() {
-            $mdDialog.show({
-                controller: 'DrugsSignupModalCtrl',
-                controllerAs: 'drugsSignupModal',
-                templateUrl: 'app/drugs/drugs.signup.modal.html',
-                clickOutsideToClose: true,
-                hasBackdrop: true
-            });
+            SignupModalService.open();
         };
 
         this.vote = function(review, vote) {
@@ -286,25 +273,8 @@
                     }
                 );
             } else {
-                this.openSignupModal();
+                that.openSignupModal();
             }
-        };
-    }
-
-    /** @ngInject */
-    function DrugsSignupModalCtrl($mdDialog, $state) {
-        this.closeDialog = function() {
-            $mdDialog.hide();
-        };
-
-        this.login = function() {
-            $mdDialog.hide();
-            $state.go('login');
-        };
-
-        this.signup = function() {
-            $mdDialog.hide();
-            $state.go('signup');
         };
     }
 })();
