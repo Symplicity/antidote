@@ -38,13 +38,14 @@ class DrugReview extends Model
         return $this->belongsTo('App\Drug');
     }
 
-    public function votes()
-    {
-        return $this->hasMany('App\DrugReviewVote');
-
     public function rating()
     {
         return $this->belongsTo('App\DrugRating', 'rating');
+    }
+
+    public function votes()
+    {
+        return $this->hasMany('App\DrugReviewVote');
     }
 
     public function sideEffects()

@@ -29,7 +29,7 @@
                         squash: true
                     },
                     limit: {
-                        value: "500",
+                        value: '500',
                         squash: true
                     }
                 }

@@ -21,7 +21,7 @@ class DrugReviewVote extends Model
     public function setVoteAttribute($value)
     {
         //restrict values to only these two
-        $this->attributes['vote'] = ($value == -1) ? -1 : 1;
+        $this->attributes['vote'] = ($value == -1 ? -1 : 1);
     }
 
     protected static function boot()
