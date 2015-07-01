@@ -18,6 +18,12 @@
         font-size: 40px;
         margin: 0;
     }
+    p{
+        font-size: 18px;        
+    }
+    md-icon{
+        padding-top: -5px;
+    }
 }
 
 .drug-padding{
@@ -25,4 +31,9 @@
 }
 .dropdown-move{
     margin-left: 35px;
+}
+.content-container{
+    md-card{
+        margin: 0px;
+    }
 }
