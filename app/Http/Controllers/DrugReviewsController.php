@@ -19,6 +19,8 @@ class DrugReviewsController extends Controller
             if ($drug_review_vote->vote != $vote) {
                 $drug_review_vote->vote = $vote;
                 $drug_review_vote->save();
+            } else {
+                return response()->json(['message' => 'You\'ve already voted on this review!'], 400);
             }
         } else {
             $drug_review_vote = new DrugReviewVote();
