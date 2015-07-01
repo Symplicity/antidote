@@ -1,5 +1,5 @@
 md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
-  color: $md-secondary;
+  color: $md-secondary-dark;
   height: 100%;
 }
 
@@ -25,7 +25,7 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
             text-transform: uppercase;
 
             &:hover{
-                border-bottom: 5px solid $md-secondary;
+                border-bottom: 5px solid $md-secondary-dark;
                 color: $md-secondary;
                 margin-bottom: -5px;
             }            
@@ -53,14 +53,20 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
     margin-bottom: 0px;
     padding-bottom: 0px;
 }
+
 .neutral{
     position: absolute;
     top: 32px;
 }
 .top-3 {
-    p, span {
+
+    p, span, chart-container {
         text-align: center;
     }
+}
+md-card md-card-content.top-3{
+    padding: 16px 0;
+    text-align:center;
 }
 .content {
     padding: 25px;
