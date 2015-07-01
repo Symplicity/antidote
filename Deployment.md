@@ -4,6 +4,7 @@ Your not required to use a OaaS at all. You can completely delpoy this locally o
 
 ### Technologies Used
 We used the following technologies that are all open source:
+
 - [Docker](http://www.docker.com)
 - [MariaDB](http://www.mariadb.com)
 - [HaProxy](http://www.haproxy.org)
@@ -11,6 +12,13 @@ We used the following technologies that are all open source:
 - [PHP](http://www.php.com)
 - [Ubuntu](http://ubuntu.com)
 - [GIT](http://git-scm.com)
+- [rabbitmq](http://rabbitmq.com)
+- [memcached](http://memcached.com)
+- [arbeider](https://github.com/moos3/arbeider)
+- [ElasticSearch](http://elasticsearch.com)
+- [logstash](http://logstash.net)
+- [kibana](https://www.elastic.co/products/kibana)
+- [prometheus](http://prometheus.io/)
 
 ### Containers
 We used the following containers to get Antidote by Symplicity running. We built a pair of custom containers to just make certain things easier to deploy. Those docker containers are:
@@ -22,6 +30,11 @@ Community contributed containers that we took from docker hub and used with out 
 
 - mariadb/mariadb (MariaDB -- Opensource MySQL)
 - tutum/haproxy (Haproxy Load Balancer with autoconfiguration with out a lot of work)
+- logstash:latest  (Log Indexing)
+- gliderlabs/logspout:latest (Log forwarder)
+- vfarcic/kibana:latest (Log Search WebUI)
+- memcached:latest  (Caching layer)
+- rabbitmq:latest  (Queue'ing layer)
 
 
 ### Configuration Management
@@ -32,13 +45,28 @@ Are going to except the following environmental variables to be set in order to 
 
 ```
 environment:
+  - ANTIDOTE_API_KEY=  # Set a 256 bit string, this is for the encryption of the api 
   - ANTIDOTE_DB_HOST=db   # point to db host
   - ANTIDOTE_DB_NAME=antidote  # Set to your Database Name
   - ANTIDOTE_DB_PASS=antidoteSecret  # Set to your database users password
   - ANTIDOTE_DB_PORT=3306  # Set to the port your going to use for mysql
   - ANTIDOTE_DB_USER=antidote  # Set to your database user
+  - ANTIDOTE_ROLE= # Set this to either web or worker. Depending on the Image
   - FDA_TOKEN=  # Set this to your OPEN FDA API KEY
+## Caching Settings
+  - ANTIDOTE_CACHE_DRIVER= # Set this to memcached if you want to use memcache. Otherwise don't declare it.
+  - MEMCACHED_HOST= # Set this to the Memcache server name
+  - MEMCACHED_PORT=11211 # Set to default port, change this if your not running memcached on the standard port.
+## Git Repo Settings
   - GITREPO_URL= # Set this your fork of Antidote by Symplicity or Use the Main Symplicity One
+  - GITREPO_BRANCH= # Set this to the git branch with the production build. Must contain a dist.zip file with vendor and dist in it
+## Rabbit MQ Settings for the Worker scripts
+  - RABBITMQ_NAME= # Set this to the name which you want webhook for codeship to notify nodes 
+  - RABBITMQ_NODE= # Set this to the name of the rabbitmq server.
+  - RABBITMQ_PORT=5672 # default port for rabbitmq, change this if not using default.
+  - WEBHOOK_API_KEY= # Set a 256 Bit key for the webhook url for [arbeider](https://github.com/moos3/arbeider)
+  - WORKER_API_KEY= # Set a 256 bit key for the workers API key. Authenticates the rabbitmq messages.
+## Mailgun Settings for sending emails
   - MAILGUN_DOMAIN=  # Set this to your Mailgun Domain
   - MAILGUN_PASSWORD=   # Set this to your Password for Mailgun
   - MAILGUN_SECRET=   # Set this to your Mailgun Secret Key
@@ -85,9 +113,10 @@ environment:
   - TERM=dumb
 ```
 
-### Actual Deployment
+### Local Deployment
 So now that we have talked about everything you need get this working. Lets show you how to get this up locally for testing. So we will need to make the following docker-compose.yml setup locally. To use this locally you will need either boot2docker (Mac and Windows Users) or docker installed on your linux machine.
-You will see in this version of the local docker-compose we have a image for loggly.com This just makes it easier to tack errors. In Production unless your willing to pay for a logging service you can replace this with a rsyslog server and logstash.
+You will see in this version of the local docker-compose, we dont have a load balancer, We aren't doing SSL on the web server. We have the bare minimum containers that are needed for the application to work in a local environment. See "Production Deployment" for details on what is needed to run this in production.
+
 ```
 db:
   image: 'mariadb:latest'
@@ -97,68 +126,84 @@ db:
     - MYSQL_ROOT_PASSWORD=rootSecret
     - MYSQL_USER=antidote
     - TERM=dumb
-lb:
-  image: 'tutum/haproxy:latest'
-  environment:
-    - BACKEND_PORT=80
-    - BALANCE=roundrobin
-    - FRONTEND_PORT=80
-    - MAXCONN=4096
-    - MODE=http
-    - 'TIMEOUT=connect 5000,client 50000,server 500000'
-    - 'OPTION=redispatch,httplog,dontlognull,forwardfor'
-    - 'SSL_CERT=-'
-  links:
-    - loggly
-    - web
-  ports:
-    - '80:80'
-    - '443:443'
-loggly:
-  image: 'sendgridlabs/loggly-docker:latest'
-  environment:
-    - TAG=local-test
-    - TOKEN=
 web:
   image: 'symplicity/webserver:latest'
+  ports:
+    - '80:80'
   environment:
-    - ANTIDOTE_DB_HOST=db
-    - ANTIDOTE_DB_NAME=antidote
-    - ANTIDOTE_DB_PASS=antidoteSecret
-    - ANTIDOTE_DB_PORT=3306
-    - ANTIDOTE_DB_USER=antidote
-    - FDA_TOKEN=
-    - 'GITREPO_URL='
-    - MAILGUN_DOMAIN=
-    - MAILGUN_PASSWORD=
-    - MAILGUN_SECRET=
-    - MAILGUN_USERNAME=
+- ANTIDOTE_API_KEY=  # Set a 256 bit string, this is for the encryption of the api 
+  - ANTIDOTE_DB_HOST=db   # point to db host
+  - ANTIDOTE_DB_NAME=antidote  # Set to your Database Name
+  - ANTIDOTE_DB_PASS=antidoteSecret  # Set to your database users password
+  - ANTIDOTE_DB_PORT=3306  # Set to the port your going to use for mysql
+  - ANTIDOTE_DB_USER=antidote  # Set to your database user
+  - ANTIDOTE_ROLE= # Set this to either web or worker. Depending on the Image
+  - FDA_TOKEN=  # Set this to your OPEN FDA API KEY
+## Caching Settings
+  - ANTIDOTE_CACHE_DRIVER= # Set this to memcached if you want to use memcache. Otherwise don't declare it.
+  - MEMCACHED_HOST= # Set this to the Memcache server name
+  - MEMCACHED_PORT=11211 # Set to default port, change this if your not running memcached on the standard port.
+## Git Repo Settings
+  - GITREPO_URL= # Set this your fork of Antidote by Symplicity or Use the Main Symplicity One
+  - GITREPO_BRANCH= # Set this to the git branch with the production build. Must contain a dist.zip file with vendor and dist in it
+## Rabbit MQ Settings for the Worker scripts
+  - RABBITMQ_NAME= # Set this to the name which you want webhook for codeship to notify nodes 
+  - RABBITMQ_NODE= # Set this to the name of the rabbitmq server.
+  - RABBITMQ_PORT=5672 # default port for rabbitmq, change this if not using default.
+  - WEBHOOK_API_KEY= # Set a 256 Bit key for the webhook url for [arbeider](https://github.com/moos3/arbeider)
+  - WORKER_API_KEY= # Set a 256 bit key for the workers API key. Authenticates the rabbitmq messages.
+## Mailgun Settings for sending emails
+  - MAILGUN_DOMAIN=  # Set this to your Mailgun Domain
+  - MAILGUN_PASSWORD=   # Set this to your Password for Mailgun
+  - MAILGUN_SECRET=   # Set this to your Mailgun Secret Key
+  - MAILGUN_USERNAME= # Set this to your Mailgun username
+
   links:
     - db
-    - loggly
+    - rabbitmq
 worker:
   image: 'symplicity/worker:latest'
   environment:
-    - ANTIDOTE_DB_HOST=db
-    - ANTIDOTE_DB_NAME=antidote
-    - ANTIDOTE_DB_PASS=antidoteSecret
-    - ANTIDOTE_DB_PORT=3306
-    - ANTIDOTE_DB_USER=antidote
-    - FDA_TOKEN=
-    - 'GITREPO_URL='
-    - MAILGUN_DOMAIN=
-    - MAILGUN_PASSWORD=
-    - MAILGUN_SECRET=
-    - MAILGUN_USERNAME=
-    - TEST_SITE=yes
+- ANTIDOTE_API_KEY=  # Set a 256 bit string, this is for the encryption of the api 
+  - ANTIDOTE_DB_HOST=db   # point to db host
+  - ANTIDOTE_DB_NAME=antidote  # Set to your Database Name
+  - ANTIDOTE_DB_PASS=antidoteSecret  # Set to your database users password
+  - ANTIDOTE_DB_PORT=3306  # Set to the port your going to use for mysql
+  - ANTIDOTE_DB_USER=antidote  # Set to your database user
+  - ANTIDOTE_ROLE= # Set this to either web or worker. Depending on the Image
+  - FDA_TOKEN=  # Set this to your OPEN FDA API KEY
+## Caching Settings
+  - ANTIDOTE_CACHE_DRIVER= # Set this to memcached if you want to use memcache. Otherwise don't declare it.
+  - MEMCACHED_HOST= # Set this to the Memcache server name
+  - MEMCACHED_PORT=11211 # Set to default port, change this if your not running memcached on the standard port.
+## Git Repo Settings
+  - GITREPO_URL= # Set this your fork of Antidote by Symplicity or Use the Main Symplicity One
+  - GITREPO_BRANCH= # Set this to the git branch with the production build. Must contain a dist.zip file with vendor and dist in it
+## Rabbit MQ Settings for the Worker scripts
+  - RABBITMQ_NAME= # Set this to the name which you want webhook for codeship to notify nodes 
+  - RABBITMQ_NODE= # Set this to the name of the rabbitmq server.
+  - RABBITMQ_PORT=5672 # default port for rabbitmq, change this if not using default.
+  - WEBHOOK_API_KEY= # Set a 256 Bit key for the webhook url for [arbeider](https://github.com/moos3/arbeider)
+  - WORKER_API_KEY= # Set a 256 bit key for the workers API key. Authenticates the rabbitmq messages.
+## Mailgun Settings for sending emails
+  - MAILGUN_DOMAIN=  # Set this to your Mailgun Domain
+  - MAILGUN_PASSWORD=   # Set this to your Password for Mailgun
+  - MAILGUN_SECRET=   # Set this to your Mailgun Secret Key
+  - MAILGUN_USERNAME= # Set this to your Mailgun username
+    - TEST_SITE=yes  # This var enabled random data seeding.
   links:
     - db
-    - loggly
+    - rabbitmq
 ```
 
-So now that we wrote our docker-compose.yml file all your going to need to do is `docker-comose up` this will start up a Haproxy server, mariadb, a log forwarder, web server and worker vm.
-Once they all come up your should be able to connect to your docker ip or boot2docker ip on either on http or https. If you come into http and have that SSL_CERT set you will get redirected to https.
+So now that we wrote our docker-compose.yml file all your going to need to do is `docker-comose up` this will start up a mariadb, rabbitmq, web server and worker vm.
 
-Now if you want to deploy this stay in a production environment then you will want to setup some nodes with docker-machine and docker-swarm. then use docker-compose to deploy using the docker swarm. Or you can use a Tutum as
-your orchestration service and use the tutum.yml file to deploy this one Amazon AWS, Digital Ocean, Microsoft Azure and Softlayer by IBM. You will want at least 3 nodes and if you have spare hardware you can even bring your own nodes
+Once they all come up your should be able to connect to your docker ip or boot2docker ip.
+
+#### Production
+Now if you want to deploy this in aproduction environment then you will want to setup some nodes with docker-machine and docker-swarm. then use docker-compose to deploy using the docker swarm. Or you can use a Tutum as
+your orchestration service and use the tutum.yml file to deploy this on Amazon AWS, Digital Ocean, Microsoft Azure and Softlayer by IBM. You will want at least 3 nodes and if you have spare hardware you can even bring your own nodes
 to tutum. We have tried both AWS and Digital Ocean with tutum. You can have nodes in more than one provider to give your site HA on the IaaS level.
+
+###### Recommendations for Production
+I would put db container on a node with at least 4 gigabytes of ram and 2 cpus. I would also put a load balancer infront of the web nodes that terminates SSL. The web servers dont need much in terms of memory 512 Megabytes or 1 gigabyte should be more than enough. I would also stand up a memcached server for the site to use. 
