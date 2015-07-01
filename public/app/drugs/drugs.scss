@@ -102,7 +102,13 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
     }
 
     md-icon {
-        color: $md-gray-accent;
+        color: $md-gray-accent;   
+        height: 34px;
+        width: 34px;
+        
+        .material-icons{
+            font-size: 34px;
+        }
     }
 }
 
@@ -118,7 +124,7 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
     }
     &:active {
         color: $md-secondary-dark;
-    }
+    }    
 }
 
 .vote-down {
