@@ -54,12 +54,18 @@
             {title: 'Alternatives', state: 'drugs.view.alternatives'}
         ];
 
-        if ($state.current.name === 'drugs.view.alternatives') {
-            this.selectedIndex = 2;
-        } else if ($state.current.name === 'drugs.view.reviews') {
-            this.selectedIndex = 1;
-        } else {
-            this.selectedIndex = 0;
+        switch ($state.current.name) {
+            case 'drugs.view.overview':
+                this.selectedIndex = 0;
+                break;
+            case 'drugs.view.reviews':
+                this.selectedIndex = 1;
+                break;
+            case 'drugs.view.alternatives':
+                this.selectedIndex = 2;
+                break;
+            default:
+                this.selectedIndex = 0;
         }
 
         this.updateTabState = function() {
