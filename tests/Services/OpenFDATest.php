@@ -17,7 +17,7 @@ class OpenFDATest extends TestCase
 
     public function testGetDrugInfo()
     {
-        $this->assertTrue(); //TODO: crate a proper unit test for the service
+        $this->assertTrue(true); //TODO: crate a proper unit test for the service
         /*
         $this->app->instance('Guzzle', self::$client);
         $fda_info = json_decode(OpenFDA::getDrugInfo('42893-030'), true);
@@ -27,7 +27,7 @@ class OpenFDATest extends TestCase
 
     public function testBadDrugInfo()
     {
-        $this->assertTrue(); //TODO: create a proper unit test for the service
+        $this->assertTrue(true); //TODO: create a proper unit test for the service
         /*
         $this->app->instance('Guzzle', self::$client);
         $response = OpenFDA::getDrugInfo('foo');

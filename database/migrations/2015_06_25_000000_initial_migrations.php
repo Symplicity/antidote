@@ -7,6 +7,8 @@ class InitialMigrations extends Migration
 {
     public function up()
     {
+        $this->down();
+        
         Schema::create('drug_prescription_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('value')->unique();
@@ -178,19 +180,19 @@ class InitialMigrations extends Migration
 
     public function down()
     {
-        Schema::drop('drug_drug_prescription_type');
-        Schema::drop('drug_drug_indication');
-        Schema::drop('drug_drug_side_effect');
-        Schema::drop('drug_review_drug_side_effect');
-        Schema::drop('drug_review_votes');
-        Schema::drop('drug_related');
-        Schema::drop('drug_alternatives');
-        Schema::drop('drug_side_effects');
-        Schema::drop('drug_indications');
-        Schema::drop('drug_prescription_types');
-        Schema::drop('drug_reviews');
-        Schema::drop('drug_ratings');
-        Schema::drop('drugs');
-        Schema::drop('users');
+        Schema::dropIfExists('drug_drug_prescription_type');
+        Schema::dropIfExists('drug_drug_indication');
+        Schema::dropIfExists('drug_drug_side_effect');
+        Schema::dropIfExists('drug_review_drug_side_effect');
+        Schema::dropIfExists('drug_review_votes');
+        Schema::dropIfExists('drug_related');
+        Schema::dropIfExists('drug_alternatives');
+        Schema::dropIfExists('drug_side_effects');
+        Schema::dropIfExists('drug_indications');
+        Schema::dropIfExists('drug_prescription_types');
+        Schema::dropIfExists('drug_reviews');
+        Schema::dropIfExists('drug_ratings');
+        Schema::dropIfExists('drugs');
+        Schema::dropIfExists('users');
     }
 }
