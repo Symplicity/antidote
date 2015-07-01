@@ -10,7 +10,8 @@
         .controller('DrugsAlternativesCtrl', DrugsAlternativesCtrl)
         .controller('DrugsReviewCtrl', DrugsReviewCtrl)
         .controller('DrugsReviewModalCtrl', DrugsReviewModalCtrl)
-        .controller('DrugsReviewVoteCtrl', DrugsReviewVoteCtrl);
+        .controller('DrugsReviewVoteCtrl', DrugsReviewVoteCtrl)
+        .controller('DrugsSignupModalCtrl', DrugsSignupModalCtrl);
 
     /** @ngInject */
     function DrugsListCtrl(DrugsService, $stateParams) {
@@ -42,7 +43,7 @@
     }
 
     /** @ngInject */
-    function DrugsViewCtrl(DrugsService, $stateParams, $mdDialog) {
+    function DrugsViewCtrl(DrugsService, $stateParams, $mdDialog, $auth) {
         var that = this;
 
         activate();
@@ -53,19 +54,33 @@
             {title: 'Alternatives', state: 'drugs.view.alternatives'}
         ];
 
-        this.openReviewModal = function(ev) {
+        this.openSignupModal = function() {
             $mdDialog.show({
-                controller: 'DrugsReviewModalCtrl',
-                controllerAs: 'drugsReviewModal',
-                bindToController: true,
-                templateUrl: 'app/drugs/drugs.review.modal.html',
-                targetEvent: ev,
+                controller: 'DrugsSignupModalCtrl',
+                controllerAs: 'drugsSignupModal',
+                templateUrl: 'app/drugs/drugs.signup.modal.html',
                 clickOutsideToClose: true,
-                hasBackdrop: true,
-                locals: {
-                    drug_side_effects: that.drug.side_effects
-                }
+                hasBackdrop: true
             });
+        };
+
+        this.openReviewModal = function(ev) {
+            if ($auth.isAuthenticated()) {
+                $mdDialog.show({
+                    controller: 'DrugsReviewModalCtrl',
+                    controllerAs: 'drugsReviewModal',
+                    bindToController: true,
+                    templateUrl: 'app/drugs/drugs.review.modal.html',
+                    targetEvent: ev,
+                    clickOutsideToClose: true,
+                    hasBackdrop: true,
+                    locals: {
+                        drug_side_effects: that.drug.side_effects
+                    }
+                });
+            } else {
+                that.openSignupModal();
+            }
         };
 
         function activate() {
@@ -130,8 +145,6 @@
 
     /** @ngInject */
     function DrugsOverviewCtrl() {
-        activate();
-
         this.effectiveLabels = ['Effective', 'Not Effective'];
         this.effectiveColours = ['#673AB7', '#D1C4E9'];
 
@@ -140,27 +153,12 @@
 
         this.iLabels = ['Covered', 'Not Covered'];
         this.iColours = ['#FF5722', '#FFCCBC'];
-
-        function activate() {
-            //TODO: add API service call here
-        }
     }
 
     /** @ngInject */
-    function DrugsReviewsCtrl(DrugsService, $stateParams, $mdDialog) {
+    function DrugsReviewsCtrl(DrugsService, $stateParams) {
         this.reviews = {};
         var that = this;
-
-        this.openSignupModal = function(ev) {
-            $mdDialog.show({
-                controller: 'DrugsReviewModalCtrl',
-                controllerAs: 'drugsReviewModal',
-                templateUrl: 'app/drugs/drugs.signup.modal.html',
-                targetEvent: ev,
-                clickOutsideToClose: true,
-                hasBackdrop: true
-            });
-        };
 
         activate();
 
@@ -206,20 +204,75 @@
     }
 
     /** @ngInject */
-    function DrugsReviewVoteCtrl(DrugsService) {
-        this.vote = function(review, vote) {
-            DrugsService.voteOnReview(
-                {
-                    'id': review.id,
-                    'vote': vote
-                }
-            ).$promise.then(function() {
-                if (vote === 1) {
-                    review.upvotes++;
-                } else {
-                    review.downvotes++;
-                }
+    function DrugsReviewVoteCtrl(DrugsService, $mdDialog, $auth, $mdToast) {
+        var that = this;
+
+        this.openSignupModal = function() {
+            $mdDialog.show({
+                controller: 'DrugsSignupModalCtrl',
+                controllerAs: 'drugsSignupModal',
+                templateUrl: 'app/drugs/drugs.signup.modal.html',
+                clickOutsideToClose: true,
+                hasBackdrop: true
             });
+        };
+
+        this.vote = function(review, vote) {
+            if ($auth.isAuthenticated()) {
+                DrugsService.voteOnReview(
+                    {
+                        'id': review.id,
+                        'vote': vote
+                    }
+                ).$promise.then(
+                    function(resp) {
+                        if (vote === 1) {
+                            review.upvotes++;
+                            if (resp.updated_at > resp.created_at) {
+                                review.downvotes--;
+                            }
+                        } else {
+                            review.downvotes++;
+                            if (resp.updated_at > resp.created_at) {
+                                review.upvotes--;
+                            }
+                        }
+                    },
+                    function(resp) {
+                        if (resp.status === 401) {
+                            //on 401 error from server ask user to log in (prob. token expired)
+                            that.openSignupModal();
+                        } else if (resp.status === 400) {
+                            //on 400 error user already voted so show toast
+                            $mdToast.show(
+                                $mdToast.simple()
+                                    .content(resp.data.message)
+                                    .position('top right')
+                                    .hideDelay(3000)
+                            );
+                        }
+                    }
+                );
+            } else {
+                this.openSignupModal();
+            }
+        };
+    }
+
+    /** @ngInject */
+    function DrugsSignupModalCtrl($mdDialog, $state) {
+        this.closeDialog = function() {
+            $mdDialog.hide();
+        };
+
+        this.login = function() {
+            $mdDialog.hide();
+            $state.go('login');
+        };
+
+        this.signup = function() {
+            $mdDialog.hide();
+            $state.go('signup');
         };
     }
 })();
