@@ -43,7 +43,7 @@
     }
 
     /** @ngInject */
-    function DrugsViewCtrl(DrugsService, $stateParams, $mdDialog, $auth) {
+    function DrugsViewCtrl(DrugsService, $stateParams, $mdDialog, $auth, $state) {
         var that = this;
 
         activate();
@@ -53,6 +53,18 @@
             {title: 'Reviews', state: 'drugs.view.reviews'},
             {title: 'Alternatives', state: 'drugs.view.alternatives'}
         ];
+
+        if ($state.current.name === 'drugs.view.alternatives') {
+            this.selectedIndex = 2;
+        } else if ($state.current.name === 'drugs.view.reviews') {
+            this.selectedIndex = 1;
+        } else {
+            this.selectedIndex = 0;
+        }
+
+        this.updateTabState = function() {
+            this.selectedIndex = 1;
+        };
 
         this.openSignupModal = function() {
             $mdDialog.show({
