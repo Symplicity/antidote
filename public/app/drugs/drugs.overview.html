@@ -1,9 +1,9 @@
 <!--Effectiveness/Side Effects/Insurance-->
 <div class="content container">
-    <md-content class="medium-ie-fix" layout="row" layout-sm="column" layout-md="column">
+    <md-content class="cardTitles medium-ie-fix" layout="row" layout-sm="column" layout-md="column">
         <md-card flex>
             <md-toolbar class="md-toolbar-tools">
-                <md-icon>build</md-icon>
+                <md-icon>assessment</md-icon>
                 <h4>Effectiveness</h4>
             </md-toolbar>
             <md-card-content class="top-3">
@@ -15,7 +15,7 @@
 
         <md-card flex>
             <md-toolbar class="md-toolbar-tools">
-                <md-icon>announcement</md-icon>
+                <md-icon>healing</md-icon>
                 <h4>Side Effects</h4>
             </md-toolbar>
             <md-card-content class="top-3" ng-if="drugsView.drug.side_effects.length > 0">
@@ -38,10 +38,10 @@
         </md-card>
     </md-content>
 
-<md-content layout="row" class="reviews">
+<md-content layout="row" class="cardTitles reviews">
     <md-card flex>
         <md-toolbar class="md-toolbar-tools">
-            <md-icon>description</md-icon>
+            <md-icon>people</md-icon>
             <h4>Reviews</h4>
         </md-toolbar>
         <md-card-content>
@@ -63,7 +63,7 @@
     </md-card>
 </md-content>
 
-<md-content layout="row" layout-sm="column" ng-if="drugsView.drug.recalls.length > 0">
+<md-content layout="row" layout-sm="column" ng-if="drugsView.drug.recalls.length > 0" class="cardTitles">
     <md-card flex>
         <md-toolbar class="md-toolbar-tools">
             <md-icon>report_problem</md-icon>
