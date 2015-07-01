@@ -1,4 +1,4 @@
-<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 
 <table style="background-color:#f2f2f2" border="0" cellspacing="0" cellpadding="0" width="100%" bgcolor="#f2f2f2">
     <tbody>
