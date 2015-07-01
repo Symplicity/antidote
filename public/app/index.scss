@@ -5,7 +5,7 @@
 // bower:scss
 // endbower
 
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url("//fonts.googleapis.com/css?family=Lato:300,400,700");
 	$medium-gray: #CCCCCD;
 	$primary-button-color: #ffc400;
 	$text-color: #666;
@@ -20,15 +20,15 @@
 
     $md-gray-medium: #727272;
     $md-gray-accent: #91A5AE;
-	
+
     html, body, h1, h2, h3, h4, h5, h6, p {
         font-family: Lato, 'Helvetica Neue', sans-serif;
     }
 
     html, body, md-content {
-        background-color: #EEEEEE;   
+        background-color: #EEEEEE;
         height:100%;
-        position: relative; 	
+        position: relative;
     }
 
     h1 {font-size: 34px;}
@@ -50,7 +50,7 @@
 
     body {
 		color: #666;
-		min-height:100%;		
+		min-height:100%;
 	}
 
 	.container {
@@ -68,19 +68,19 @@
     /*separate container needed for inside content*/
     .content-container{
         max-width: 1366px;
-        margin: 0px auto; 
-        margin-top: 50px;     
+        margin: 0px auto;
+        margin-top: 50px;
 
         @media only screen and (max-width: 600px){
             padding-left: 0px;
             padding-right: 0px;
-        }       
+        }
     }
 
 	.header {
 	    background-color: $md-primary;
 
-	    .container { 
+	    .container {
 	        height:130px;
 	        margin: 0 auto;
 	        padding: 25px;
@@ -118,7 +118,7 @@
 	.md-pills {
         padding: 25px;
         color: #212121;
-        font-size: 12px;    
+        font-size: 12px;
         display: inline-block;
         border: solid;
         border-width: 2px;
@@ -132,19 +132,19 @@
 	.md-button.md-raised:not([disabled]):hover {
 		background-color: lighten($primary-button-color, 15%);
 	}
-	
+
     a.md-button.md-accent.md-raised, a.md-button.md-accent.md-fab, .md-button.md-accent.md-raised, .md-button.md-accent.md-fab {
     	color:#000;
     }
 
     md-card {
         margin:25px;
-        
+
         .md-actions{
     	   padding: 5px;
         }
     }
-    
+
     md-toast {
         background-color:$md-secondary;
         color:black;
@@ -168,14 +168,14 @@
     @media only screen and (max-width: 1000px) {
         .medium-ie-fix {
             display: block;
-        }    
+        }
     }
     @media only screen and (max-width: 600px) {
         .mobile-fix {
             display: block;
-        }    
+        }
     }
-    
+
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
  *  all your sass files automatically
