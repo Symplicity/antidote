@@ -57,10 +57,14 @@
             $mdDialog.show({
                 controller: 'DrugsReviewModalCtrl',
                 controllerAs: 'drugsReviewModal',
+                bindToController: true,
                 templateUrl: 'app/drugs/drugs.review.modal.html',
                 targetEvent: ev,
                 clickOutsideToClose: true,
-                hasBackdrop: true
+                hasBackdrop: true,
+                locals: {
+                    drug_side_effects: that.drug.side_effects
+                }
             });
         };
 
@@ -92,13 +96,28 @@
         this.closeDialog = function() {
             $mdDialog.hide();
         };
+
+        this.toggle = function(item, list) {
+            var idx = list.indexOf(item);
+            if (idx > -1) {
+                list.splice(idx, 1);
+            } else {
+                list.push(item);
+            }
+        };
+
+        this.exists = function(item, list) {
+            return list.indexOf(item) > -1;
+        };
     }
 
     /** controller for review form **/
     /** @ngInject */
     function DrugsReviewCtrl(DrugsService, $stateParams) {
         var that = this;
-        this.review = {};
+        this.review = {
+            side_effects: []
+        };
         this.reviewSubmitted = false;
 
         this.submitReview = function() {
