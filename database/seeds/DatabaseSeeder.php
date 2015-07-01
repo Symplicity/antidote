@@ -13,8 +13,9 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call('DrugSeeder');
         $this->call('UserSeeder');
-        $this->call('DrugReviewSeeder');
+        $this->call('DrugIndicationSeeder');
+        $this->call('DrugSideEffectSeeder');
+        $this->call('DrugSeeder');
     }
 }

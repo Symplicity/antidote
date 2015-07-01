@@ -8,9 +8,8 @@
             </md-toolbar>
             <md-card-content class="top-3">
                 <canvas id="doughnut" class="chart chart-doughnut" data="drugsView.effectivenessChartData" labels="drugsOverview.effectiveLabels" colours="drugsOverview.effectiveColours"></canvas>
-                <p class="percentage">{{drugsView.drug.effectiveness_percentage | percentage}}</p>
-                 <p>{{drugsView.drug.effectiveness_percentage | percentage}} of people found
-                {{drugsView.drug.label}} effective</p>
+                <p class="percentage">{{::drugsView.drug.effectiveness_percentage | percentage}}</p>
+                 <p>{{::drugsView.drug.effectiveness_percentage | percentage}} of people found {{::drugsView.drug.label}} effective</p>
             </md-card-content>
         </md-card>
 
@@ -33,8 +32,8 @@
             </md-toolbar>
             <md-card-content class="top-3">
                  <canvas id="doughnut" class="chart chart-doughnut" data="drugsView.insuranceChartData" labels="drugsOverview.iLabels" colours="drugsOverview.iColours"></canvas>
-                 <p class="percentage">{{drugsView.drug.insurance_coverage_percentage | percentage}}</p>
-                <p>{{drugsView.drug.insurance_coverage_percentage | percentage}} of people found {{drugsView.drug.label}} covered by their insurance company</p>
+                 <p class="percentage">{{::drugsView.drug.insurance_coverage_percentage | percentage}}</p>
+                <p>{{::drugsView.drug.insurance_coverage_percentage | percentage}} of people found {{::drugsView.drug.label}} covered by their insurance company</p>
             </md-card-content>
         </md-card>
     </md-content>
