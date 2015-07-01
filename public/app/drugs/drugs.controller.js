@@ -93,11 +93,8 @@
                 var effectiveness = drug.effectiveness_percentage * 100;
                 var uneffectiveness = (1 - drug.effectiveness_percentage) * 100;
 
-                var sideEffects = ['60', '30', '10'];
-
                 that.insuranceChartData = [covered, uncovered];
                 that.effectivenessChartData = [effectiveness, uneffectiveness];
-                that.sideEffectsData = sideEffects;
             });
 
             DrugsService.getReviews({id: $stateParams.id, limit: 2}).$promise.then(function(reviews) {
@@ -146,13 +143,20 @@
     /** @ngInject */
     function DrugsOverviewCtrl() {
         this.effectiveLabels = ['Effective', 'Not Effective'];
-        this.effectiveColours = ['#673AB7', '#D1C4E9'];
-
-        this.seLabels = ['Spleen Explosion', 'Headache', 'Nausea'];
-        this.seColours = ['#4CAF50', '#81C784', '#E8F5E9'];
+        this.effectiveColours = ['#0288D1', '#B3E5FC'];
+        this.effectiveOptions = {
+            animationEasing: 'easeOutQuart',
+            percentageInnerCutout: 80,
+            segmentShowStroke : false
+        };
 
         this.iLabels = ['Covered', 'Not Covered'];
-        this.iColours = ['#FF5722', '#FFCCBC'];
+        this.iColours = ['#0288D1', '#B3E5FC'];
+        this.iOptions = {
+            animationEasing: 'easeOutQuart',
+            percentageInnerCutout: 80,
+            segmentShowStroke : false
+        };
     }
 
     /** @ngInject */
@@ -175,10 +179,20 @@
         var that = this;
 
         this.effectiveLabels = ['Effective', 'Not Effective'];
-        this.effectiveColours = ['#673AB7', '#D1C4E9'];
+        this.effectiveColours = ['#0288D1', '#B3E5FC'];
+        this.effectiveOptions = {
+            animationEasing: 'easeOutQuart',
+            percentageInnerCutout: 80,
+            segmentShowStroke : false
+        };
 
         this.insuranceLabels = ['Covered', 'Not Covered'];
-        this.insuranceColours = ['#FF5722', '#FFCCBC'];
+        this.insuranceColours = ['#0288D1', '#B3E5FC'];
+        this.insuranceOptions = {
+            animationEasing: 'easeOutQuart',
+            percentageInnerCutout: 80,
+            segmentShowStroke : false
+        };
 
         activate();
 
