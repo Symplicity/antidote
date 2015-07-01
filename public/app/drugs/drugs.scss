@@ -32,7 +32,7 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         }
     }
 }
-.reviews {
+.cardTitles {
     md-toolbar {
         background-color: transparent;
         h4 {
@@ -43,12 +43,12 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         }
     }
 }
-.review-content{
+.card-content{
     border-bottom: 1px solid #ECECEC;
     margin-bottom: 20px;
     padding-bottom: 15px;
 }
-.review-content:last-child{
+.card-content:last-child{
     border-bottom: none;
     margin-bottom: 0px;
     padding-bottom: 0px;
