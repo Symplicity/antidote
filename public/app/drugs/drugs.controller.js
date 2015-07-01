@@ -197,7 +197,7 @@
         var that = this;
 
         this.effectiveLabels = ['Effective', 'Not Effective'];
-        this.effectiveColours = ['#81c784', '#c8e6c9'];
+        this.effectiveColours = ['#5e35b1', '#d1c4e9'];
         this.effectiveOptions = {
             animationEasing: 'easeOutQuart',
             percentageInnerCutout: 80,
@@ -205,7 +205,7 @@
         };
 
         this.insuranceLabels = ['Covered', 'Not Covered'];
-        this.insuranceColours = ['#0288D1', '#B3E5FC'];
+        this.insuranceColours = ['#FF9800', '#FFE0B2'];
         this.insuranceOptions = {
             animationEasing: 'easeOutQuart',
             percentageInnerCutout: 80,
