@@ -158,7 +158,6 @@ class ImportDrugs extends Command
             }
             $drug->alternatives()->sync($alternatives);
 
-
             $indications_map = App\DrugIndication::lists('id', 'value');
 
             $indications = [];
@@ -172,7 +171,6 @@ class ImportDrugs extends Command
             if (!empty($indications)) {
                 $drug->indications()->attach($indications);
             }
-
 
             $side_effect_map = App\DrugIndication::lists('id', 'value');
 
