@@ -26,9 +26,19 @@ describe('The main view', function() {
         page.checkAboutContent();
     });
 
+    it('should provide browse button', function() {
+        page.menuButtons.get(0).click();
+        browser.waitForAngular();
+        page.browseButton.click();
+        page.checkAlphaLinks();
+    });
+
     it('should provide footer links', function() {
         expect(page.footerLinks.getText()).toEqual([
             'Terms of Service', 'Privacy Policy', 'View Project on GitHub', 'API Documentation', 'Support'
         ]);
+
+        page.footerLinks.get(1).click();
+        page.checkPrivacyContent();
     });
 });
