@@ -43,14 +43,12 @@ class DrugController extends Controller
         //disable extra appends specified in the model
         \App\Drug::$without_appends = true;
 
-        $drugs = Drug::select('id', 'label', 'generic')->where('label', 'LIKE', $term . '%');
-
-        if (!empty($request->input('include_generics'))) {
-            $drugs = $drugs->orWhere('generic', 'LIKE', $term . '%');
-        }
-
-        $drugs = $drugs->limit($limit)->orderBy('label', 'ASC')->get('label', 'id');
-        return $drugs;
+        return Drug::select('id', 'label', 'generic')
+            ->where('label', 'LIKE', $term . '%')
+            ->orWhere('generic', 'LIKE', $term . '%')
+            ->limit($limit)
+            ->orderBy('label', 'ASC')
+            ->get('label', 'id');
     }
 
     /**

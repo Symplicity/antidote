@@ -63,6 +63,7 @@ class DrugControllerTest extends TestCase
         $params = ['term' => 'foo'];
         $this->stubQuery->shouldReceive('get')->once()->with('label', 'id');
         $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', '%' . $params['term'] . '%')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('orWhere')->once()->with('generic', 'LIKE', '%' . $params['term'] . '%')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('limit')->once()->with(15)->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
         $this->mockModel->shouldReceive('select')->once()->with('id', 'label', 'generic')->andReturn($this->stubQuery);

@@ -10,10 +10,7 @@
         return {
             restrict: 'E',
             templateUrl: 'app/components/drugs-search/drugs-search.html',
-            controller: 'DrugsSearchCtrl as drugsSearch',
-            link: function() {
-
-            }
+            controller: 'DrugsSearchCtrl as drugsSearch'
         };
     }
 })();
