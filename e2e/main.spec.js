@@ -8,6 +8,7 @@ describe('The main view', function() {
             browser.manage().window().setSize(1024, 768);
             browser.get(browser.baseUrl);
             page = require('./main.po');
+            page.setupHomePage();
         }
     });
 
