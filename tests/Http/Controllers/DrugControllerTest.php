@@ -89,17 +89,45 @@ class DrugControllerTest extends TestCase
         $this->ctrl->index($request);
     }
 
-    /*public function testGetReviews() TODO: fix this test for new query but since that is in flux wait to change this
+    /*public function testGetReviews()
     {
+        $this->setupDatabase();
+
         $this->stubQuery->shouldReceive('paginate')->once()->with(15);
-        $this->stubQuery->shouldReceive('orderBy')->once()->with('created_at', 'DESC')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('upvotes_cache', 'DESC')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('downvotes_cache', 'DESC')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('with')->with('sideEffects')->once()->andReturn($this->stubQuery);
-        $this->stubQuery->shouldReceive('with')->with('drug')->once()->andReturn($this->stubQuery);
-        $this->stubQuery->shouldReceive('with')->with('user')->once()->andReturn($this->stubQuery);
-        $this->stubQuery->shouldReceive('reviews')->once()->andReturn($this->stubQuery);
-        $this->mockModel->shouldReceive('find')->once()->with('foo')->andReturn($this->stubQuery);
+
+        $mockModel = \Mockery::mock('\App\DrugReview');
+        $mockModel->shouldReceive('where')->once()->with('drug_id','foo')->andReturn($this->stubQuery);
 
         $request = new Illuminate\Http\Request;
+
+        $this->ctrl->getReviews('foo', $request);
+    }
+
+    public function testGetReviewsFull()
+    {
+        $this->setupDatabase();
+
+        $params = [
+            'min_age' => 18,
+            'max_age' => 35,
+            'gender' => 'f'
+        ];
+
+        $this->stubQuery->shouldReceive('paginate')->once()->with(15);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('upvotes_cache', 'DESC')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('downvotes_cache', 'DESC')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('where')->once()->with('min_age', '>=', 18)->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('where')->once()->with('max_age', '<=', 35)->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('where')->once()->with('gender', 'f')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('with')->with('sideEffects')->once()->andReturn($this->stubQuery);
+
+        $mockModel = \Mockery::mock('\App\DrugReview');
+        $mockModel->shouldReceive('where')->once()->with('drug_id', 'foo')->andReturn($this->stubQuery);
+
+        $request = new Illuminate\Http\Request($params);
 
         $this->ctrl->getReviews('foo', $request);
     }*/

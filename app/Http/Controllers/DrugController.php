@@ -63,10 +63,26 @@ class DrugController extends Controller
     public function getReviews($id, Request $request)
     {
         $limit = $this->getLimit($request);
+        $min_age = $request->input('min_age');
+        $max_age = $request->input('max_age');
+        $gender = $request->input('gender');
 
         $reviews = DrugReview::where('drug_id', $id)
-            ->with('sideEffects')
-            ->orderBy('upvotes_cache', 'DESC')
+            ->with('sideEffects');
+
+        if (!empty($min_age)) {
+            $reviews = $reviews->where('age', '>=', $min_age);
+        }
+
+        if (!empty($max_age)) {
+            $reviews = $reviews->where('age', '<=', $max_age);
+        }
+
+        if (!empty($gender)) {
+            $reviews = $reviews->where('gender', $gender);
+        }
+
+        $reviews = $reviews->orderBy('upvotes_cache', 'DESC')
             ->orderBy('downvotes_cache', 'ASC')
             ->paginate($limit);
 
