@@ -11,11 +11,10 @@
 
         this.getMatches = function(searchText) {
             return DrugsService.queryAutocomplete({
-                'term': searchText,
-                'include_generics': 1
+                'term': searchText
             }).$promise.then(function(resp) {
-                return resp;
-            });
+                    return resp;
+                });
         };
 
         this.textChange = function() {
@@ -25,6 +24,5 @@
         this.itemChange = function(item) {
             $state.go('drugs.view.overview', {'id': item.id});
         };
-
     }
 })();
