@@ -116,7 +116,6 @@
 	}
 
 	.md-pills {
-        padding: 25px;
         color: #212121;
         font-size: 12px;
         display: inline-block;
@@ -126,7 +125,7 @@
         padding: 1px 10px;
         background-color: $md-secondary;
         border-color: $md-secondary;
-        margin: 0 6px;
+        margin: 5px;
 	}
 
 	.md-button.md-raised:not([disabled]):hover {

@@ -7,8 +7,10 @@
                 <h4>Effectiveness</h4>
             </md-toolbar>
             <md-card-content class="top-3">
-                <canvas id="doughnut" class="chart chart-doughnut" data="drugsView.effectivenessChartData" labels="drugsOverview.effectiveLabels" colours="drugsOverview.effectiveColours" options="drugsOverview.effectiveOptions" ></canvas>
-                <p class="percentage">{{drugsView.drug.effectiveness_percentage | percentage}}</p>
+                <div class="overview-graph">
+                    <canvas id="doughnut" height="100%" width="100%" class="chart chart-doughnut" data="drugsView.effectivenessChartData" labels="drugsOverview.effectiveLabels" colours="drugsOverview.effectiveColours" options="drugsOverview.effectiveOptions" ></canvas>
+                    <p class="e-percent percentage">{{drugsView.drug.effectiveness_percentage | percentage}}</p>
+                </div>
                 <p>{{drugsView.drug.effectiveness_percentage | percentage}} of people found {{drugsView.drug.label}} effective</p>
             </md-card-content>
         </md-card>
@@ -19,9 +21,8 @@
                 <h4>Side Effects</h4>
             </md-toolbar>
             <md-card-content class="top-3" ng-if="drugsView.drug.side_effects.length > 0">
-                <ul ng-repeat="side_effect in drugsView.drug.side_effects">
-                    <li>{{::side_effect.value | capitalize}}</li>
-                </ul>
+                <span class="md-pills" ng-repeat="side_effect in drugsView.drug.side_effects">{{::side_effect.value | capitalize}}</span>
+                    
             </md-card-content>
         </md-card>
 
@@ -31,8 +32,10 @@
                 <h4>Insurance</h4>
             </md-toolbar>
             <md-card-content class="top-3">
-                 <canvas id="doughnut" class="chart chart-doughnut" data="drugsView.insuranceChartData" labels="drugsOverview.iLabels" colours="drugsOverview.iColours" options="drugsOverview.iOptions"></canvas>
-                 <p class="percentage">{{drugsView.drug.insurance_coverage_percentage | percentage}}</p>
+                <div class="overview-graph">
+                    <canvas id="doughnut" class="chart chart-doughnut" data="drugsView.insuranceChartData" labels="drugsOverview.iLabels" colours="drugsOverview.iColours" options="drugsOverview.iOptions"></canvas>
+                    <p class="i-percent percentage">{{drugsView.drug.insurance_coverage_percentage | percentage}}</p>
+                </div>
                 <p>{{drugsView.drug.insurance_coverage_percentage | percentage}} of people found {{drugsView.drug.label}} covered by their insurance company</p>
             </md-card-content>
         </md-card>

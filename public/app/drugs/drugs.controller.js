@@ -184,16 +184,18 @@
         this.effectiveColours = ['#5e35b1', '#d1c4e9'];
         this.effectiveOptions = {
             animationEasing: 'easeOutQuart',
-            percentageInnerCutout: 75,
-            segmentShowStroke : false
+            percentageInnerCutout: 85,
+            segmentShowStroke : false,
+            responsive: false
         };
 
         this.iLabels = ['Covered', 'Not Covered'];
         this.iColours = ['#FF9800', '#FFE0B2'];
         this.iOptions = {
             animationEasing: 'easeOutQuart',
-            percentageInnerCutout: 75,
-            segmentShowStroke : false
+            percentageInnerCutout: 85,
+            segmentShowStroke : false,
+            responsive: false
         };
     }
 
@@ -245,16 +247,18 @@
         this.effectiveColours = ['#5e35b1', '#d1c4e9'];
         this.effectiveOptions = {
             animationEasing: 'easeOutQuart',
-            percentageInnerCutout: 80,
-            segmentShowStroke : false
+            percentageInnerCutout: 85,
+            segmentShowStroke : false,
+            responsive: false
         };
 
         this.insuranceLabels = ['Covered', 'Not Covered'];
         this.insuranceColours = ['#FF9800', '#FFE0B2'];
         this.insuranceOptions = {
             animationEasing: 'easeOutQuart',
-            percentageInnerCutout: 80,
-            segmentShowStroke : false
+            percentageInnerCutout: 85,
+            segmentShowStroke : false,
+            responsive: false
         };
 
         activate();
