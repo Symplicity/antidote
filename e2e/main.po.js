@@ -8,10 +8,13 @@
 var ThePage = function() {
     this.menuButtons = element.all(by.css('.md-toolbar-tools a.nav-link'));
     this.hamburgerButton = element(by.css('.md-toolbar-tools button'));
-    this.browseButton = element(by.css('.md-quote a'));
     this.mobileButtons = element.all(by.css('.md-sidenav-right a.md-button'));
-    this.homeCards = element.all(by.css('.md-home-card h2'));
     this.footerLinks = element.all(by.css('footer a'));
+
+    this.setupHomePage = function() {
+        this.homeCards = element.all(by.css('.md-home-card h2'));
+        this.browseButton = element(by.css('.md-quote a'));
+    };
 
     this.checkAlphaLinks = function() {
         var alphaLinks = element.all(by.repeater('letter in drugsList.letters'));

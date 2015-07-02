@@ -8,6 +8,7 @@ describe('The mobile view', function() {
             browser.manage().window().setSize(480, 640);
             browser.get(browser.baseUrl);
             page = require('./main.po');
+            page.setupHomePage();
         }
     });
 
