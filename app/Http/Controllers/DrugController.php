@@ -22,12 +22,16 @@ class DrugController extends Controller
 
     public function index(Request $request)
     {
+        $term = $request->input('term');
         $limit = $this->getLimit($request);
 
-        $drugs = Drug::with('sideEffects');
+        //disable extra appends specified in the model
+        \App\Drug::$without_appends = true;
 
-        if ($keywords = $request['keywords']) {
-            $drugs = $drugs->where('label', 'LIKE', '%' . $keywords . '%')->orWhere('description', 'LIKE', '%' . $keywords . '%');
+        $drugs = Drug::select('id', 'label');
+
+        if (!empty($term)) {
+            $drugs = $drugs->where('label', 'LIKE', $term . '%');
         }
 
         $drugs = $drugs->orderBy('label', 'ASC')->paginate($limit);
@@ -48,7 +52,7 @@ class DrugController extends Controller
             ->orWhere('generic', 'LIKE', $term . '%')
             ->limit($limit)
             ->orderBy('label', 'ASC')
-            ->get('label', 'id');
+            ->get();
     }
 
     /**

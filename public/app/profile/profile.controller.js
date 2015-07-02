@@ -7,12 +7,12 @@
 
     /** @ngInject */
     function ProfileCtrl($mdToast, ProfileService) {
-        var that = this;
+        var self = this;
         activate();
 
         function activate() {
             ProfileService.get().$promise.then(function(user) {
-                that.user = user;
+                self.user = user;
             });
         }
 

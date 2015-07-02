@@ -14,7 +14,9 @@
 
     /** @ngInject */
     function DrugsListCtrl(DrugsService, $stateParams) {
-        var that = this;
+        var self = this;
+        this.drugs = [];
+
         this.letters = [
             'a', 'b', 'c', 'd', 'e', 'f', 'g',
             'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -24,13 +26,22 @@
             'z'
         ];
 
-        activate();
-
         function activate() {
-            DrugsService.queryAutocomplete($stateParams).$promise.then(function(drugs) {
-                that.drugs = drugs;
-            });
+            self.loadData();
         }
+
+        this.loadData = function() {
+            DrugsService.query(
+                {
+                    term: $stateParams.term,
+                    page: self.page,
+                    limit: self.perPage
+                }
+            ).$promise.then(function(drugs) {
+                    self.drugs = self.drugs.concat(drugs.data);
+                    self.more = self.page < drugs.last_page;
+                });
+        };
 
         this.getAlphabetFilterClass = function(alphabet) {
             if ($stateParams.term === alphabet) {
@@ -39,11 +50,27 @@
                 return '';
             }
         };
+
+        /** PAGINATION **/
+        this.perPage = 50;
+        this.page = 1;
+        this.more = true;
+
+        this.showMore = function() {
+            self.page++;
+            self.loadData();
+        };
+
+        this.hasMore = function() {
+            return self.more;
+        };
+
+        activate();
     }
 
     /** @ngInject */
     function DrugsViewCtrl(DrugsService, $stateParams, SignupModalService, $auth, $mdDialog, $state) {
-        var that = this;
+        var self = this;
 
         activate();
 
@@ -86,17 +113,17 @@
                     clickOutsideToClose: true,
                     hasBackdrop: true,
                     locals: {
-                        drug_side_effects: that.drug.side_effects
+                        drug_side_effects: self.drug.side_effects
                     }
                 });
             } else {
-                that.openSignupModal();
+                self.openSignupModal();
             }
         };
 
         function activate() {
             DrugsService.get({id: $stateParams.id}).$promise.then(function(drug) {
-                that.drug = drug;
+                self.drug = drug;
 
                 var covered = drug.insurance_coverage_percentage * 100;
                 var uncovered = (1 - drug.insurance_coverage_percentage) * 100;
@@ -104,12 +131,12 @@
                 var effectiveness = drug.effectiveness_percentage * 100;
                 var uneffectiveness = (1 - drug.effectiveness_percentage) * 100;
 
-                that.insuranceChartData = [covered, uncovered];
-                that.effectivenessChartData = [effectiveness, uneffectiveness];
+                self.insuranceChartData = [covered, uncovered];
+                self.effectivenessChartData = [effectiveness, uneffectiveness];
             });
 
             DrugsService.getReviews({id: $stateParams.id, limit: 2}).$promise.then(function(reviews) {
-                that.topReviews = reviews.data;
+                self.topReviews = reviews.data;
             });
         }
     }
@@ -137,7 +164,7 @@
     /** controller for review form **/
     /** @ngInject */
     function DrugsReviewCtrl(DrugsService, $stateParams) {
-        var that = this;
+        var self = this;
         this.review = {
             side_effects: []
         };
@@ -145,7 +172,7 @@
 
         this.submitReview = function() {
             DrugsService.postReview({id: $stateParams.id}, this.review).$promise.then(function() {
-                that.reviewSubmitted = true;
+                self.reviewSubmitted = true;
             });
             //TODO: add server error handling to display messages to user
         };
@@ -172,22 +199,47 @@
 
     /** @ngInject */
     function DrugsReviewsCtrl(DrugsService, $stateParams) {
-        this.reviews = {};
-        var that = this;
-
-        activate();
+        this.reviews = [];
+        var self = this;
 
         function activate() {
-            DrugsService.getReviews({id: $stateParams.id}).$promise.then(function(reviews) {
-                that.reviews = reviews.data;
-            });
+            self.loadData();
         }
+
+        this.loadData = function() {
+            DrugsService.getReviews(
+                {
+                    id: $stateParams.id,
+                    page: self.page,
+                    limit: self.perPage
+                }
+            ).$promise.then(function(reviews) {
+                    self.reviews = self.reviews.concat(reviews.data);
+                    self.more = self.page < reviews.last_page;
+                });
+        };
+
+        /** PAGINATION **/
+        this.perPage = 10;
+        this.page = 1;
+        this.more = true;
+
+        this.showMore = function() {
+            self.page++;
+            self.loadData();
+        };
+
+        this.hasMore = function() {
+            return self.more;
+        };
+
+        activate();
     }
 
     /** @ngInject */
     function DrugsAlternativesCtrl(DrugsService, $stateParams) {
         this.alternatives = {};
-        var that = this;
+        var self = this;
 
         this.effectiveLabels = ['Effective', 'Not Effective'];
         this.effectiveColours = ['#5e35b1', '#d1c4e9'];
@@ -223,14 +275,14 @@
                     };
                 });
 
-                that.alternatives = alternatives;
+                self.alternatives = alternatives;
             });
         }
     }
 
     /** @ngInject */
     function DrugsReviewVoteCtrl(DrugsService, $auth, $mdToast, SignupModalService) {
-        var that = this;
+        var self = this;
 
         this.openSignupModal = function() {
             SignupModalService.open();
@@ -260,7 +312,7 @@
                     function(resp) {
                         if (resp.status === 401) {
                             //on 401 error from server ask user to log in (prob. token expired)
-                            that.openSignupModal();
+                            self.openSignupModal();
                         } else if (resp.status === 400) {
                             //on 400 error user already voted so show toast
                             $mdToast.show(
@@ -273,7 +325,7 @@
                     }
                 );
             } else {
-                that.openSignupModal();
+                self.openSignupModal();
             }
         };
     }

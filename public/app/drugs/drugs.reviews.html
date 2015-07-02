@@ -13,13 +13,14 @@
                         </div>
                         <div flex>
                             <md-button class="md-raised md-primary" ng-click="drugsView.openReviewModal($event)">Review It</md-button>
-                        </div>                        
+                        </div>
                     </div>
-                    <div ng-repeat="review in drugsReviews.reviews" class="card-content">            
-                        <drugs-review-view review="review"></drugs-review-view>            
+                    <div ng-repeat="review in drugsReviews.reviews" class="card-content">
+                        <drugs-review-view review="review"></drugs-review-view>
                     </div>
                 </md-card-content>
             </md-card>
         </div>
     </md-content>
+    <md-button ng-if="drugsReviews.hasMore()" ng-click="drugsReviews.showMore()">View More</md-button>
 </div>
