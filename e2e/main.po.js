@@ -30,7 +30,7 @@ var ThePage = function() {
     };
 
     this.checkPrivacyContent = function() {
-        var content = element(by.css('.privacy'));
+        var content = element(by.css('.legal'));
         expect(content.getText()).toContain('operated by Symplicity Corporation');
         expect(content.getText()).toContain('required to comply with applicable laws');
         expect(content.getText()).toContain('user data may be included in aggregate reports');
