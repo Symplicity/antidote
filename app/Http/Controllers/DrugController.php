@@ -28,7 +28,7 @@ class DrugController extends Controller
         //disable extra appends specified in the model
         \App\Drug::$without_appends = true;
 
-        $drugs = Drug::select('id', 'label', 'generic');
+        $drugs = Drug::select('id', 'label');
 
         if (!empty($term)) {
             $drugs = $drugs->where('label', 'LIKE', $term . '%');

@@ -31,7 +31,7 @@ describe('Drugs Controller', function() {
                 {
                     term: 'foo',
                     page: 1,
-                    limit: 300
+                    limit: 50
                 }
             );
 
@@ -63,7 +63,7 @@ describe('Drugs Controller', function() {
                 {
                     term: 'foo',
                     page: 2,
-                    limit: 300
+                    limit: 50
                 }
             );
 

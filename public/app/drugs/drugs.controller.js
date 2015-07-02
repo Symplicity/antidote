@@ -52,7 +52,7 @@
         };
 
         /** PAGINATION **/
-        this.perPage = 300;
+        this.perPage = 50;
         this.page = 1;
         this.more = true;
 
