@@ -183,7 +183,7 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                 ]
             }
 
-### List All [GET /drugs/{id}/reviews{?keywords,page,limit}]
+### List All [GET /drugs/{id}/reviews{?page,limit,min_age,max_age,gender}]
 Returns a list of all reviews for a drug. The reviews are returned in created date descending order.  Example:
 
 ```no-highlight
@@ -193,9 +193,11 @@ https://antidote.symplicity-opensource.com/api/drugs/1/reviews
 + Parameters
 
     + id: `1` (required, integer) - The drug ID
-    + keywords: `pain` (string, optional) - Search for a drug review by keywords in the comment
-    + page: `1` (integer, optional) - Page number
-    + limit: `25` (integer, optional) - The maximum number of drug reviews to return, up to `500`
+    + min_age: `18` (optional, integer) - The minimum age of the reviewer
+    + max_age: `35` (optional, integer) - The maximum age of the reviewer
+    + gender: `f` (optional, string) - The gender of the reviewer - either f or m
+    + page: `1` (optional, integer) - Page number
+    + limit: `25` (optional, integer) - The maximum number of drug reviews to return, up to `500`
       + Default: `15`
 
 + Response 200
@@ -325,9 +327,9 @@ Vote on a drug review using this action. It takes a JSON object containing the f
 
     + Body
 
-        {
-          "message": "You've already voted on this review!"
-        }
+            {
+              "message": "You've already voted on this review!"
+            }
 
 ## Autocomplete [/autocomplete/drugs]
 You can use the autocomplete API on various resources to get an optimized list of id and value pairs.
