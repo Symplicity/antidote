@@ -71,3 +71,26 @@ md-card md-card-content.top-3{
     padding: 16px 0;
     text-align:center;
 }
+
+.drug-filters {    
+    background: #EEE;
+    margin-left: 25px;
+    width: 701px;
+    margin-bottom: -5px;
+    max-width: 100%;
+
+    md-tabs:first-child {
+        width: 326px;
+        margin-right: 5px;
+    }
+    md-tabs {
+        width: 366px;
+        display: inline-block;
+        background: #FFF;
+    }
+    .md-tab.md-active, md-tabs .md-tab.md-focused {
+        background: #5E35B1;
+        color: #FFF;
+        border: 0 !important;
+    }
+}
