@@ -6,8 +6,8 @@
                 <h4>Alternatives</h4>
             </md-toolbar>
             <md-card-content>
-                <div ng-repeat="drug in drugsAlternatives.alternatives.data" layout="row" layout-sm="column" flex layout-wrap class="mobile-fix card-content">
-                    <div flex="60" flex-sm="100">
+                <div ng-repeat="drug in drugsAlternatives.alternatives.data" layout="column" layout-gt-md="row" flex layout-wrap class="mobile-fix card-content">
+                    <div flex>
                         <div layout="column" flex class="ie-fix">
                             <div flex>
                                 <h3>{{::drug.label}}</h3>
@@ -23,15 +23,19 @@
                             </div>                  
                         </div>
                     </div>              
-                    <div class="percentages" flex="40" flex-sm="100" layout="row" layout-sm="row">  
-                        <div flex="50" flex-sm="50" class="center">
-                            <canvas id="doughnut" class="chart chart-doughnut" data="drug.chartData.effectivenessChartData" labels="drugsAlternatives.effectiveLabels" colours="drugsAlternatives.effectiveColours" options="drugsAlternatives.effectiveOptions"></canvas>
-                            <p class="percentage">{{::drug.effectiveness_percentage | percentage}}</p>
+                    <div class="percentages" layout="row" layout-sm="column" layout-align="center center" flex>  
+                        <div flex="50" flex-sm="50" layout="column" layout-align="center center">
+                            <div class="alt-graph">
+                                <canvas id="doughnut" class="chart chart-doughnut" data="drug.chartData.effectivenessChartData" labels="drugsAlternatives.effectiveLabels" colours="drugsAlternatives.effectiveColours" options="drugsAlternatives.effectiveOptions"></canvas>
+                                <p class="e-percent percentage">{{::drug.effectiveness_percentage | percentage}}</p>
+                            </div>
                             <p>Effectiveness</p>
                         </div>
-                        <div flex="50" flex-sm="50" class="center">
-                            <canvas id="doughnut" class="chart chart-doughnut" data="drug.chartData.insuranceChartData" labels="drugsAlternatives.insuranceLabels" colours="drugsAlternatives.insuranceColours" options="drugsAlternatives.insuranceOptions"></canvas>
-                            <p class="percentage">{{::drug.insurance_coverage_percentage | percentage}}</p>
+                        <div flex="50" flex-sm="50" layout="column" layout-align="center center">
+                            <div class="alt-graph">
+                                <canvas id="doughnut" class="chart chart-doughnut" data="drug.chartData.insuranceChartData" labels="drugsAlternatives.insuranceLabels" colours="drugsAlternatives.insuranceColours" options="drugsAlternatives.insuranceOptions"></canvas>
+                                <p class="i-percent percentage">{{::drug.insurance_coverage_percentage | percentage}}</p>
+                            </div>
                             <p>Insurance</p>
                         </div>     
                     </div>           

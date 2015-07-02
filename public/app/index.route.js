@@ -16,7 +16,11 @@
             })
             .state('privacy', {
                 url: '/privacy',
-                templateUrl: 'app/privacy/privacy.html'
+                templateUrl: 'app/legal/privacy.html'
+            })
+            .state('terms', {
+                url: '/terms',
+                templateUrl: 'app/legal/terms.html'
             })
             .state('drugs', {
                 url: '/drugs',

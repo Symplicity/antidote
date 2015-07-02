@@ -1,0 +1,25 @@
+.percentages {
+    padding-top: 20px; 
+    text-align:center; 
+
+    .alt-graph{
+         margin-bottom: -60px;
+
+        canvas{
+
+            @media only screen and (min-width : 1280px){
+                height:150px !important;
+                width:300px !important;
+            }
+        }
+
+        .percentage{
+            position: relative;
+            top: -107px;
+            left: 5px;
+            font-size: 40px;
+
+        }
+    }
+
+}

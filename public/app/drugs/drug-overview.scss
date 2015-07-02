@@ -1,0 +1,73 @@
+.top-3 {
+
+    p, span, chart-container {
+        text-align: center;
+    }
+
+    .overview-graph{
+        margin-bottom: -60px;
+
+        canvas{
+
+            @media only screen and (min-width : 300px) and (max-width : 399px){
+                width:220px !important;
+                height:110px !important;
+            }
+
+            @media only screen and (min-width : 400px) and (max-width : 999px){
+                width:300px !important;
+                height:150px !important;
+
+            }
+
+            @media only screen and (min-width : 1000px) and (max-width : 1279px){
+                width:267px !important;
+                height:134px !important;
+            }
+
+            @media only screen and (min-width : 1280px){
+                height:180px !important;
+                width:360px !important;
+            }
+
+        }
+
+        .i-percent{
+            color: #FF9800;
+        }
+
+        .e-percent{
+            color: #5e35b1;
+        }
+
+
+        .percentage{
+            position: relative;
+            top: -133px;
+            left: 3px;
+
+            @media only screen and (min-width : 300px) and (max-width : 399px) {
+                top: -83px;
+                left: 5px;
+                font-size: 30px;
+             }
+
+             @media only screen and (min-width : 400px) and (max-width : 999px) {
+                top: -115px;
+                left: 5px;
+                font-size: 50px;
+             }
+ 
+             @media only screen and (min-width : 1000px) and (max-width : 1279px) {
+                top: -105px;
+                left: 5px;
+                font-size: 45px;
+             }
+
+        }
+    }
+}
+md-card md-card-content.top-3{
+    padding: 16px 0;
+    text-align:center;
+}
