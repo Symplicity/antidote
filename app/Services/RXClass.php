@@ -10,19 +10,19 @@ class RXClass extends RestAPI
     public function getConceptIndications($rxcui)
     {
         $indications = [];
-        
+
         $diseases = $this->getByRxcui($rxcui, 'relas=may_treat+may_prevent');
         foreach ($diseases as $disease) {
             $indication = $disease['rxclassMinConceptItem']['className'];
         }
-        
+
         return $indications;
     }
-    
+
     public function getRelatedConcepts($rxcui)
     {
         $concepts = [];
-        
+
         $classes = $this->getByRxcui($rxcui, 'relaSource=ATC');
         foreach ($classes as $class) {
             $class_id = $class['rxclassMinConceptItem']['classId'];
@@ -39,14 +39,14 @@ class RXClass extends RestAPI
     private function getByRxcui($rxcui, $query)
     {
         $results = $this->get("class/byRxcui.json?rxcui={$rxcui}&{$query}");
-        
+
         return array_get($results, 'rxclassDrugInfoList.rxclassDrugInfo', []);
     }
-    
+
     private function getClassMembers($classId, $query)
     {
         $results = $this->get("classMembers.json?classId={$classId}&{$query}");
-        
+
         return array_get($results, 'drugMemberGroup.drugMember', []);
     }
 }
