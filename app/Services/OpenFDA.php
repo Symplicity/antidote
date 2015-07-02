@@ -9,16 +9,17 @@ class OpenFDA extends RestAPI
     protected $api_base_uri = 'https://api.fda.gov/';
     protected $rate_limit = 4;
 
-    public function __construct($args = [])
+    public function __construct(Client $client)
     {
+        parent::__construct($client);
+        
         if ($api_key = env('OPENFDA_API_KEY', false)) {
-            $args['options'] = ['api_key' => $api_key];
-            parent::__construct($args);
+            $this->setOptions(['api_key' => $api_key]);
         } else {
             Log::error('OpenFDA api key is not set!');
         }
     }
-
+    
     public function sanitizeName($name)
     {
         if ($name && ($sanitized = preg_replace('/\+{2,}/', '+', preg_replace('/\W/', '+', $name)))) {
@@ -29,11 +30,11 @@ class OpenFDA extends RestAPI
     public function getDescription($concept, $records)
     {
         $description = '';
-        
+
         $rxcui = $concept['rxcui'];
         $type = $concept['type'];
         $name = array_get($concept, 'sanitized_' . $type, '');
-        
+
         if ($name) {
             foreach ($records as $record) {
                 $desc = array_get($record, 'description.0', '');
@@ -43,14 +44,14 @@ class OpenFDA extends RestAPI
                 if ($desc) {
                     $rxcuis = array_get($record, 'openfda.rxcui', []);
                     $sanitized = array_get($record, 'sanitized_' . $type, '');
-                    
+
                     if (in_array($rxcui, $rxcuis) || ($sanitized && $name == $sanitized)) {
                         return $desc;
                     }
                 }
             }
         }
-        
+
         return $description;
     }
 
@@ -67,10 +68,10 @@ class OpenFDA extends RestAPI
                 }
             }
         }
-        
+
         return array_keys($types);
     }
-    
+
     public function getDrugLabels($concept)
     {
         $labels = [];
@@ -78,13 +79,13 @@ class OpenFDA extends RestAPI
         $rxcui = $concept['rxcui'];
         $brand = $concept['sanitized_brand'];
         $generic = $concept['sanitized_generic'];
-        
+
         $terms = [
             ['field' => 'openfda.brand_name', 'value' => $brand],
             ['field' => 'openfda.generic_name', 'value' => $generic],
             ['field' => 'openfda.rxcui', 'value' => $rxcui]
             ];
-        
+
         if ($search = $this->getSearchQuery($terms)) {
             $results = $this->get("drug/label.json?search={$search}&limit=100");
             $results = array_get($results, 'results', []);
@@ -93,7 +94,7 @@ class OpenFDA extends RestAPI
                 $res['rxcuis'] = array_get($res, 'openfda.rxcui', []);
                 $res['sanitized_brand'] = $this->sanitizeName(array_get($res, 'openfda.brand_name.0', ''));
                 $res['sanitized_generic'] = $this->sanitizeName(array_get($res, 'openfda.generic_name.0', ''));
-                
+
                 if (in_array($rxcui, $res['rxcuis']) ||
                     ($brand && $res['sanitized_brand'] && $brand == $res['sanitized_brand']) ||
                     ($generic && $res['sanitized_generic'] && $generic == $res['sanitized_generic'])) {
@@ -101,7 +102,7 @@ class OpenFDA extends RestAPI
                 }
             }
         }
-        
+
 #        echo $rxcui . ': SELECTED ' . count($labels) . ' labels out of ' . count($results) . " [" . $brand . "]\n";
         return $labels;
     }
@@ -111,10 +112,10 @@ class OpenFDA extends RestAPI
         $recalls = [];
 
         $terms = [['field' => 'openfda.rxcui', 'value' => $concept['rxcui']]];
-        
+
         if ($search = $this->getSearchQuery($terms)) {
             $results = $this->get("drug/enforcement.json?search={$search}+AND+status:Ongoing&limit=5");
-            
+
             foreach (array_get($results, 'results', []) as $result) {
                 $recalls[] = [
                     'number' => $result['recall_number'],
@@ -124,10 +125,10 @@ class OpenFDA extends RestAPI
                     ];
             }
         }
-        
+
         return $recalls;
     }
-    
+
     public function getIndications($concept)
     {
         $indications = [];
@@ -137,7 +138,7 @@ class OpenFDA extends RestAPI
             ['field' => 'patient.drug.medicinalproduct', 'value' => $concept['sanitized_brand']],
             ['field' => 'patient.drug.medicinalproduct', 'value' => $concept['sanitized_generic']]
         ];
-        
+
         if ($search = $this->getSearchQuery($terms)) {
             $results = $this->get("drug/event.json?search={$search}&count=patient.drug.drugindication.exact");
 
@@ -172,13 +173,13 @@ class OpenFDA extends RestAPI
     private function getSearchQuery($terms = [])
     {
         $saerch = [];
-        
+
         foreach ($terms as $term) {
             if (!empty($term['field']) && !empty($term['value'])) {
                 $search[] = $term['field'] . ':"' . $term['value'] . '"';
             }
         }
-        
+
         return join('+', $search);
     }
 }

@@ -41,7 +41,21 @@ class ImportDrugs extends Command
      * @var string
      */
     protected $description = 'Import drug data from various APIs such as OpenFDA, RxNorm & RxClass';
-
+    
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct(OpenFDA $openfda, RXNorm $rxnorm, RXClass $rxclass)
+    {
+        parent::__construct();
+        
+        $this->openfda = $openfda;
+        $this->rxnorm = $rxnorm;
+        $this->rxclass = $rxclass;
+    }
+    
     /**
      * Execute the console command.
      *
@@ -55,17 +69,18 @@ class ImportDrugs extends Command
 
         $this->skip = (int)$this->option('skip');
         $this->limit = (int)$this->option('limit');
-
-        $args = ['verbose' => $this->option('verbose')];
-        $this->openfda = new OpenFDA($args);
-        $this->rxnorm = new RXNorm($args);
-        $this->rxclass = new RXClass($args);
+        
+        if ($this->option('verbose')) {
+            $this->openfda->setVerbose(true);
+            $this->rxnorm->setVerbose(true);
+            $this->rxnorm->setVerbose(true);
+        }
 
         $this->indications = DrugIndication::lists('id', 'value');
         $this->side_effects = DrugSideEffect::lists('id', 'value');
-
+        
         $this->translation = $this->setupTranslation();
-
+        
         $this->importConcepts();
         $this->importConceptRelations();
         

@@ -13,7 +13,7 @@ class RXClassServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('RXClass', function ($app) {
-            return new RXClass($app['Guzzle']);
+            return new RXClass($app['GuzzleHttp\Client']);
         });
     }
 }
