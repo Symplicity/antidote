@@ -31,10 +31,6 @@
                     term: {
                         value: 'a',
                         squash: true
-                    },
-                    limit: {
-                        value: '500',
-                        squash: true
                     }
                 }
             })
