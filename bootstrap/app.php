@@ -81,6 +81,7 @@ $app->routeMiddleware([
 
 $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\DrugProvider::class);
+$app->register(App\Providers\DrugReviewProvider::class);
 $app->register(App\Providers\DrugIndicationProvider::class);
 $app->register(App\Providers\DrugSideEffectProvider::class);
 $app->register(App\Providers\UserProvider::class);
