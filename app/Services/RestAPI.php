@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Log;
 use GuzzleHttp\Client;
 use App\Exceptions\Handler;
 
