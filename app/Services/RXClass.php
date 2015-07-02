@@ -2,74 +2,12 @@
 
 namespace App\Services;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
-use Illuminate\Support\Facades\Config;
-
-class RXClass
+class RXClass extends RestAPI
 {
-    private $client;
-    private $api_base_uri = 'http://rxnav.nlm.nih.gov/REST/rxclass';
-    private $rate_limit = 8;
+    protected $api_base_uri = 'http://rxnav.nlm.nih.gov/REST/rxclass/';
+    protected $rate_limit = 20;
 
-    public function __construct(Client $client = null)
-    {
-        $this->client = $client;
-        $this->rate_limig = env('RXCLASS_RATE_LIMIT', $this->rate_limit);
-    }
-/*
-    private function limitRate()
-    {
-        $this->requests++;
-
-        if ($this->rate_limit && $this->requests % $this->rate_limit === 0) {
-            sleep(1);
-        }
-    }
-
-    private function fetch($query, $index = '')
-    {
-        $data = [];
-
-        $this->limitRate();
-
-        try {
-            $json = $this->client->get($this->base_uri . $query);
-            $res = json_decode($json, true);
-
-            foreach (explode('.', $index) as $i) {
-                if (empty($res[$i])) {
-                    break;
-                } else {
-                    $res = $res[$i];
-                }
-            }
-
-            if (!empty($res)) {
-                $data = $res;
-            }
-        } catch (Exception $e) {
-            // skip errors
-        }
-
-        return $data;
-    }
-
-    public function getByRxcui($rxcui, $query)
-    {
-        $query = "/class/byRxcui.json?rxcui={$rxcui}&{$query}";
-
-        return $this->fetch($query, 'rxclassDrugInfoList.rxclassDrugInfo');
-    }
-
-    public function getClassMembers($classId, $query)
-    {
-        $query = "/classMembers.json?classId={$classId}&{$query}";
-
-        return $this->fetch($query, 'drugMemberGroup.drugMember');
-    }
-
-    public function getIndications($rxcui)
+    public function getConceptIndications($rxcui)
     {
         $indications = [];
 
@@ -81,7 +19,7 @@ class RXClass
         return $indications;
     }
 
-    public function getRelated($rxcui)
+    public function getRelatedConcepts($rxcui)
     {
         $concepts = [];
 
@@ -97,5 +35,18 @@ class RXClass
 
         return $concepts;
     }
-*/
+
+    private function getByRxcui($rxcui, $query)
+    {
+        $results = $this->get("class/byRxcui.json?rxcui={$rxcui}&{$query}");
+
+        return array_get($results, 'rxclassDrugInfoList.rxclassDrugInfo', []);
+    }
+
+    private function getClassMembers($classId, $query)
+    {
+        $results = $this->get("classMembers.json?classId={$classId}&{$query}");
+
+        return array_get($results, 'drugMemberGroup.drugMember', []);
+    }
 }

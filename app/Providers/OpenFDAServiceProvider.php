@@ -13,7 +13,7 @@ class OpenFDAServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('OpenFDA', function ($app) {
-            return new OpenFDA($app['Guzzle']);
+            return new OpenFDA($app['GuzzleHttp\Client']);
         });
     }
 }
