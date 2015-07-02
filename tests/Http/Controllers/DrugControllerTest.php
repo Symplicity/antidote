@@ -51,7 +51,7 @@ class DrugControllerTest extends TestCase
     {
         $this->stubQuery->shouldReceive('paginate')->once()->with(15);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
-        $this->mockModel->shouldReceive('select')->once()->with('id', 'label', 'generic')->andReturn($this->stubQuery);
+        $this->mockModel->shouldReceive('select')->once()->with('id', 'label')->andReturn($this->stubQuery);
 
         $request = new Illuminate\Http\Request;
 
@@ -82,7 +82,7 @@ class DrugControllerTest extends TestCase
         $this->stubQuery->shouldReceive('paginate')->once()->with(20);
         $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', 'foo%')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
-        $this->mockModel->shouldReceive('select')->once()->with('id', 'label', 'generic')->andReturn($this->stubQuery);
+        $this->mockModel->shouldReceive('select')->once()->with('id', 'label')->andReturn($this->stubQuery);
 
         $request = new Illuminate\Http\Request($params);
 
