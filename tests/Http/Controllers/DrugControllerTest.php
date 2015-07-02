@@ -51,7 +51,7 @@ class DrugControllerTest extends TestCase
     {
         $this->stubQuery->shouldReceive('paginate')->once()->with(15);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
-        $this->mockModel->shouldReceive('with')->once()->with('sideEffects')->andReturn($this->stubQuery);
+        $this->mockModel->shouldReceive('select')->once()->with('id', 'label', 'generic')->andReturn($this->stubQuery);
 
         $request = new Illuminate\Http\Request;
 
@@ -61,13 +61,13 @@ class DrugControllerTest extends TestCase
     public function testAutocompleteSearch()
     {
         $params = ['term' => 'foo'];
-        $this->stubQuery->shouldReceive('get')->once()->with('label', 'id');
+
+        $this->stubQuery->shouldReceive('get')->once()->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', '%' . $params['term'] . '%')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orWhere')->once()->with('generic', 'LIKE', '%' . $params['term'] . '%')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('limit')->once()->with(15)->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
         $this->mockModel->shouldReceive('select')->once()->with('id', 'label', 'generic')->andReturn($this->stubQuery);
-
         $request = new Illuminate\Http\Request($params);
 
         $this->ctrl->autocompleteSearch($request);
@@ -77,15 +77,12 @@ class DrugControllerTest extends TestCase
     {
         $params = [
             'limit' => 20,
-            'keywords' => 'foo'
+            'term' => 'foo'
         ];
         $this->stubQuery->shouldReceive('paginate')->once()->with(20);
-        $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', '%foo%')->andReturn($this->stubQuery);
-        $this->stubQuery->shouldReceive('orWhere')->once()->with('description', 'LIKE', '%foo%')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', 'foo%')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
-
-        $this->mockModel->shouldReceive('with')->once()->with('sideEffects')
-            ->andReturn($this->stubQuery);
+        $this->mockModel->shouldReceive('select')->once()->with('id', 'label', 'generic')->andReturn($this->stubQuery);
 
         $request = new Illuminate\Http\Request($params);
 
