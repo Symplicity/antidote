@@ -105,7 +105,8 @@ class DrugController extends Controller
         }
 
         try {
-            $drug_review = DrugReview::newInstance();
+            $drug_review = DrugReview::getModel();
+
             $drug_review->drug_id = $id;
             $drug_review->user_id = $request['user']['sub'];
 
