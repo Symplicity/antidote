@@ -57,6 +57,12 @@ class DrugReviewVoteTest extends TestCase
         $drug_review = DrugReview::find($this->drug_review->id);
         $this->assertSame(0, $drug_review->upvotes_cache);
         $this->assertSame(1, $drug_review->downvotes_cache);
+
+        $vote->vote = 1;
+        $vote->save();
+        $drug_review = DrugReview::find($this->drug_review->id);
+        $this->assertSame(1, $drug_review->upvotes_cache);
+        $this->assertSame(0, $drug_review->downvotes_cache);
     }
 
     public function testRelations()
