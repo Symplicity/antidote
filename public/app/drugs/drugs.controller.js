@@ -163,7 +163,7 @@
 
     /** controller for review form **/
     /** @ngInject */
-    function DrugsReviewCtrl(DrugsService, $stateParams, ErrorHandlerService) {
+    function DrugsReviewCtrl(DrugsService, $stateParams, ServerErrorHandlerService) {
         var self = this;
         this.review = {
             side_effects: []
@@ -173,7 +173,7 @@
         this.submitReview = function() {
             DrugsService.postReview({id: $stateParams.id}, this.review).$promise.then(function() {
                 self.reviewSubmitted = true;
-            }, ErrorHandlerService.handle);
+            }, ServerErrorHandlerService.handle);
         };
     }
 
@@ -284,9 +284,7 @@
     }
 
     /** @ngInject */
-    function DrugsReviewVoteCtrl(DrugsService, $auth, $mdToast, ErrorHandlerService) {
-        var self = this;
-
+    function DrugsReviewVoteCtrl(DrugsService, $auth, $mdToast, SignupModalService, ServerErrorHandlerService) {
         this.vote = function(review, vote) {
             if ($auth.isAuthenticated()) {
                 DrugsService.voteOnReview(
@@ -308,10 +306,10 @@
                             }
                         }
                     },
-                    ErrorHandlerService.handle
+                    ServerErrorHandlerService.handle
                 );
             } else {
-                self.openSignupModal();
+                SignupModalService.open();
             }
         };
     }
