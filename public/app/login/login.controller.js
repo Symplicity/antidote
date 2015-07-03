@@ -6,7 +6,10 @@
         .controller('LoginCtrl', LoginCtrl);
 
     /** @ngInject */
-    function LoginCtrl($mdToast, $auth, $state) {
+    function LoginCtrl($mdToast, $auth, $state, LoginSignupModalService) {
+        this.username = '';
+        this.password = '';
+
         this.login = function() {
             $auth.login({username: this.username, password: this.password})
                 .then(loginSuccessHandler)
@@ -15,7 +18,12 @@
 
         function loginSuccessHandler() {
             $mdToast.showSimple('You have successfully logged in');
-            $state.go('home');
+            if ($state.current.name === 'login') {
+                $state.go('home');
+            } else {
+                //login dialog
+                LoginSignupModalService.close();
+            }
         }
 
         function loginErrorHandler(response) {

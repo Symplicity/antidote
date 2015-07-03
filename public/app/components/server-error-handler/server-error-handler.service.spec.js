@@ -3,24 +3,24 @@ describe('Error Handler Service', function() {
 
     var mdToast;
     var ServerErrorHandlerService;
-    var SignupModalService;
+    var LoginSignupModalService;
 
     beforeEach(function() {
         module('antidote');
-        inject(function($mdToast, _ServerErrorHandlerService_, _SignupModalService_) {
+        inject(function($mdToast, _ServerErrorHandlerService_, _LoginSignupModalService_) {
             mdToast = $mdToast;
             ServerErrorHandlerService = _ServerErrorHandlerService_;
-            SignupModalService = _SignupModalService_;
+            LoginSignupModalService = _LoginSignupModalService_;
         });
     });
 
     describe('handle', function() {
         it('should open signup on auth error', function() {
-            spyOn(SignupModalService, 'open');
+            spyOn(LoginSignupModalService, 'open');
 
             ServerErrorHandlerService.handle({status: 401});
 
-            expect(SignupModalService.open).toHaveBeenCalled();
+            expect(LoginSignupModalService.open).toHaveBeenCalled();
         });
 
         it('should open toast on regular error', function() {
