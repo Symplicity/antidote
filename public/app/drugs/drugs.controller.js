@@ -69,7 +69,7 @@
     }
 
     /** @ngInject */
-    function DrugsViewCtrl(DrugsService, $stateParams, SignupModalService, $auth, $mdDialog, $state) {
+    function DrugsViewCtrl(DrugsService, $stateParams, LoginSignupModalService, $auth, $mdDialog, $state) {
         var self = this;
 
         activate();
@@ -113,7 +113,7 @@
                     }
                 });
             } else {
-                SignupModalService.open();
+                LoginSignupModalService.open();
             }
         };
 
@@ -398,7 +398,7 @@
     }
 
     /** @ngInject */
-    function DrugsReviewVoteCtrl(DrugsService, $auth, $mdToast, SignupModalService, ServerErrorHandlerService) {
+    function DrugsReviewVoteCtrl(DrugsService, $auth, $mdToast, LoginSignupModalService, ServerErrorHandlerService) {
         this.vote = function(review, vote) {
             if ($auth.isAuthenticated()) {
                 DrugsService.voteOnReview(
@@ -423,7 +423,7 @@
                     ServerErrorHandlerService.handle
                 );
             } else {
-                SignupModalService.open();
+                LoginSignupModalService.open();
             }
         };
     }

@@ -66,7 +66,7 @@
             })
             .state('login', {
                 url: '/login',
-                templateUrl: 'app/login/login.form.html',
+                templateUrl: 'app/login/login.html',
                 controller: 'LoginCtrl as login'
             })
             .state('logout', {
@@ -76,7 +76,7 @@
             })
             .state('signup', {
                 url: '/signup',
-                templateUrl: 'app/signup/signup.form.html',
+                templateUrl: 'app/signup/signup.html',
                 controller: 'SignupCtrl as signup'
             })
             .state('password', {

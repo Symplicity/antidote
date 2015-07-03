@@ -1,0 +1,31 @@
+<md-content class="md-padding signup" flex>
+    <md-card class="signup-card">
+        <md-card-content layout="row" layout-sm="column">
+            <div flex class="left-side" layout-align="center center" flex-sm="100">
+                <img src="/images/big-logo.png" alt="Antidote Logo"/>
+
+                <p>All. Together. Now.</a></p>
+                <hr/>
+                <br/>
+                <ul>
+                    <li>
+                        <md-icon>group</md-icon>
+                        Access to reviews from people like you
+                    </li>
+                    <li>
+                        <md-icon>account_circle</md-icon>
+                        See personalized results
+                    </li>
+                    <li>
+                        <md-icon>loyalty</md-icon>
+                        Earn badges for contributing to the community
+                    </li>
+                </ul>
+            </div>
+            <div flex class="right-side" flex-sm="100">
+                <div ng-include="'app/signup/signup.form.html'"></div>
+                <md-button class="small" ui-sref="login">Already have an account? Sign In</md-button>
+            </div>
+        </md-card-content>
+    </md-card>
+</md-content>
