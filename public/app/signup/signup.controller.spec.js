@@ -57,7 +57,7 @@ describe('Signup Controller', function() {
                 });
 
                 expect($mdToast.showSimple).toHaveBeenCalledWith('You have successfully signed up');
-                expect($state.go).toHaveBeenCalledWith('home');
+                expect($state.go).toHaveBeenCalledWith('profile');
             }));
 
         it('should call auth service to sign user up and close modal', inject(

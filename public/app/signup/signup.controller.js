@@ -25,7 +25,7 @@
         function signupSuccessHandler() {
             $mdToast.showSimple('You have successfully signed up');
             if ($state.current.name === 'signup') {
-                $state.go('home');
+                $state.go('profile');
             } else {
                 //login dialog
                 LoginSignupModalService.close();
