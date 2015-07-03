@@ -7,17 +7,11 @@
 
     /** @ngInject */
     function LogoutCtrl($mdToast, $auth) {
-        if (!$auth.isAuthenticated()) {
-            return;
+        if ($auth.isAuthenticated()) {
+            $auth.logout()
+                .then(function() {
+                    $mdToast.showSimple('You have been logged out');
+                });
         }
-        $auth.logout()
-            .then(function() {
-                $mdToast.show(
-                    $mdToast.simple()
-                        .content('You have been logged out')
-                        .position('top right')
-                        .hideDelay(3000)
-                );
-            });
     }
 })();
