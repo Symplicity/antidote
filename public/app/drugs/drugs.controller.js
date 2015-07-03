@@ -163,7 +163,7 @@
 
     /** controller for review form **/
     /** @ngInject */
-    function DrugsReviewCtrl(DrugsService, $stateParams) {
+    function DrugsReviewCtrl(DrugsService, $stateParams, ServerErrorHandlerService) {
         var self = this;
         this.review = {
             side_effects: []
@@ -173,8 +173,7 @@
         this.submitReview = function() {
             DrugsService.postReview({id: $stateParams.id}, this.review).$promise.then(function() {
                 self.reviewSubmitted = true;
-            });
-            //TODO: add server error handling to display messages to user
+            }, ServerErrorHandlerService.handle);
         };
     }
 
@@ -285,13 +284,7 @@
     }
 
     /** @ngInject */
-    function DrugsReviewVoteCtrl(DrugsService, $auth, $mdToast, SignupModalService) {
-        var self = this;
-
-        this.openSignupModal = function() {
-            SignupModalService.open();
-        };
-
+    function DrugsReviewVoteCtrl(DrugsService, $auth, $mdToast, SignupModalService, ServerErrorHandlerService) {
         this.vote = function(review, vote) {
             if ($auth.isAuthenticated()) {
                 DrugsService.voteOnReview(
@@ -313,23 +306,10 @@
                             }
                         }
                     },
-                    function(resp) {
-                        if (resp.status === 401) {
-                            //on 401 error from server ask user to log in (prob. token expired)
-                            self.openSignupModal();
-                        } else if (resp.status === 400) {
-                            //on 400 error user already voted so show toast
-                            $mdToast.show(
-                                $mdToast.simple()
-                                    .content(resp.data.message)
-                                    .position('top right')
-                                    .hideDelay(3000)
-                            );
-                        }
-                    }
+                    ServerErrorHandlerService.handle
                 );
             } else {
-                self.openSignupModal();
+                SignupModalService.open();
             }
         };
     }
