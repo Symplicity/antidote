@@ -159,7 +159,7 @@ class DrugControllerTest extends TestCase
         $mockReview->shouldReceive('toArray')->once();
         $mockReview->shouldReceive('save')->once();
 
-        DrugReview::shouldReceive('newInstance')->once()->andReturn($mockReview);
+        DrugReview::shouldReceive('getModel')->once()->andReturn($mockReview);
 
         $response = $this->ctrl->addReview('foo', $request);
 
