@@ -22,20 +22,10 @@
         this.updateProfile = function() {
             this.user.$update()
                 .then(function() {
-                    showDefaultToast('Profile has been updated');
+                    $mdToast.showSimple('Profile has been updated');
                 },
                 ServerErrorHandlerService.handle
             );
         };
-
-        function showDefaultToast(message) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .content(message)
-                    .position('top right')
-                    .hideDelay(3000)
-            );
-        }
-
     }
 })();

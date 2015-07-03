@@ -27,31 +27,16 @@
         };
 
         function loginSuccessHandler() {
-            $mdToast.show(
-                $mdToast.simple()
-                    .content('You have successfully logged in')
-                    .position('top right')
-                    .hideDelay(3000)
-            );
+            $mdToast.showSimple('You have successfully logged in');
         }
 
         function loginErrorHandler(response) {
             if (typeof response.data.message === 'object') {
                 angular.forEach(response.data.message, function(message) {
-                    $mdToast.show(
-                        $mdToast.simple()
-                            .content(message[0])
-                            .position('top right')
-                            .hideDelay(3000)
-                    );
+                    $mdToast.showSimple(message[0]);
                 });
             } else {
-                $mdToast.show(
-                    $mdToast.simple()
-                        .content(response.data ? response.data.message : response)
-                        .position('top right')
-                        .hideDelay(3000)
-                );
+                $mdToast.showSimple(response.data ? response.data.message : response);
             }
         }
     }
