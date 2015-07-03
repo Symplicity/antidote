@@ -21,6 +21,7 @@
             });
 
         $authProvider.baseUrl = '/api';
+        $authProvider.loginRedirect = null;
         $authProvider.logoutRedirect = '/home';
     }
 
