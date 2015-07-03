@@ -3,10 +3,10 @@
 
     angular
         .module('antidote')
-        .factory('ErrorHandlerService', ErrorHandlerService);
+        .factory('ServerErrorHandlerService', ServerErrorHandlerService);
 
     /** @ngInject */
-    function ErrorHandlerService($mdToast, SignupModalService) {
+    function ServerErrorHandlerService($mdToast, SignupModalService) {
         return {
             handle: function(response) {
                 if (response.status === 401) {
