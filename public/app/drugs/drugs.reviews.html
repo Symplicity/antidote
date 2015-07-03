@@ -15,8 +15,18 @@
                             <md-button class="md-raised md-primary" ng-click="drugsView.openReviewModal($event)">Review It</md-button>
                         </div>
                     </div>
-                    <div ng-repeat="review in drugsReviews.reviews" class="card-content">
-                        <drugs-review-view review="review"></drugs-review-view>
+                    <div class="drug-filters">
+                        <md-tabs md-center-tabs="false" md-selected="drugsReviews.selectedGenderTabIndex">
+                            <md-tab ng-repeat="gender in drugsReviews.genders" md-on-select="drugsReviews.onGenderFilterSelected(gender)">{{gender.label}}</md-tab>
+                        </md-tabs>
+                        <md-tabs md-center-tabs="false" md-selected="drugsReviews.selectedAgeRangeTabIndex">
+                            <md-tab ng-repeat="ageRange in drugsReviews.ageRanges" md-on-select="drugsReviews.onAgeRangeFilterSelected(ageRange)">{{ageRange.label}}</md-tab>
+                        </md-tabs>
+                    </div>
+                    <div ng-if="drugsReviews.reviews.length > 0">
+                        <div ng-repeat="review in drugsReviews.reviews" class="card-content">
+                            <drugs-review-view review="review"></drugs-review-view>
+                        </div>
                     </div>
                 </md-card-content>
             </md-card>

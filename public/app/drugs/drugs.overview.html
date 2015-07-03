@@ -56,7 +56,7 @@
                     <md-button class="md-raised md-primary" ng-click="drugsView.openReviewModal($event)">Review It</md-button>
                 </div>
             </div>
-            <div ng-repeat="review in drugsView.topReviews | limitTo: 2" class="review-content">
+            <div ng-repeat="review in drugsOverview.topReviews | limitTo: 2" class="review-content">
                 <drugs-review-view review="review"></drugs-review-view>
             </div>
         </md-card-content>
