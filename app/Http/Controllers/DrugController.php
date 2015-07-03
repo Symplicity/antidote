@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Facades\Drug;
 use App\Facades\User;
-use App\DrugReview;
+use App\Facades\DrugReview;
 use Validator;
 
 class DrugController extends Controller
@@ -105,7 +105,8 @@ class DrugController extends Controller
         }
 
         try {
-            $drug_review = new DrugReview();
+            $drug_review = DrugReview::getModel();
+
             $drug_review->drug_id = $id;
             $drug_review->user_id = $request['user']['sub'];
 
@@ -117,7 +118,7 @@ class DrugController extends Controller
             $drug_review->comment = $request->input('comment');
             $drug_review->is_covered_by_insurance = $request->input('is_covered_by_insurance');
 
-            if ($drug_review->save() && $side_effects = $request->input('side_effects')) {
+            if ($drug_review->save() && ($side_effects = $request->input('side_effects'))) {
                 $drug_review->sideEffects()->sync($side_effects);
             }
         } catch (\Exception $e) {
