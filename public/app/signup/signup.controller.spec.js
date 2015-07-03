@@ -13,7 +13,7 @@ describe('Signup Controller', function() {
     });
 
     describe('SignupCtrl', function() {
-        it('should call auth service to login user in and redirect to home', inject(
+        it('should call auth service to sign up user and redirect to profile', inject(
             function($mdToast, $auth, $state) {
                 spyOn($auth, 'signup').and.returnValue({
                     then: function(callback) {
