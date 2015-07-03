@@ -1,0 +1,13 @@
+<md-content class="md-padding login" flex>
+    <md-card class="login-card">
+        <md-card-content>
+            <h2 class="md-title">Log In</h2>
+
+            <p>Not a user? <a ui-sref="signup">Join Today!</a></p>
+        <div ng-include="'app/login/login.form.html'"></div>
+        </md-card-content>
+        <div class="md-actions" layout="row" layout-align="end center">
+            <md-button class="small" ui-sref="password.forgot">Forgot your password?</md-button>
+        </div>
+    </md-card>
+</md-content>
