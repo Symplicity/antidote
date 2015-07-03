@@ -6,7 +6,7 @@
         .controller('ProfileCtrl', ProfileCtrl);
 
     /** @ngInject */
-    function ProfileCtrl($mdToast, ProfileService) {
+    function ProfileCtrl($mdToast, ProfileService, ServerErrorHandlerService) {
         var self = this;
         activate();
 
@@ -23,10 +23,9 @@
             this.user.$update()
                 .then(function() {
                     showDefaultToast('Profile has been updated');
-                })
-                .catch(function(response) {
-                    showDefaultToast(response.data.message);
-                });
+                },
+                ServerErrorHandlerService.handle
+            );
         };
 
         function showDefaultToast(message) {
