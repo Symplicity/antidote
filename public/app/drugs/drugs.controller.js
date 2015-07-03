@@ -130,10 +130,6 @@
                 self.insuranceChartData = [covered, uncovered];
                 self.effectivenessChartData = [effectiveness, uneffectiveness];
             });
-
-            DrugsService.getReviews({id: $stateParams.id, limit: 2}).$promise.then(function(reviews) {
-                self.topReviews = reviews.data;
-            });
         }
     }
 
@@ -174,7 +170,9 @@
     }
 
     /** @ngInject */
-    function DrugsOverviewCtrl() {
+    function DrugsOverviewCtrl(DrugsService, $stateParams) {
+        var self = this;
+
         this.effectiveLabels = ['Effective', 'Not Effective'];
         this.effectiveColours = ['#5e35b1', '#d1c4e9'];
         this.effectiveOptions = {
@@ -192,34 +190,154 @@
             segmentShowStroke : false,
             responsive: false
         };
+
+        function activate() {
+            DrugsService.getReviews({id: $stateParams.id, limit: 2}).$promise.then(function(reviews) {
+                self.topReviews = reviews.data;
+            });
+        }
+
+        activate();
     }
 
     /** @ngInject */
-    function DrugsReviewsCtrl(DrugsService, $stateParams) {
+    function DrugsReviewsCtrl(DrugsService, $stateParams, $auth, ProfileService) {
         this.reviews = [];
         var self = this;
 
         function activate() {
-            self.loadData();
+            if (!$auth.isAuthenticated()) {
+                //load with default filters
+                self.applyFilters();
+            } else {
+                ProfileService.get().$promise.then(function(user) {
+                    if (user.age || user.gender) {
+                        if (user.age) {
+                            for (var i = 0; i < self.ageRanges.length; i++) {
+                                var ageRange = self.ageRanges[i];
+                                if (user.age > ageRange.min_value && user.age < ageRange.max_value) {
+                                    self.selectedAgeRangeTabIndex = i;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (user.gender) {
+                            for (var j = 0; j < self.genders.length; j++) {
+                                var gender = self.genders[j];
+                                if (user.gender === gender.value) {
+                                    self.selectedGenderTabIndex = j;
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        //load with default filters
+                        self.applyFilters();
+                    }
+                });
+            }
         }
 
-        this.loadData = function() {
+        this.loadData = function(append) {
+            append = (typeof append !== 'undefined') ? append : true;
+
             DrugsService.getReviews(
                 {
                     id: $stateParams.id,
                     page: self.page,
-                    limit: self.perPage
+                    limit: self.perPage,
+                    min_age: self.filters.ageRange.min_value,
+                    max_age: self.filters.ageRange.max_value,
+                    gender: self.filters.gender.value
                 }
             ).$promise.then(function(reviews) {
-                    self.reviews = self.reviews.concat(reviews.data);
+                    if (append) {
+                        self.reviews = self.reviews.concat(reviews.data);
+                    } else {
+                        self.reviews = reviews.data;
+                    }
                     self.more = self.page < reviews.last_page;
                 });
         };
 
+        /** FILTERS **/
+        this.ageRanges = [
+            {
+                'min_value': null,
+                'max_value': null,
+                'label': 'All Ages'
+            },
+            {
+                'min_value': 18,
+                'max_value': 34,
+                'label': '18-34'
+            },
+            {
+                'min_value': 35,
+                'max_value': 50,
+                'label': '35-50'
+            },
+            {
+                'min_value': 51,
+                'max_value': null,
+                'label': '51+'
+            }
+        ];
+
+        this.genders = [
+            {
+                'value': null,
+                'label': 'All Genders'
+            },
+            {
+                'value': 'm',
+                'label': 'Male'
+            },
+            {
+                'value': 'f',
+                'label': 'Female'
+            }
+        ];
+
+        this.filters = {
+            ageRange: self.ageRanges[0],
+            gender: self.genders[0]
+        };
+
+        /* TODO: remove this workaround for this bug:  https://github.com/angular/material/issues/3243 */
+        var onAgeRangeFilterSelectedEventFiredCount = 0;
+        var onGenderFilterSelectedEventFiredCount = 0;
+
+        this.onAgeRangeFilterSelected = function(ageRange) {
+            onAgeRangeFilterSelectedEventFiredCount++;
+            //ignore first event
+            if (onAgeRangeFilterSelectedEventFiredCount > 1) {
+                this.filters.ageRange = ageRange;
+                this.applyFilters();
+            }
+        };
+
+        this.onGenderFilterSelected = function(gender) {
+            onGenderFilterSelectedEventFiredCount++;
+            //ignore first event
+            if (onGenderFilterSelectedEventFiredCount > 1) {
+                this.filters.gender = gender;
+                this.applyFilters();
+            }
+        };
+
+        this.applyFilters = function() {
+            this.resetPagination();
+            this.loadData(false);
+        };
+
         /** PAGINATION **/
-        this.perPage = 10;
-        this.page = 1;
-        this.more = true;
+        this.resetPagination = function() {
+            this.perPage = 10;
+            this.page = 1;
+            this.more = true;
+        };
 
         this.showMore = function() {
             self.page++;

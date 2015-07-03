@@ -73,22 +73,13 @@ describe('Drugs Controller', function() {
     });
 
     describe('DrugsViewCtrl', function() {
-        it('should call drugs service to get the record and top 2 reviews', inject(function(DrugsService) {
+        it('should call drugs service to get the record', inject(function(DrugsService) {
             var drug = {id: 2};
-            var reviews = {data: [{id: 1}, {id: 2}]};
 
             spyOn(DrugsService, 'get').and.returnValue({
                 $promise: {
                     then: function(callback) {
                         callback(drug);
-                    }
-                }
-            });
-
-            spyOn(DrugsService, 'getReviews').and.returnValue({
-                $promise: {
-                    then: function(callback) {
-                        callback(reviews);
                     }
                 }
             });
@@ -99,6 +90,33 @@ describe('Drugs Controller', function() {
             });
 
             expect(vm.drug.id).toEqual(2);
+        }));
+    });
+
+    describe('DrugsOverviewCtrl', function() {
+        it('should call drugs service to get top 2 reviews', inject(function(DrugsService) {
+            var reviews = {data: [{id: 1}, {id: 2}]};
+
+            spyOn(DrugsService, 'getReviews').and.returnValue({
+                $promise: {
+                    then: function(callback) {
+                        callback(reviews);
+                    }
+                }
+            });
+
+            var vm = controller('DrugsOverviewCtrl', {
+                $stateParams: {id: 2},
+                $scope: scope
+            });
+
+            expect(DrugsService.getReviews).toHaveBeenCalledWith(
+                {
+                    id: 2,
+                    limit: 2
+                }
+            );
+            expect(vm.topReviews[0].id).toEqual(1);
         }));
     });
 
@@ -123,7 +141,10 @@ describe('Drugs Controller', function() {
                 {
                     id: 1,
                     page: 1,
-                    limit: 10
+                    limit: 10,
+                    min_age: null,
+                    max_age: null,
+                    gender: null
                 }
             );
 
@@ -157,12 +178,70 @@ describe('Drugs Controller', function() {
                     {
                         id: 1,
                         page: 2,
-                        limit: 10
+                        limit: 10,
+                        min_age: null,
+                        max_age: null,
+                        gender: null
                     }
                 );
                 expect(vm.more).toEqual(false);
                 expect(vm.reviews.length).toEqual(2);
             }
         ));
+
+        it('should call apply search filters to the list of reviews', inject(function(DrugsService) {
+            spyOn(DrugsService, 'getReviews').and.returnValue({
+                $promise: {
+                    then: function() {
+                    }
+                }
+            });
+
+            var vm = controller('DrugsReviewsCtrl', {
+                DrugsService: DrugsService,
+                $stateParams: {id: 1}
+            });
+
+            expect(DrugsService.getReviews).toHaveBeenCalledWith(
+                {
+                    id: 1,
+                    page: 1,
+                    limit: 10,
+                    min_age: null,
+                    max_age: null,
+                    gender: null
+                }
+            );
+
+            /* TODO: remove this workaround for this bug:  https://github.com/angular/material/issues/3243 */
+            vm.onAgeRangeFilterSelected(vm.ageRanges[1]);
+            vm.onGenderFilterSelected(vm.genders[1]);
+
+            vm.onAgeRangeFilterSelected(vm.ageRanges[1]);
+
+            expect(DrugsService.getReviews).toHaveBeenCalledWith(
+                {
+                    id: 1,
+                    page: 1,
+                    limit: 10,
+                    min_age: 18,
+                    max_age: 34,
+                    gender: null
+                }
+            );
+
+            vm.onGenderFilterSelected(vm.genders[1]);
+
+            expect(DrugsService.getReviews).toHaveBeenCalledWith(
+                {
+                    id: 1,
+                    page: 1,
+                    limit: 10,
+                    min_age: 18,
+                    max_age: 34,
+                    gender: 'm'
+                }
+            );
+        }));
     });
 });
