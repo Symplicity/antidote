@@ -98,10 +98,6 @@
             this.selectedIndex = 1;
         };
 
-        this.openSignupModal = function() {
-            SignupModalService.open();
-        };
-
         this.openReviewModal = function(ev) {
             if ($auth.isAuthenticated()) {
                 $mdDialog.show({
@@ -117,7 +113,7 @@
                     }
                 });
             } else {
-                self.openSignupModal();
+                SignupModalService.open();
             }
         };
 
