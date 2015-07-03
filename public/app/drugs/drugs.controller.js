@@ -54,7 +54,7 @@
         /** PAGINATION **/
         this.perPage = 50;
         this.page = 1;
-        this.more = true;
+        this.more = false;
 
         this.showMore = function() {
             self.page++;
@@ -336,7 +336,7 @@
         this.resetPagination = function() {
             this.perPage = 10;
             this.page = 1;
-            this.more = true;
+            this.more = false;
         };
 
         this.showMore = function() {
