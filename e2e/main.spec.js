@@ -38,7 +38,37 @@ describe('The main view', function() {
             'Terms of Service', 'Privacy Policy', 'View Project on GitHub', 'API Documentation', 'Support'
         ]);
 
+        page.footerLinks.get(0).click();
+        page.checkLegalContent('Terms of Service', [
+            'Legal Notices',
+            'Permitted and Prohibited Uses',
+            'User Submissions',
+            'User Discussion Lists and Forums',
+            'Use of Personally Identifiable Information',
+            'Indemnification',
+            'Termination',
+            'WARRANTY DISCLAIMER',
+            'General',
+            'Links to Other Materials',
+            'Notification of Possible Copyright Infringement'
+        ]);
+
         page.footerLinks.get(1).click();
-        page.checkPrivacyContent();
+        page.checkLegalContent('Privacy Policy', [
+            'Privacy Policy',
+            'YOUR USE OF THE SITE',
+            'SHARING OF DATA',
+            'USE OF DATA',
+            'USE OF PERSONALLY IDENTIFIABLE INFORMATION',
+            'UPDATING ACCOUNT INFORMATION',
+            'INTERNET PROTOCOL (IP)',
+            'COOKIES',
+            'CHILDREN',
+            'SECURITY',
+            'PRIVACY POLICY CHANGES',
+            'CALIFORNIA RESIDENTS',
+            'QUESTIONS OR CONCERNS',
+            'SAFE HARBOR'
+        ]);
     });
 });
