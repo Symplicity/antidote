@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Hash;
 use Validator;
 use Illuminate\Http\Request;
-use App\User;
+use App\Facades\User;
 use JWT;
 use DateTime;
 use DateInterval;
@@ -66,7 +66,7 @@ class AuthController extends Controller
         }
 
         try {
-            $user = new User();
+            $user = User::getModel();
             $user->username = $request->input('username');
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
@@ -80,14 +80,12 @@ class AuthController extends Controller
         return response()->json(['token' => $this->createToken($user)]);
     }
 
-    public function verifyResetPasswordToken($token, Request $request)
+    public function verifyResetPasswordToken($token)
     {
-        $user = $this->findUserByToken($token);
-        if ($user) {
-            header('Location: ' . $request->root() . '/password/reset/' . $token);
-        } else {
-            header('Location: ' . $request->root() . '/password/reset/invalid');
+        if (!$this->findUserByToken($token)) {
+            $token = 'invalid';
         }
+        return redirect('/password/reset/' . $token);
     }
 
     public function updatePasswordFromResetToken($token, Request $request)
