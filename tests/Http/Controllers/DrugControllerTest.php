@@ -141,12 +141,30 @@ class DrugControllerTest extends TestCase
         $this->assertContains('rating field is required', $response->getContent());
     }
 
+    public function testAddReviewError()
+    {
+        $request = new Illuminate\Http\Request([
+            'user' => ['sub' => 'foo'],
+            'rating' => 2,
+            'is_covered_by_insurance' => 0,
+            'comment' => 'Foo'
+        ]);
+
+        DrugReview::shouldReceive('getModel')->once()->andThrow(new \Exception('Unexpected Error'));
+
+        $response = $this->ctrl->addReview('foo', $request);
+
+        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertContains('Unexpected Error', $response->getContent());
+    }
+
     public function testAddReview()
     {
         $request = new Illuminate\Http\Request([
             'user' => ['sub' => 'foo'],
             'rating' => 2,
             'is_covered_by_insurance' => 0,
+            'side_effects' => ['Nausea'],
             'comment' => 'Foo'
         ]);
 
@@ -157,8 +175,11 @@ class DrugControllerTest extends TestCase
         $mockReview = \Mockery::mock('\App\DrugReview');
         $mockReview->shouldReceive('setAttribute');
         $mockReview->shouldReceive('toArray')->once();
-        $mockReview->shouldReceive('save')->once();
+        $mockReview->shouldReceive('save')->once()->andReturn(true);
 
+        $side_effect = \Mockery::mock('\App\DrugSideEffect');
+        $side_effect->shouldReceive('sync')->once();
+        $mockReview->shouldReceive('sideEffects')->once()->andReturn($side_effect);
         DrugReview::shouldReceive('getModel')->once()->andReturn($mockReview);
 
         $response = $this->ctrl->addReview('foo', $request);

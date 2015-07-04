@@ -17,8 +17,10 @@ class DrugTest extends TestCase
     public function testRelations()
     {
         $drug = factory('App\Drug')->make();
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\HasOne', $drug->generic());
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\HasMany', $drug->reviews());
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $drug->sideEffects());
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $drug->prescriptionTypes());
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $drug->indications());
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $drug->alternatives());
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Relations\BelongsToMany', $drug->related());
