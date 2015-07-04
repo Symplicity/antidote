@@ -106,7 +106,10 @@ class AuthController extends Controller
 
     private function findUserByToken($token)
     {
-        return User::whereRaw('reset_password_token = ? and reset_password_token_expiration > ?', [$token, new DateTime()])->first();//AND NOT EXPIRED!
+        return User::whereRaw(
+            'reset_password_token = ? and reset_password_token_expiration > ?',
+            [$token, new DateTime()]
+        )->first();
     }
 
     public function processForgotPassword(Request $request)
