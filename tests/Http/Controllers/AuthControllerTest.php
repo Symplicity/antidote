@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Facades\User;
 
 class AuthControllerTest extends TestCase
 {
@@ -129,5 +130,25 @@ class AuthControllerTest extends TestCase
         $response = $this->ctrl->processForgotPassword($request);
 
         $this->assertContains('An email has been sent', $response->getContent());
+    }
+
+    public function testVerifyBadResetPasswordToken()
+    {
+        $response = $this->ctrl->verifyResetPasswordToken('foo');
+
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertContains('/password/reset/invalid', $response->getTargetUrl());
+    }
+
+    public function testVerifyResetPasswordToken()
+    {
+        $stubQuery = \Mockery::mock('\Illuminate\Database\Eloquent\Builder');
+        $stubQuery->shouldReceive('first')->andReturn(true);
+        User::shouldReceive('whereRaw')->once()->andReturn($stubQuery);
+
+        $response = $this->ctrl->verifyResetPasswordToken('foo');
+
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertContains('/password/reset/foo', $response->getTargetUrl());
     }
 }
