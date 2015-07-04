@@ -55,5 +55,9 @@ class DrugReviewsControllerTest extends TestCase
         $vote = json_decode($response->getContent());
         $this->assertEquals(1, $vote->vote, 'Repeated vote should override previous one');
         $this->assertNotEquals($vote_id, $vote->id, 'Vote by another user should be new');
+
+        $response = $this->ctrl->vote(1, $request);
+        $this->assertEquals(400, $response->getStatusCode(), 'Exact same vote by the same user is rejected');
+        $this->assertContains('already voted on this review', $response->getContent());
     }
 }

@@ -35,23 +35,25 @@ class DrugReviewVote extends Model
     {
         static::created(function (DrugReviewVote $drug_review_vote) {
             //add to votes cache on drug review model
-            if ($drug_review_vote->vote == 1) {
-                DrugReview::find($drug_review_vote->drug_review_id)->increment('upvotes_cache');
-            } else {
-                DrugReview::find($drug_review_vote->drug_review_id)->increment('downvotes_cache');
+            if ($drug_review = DrugReview::find($drug_review_vote->drug_review_id)) {
+                if ($drug_review_vote->vote == 1) {
+                    $drug_review->increment('upvotes_cache');
+                } else {
+                    $drug_review->increment('downvotes_cache');
+                }
             }
         });
 
         static::updated(function (DrugReviewVote $drug_review_vote) {
             //update votes cache on drug review model
-            if ($drug_review_vote->vote == 1) {
-                $drug_review = DrugReview::find($drug_review_vote->drug_review_id);
-                $drug_review->increment('upvotes_cache');
-                $drug_review->decrement('downvotes_cache');
-            } else {
-                $drug_review = DrugReview::find($drug_review_vote->drug_review_id);
-                $drug_review->increment('downvotes_cache');
-                $drug_review->decrement('upvotes_cache');
+            if ($drug_review = DrugReview::find($drug_review_vote->drug_review_id)) {
+                if ($drug_review_vote->vote == 1) {
+                    $drug_review->increment('upvotes_cache');
+                    $drug_review->decrement('downvotes_cache');
+                } else {
+                    $drug_review->increment('downvotes_cache');
+                    $drug_review->decrement('upvotes_cache');
+                }
             }
         });
     }
