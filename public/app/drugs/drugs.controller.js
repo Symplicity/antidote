@@ -51,6 +51,8 @@
             }
         };
 
+        this.currentLetter = $stateParams.term;
+
         /** PAGINATION **/
         this.perPage = 50;
         this.page = 1;
