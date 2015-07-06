@@ -134,7 +134,7 @@ class DrugController extends Controller
                 $drug_review->sideEffects()->sync($side_effects);
             }
         } catch (\Exception $e) {
-            //do nothing - do not show server message to user
+            return response()->json(['message' => 'Unexpected Error'], 400);
         }
 
         return response()->json($drug_review, 201);

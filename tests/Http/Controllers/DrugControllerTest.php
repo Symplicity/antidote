@@ -153,8 +153,8 @@ class DrugControllerTest extends TestCase
 
         $response = $this->ctrl->addReview('foo', $request);
 
-        $this->assertEquals(400, $response->getStatusCode());
-        $this->assertContains('rating field is required', $response->getContent());
+        $this->assertEquals(422, $response->getStatusCode());
+        $this->assertContains('Effectiveness is required', $response->getContent());
     }
 
     public function testAddReviewError()
