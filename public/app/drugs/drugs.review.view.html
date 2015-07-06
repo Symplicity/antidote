@@ -3,7 +3,7 @@
         <p>{{review.created_at | date}} / {{review.created_at | date:'h:m a'}}</p>
         <drugs-review-rating rating="review.rating"></drugs-review-rating>
         <p class="center">
-            <span ng-if="review.age > 0">{{review.age}} year old</span> 
+            <span ng-if="review.age > 0">{{review.age}} year old</span>
             <span ng-if="review.age > 0 && review.gender">, </span>
             <span ng-if="review.gender">
                 <span ng-if="review.gender == 'f'">Female</span>
@@ -16,7 +16,7 @@
         <section class="pill-row" layout="column" layout-align-sm="start start" layout-align="start start">
             <div flex>
                 <span class="md-body-1">Side Effects:</span>
-                <span ng-repeat="side_effect in review.side_effects" class="md-raised md-pills">{{::side_effect.value | capitalize}}</span>
+                <span ng-repeat="side_effect in review.side_effects | orderBy:'value'" class="md-raised md-pills">{{::side_effect.value | capitalize}}</span>
             </div>
         </section>
         <ul class="unstyled">

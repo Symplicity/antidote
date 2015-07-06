@@ -14,7 +14,7 @@
             <div flex="100" flex-sm="100" ng-if="drugsView.drug.indications.length > 0">
                 <p>
                     <span class="md-body-2">Used for:</span>
-                    <span ng-repeat="indication in drugsView.drug.indications">
+                    <span ng-repeat="indication in drugsView.drug.indications | orderBy:'value'">
                         <span class="md-raised md-pills">{{::indication.value | capitalize}}</span>
                     </span>
                 </p>
