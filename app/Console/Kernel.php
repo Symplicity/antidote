@@ -23,6 +23,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        //
+        $schedule->command('import:drugs')->daily();//fetch new drug data every day at midnight
     }
 }
