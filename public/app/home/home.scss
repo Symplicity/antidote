@@ -2,12 +2,11 @@
     height: 483px;
     margin: 0 auto;
     position: relative;
-    background-image: URL('/images/home-banner.png');
+    background-image: URL('/images/carlin-home-blurred.png');
     color: $md-primary-light;
     z-index: 1;
 
-    .search-container {        
-        background-color: rgba(0, 0, 0, .3);
+    .search-container { 
         height: 100%;
  
         h1 {
@@ -16,6 +15,7 @@
             color: #FFF;
             font-size: 34pt;
             margin-bottom: 25px;
+            text-shadow: 1px 1px 23px #1A1A1A;
         }
         
         input {
