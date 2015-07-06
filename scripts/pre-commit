@@ -1,16 +1,13 @@
 #!/usr/bin/php
 <?php
 /**
- * .git/hooks/pre-commit.
+ * .git/hooks/pre-commit
  *
- * This pre-commit hooks will check for PHP error (lint), and make sure the code
- * is PSR compliant.
+ * This pre-commit hooks will check for PHP error (lint), and make sure PHP code
+ * is PSR compliant, and JS code is jscs compliant.
  *
- * Dependecy: PHP-CS-Fixer (https://github.com/fabpot/PHP-CS-Fixer)
- *
+ * Based on https://gist.github.com/mardix/3623562
  * @author  Mardix  http://github.com/mardix
- *
- * @since   Sept 4 2012
  */
 
 // collect all files which have been added, copied or modified
