@@ -14,6 +14,12 @@
         a {
             color: $md-primary;
             text-align: left;
+            line-height: 2;
+            
+            &:hover{
+                font-weight:900;
+            }
+
         }
     }
 
