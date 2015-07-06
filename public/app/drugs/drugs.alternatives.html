@@ -17,13 +17,13 @@
                                 <p class="bold">Side Effects:</p>
                             </div>
                             <div flex>
-                                <span ng-repeat="side_effect in drug.side_effects">
+                                <span ng-repeat="side_effect in drug.side_effects | orderBy: 'value'">
                                     <span class="md-raised md-pills">{{::side_effect.value | capitalize}}</span>
                                 </span>
-                            </div>                  
+                            </div>
                         </div>
-                    </div>              
-                    <div class="percentages" layout="row" layout-sm="column" layout-align="center center" flex>  
+                    </div>
+                    <div class="percentages" layout="row" layout-sm="column" layout-align="center center" flex>
                         <div flex="50" flex-sm="50" layout="column" layout-align="center center">
                             <div class="alt-graph">
                                 <canvas id="doughnut" class="chart chart-doughnut" data="drug.chartData.effectivenessChartData" labels="drugsAlternatives.effectiveLabels" colours="drugsAlternatives.effectiveColours" options="drugsAlternatives.effectiveOptions"></canvas>
@@ -37,8 +37,8 @@
                                 <p class="i-percent percentage">{{::drug.insurance_coverage_percentage | percentage}}</p>
                             </div>
                             <p>Insurance</p>
-                        </div>     
-                    </div>           
+                        </div>
+                    </div>
                 </div>
             </md-card-content>
         </md-card>
