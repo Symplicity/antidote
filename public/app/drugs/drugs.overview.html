@@ -1,6 +1,6 @@
 <!--Effectiveness/Side Effects/Insurance-->
-<div class="content container">
-    <md-content class="cardTitles medium-ie-fix" layout="row" layout-sm="column" layout-md="column">
+<div class="content-container">
+    <md-content class="card-titles medium-ie-fix" layout="row" layout-sm="column" layout-md="column">
         <md-card flex>
             <md-toolbar class="md-toolbar-tools">
                 <md-icon>assessment</md-icon>
@@ -43,7 +43,7 @@
         </md-card>
     </md-content>
 
-<md-content layout="row" class="cardTitles reviews">
+<md-content layout="row" class="card-titles reviews">
     <md-card flex>
         <md-toolbar class="md-toolbar-tools">
             <md-icon>people</md-icon>
@@ -68,37 +68,20 @@
     </md-card>
 </md-content>
 
-<md-content layout="row" layout-sm="column" ng-if="drugsView.drug.recalls.length > 0" class="cardTitles ie-fix" id="recall-card">
+<md-content layout="row" layout-sm="column" ng-if="drugsView.drug.recalls.length > 0" class="card-titles ie-fix">
     <md-card flex>
         <md-toolbar class="md-toolbar-tools">
             <md-icon>report_problem</md-icon>
             <h4>Recall Information</h4>
         </md-toolbar>
         <md-card-content ng-repeat="recall in drugsView.drug.recalls">
-                <div layout="column" flex>
-                    <p>Recal Number: {{recall.number}}</p>
-                    <p>Date Issue: {{recall.date}} -- {{recall.lots}}</p>
-                    <p>{{recall.recall}} </p>
-                </div>
+            <!-- TODO: lay this information for each recall out properly -->
+            <div layout="column" flex>
+                <p>Recal Number: {{recall.number}}</p>
+                <p>Date Issue: {{recall.date}} -- {{recall.lots}}</p>
+                <p>{{recall.recall}} </p>
+            </div>
         </md-card-content>
     </md-card>
 </md-content>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

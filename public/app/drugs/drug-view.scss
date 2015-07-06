@@ -1,3 +1,4 @@
+
 .md-drug-info {
     height: 100% !important;
     margin: 0 auto;
@@ -9,22 +10,15 @@
         font-weight: 500;
         font-size: 40px;
         margin: 0;
-        vertical-align:middle;
-        display: inline-block;
     }
 
     .md-drug-type {
+        height: 100%;
         margin: 8px 15px;
         padding: 5px;
         font-size: 13px;
         background-color: #043045;
         color: #FFFFFF;
-        vertical-align:sub;
-        display: inline-block;
-
-        @media only screen and (max-width: 600px){
-            margin: 0;
-        }
     }
 
     @media only screen and (max-width: 600px){
