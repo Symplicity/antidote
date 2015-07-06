@@ -29,7 +29,7 @@ We used the following containers to get Antidote by Symplicity running. We built
 Community contributed containers that we took from docker hub and used with out modification:
 
 - mariadb/mariadb (MariaDB -- Opensource MySQL)
-- tutum/haproxy (Haproxy Load Balancer with autoconfiguration with out a lot of work)
+- tutum/haproxy (Haproxy Load Balancer with auto configuration with out a lot of work)
 - logstash:latest  (Log Indexing)
 - gliderlabs/logspout:latest (Log forwarder)
 - vfarcic/kibana:latest (Log Search WebUI)
@@ -45,7 +45,7 @@ Are going to except the following environmental variables to be set in order to 
 
 ```
 environment:
-  - ANTIDOTE_API_KEY=  # Set a 256 bit string, this is for the encryption of the api 
+  - ANTIDOTE_API_KEY=  # Set a 256 bit string, this is for the encryption of the api
   - ANTIDOTE_DB_HOST=db   # point to db host
   - ANTIDOTE_DB_NAME=antidote  # Set to your Database Name
   - ANTIDOTE_DB_PASS=antidoteSecret  # Set to your database users password
@@ -61,7 +61,7 @@ environment:
   - GITREPO_URL= # Set this your fork of Antidote by Symplicity or Use the Main Symplicity One
   - GITREPO_BRANCH= # Set this to the git branch with the production build. Must contain a dist.zip file with vendor and dist in it
 ## Rabbit MQ Settings for the Worker scripts
-  - RABBITMQ_NAME= # Set this to the name which you want webhook for codeship to notify nodes 
+  - RABBITMQ_NAME= # Set this to the name which you want webhook for codeship to notify nodes
   - RABBITMQ_NODE= # Set this to the name of the rabbitmq server.
   - RABBITMQ_PORT=5672 # default port for rabbitmq, change this if not using default.
   - WEBHOOK_API_KEY= # Set a 256 Bit key for the webhook url for [arbeider](https://github.com/moos3/arbeider)
@@ -131,7 +131,7 @@ web:
   ports:
     - '80:80'
   environment:
-- ANTIDOTE_API_KEY=  # Set a 256 bit string, this is for the encryption of the api 
+- ANTIDOTE_API_KEY=  # Set a 256 bit string, this is for the encryption of the api
   - ANTIDOTE_DB_HOST=db   # point to db host
   - ANTIDOTE_DB_NAME=antidote  # Set to your Database Name
   - ANTIDOTE_DB_PASS=antidoteSecret  # Set to your database users password
@@ -147,7 +147,7 @@ web:
   - GITREPO_URL= # Set this your fork of Antidote by Symplicity or Use the Main Symplicity One
   - GITREPO_BRANCH= # Set this to the git branch with the production build. Must contain a dist.zip file with vendor and dist in it
 ## Rabbit MQ Settings for the Worker scripts
-  - RABBITMQ_NAME= # Set this to the name which you want webhook for codeship to notify nodes 
+  - RABBITMQ_NAME= # Set this to the name which you want webhook for codeship to notify nodes
   - RABBITMQ_NODE= # Set this to the name of the rabbitmq server.
   - RABBITMQ_PORT=5672 # default port for rabbitmq, change this if not using default.
   - WEBHOOK_API_KEY= # Set a 256 Bit key for the webhook url for [arbeider](https://github.com/moos3/arbeider)
@@ -164,7 +164,7 @@ web:
 worker:
   image: 'symplicity/worker:latest'
   environment:
-- ANTIDOTE_API_KEY=  # Set a 256 bit string, this is for the encryption of the api 
+- ANTIDOTE_API_KEY=  # Set a 256 bit string, this is for the encryption of the api
   - ANTIDOTE_DB_HOST=db   # point to db host
   - ANTIDOTE_DB_NAME=antidote  # Set to your Database Name
   - ANTIDOTE_DB_PASS=antidoteSecret  # Set to your database users password
@@ -180,7 +180,7 @@ worker:
   - GITREPO_URL= # Set this your fork of Antidote by Symplicity or Use the Main Symplicity One
   - GITREPO_BRANCH= # Set this to the git branch with the production build. Must contain a dist.zip file with vendor and dist in it
 ## Rabbit MQ Settings for the Worker scripts
-  - RABBITMQ_NAME= # Set this to the name which you want webhook for codeship to notify nodes 
+  - RABBITMQ_NAME= # Set this to the name which you want webhook for codeship to notify nodes
   - RABBITMQ_NODE= # Set this to the name of the rabbitmq server.
   - RABBITMQ_PORT=5672 # default port for rabbitmq, change this if not using default.
   - WEBHOOK_API_KEY= # Set a 256 Bit key for the webhook url for [arbeider](https://github.com/moos3/arbeider)
@@ -201,9 +201,9 @@ So now that we wrote our docker-compose.yml file all your going to need to do is
 Once they all come up your should be able to connect to your docker ip or boot2docker ip.
 
 #### Production
-Now if you want to deploy this in aproduction environment then you will want to setup some nodes with docker-machine and docker-swarm. then use docker-compose to deploy using the docker swarm. Or you can use a Tutum as
+Now if you want to deploy this in a production environment then you will want to setup some nodes with docker-machine and docker-swarm. then use docker-compose to deploy using the docker swarm. Or you can use a Tutum as
 your orchestration service and use the tutum.yml file to deploy this on Amazon AWS, Digital Ocean, Microsoft Azure and Softlayer by IBM. You will want at least 3 nodes and if you have spare hardware you can even bring your own nodes
 to tutum. We have tried both AWS and Digital Ocean with tutum. You can have nodes in more than one provider to give your site HA on the IaaS level.
 
 ###### Recommendations for Production
-I would put db container on a node with at least 4 gigabytes of ram and 2 cpus. I would also put a load balancer infront of the web nodes that terminates SSL. The web servers dont need much in terms of memory 512 Megabytes or 1 gigabyte should be more than enough. I would also stand up a memcached server for the site to use. 
+I would put db container on a node with at least 4 gigabytes of ram and 2 cpus. I would also put a load balancer in front of the web nodes that terminates SSL. The web servers don't need much in terms of memory 512 Megabytes or 1 gigabyte should be more than enough. I would also stand up a memcached server for the site to use.
