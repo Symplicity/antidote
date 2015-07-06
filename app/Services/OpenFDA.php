@@ -8,179 +8,165 @@ use GuzzleHttp\Client;
 class OpenFDA extends RestAPI
 {
     protected $api_base_uri = 'https://api.fda.gov/';
-    protected $rate_limit = 4;
+    protected $rate_limit = 20;
 
     public function __construct(Client $client)
     {
         parent::__construct($client);
-        
+
         if ($api_key = env('OPENFDA_API_KEY', false)) {
             $this->setOptions(['api_key' => $api_key]);
         } else {
             Log::error('OpenFDA api key is not set!');
         }
     }
-    
-    public function sanitizeName($name)
+
+    private function getRecords($type, $query, $page = 0)
     {
-        if ($name && ($sanitized = preg_replace('/\+{2,}/', '+', preg_replace('/\W/', '+', $name)))) {
-            return strtolower($sanitized);
-        }
+        $skip = $page * 100;
+        $results = $this->get("drug/{$type}.json?search= " . $query . "&skip={$skip}&limit=100");
+
+        return array_get($results, 'results', []);
     }
 
-    public function getDescription($concept, $records)
+    private function getCounts($type, $query, $field)
     {
-        $description = '';
+        $counts = [];
 
-        $rxcui = $concept['rxcui'];
-        $type = $concept['type'];
-        $name = array_get($concept, 'sanitized_' . $type, '');
+        $results = $this->get("drug/{$type}.json?search=" . $query . "&count={$field}.exact");
+        foreach (array_get($results, 'results', []) as $result) {
+            $counts[$result['term']] = $result['count'];
+        }
 
-        if ($name) {
-            foreach ($records as $record) {
-                $desc = array_get($record, 'description.0', '');
-                if (!$desc) {
-                    $desc = array_get($record, 'purpose.0', '');
-                }
-                if ($desc) {
-                    $rxcuis = array_get($record, 'openfda.rxcui', []);
-                    $sanitized = array_get($record, 'sanitized_' . $type, '');
+        return $counts;
+    }
 
-                    if (in_array($rxcui, $rxcuis) || ($sanitized && $name == $sanitized)) {
-                        return $desc;
-                    }
-                }
+    private function cleanTerm($term)
+    {
+        $words = [
+            'DESCRIPTION',
+            'PURPOSE',
+            'INDICATIONS AND USAGE',
+            'INDICATIONS & USAGE',
+            'INDICATION AND USAGE',
+            'Uses'
+            ];
+
+        foreach ($words as $word) {
+            $pos = stripos($term, $word);
+            $wlen = strlen($word);
+
+            if ($pos !== false && $pos < $wlen) {
+                $term = substr($term, $pos + $wlen + 1);
+                break;
+            }
+        }
+
+        return $term;
+    }
+
+    private function getDescription($record)
+    {
+        $description = $this->cleanTerm(array_get($record, 'indications_and_usage.0', ''));
+        if (empty($description)) {
+            $description = $this->cleanTerm(array_get($record, 'description.0', ''));
+            if (empty($description)) {
+                $description = $this->cleanTerm(array_get($record, 'purpose.0', ''));
             }
         }
 
         return $description;
     }
 
-    public function getPrescriptionTypes($concept, $records)
+    public function getLabel($concept, $rxcuis)
     {
-        $types = [];
+        $label = ['name' => '', 'description' => '', 'prescription_types' => []];
 
-        foreach ($records as $record) {
-            if ($product_type = array_get($record, 'openfda.product_type.0')) {
-                if ($product_type == 'HUMAN PRESCRIPTION DRUG') {
-                    $types['1'] = true;
-                } elseif ($product_type == 'HUMAN OTC DRUG') {
-                    $types['2'] = true;
+        $matching_label = [];
+        $brand = array_get($concept, 'label', '');
+        $generic = str_replace(' / ', ', ', array_get($concept, 'generic', ''));
+
+        $query = 'openfda.rxcui:(' . join('+', $rxcuis) . ')';
+        $page = 0;
+
+        do {
+            $records = $this->getRecords('label', $query, $page++);
+            foreach ($records as $record) {
+                $brand_name = array_get($record, 'openfda.brand_name.0');
+
+                if ($brand && $brand_name && strtolower($brand) == strtolower($brand_name)) {
+                    $label['name'] = $brand_name;
+                    $label['description'] = $this->getDescription($record);
+                } elseif (empty($matching_label)) {
+                    $generic_name = array_get($record, 'openfda.generic_name.0');
+                    $substances = array_get($record, 'openfda.substance_name', []);
+                    sort($substances);
+                    $substance_name = join(', ', $substances);
+
+                    if ($generic && $generic_name && strtolower($generic) == strtolower($generic_name)) {
+                        $matching_label['name'] = $generic_name;
+                        $matching_label['description'] = $this->getDescription($record);
+                    } elseif ($generic && $substance_name && strtolower($generic) == strtolower($substance_name)) {
+                        $matching_label['name'] = $substance_name;
+                        $matching_label['description'] = $this->getDescription($record);
+                    }
+                }
+
+                if ($product_type = array_get($record, 'openfda.product_type.0')) {
+                    if ($product_type == 'HUMAN PRESCRIPTION DRUG') {
+                        $label['prescription_types']['1'] = true;
+                    } elseif ($product_type == 'HUMAN OTC DRUG') {
+                        $label['prescription_types']['2'] = true;
+                    }
                 }
             }
-        }
+        } while (empty($label['description']) && count($label['prescription_types']) != 2 && $page < 5);
 
-        return array_keys($types);
+        if (empty($label['name']) && !empty($matching_label)) {
+            $label['name'] = $matching_label['name'];
+            $label['description'] = $matching_label['description'];
+        }
+        $label['prescription_types'] = array_keys($label['prescription_types']);
+
+        return $label;
     }
 
-    public function getDrugLabels($concept)
-    {
-        $labels = [];
-
-        $rxcui = $concept['rxcui'];
-        $brand = $concept['sanitized_brand'];
-        $generic = $concept['sanitized_generic'];
-
-        $terms = [
-            ['field' => 'openfda.brand_name', 'value' => $brand],
-            ['field' => 'openfda.generic_name', 'value' => $generic],
-            ['field' => 'openfda.rxcui', 'value' => $rxcui]
-            ];
-
-        if ($search = $this->getSearchQuery($terms)) {
-            $results = $this->get("drug/label.json?search={$search}&limit=100");
-            $results = array_get($results, 'results', []);
-
-            foreach ($results as $res) {
-                $res['rxcuis'] = array_get($res, 'openfda.rxcui', []);
-                $res['sanitized_brand'] = $this->sanitizeName(array_get($res, 'openfda.brand_name.0', ''));
-                $res['sanitized_generic'] = $this->sanitizeName(array_get($res, 'openfda.generic_name.0', ''));
-
-                if (in_array($rxcui, $res['rxcuis']) ||
-                    ($brand && $res['sanitized_brand'] && $brand == $res['sanitized_brand']) ||
-                    ($generic && $res['sanitized_generic'] && $generic == $res['sanitized_generic'])) {
-                    $labels[] = $res;
-                }
-            }
-        }
-
-#        echo $rxcui . ': SELECTED ' . count($labels) . ' labels out of ' . count($results) . " [" . $brand . "]\n";
-        return $labels;
-    }
-
-    public function getRecalls($concept)
+    public function getRecalls($rxcuis)
     {
         $recalls = [];
 
-        $terms = [['field' => 'openfda.rxcui', 'value' => $concept['rxcui']]];
+        $query = 'openfda.rxcui:(' . join('+', $rxcuis) . ')+AND+status:Ongoing';
 
-        if ($search = $this->getSearchQuery($terms)) {
-            $results = $this->get("drug/enforcement.json?search={$search}+AND+status:Ongoing&limit=5");
+        $records = $this->getRecords('enforcement', $query);
 
-            foreach (array_get($results, 'results', []) as $result) {
-                $recalls[] = [
-                    'number' => $result['recall_number'],
-                    'date' => $result['recall_initiation_date'],
-                    'recall' => $result['reason_for_recall'],
-                    'lots' => $result['code_info']
-                    ];
-            }
+        foreach ($records as $record) {
+            $recalls[] = [
+                'description' => $record['product_description'],
+                'number' => $record['recall_number'],
+                'date' => $record['recall_initiation_date'],
+                'recall' => $record['reason_for_recall'],
+                'lots' => $record['code_info'],
+                ];
         }
 
         return $recalls;
     }
 
-    public function getIndications($concept)
+    public function getIndications($rxcuis)
     {
-        $indications = [];
+        $query = 'patient.drug.openfda.rxcui:(' . join('+', $rxcuis) . ')';
 
-        $terms = [
-            ['field' => 'patient.drug.openfda.rxcui', 'value' => $concept['rxcui']],
-            ['field' => 'patient.drug.medicinalproduct', 'value' => $concept['sanitized_brand']],
-            ['field' => 'patient.drug.medicinalproduct', 'value' => $concept['sanitized_generic']]
-        ];
+        $counts = $this->getCounts('event', $query, 'patient.drug.drugindication');
 
-        if ($search = $this->getSearchQuery($terms)) {
-            $results = $this->get("drug/event.json?search={$search}&count=patient.drug.drugindication.exact");
-
-            foreach (array_get($results, 'results', []) as $result) {
-                $indications[$result['term']] = $result['count'];
-            }
-        }
-
-        return array_keys($indications);
+        return $counts;
     }
 
-    public function getSideEffects($concept)
+    public function getSideEffects($rxcuis)
     {
-        $side_effects = [];
+        $query = 'patient.drug.openfda.rxcui:(' . join('+', $rxcuis) . ')';
 
-        $terms = [
-            ['field' => 'patient.drug.medicinalproduct', 'value' => $concept['sanitized_brand']],
-            ['field' => 'patient.drug.medicinalproduct', 'value' => $concept['sanitized_generic']]
-        ];
+        $counts = $this->getCounts('event', $query, 'patient.reaction.reactionmeddrapt');
 
-        if ($search = $this->getSearchQuery($terms)) {
-            $results = $this->get("drug/event.json?search={$search}&count=patient.reaction.reactionmeddrapt.exact");
-
-            foreach (array_get($results, 'results', []) as $result) {
-                $side_effects[$result['term']] = $result['count'];
-            }
-        }
-
-        return array_keys($side_effects);
-    }
-
-    private function getSearchQuery($terms = [])
-    {
-        $saerch = [];
-
-        foreach ($terms as $term) {
-            if (!empty($term['field']) && !empty($term['value'])) {
-                $search[] = $term['field'] . ':"' . $term['value'] . '"';
-            }
-        }
-
-        return join('+', $search);
+        return $counts;
     }
 }

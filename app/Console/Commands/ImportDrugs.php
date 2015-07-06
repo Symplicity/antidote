@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\OpenFDA;
 use App\Services\RXNorm;
@@ -13,17 +14,18 @@ use App\Facades\DrugSideEffect;
 
 class ImportDrugs extends Command
 {
-    private $limit = 0; //unlimited
-    private $skip = 0; //do not skip
-
     private $concepts = [];
-    private $indications = [];
-    private $side_effects = [];
-    private $translation = [];
-    
+
+    private $indications;
+    private $side_effects;
+    private $translation;
+
     private $openfda;
     private $rxnorm;
     private $rxclass;
+
+    private $limit;
+    private $skip;
 
     /**
      * The name and signature of the console command.
@@ -33,15 +35,15 @@ class ImportDrugs extends Command
     protected $signature = 'import:drugs' .
         ' {--limit=0 : limit the number of brands to be imported}' .
         ' {--skip=0 : skip a number of brands from the beginning}' .
-        ' {--debug : do not save in db}';
-    
+        ' {--debug : do not save in db, print values in console}';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Import drug data from various APIs such as OpenFDA, RxNorm & RxClass';
-    
+
     /**
      * Create a new command instance.
      *
@@ -50,12 +52,12 @@ class ImportDrugs extends Command
     public function __construct(OpenFDA $openfda, RXNorm $rxnorm, RXClass $rxclass)
     {
         parent::__construct();
-        
+
         $this->openfda = $openfda;
         $this->rxnorm = $rxnorm;
         $this->rxclass = $rxclass;
     }
-    
+
     /**
      * Execute the console command.
      *
@@ -67,305 +69,272 @@ class ImportDrugs extends Command
 
         Model::unguard(); // allow mass fills
 
-        $this->skip = (int)$this->option('skip');
-        $this->limit = (int)$this->option('limit');
-        
         if ($this->option('verbose')) {
             $this->openfda->setVerbose(true);
             $this->rxnorm->setVerbose(true);
             $this->rxnorm->setVerbose(true);
         }
 
+        $this->limit = (int)$this->option('limit');
+        $this->skip = (int)$this->option('skip');
+
         $this->indications = DrugIndication::lists('id', 'value');
         $this->side_effects = DrugSideEffect::lists('id', 'value');
-        
         $this->translation = $this->setupTranslation();
-        
-        $this->importConcepts();
-        $this->importConceptRelations();
-        
-        $this->info('Drug Import Done!');
-    }
 
-    private function getConcept($rxcui)
-    {
-        $concept = ['rxcui' => $rxcui, 'type' => 'generic'];
-        
-        $properties = $this->rxnorm->getConceptProperties($rxcui);
-        if (!empty($properties)) {
-            $concept['label'] = $this->rxnorm->getConceptLabel($properties);
-            $concept['sanitized_brand'] = $this->openfda->sanitizeName($concept['label']);
-            $concept['generic'] = $concept['label'];
-            $concept['sanitized_generic'] = $concept['sanitized_brand'];
-            $concept['generic_id'] = '';
-            
-            //related, dose_forms, ingredients, ingredient, drug_components
-            $concept['relations'] = $this->rxnorm->getConceptRelations($properties);
-            
-            $labels = $this->getLabels($concept);
-            $concept['description'] = $this->getConceptDescription($concept, $labels);
-            $concept['relations']['prescription_types'] = $this->getPrescriptionTypes($concept, $labels);
-            
-            $concept['relations']['recalls'] = $this->getRecalls($concept);
-        }
-        
-        return $concept;
-    }
-    
-    private function importConcept($concept)
-    {
-        static $id = 1;
-        
-        $rxcui = $concept['rxcui'];
-        $drug = Drug::firstOrNew(['rxcui' => (int)$rxcui]);
-
-        $drug->label = ucwords($concept['label']);
-        $drug->generic = ucwords($concept['generic']);
-        $drug->type = $concept['type'];
-        $drug->generic_id = $concept['generic_id'];
-        $drug->description = $concept['description'];
-        $drug->drug_forms = array_get($concept, 'relations.dose_forms', []);
-        $drug->recalls = $concept['relations']['recalls'];
-
-        if ($this->option('debug')) {
-            $drug->id = $id++;
-        } else {
-            $drug->save();
-        }
-               
-        $concept['drug'] = $drug;
-        return $concept;
-    }
-
-    private function importConcepts()
-    {
         $brands = $this->rxnorm->getAllBrands();
-        $brand_count = count($brands);
 
-        $this->info("Importing " .
-                    ($this->limit ? "{$this->limit} brands out of {$brand_count}" : "{$brand_count} brands").
-                    ($this->skip ? " skipping {$this->skip}" : "") . " ...");
-        
+        $total = ($this->limit ? : count($brands) - $this->skip);
+        $this->info("Importing {$total} brands" . ($this->skip ? ' skipping ' . $this->skip : '') . ' ...');
+
+        $imported = 0;
         foreach ($brands as $brand) {
-            $rxcui = $brand['rxcui'];
-            
             if ($this->skip-- <= 0) {
-                $this->concepts[$rxcui] = $this->getConcept($rxcui);
-                $this->concepts[$rxcui]['type'] = 'brand';
-                
-                $this->concepts[$rxcui]['generic'] = '';
-                $this->concepts[$rxcui]['sanitized_generic'] = '';
-                
-                if ($irxcui = array_get($this->concepts, $rxcui . '.relations.ingredient', false)) {
-                    if (empty($this->concepts[$irxcui])) {
-                        $this->concepts[$irxcui] = $this->getConcept($irxcui);
-                        $this->concepts[$irxcui] = $this->importConcept($this->concepts[$irxcui]);
-                    }
-                    
-                    $this->concepts[$rxcui]['generic_id'] = $irxcui;
-                    $this->concepts[$rxcui]['generic'] = $this->concepts[$irxcui]['label'];
-                    $this->concepts[$rxcui]['sanitized_generic'] = $this->concepts[$irxcui]['sanitized_generic'];
+                $imported++;
+                $this->importConcept($brand['rxcui']);
+
+                if (!$this->option('debug') && $imported % 100  === 0) {
+                    $this->line("Imported {$imported} (out of {$total}) concepts so far ...");
                 }
-                
-                $this->concepts[$rxcui] = $this->importConcept($this->concepts[$rxcui]);
-                
-                $total = count($this->concepts);
-                if ($total % 100 === 0) {
-                    $this->info('Imported ' . $total . ' drugs so far');
-                }
-                if ($this->limit && $total >= $this->limit) {
+                if (!empty($this->limit) && $imported >= $this->limit) {
                     break;
                 }
             }
         }
-    }
 
-    private function printDrug($drug, $relations)
-    {
-        $this->info("\n==============================================================================");
-        $this->info("Importing rxcui: [{$drug['rxcui']}] as drug: [{$drug['id']}] label: [{$drug['label']}]");
-        $this->info("==============================================================================\n");
+        $total = count($this->concepts);
+        $this->info("Imported {$total} concepts. Importing alternatives ...");
 
-        $drug['drug_forms'] = '[' . join(',', $drug['drug_forms']) . ']';
-        $drug['prescription_types'] = '[' . join(',', $relations['types']) . ']';
-        $drug['related'] = '[' . join(',', $relations['related']) . ']';
-        $drug['alternatives'] = '[' . join(',', $relations['alternatives']) . ']';
-        $drug['indications'] = '[' . join(',', $relations['indications']) . ']';
-        $drug['side_effects'] = '[' . join(',', $relations['side_effects']) . ']';
-        $drug['recalls'] = '[' . join(',', $drug['recalls']) . ']';
-        print_r($drug);
-    }
-
-    private function importConceptRelations()
-    {
-        $this->info('Imported ' . count($this->concepts) . ' concepts. Starting relations import ...');
-        
+        $imported = 0;
         foreach ($this->concepts as $rxcui => $concept) {
-            $drug = $concept['drug'];
-            $relations = [
-                'types' => $concept['relations']['prescription_types'],
-                'related' => $this->getRelated($concept),
-                'alternatives' => $this->getAlternatives($concept),
-                'indications' => $this->getIndications($concept),
-                'side_effects' => $this->getSideEffects($concept)
-                ];
+            $imported++;
+            $this->importAlternatives($rxcui, $concept);
 
-            if (empty($this->option('debug'))) {
-                $drug->prescriptionTypes()->sync($relations['types']);
-                
-                $drug->related()->sync($relations['related']);
-                $drug->alternatives()->sync($relations['alternatives']);
-                
-                if (!empty($relations['indications'])) {
-                    $drug->indications()->attach($relations['indications']);
-                }
-                if (!empty($relations['side_effects'])) {
-                    $drug->sideEffects()->attach($relations['side_effects']);
-                }
+            if (!$this->option('debug') && $imported % 100 == 0) {
+                $this->line("Imported {$imported} (out of {$total}) alternatives so far ...");
             }
-
-            $this->printDrug($drug->toArray(), $relations);
         }
+
+        $this->info('Drug Import Done!');
     }
 
-    private function getRelated($concept)
+    private function importConcept($rxcui)
     {
-        $related = [];
-        
-        foreach (array_get($concept, 'relations.related', []) as $rxcui) {
-            if ($rc = array_get($this->concepts, $rxcui, false)) {
-                $related[] = $rc['drug']->id;
+        static $id = 1;
+
+        if ($concept = $this->getConceptValues($rxcui)) {
+            $drug = Drug::firstOrNew(['rxcui' => $rxcui]);
+
+            $drug->label = $concept['label'];
+            $drug->generic = $concept['generic'];
+            $drug->drug_forms = $concept['drug_forms'];
+            $drug->description = $concept['description'];
+            $drug->recalls = $concept['recalls'];
+
+            if ($this->option('debug')) {
+                $drug->id = $id++;
+
+                $this->comment("\n==============================================================================");
+                $this->comment("Importing rxcui: [{$rxcui}] as drug: [{$drug->id}] label: [{$drug->label} ({$drug->generic})]");
+                $this->comment("==============================================================================\n");
+
+                $print = $drug->toArray();
+                $print['drug_forms'] = '[' . join(',', $print['drug_forms']) . ']';
+                $print['prescription_types'] = '[' . join(',', $concept['types']) . ']';
+                $print['indications'] = '[' . join(',', $concept['indications']) . ']';
+                $print['side_effects'] = '[' . join(',', $concept['side_effects']) . ']';
+                $print['related'] = '[' . join(',', $concept['related']) . ']';
+                print_r($print);
+            } else {
+                $drug->save();
+
+                $drug->prescriptionTypes()->sync($concept['types']);
+
+                if (!empty($concept['side_effects'])) {
+                    $side_effects = array_unique(array_merge($concept['side_effects'], $drug->sideEffects->lists('id')->all()));
+                    $drug->sideEffects()->sync($side_effects);
+                }
+                if (!empty($concept['indications'])) {
+                    $indications = array_unique(array_merge($concept['indications'], $drug->indications->lists('id')->all()));
+                    $drug->indications()->sync($indications);
+                }
             }
+
+            $this->concepts[$rxcui] = ['drug' => $drug, 'related' => $concept['related']];
         }
-        
-        return $related;
     }
-    
-    private function getAlternatives($concept)
+
+    private function importAlternatives($rxcui, $concept)
     {
         $alternatives = [];
-        
-        foreach (array_get($concept, 'relations.ingredients', []) as $ingredient) {
-            $related = $this->rxclass->getRelatedConcepts($ingredient);
-            foreach ($related as $rel) {
-                $brands = $this->rxnorm->getRelatedBrands($rel);
-                foreach ($brands as $rxcui) {
-                    if (empty($alternatives[$rxcui]) && $rc = array_get($this->concepts, $rxcui, false)) {
-                        $alternatives[$rxcui] = $rc['drug']->id;
-                    }
+
+        foreach ($concept['related'] as $related) {
+            if ($related != $rxcui && !empty($this->concepts[$related])) {
+                $alternatives[] = $this->concepts[$related]['drug']->id;
+            }
+        }
+
+        $drug = $concept['drug'];
+
+        if ($this->option('debug')) {
+            $this->comment("Alternatives for {$drug->id} ({$drug->rxcui}) [{$drug->label}] : " . join(',', $alternatives));
+        } else {
+            $drug->alternatives()->sync($alternatives);
+        }
+    }
+
+    private function getConceptValues($rxcui)
+    {
+        $values = [];
+
+        $concept = $this->rxnorm->getConceptProperties($rxcui);
+        if (!empty($concept)) {
+            $ttys = $this->rxnorm->getConceptRelations($rxcui);
+
+            $values['rxcui'] = $rxcui;
+            $values['label'] = (empty($concept['synonym']) ? $concept['name'] : $concept['synonym']);
+            $values['drug_forms'] = array_get($ttys, 'DF.names', []);
+            $values['generic'] = '';
+            $values['ingredients'] = [];
+
+            if ($ids = array_get($ttys, 'MIN.ids', [])) {
+                $values['ingredients'] = $ids;
+                $values['generic'] = join(' / ', array_get($ttys, 'MIN.names', []));
+            } elseif ($ids = array_get($ttys, 'PIN.ids', [])) {
+                $values['ingredients'] = $ids;
+                $values['generic'] = join(' / ', array_get($ttys, 'PIN.names', []));
+            } elseif ($ids = $values['ingredients'] = array_get($ttys, 'IN.ids', [])) {
+                $values['ingredients'] = $ids;
+                $values['generic'] = join(' / ', array_get($ttys, 'IN.names', []));
+            }
+
+            if ($pos = strpos($values['label'], 'Pack [')) {
+                $values['label'] = substr($values['label'], $pos + 6, -1) . ' [Pack]';
+            }
+
+            $drugs = array_get($ttys, 'SBD.ids', []);
+            $label = $this->openfda->getLabel($values, $drugs);
+            $values['description'] = $label['description'];
+            $values['types'] = $label['prescription_types'];
+
+            $drugs = array_slice(array_merge($drugs, array_get($ttys, 'SCD.ids', [])), 0, 20);
+            $values['recalls'] = $this->openfda->getRecalls($drugs);
+            $values['indications'] = $this->getIndications($drugs);
+            $values['side_effects'] = $this->getSideEffects($drugs);
+
+            $values['related'] = $this->getRelatedConcepts($concept, $values['ingredients']);
+        }
+
+        return $values;
+    }
+
+    private function getRelatedConcepts($concept, $ingredients)
+    {
+        $concepts = [];
+
+        foreach ($ingredients as $ingredient) {
+            $concepts = array_merge($concepts, $this->rxnorm->getRelatedConcepts($ingredient));
+        }
+
+        if (count($concepts) < 5) {
+            foreach ($ingredients as $ingredient) {
+                foreach ($this->rxclass->getRelatedConcepts($ingredient) as $related_ingredient) {
+                    $concepts = array_merge($concepts, $this->rxnorm->getRelatedConcepts($related_ingredient));
                 }
             }
         }
 
-        return $alternatives;
+        return array_slice(array_unique($concepts), 0, 20);
     }
-    
-    private function getIndications($concept)
-    {
-        $terms = [];
-        foreach (array_get($concept, 'relations.ingredients', []) as $ingredient) {
-            $terms = $this->rxclass->getConceptIndications($ingredient);
-        }
-        if (empty($indications)) {
-            $terms = $this->openfda->getIndications($concept);
-        }
-        $terms = array_slice($terms, 0, 20);
 
+    private function getIndications($drug_components)
+    {
         $indications = [];
-        foreach ($terms as $term) {
+
+        $terms = $this->openfda->getIndications($drug_components);
+        foreach ($terms as $term => $count) {
+            if (count($indications) >= 20 || $count < 5) {
+                break;
+            }
+
             if ($indication = $this->translate($term)) {
                 $id = $this->indications->get($indication);
-                
-                if (!$id) {
+                if (empty($id)) {
                     if ($this->option('debug')) {
                         $id = $this->indications->max() + 1;
+                        $this->comment("New indication object: id [{$id}] value [{$indication}]");
                     } else {
                         $id = DrugIndication::create(['value' => $indication])->id;
                     }
                     $this->indications->put($indication, $id);
-                    $this->comment("New indication object: id [{$id}] value [{$indication}]");
                 }
-                
+
                 $indications[] = $id;
             }
         }
-        
-        return $indications;
+
+        return array_unique($indications);
     }
 
-    private function getSideEffects($concept)
+    private function getSideEffects($drug_components)
     {
-        $terms = array_slice($this->openfda->getSideEffects($concept), 0, 20);
-        
         $side_effects = [];
-        foreach ($terms as $term) {
+
+        $terms = $this->openfda->getSideEffects($drug_components);
+        foreach ($terms as $term => $count) {
+            if (count($side_effects) >= 20 || $count < 5) {
+                break;
+            }
+
             if ($side_effect = $this->translate($term)) {
                 $id = $this->side_effects->get($side_effect);
-                
-                if (!$id) {
+                if (empty($id)) {
                     if ($this->option('debug')) {
                         $id = $this->side_effects->max() + 1;
+                        $this->comment("New side effect object: id [{$id}] value [{$side_effect}]");
                     } else {
                         $id = DrugSideEffect::create(['value' => $side_effect])->id;
                     }
                     $this->side_effects->put($side_effect, $id);
-                    $this->comment("New side effect object: id [{$id}] value [{$side_effect}]");
                 }
-                
+
                 $side_effects[] = $id;
             }
         }
-        
-        return $side_effects;
-    }
 
-    private function getLabels($concept)
-    {
-        return $this->openfda->getDrugLabels($concept);
-    }
-
-    private function getConceptDescription($concept, $labels)
-    {
-        return $this->openfda->getDescription($concept, $labels);
-    }
-    
-    private function getPrescriptionTypes($concept, $labels)
-    {
-        return $this->openfda->getPrescriptionTypes($concept, $labels);
-    }
-    
-    private function getRecalls($concept)
-    {
-        return $this->openfda->getRecalls($concept);
+        return array_unique($side_effects);
     }
 
     private function translate($term)
     {
         $translation = '';
 
-        if ($term && ($term = strtolower($term)) && !in_array($term, $this->translation['skip'])) {
-            $translation = array_get($this->translation, 'translations.' . $term, '');
-            if (!$translation) {
-                $translation = $term;
-                
-                $comma = strpos($translation, ', ');
-                if ($comma !== false) {
-                    $translation = substr($translation, $comma + 2) . ' ' . substr($translation, 0, $comma);
-                }
-                
-                foreach ($this->translation['fix_order'] as $word) {
-                    $pos = strpos($term, ' ' . $word);
-                    if ($pos !== false) {
-                        $translation = $word . ' ' . substr($translation, 0, $pos);
+        if ($term) {
+            $term = strtolower($term);
+            if (!array_get($this->translation['skip'], $term, '')) {
+                $translation = array_get($this->translation, "translations.{$term}", '');
+                if (empty($translation)) {
+                    $translation = $term;
+
+                    $comma = strpos($translation, ', ');
+                    if ($comma !== false) {
+                        $translation = substr($translation, $comma + 2) . ' ' . substr($translation, 0, $comma);
                     }
-                }
-                
-                foreach ($this->translation['replace'] as $from => $to) {
-                    $translation = str_replace($from, $to, $translation);
+
+                    foreach ($this->translation['fix_order'] as $word) {
+                        $pos = strpos($term, ' ' . $word);
+                        if ($pos !== false) {
+                            $translation = $word . ' ' . substr($translation, 0, $pos);
+                        }
+                    }
+
+                    foreach ($this->translation['replace'] as $from => $to) {
+                        $translation = str_replace($from, $to, $translation);
+                    }
                 }
             }
         }
-        
+
         return $translation;
     }
 
@@ -373,43 +342,43 @@ class ImportDrugs extends Command
     {
         return [
             'skip' => [
-                'accidental drug intake by child',
-                'adverse event',
-                'condition aggravated',
-                'drug administration error',
-                'drug dose omission',
-                'drug exposure during pregnancy',
-                'drug ineffective',
-                'drug interaction',
-                'drug use for unknown indication',
-                'expired drug administered',
-                'fall',
-                'general physical health deterioration',
-                'ill-defined disorder',
-                'incorrect dose administered',
-                'incorrect drug administration duration',
-                'incorrect route of drug administration',
-                'increased international normalised ratio',
-                'infusion related reaction',
-                'intentional drug misuse',
-                'intentional misuse',
-                'intentional overdose',
-                'maternal exposure during pregnancy',
-                'medication error',
-                'miosis',
-                'no adverse event',
-                'off label use',
-                'pharmaceutical product complaint',
-                'post procedural complication',
-                'premedication',
-                'product quality issue',
-                'product substitution issue',
-                'product used for unknown indication',
-                'therapeutic response unexpected',
-                'unevaluable event',
-                'unresponsive to stimuli',
-                'wrong drug administered',
-                'wrong technique in drug usage process',
+                'accidental drug intake by child' => true,
+                'adverse event' => true,
+                'condition aggravated' => true,
+                'drug administration error' => true,
+                'drug dose omission' => true,
+                'drug exposure during pregnancy' => true,
+                'drug ineffective' => true,
+                'drug interaction' => true,
+                'drug use for unknown indication' => true,
+                'expired drug administered' => true,
+                'fall' => true,
+                'general physical health deterioration' => true,
+                'ill-defined disorder' => true,
+                'incorrect dose administered' => true,
+                'incorrect drug administration duration' => true,
+                'incorrect route of drug administration' => true,
+                'increased international normalised ratio' => true,
+                'infusion related reaction' => true,
+                'intentional drug misuse' => true,
+                'intentional misuse' => true,
+                'intentional overdose' => true,
+                'maternal exposure during pregnancy' => true,
+                'medication error' => true,
+                'miosis' => true,
+                'no adverse event' => true,
+                'off label use' => true,
+                'pharmaceutical product complaint' => true,
+                'post procedural complication' => true,
+                'premedication' => true,
+                'product quality issue' => true,
+                'product substitution issue' => true,
+                'product used for unknown indication' => true,
+                'therapeutic response unexpected' => true,
+                'unevaluable event' => true,
+                'unresponsive to stimuli' => true,
+                'wrong drug administered' => true,
+                'wrong technique in drug usage process' => true,
                 ],
             'translations' => [
                 'abdominal pain lower' => 'abdominal pain',
@@ -431,6 +400,7 @@ class ImportDrugs extends Command
                 'diabetes mellitus non-insuling-dependent' => 'non insulin dependent diabetes',
                 'diarrhoea' => 'diarrhea',
                 'diplaopia' => 'double vision',
+                'drug abuser' => 'drug abuse',
                 'dysgeusia' => 'loss of taste',
                 'dyspepsia' => 'indigestion',
                 'dyspnoea' => 'labored breathing',
@@ -479,6 +449,17 @@ class ImportDrugs extends Command
                 'xanthopsia' => 'vision deficiency',
                 'xerosis' => 'dry skin',
                 ],
+            'replace' => [
+                'anaemia' => 'anemia',
+                'diarrhoea' => 'diarrhea',
+                'discolouration' => 'discoloration',
+                'haemorhage' => 'hemorhage',
+                'increased blood' => 'increased',
+                'leukaemia' => 'leukemia',
+                'odour' => 'odor',
+                'oedema' => 'edema',
+                'oesophageal' => 'esophageal',
+                ],
             'fix_order' => [
                 'abnormal',
                 'acute',
@@ -497,17 +478,6 @@ class ImportDrugs extends Command
                 'reduced',
                 'spontaneous',
                 ],
-            'replace' => [
-                'anaemia' => 'anemia',
-                'diarrhoea' => 'diarrhea',
-                'discolouration' => 'discoloration',
-                'haemorhage' => 'hemorhage',
-                'increased blood' => 'increased',
-                'leukaemia' => 'leukemia',
-                'odour' => 'odor',
-                'oedema' => 'edema',
-                'oesophageal' => 'esophageal',
-                ]
             ];
     }
 }

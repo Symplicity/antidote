@@ -7,6 +7,20 @@ class RXClass extends RestAPI
     protected $api_base_uri = 'http://rxnav.nlm.nih.gov/REST/rxclass/';
     protected $rate_limit = 20;
 
+    private function getByRxcui($rxcui, $query)
+    {
+        $results = $this->get("class/byRxcui.json?rxcui={$rxcui}&{$query}");
+
+        return array_get($results, 'rxclassDrugInfoList.rxclassDrugInfo', []);
+    }
+
+    private function getClassMembers($classId, $query)
+    {
+        $results = $this->get("classMembers.json?classId={$classId}&{$query}");
+
+        return array_get($results, 'drugMemberGroup.drugMember', []);
+    }
+
     public function getConceptIndications($rxcui)
     {
         $indications = [];
@@ -34,19 +48,5 @@ class RXClass extends RestAPI
         }
 
         return $concepts;
-    }
-
-    private function getByRxcui($rxcui, $query)
-    {
-        $results = $this->get("class/byRxcui.json?rxcui={$rxcui}&{$query}");
-
-        return array_get($results, 'rxclassDrugInfoList.rxclassDrugInfo', []);
-    }
-
-    private function getClassMembers($classId, $query)
-    {
-        $results = $this->get("classMembers.json?classId={$classId}&{$query}");
-
-        return array_get($results, 'drugMemberGroup.drugMember', []);
     }
 }
