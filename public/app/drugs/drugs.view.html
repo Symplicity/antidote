@@ -18,7 +18,7 @@
                         <span class="md-raised md-pills">{{::indication.value | capitalize}}</span>
                     </span>
                     <a ng-hide="results.length === drugsView.drug.indications.length"
-                            ng-click="limit = limit +6">show more...
+                            ng-click="limit = drugsView.drug.indications.length">show all...
                     </a>
                 </p>
             </div>
