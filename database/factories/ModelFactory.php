@@ -53,10 +53,15 @@ $factory->define(App\Drug::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\DrugReview::class, function (Faker\Generator $faker) {
+$max_drug_id = 50;
+if (\Illuminate\Support\Facades\Schema::hasTable('drugs')) {
+    $max_drug_id = \Illuminate\Support\Facades\DB::table('drugs')->max('id');
+}
+
+$factory->define(App\DrugReview::class, function (Faker\Generator $faker) use ($max_drug_id) {
     return [
         'user_id' => $faker->numberBetween(1, 50),
-        'drug_id' => $faker->numberBetween(1, 50),
+        'drug_id' => $faker->numberBetween(1, $max_drug_id),
         'age' => $faker->numberBetween(18, 85),
         'gender' => $faker->randomElement(['m', 'f']),
         'rating' => $faker->numberBetween(1, 3),
