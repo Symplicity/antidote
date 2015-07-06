@@ -119,6 +119,18 @@
             }
         };
 
+        this.numLimit = 200;
+        this.readBtn = 'read more';
+        this.readMore = function() {
+            if (this.numLimit === 200) {
+                this.numLimit = 10000;
+                this.readBtn = 'read less';
+            }else {
+                this.numLimit = 200;
+                this.readBtn = 'read more';
+            }
+        };
+
         function activate() {
             DrugsService.get({id: $stateParams.id}).$promise.then(function(drug) {
                 self.drug = drug;

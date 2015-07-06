@@ -10,6 +10,8 @@
         font-weight: 500;
         font-size: 40px;
         margin: 0;
+        vertical-align:middle;
+        display: inline-block;
     }
 
     .md-drug-type {
@@ -19,6 +21,12 @@
         font-size: 13px;
         background-color: #043045;
         color: #FFFFFF;
+        vertical-align:sub;
+        display: inline-block;
+
+        @media only screen and (max-width: 600px){
+            margin: 0;
+        }
     }
 
     @media only screen and (max-width: 600px){
@@ -34,4 +42,10 @@
         font-size:30px;
     }
 
+    .read-more{
+        cursor: pointer;
+        text-transform: uppercase;
+        margin:10px;    
+        font-weight:bold;
+    }
 }

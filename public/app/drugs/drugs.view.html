@@ -9,7 +9,7 @@
                 <md-button class="md-accent md-raised md-button" ng-click="drugsView.openReviewModal($event)">Review it</md-button>
             </div>
             <div flex="70" flex-sm="100">
-                <p>{{drugsView.drug.description}}</p>
+                <p>{{drugsView.drug.description | limitTo:drugsView.numLimit}}<span ng-if="drugsView.drug.description.length>drugsView.numLimit">...</span><a ng-if="drugsView.drug.description.length > 200" class="read-more" ng-click="drugsView.readMore()" >{{drugsView.readBtn}}</a> </p>
             </div>
             <div flex="100" flex-sm="100" ng-if="drugsView.drug.indications.length > 0">
                 <p>
