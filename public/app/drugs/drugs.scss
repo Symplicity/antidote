@@ -112,6 +112,7 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
 
 
 .vote-up {
+
     &:hover {
         color: $md-secondary;
 
@@ -134,6 +135,12 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
     }
     &:active {
         color: #ef5350;
+    }
+}
+
+.vote-up, .vote-down{
+    .material-icons {
+        font-size: 34px;
     }
 }
 

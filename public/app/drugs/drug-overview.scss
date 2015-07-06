@@ -67,16 +67,15 @@
         }
     }
 }
-md-card md-card-content.top-3{
+md-card md-card-content.top-3 {
     padding: 16px 0;
     text-align:center;
 }
 
 .drug-filters {    
-    background: #EEE;
-    margin-left: 25px;
+    background: #FFF;
     width: 701px;
-    margin-bottom: -5px;
+    margin-bottom: 20px;
     max-width: 100%;
 
     md-tabs:first-child {
@@ -87,6 +86,10 @@ md-card md-card-content.top-3{
         width: 366px;
         display: inline-block;
         background: #FFF;
+
+        md-tabs-wrapper {
+            margin-bottom: -2px;
+        }
     }
     .md-tab.md-active, md-tabs .md-tab.md-focused {
         background: #5E35B1;

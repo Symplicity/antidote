@@ -8,9 +8,9 @@
                     <p>Was it effective?</p>
                     <div layout="row" flex class="ie-fix">
                         <md-radio-group ng-model="drugsReview.review.rating">
-                          <md-radio-button value="3" class="md-primary"><md-icon class="md-icon-big happy-face">mood</md-icon>Good</md-radio-button>
-                          <md-radio-button value="2" class="md-primary neutral-face"><img src="images/icons/md-neutral.png" alt="neutral face" class="md-icon-big" /><span class="neutral">Meh</span></md-radio-button>
-                          <md-radio-button value="1" class="md-primary"><md-icon class="md-icon-big sad-face">mood_bad</md-icon>Bad</md-radio-button>
+                          <md-radio-button value="3" class="md-primary"> <md-icon md-svg-src="images/icons/good.svg" class="md-icon-big happy-face"></md-icon><span class="neutral"> Good</span></md-radio-button>
+                          <md-radio-button value="2" class="md-primary neutral-face"> <md-icon md-svg-src="images/icons/meh.svg" class="md-icon-big happy-face"></md-icon><span class="neutral"> Meh</span></md-radio-button>
+                          <md-radio-button value="1" class="md-primary"> <md-icon md-svg-src="images/icons/bad.svg" class="md-icon-big happy-face"></md-icon><span class="neutral"> Bad</span></md-radio-button>
                         </md-radio-group>
                         <div ng-messages="reviewForm.rating.$error" ng-show="reviewForm.rating.$dirty">
                             <div ng-message="md-required">Rating is required</div>
