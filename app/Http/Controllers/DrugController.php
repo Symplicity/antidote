@@ -31,7 +31,13 @@ class DrugController extends Controller
         $drugs = Drug::select('id', 'label');
 
         if (!empty($term)) {
-            $drugs = $drugs->where('label', 'LIKE', $term . '%');
+            if ($term === '#') {
+                $drugs = $drugs->whereRaw(
+                    "upper(left(label, 1)) not between 'A' and 'Z'"
+                );
+            } else {
+                $drugs = $drugs->where('label', 'LIKE', $term . '%');
+            }
         }
 
         $drugs = $drugs->orderBy('label', 'ASC')->paginate($limit);
