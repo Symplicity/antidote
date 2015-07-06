@@ -20,9 +20,11 @@
                 <md-icon>healing</md-icon>
                 <h4>Side Effects</h4>
             </md-toolbar>
-            <md-card-content class="top-3" ng-if="drugsView.drug.side_effects.length > 0">
+            <md-card-content class="top-3">
+                <div ng-if="drugsView.drug.side_effects.length == 0">
+                    <p>Sorry! No side effect data at this time.</p>
+                </div>
                 <span class="md-pills" ng-repeat="side_effect in drugsView.drug.side_effects">{{::side_effect.value | capitalize}}</span>
-
             </md-card-content>
         </md-card>
 
