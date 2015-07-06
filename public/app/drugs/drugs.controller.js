@@ -175,6 +175,8 @@
     function DrugsOverviewCtrl(DrugsService, $stateParams) {
         var self = this;
 
+        this.topReviews = [];
+
         this.effectiveLabels = ['Effective', 'Not Effective'];
         this.effectiveColours = ['#5e35b1', '#d1c4e9'];
         this.effectiveOptions = {
