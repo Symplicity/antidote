@@ -139,7 +139,7 @@ class AuthController extends Controller
             'email' => $email,
             'site_url' => $site_url,
             'change_password_link' => $site_url . '/api/auth/reset/' . $token,
-            'link_expiration_time' => '90 Minutes'
+            'link_expiration_time' => '90 minutes'
         ];
 
         Mail::send('emails.forgot-password', $data, function ($message) use ($email) {
