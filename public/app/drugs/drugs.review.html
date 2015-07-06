@@ -21,7 +21,7 @@
                     <p>Did you experience any side effects?</p>
                     <div layout="row" layout-wrap>
                         <fieldset class="standard">
-                            <md-checkbox ng-repeat="item in drugsReviewModal.drug_side_effects" ng-checked="drugsReviewModal.exists(item.id, drugsReview.review.side_effects)" ng-click="drugsReviewModal.toggle(item.id, drugsReview.review.side_effects)">
+                            <md-checkbox ng-repeat="item in drugsReviewModal.drug_side_effects | orderBy:'value'" ng-checked="drugsReviewModal.exists(item.id, drugsReview.review.side_effects)" ng-click="drugsReviewModal.toggle(item.id, drugsReview.review.side_effects)">
                                 {{item.value | capitalize}}
                             </md-checkbox>
                         </fieldset>
