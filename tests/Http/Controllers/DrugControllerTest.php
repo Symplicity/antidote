@@ -91,6 +91,22 @@ class DrugControllerTest extends TestCase
         $this->ctrl->index($request);
     }
 
+    public function testIndexNonAlpha()
+    {
+        $params = [
+            'limit' => 20,
+            'term' => '#'
+        ];
+        $this->stubQuery->shouldReceive('paginate')->once()->with(20);
+        $this->stubQuery->shouldReceive('whereRaw')->once()->with("upper(left(label, 1)) not between 'A' and 'Z'")->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
+        $this->mockModel->shouldReceive('select')->once()->with('id', 'label')->andReturn($this->stubQuery);
+
+        $request = new Illuminate\Http\Request($params);
+
+        $this->ctrl->index($request);
+    }
+
     public function testGetReviews()
     {
         $this->stubQuery->shouldReceive('paginate')->once()->with(15);
