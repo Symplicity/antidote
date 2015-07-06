@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
-if [ -z "$SETUP_SCRIPT_URL" ]; then
-  echo "No setup url enabled"
-else
-  echo "Fetching Setup Script"
-  curl -o /setup.sh $SETUP_SCRIPT_URL
-  chmod +x /setup.sh
-  sh /setup.sh
-fi
+
+echo "Running Setup script"
+sh /setup.sh
 
 /sbin/my_init
