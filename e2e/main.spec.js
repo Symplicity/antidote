@@ -51,6 +51,7 @@ describe('The main view', function() {
             'WARRANTY DISCLAIMER',
             'General',
             'Links to Other Materials',
+            'Data Sources',
             'Notification of Possible Copyright Infringement'
         ]);
 
