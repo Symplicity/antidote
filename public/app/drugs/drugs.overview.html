@@ -50,7 +50,7 @@
             <h4>Reviews</h4>
         </md-toolbar>
         <md-card-content>
-            <div layout="column" layout-align="center center" flex ng-if="drugsView.topReviews.length < 0" class="special-ie-fix">
+            <div layout="column" layout-align="center center" flex ng-if="drugsOverview.topReviews.length < 0" class="special-ie-fix">
                 <div flex>
                     <p>Sorry! No reviews at this time. Be the first to share your experience!</p>
                 </div>
@@ -63,7 +63,7 @@
             </div>
         </md-card-content>
         <div class="md-actions" layout="row" layout-align="end center">
-            <md-button ng-if="drugsView.topReviews.length > 0" ui-sref="drugs.view.reviews({id: drugsView.drug.id})" ng-click="drugsView.updateReviewTabState()" class="md-accent">SEE MORE REVIEWS</md-button>
+            <md-button ng-if="drugsOverview.topReviews.length > 0" ui-sref="drugs.view.reviews({id: drugsView.drug.id})" ng-click="drugsView.updateReviewTabState()" class="md-accent">SEE MORE REVIEWS</md-button>
         </div>
     </md-card>
 </md-content>
