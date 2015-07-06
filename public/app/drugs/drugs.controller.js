@@ -14,7 +14,9 @@
 
     /** @ngInject */
     function DrugsListCtrl(DrugsService, $stateParams) {
-        var that = this;
+        var self = this;
+        this.drugs = [];
+
         this.letters = [
             'a', 'b', 'c', 'd', 'e', 'f', 'g',
             'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -24,13 +26,22 @@
             'z'
         ];
 
-        activate();
-
         function activate() {
-            DrugsService.queryAutocomplete($stateParams).$promise.then(function(drugs) {
-                that.drugs = drugs;
-            });
+            self.loadData();
         }
+
+        this.loadData = function() {
+            DrugsService.query(
+                {
+                    term: $stateParams.term,
+                    page: self.page,
+                    limit: self.perPage
+                }
+            ).$promise.then(function(drugs) {
+                    self.drugs = self.drugs.concat(drugs.data);
+                    self.more = self.page < drugs.last_page;
+                });
+        };
 
         this.getAlphabetFilterClass = function(alphabet) {
             if ($stateParams.term === alphabet) {
@@ -39,11 +50,29 @@
                 return '';
             }
         };
+
+        this.currentLetter = $stateParams.term;
+
+        /** PAGINATION **/
+        this.perPage = 50;
+        this.page = 1;
+        this.more = false;
+
+        this.showMore = function() {
+            self.page++;
+            self.loadData();
+        };
+
+        this.hasMore = function() {
+            return self.more;
+        };
+
+        activate();
     }
 
     /** @ngInject */
-    function DrugsViewCtrl(DrugsService, $stateParams, SignupModalService, $auth, $mdDialog, $state) {
-        var that = this;
+    function DrugsViewCtrl(DrugsService, $stateParams, LoginSignupModalService, $auth, $mdDialog, $state) {
+        var self = this;
 
         activate();
 
@@ -71,10 +100,6 @@
             this.selectedIndex = 1;
         };
 
-        this.openSignupModal = function() {
-            SignupModalService.open();
-        };
-
         this.openReviewModal = function(ev) {
             if ($auth.isAuthenticated()) {
                 $mdDialog.show({
@@ -86,17 +111,17 @@
                     clickOutsideToClose: true,
                     hasBackdrop: true,
                     locals: {
-                        drug_side_effects: that.drug.side_effects
+                        drug_side_effects: self.drug.side_effects
                     }
                 });
             } else {
-                that.openSignupModal();
+                LoginSignupModalService.open();
             }
         };
 
         function activate() {
             DrugsService.get({id: $stateParams.id}).$promise.then(function(drug) {
-                that.drug = drug;
+                self.drug = drug;
 
                 var covered = drug.insurance_coverage_percentage * 100;
                 var uncovered = (1 - drug.insurance_coverage_percentage) * 100;
@@ -104,12 +129,8 @@
                 var effectiveness = drug.effectiveness_percentage * 100;
                 var uneffectiveness = (1 - drug.effectiveness_percentage) * 100;
 
-                that.insuranceChartData = [covered, uncovered];
-                that.effectivenessChartData = [effectiveness, uneffectiveness];
-            });
-
-            DrugsService.getReviews({id: $stateParams.id, limit: 2}).$promise.then(function(reviews) {
-                that.topReviews = reviews.data;
+                self.insuranceChartData = [covered, uncovered];
+                self.effectivenessChartData = [effectiveness, uneffectiveness];
             });
         }
     }
@@ -136,8 +157,8 @@
 
     /** controller for review form **/
     /** @ngInject */
-    function DrugsReviewCtrl(DrugsService, $stateParams) {
-        var that = this;
+    function DrugsReviewCtrl(DrugsService, $stateParams, ServerErrorHandlerService) {
+        var self = this;
         this.review = {
             side_effects: []
         };
@@ -145,64 +166,216 @@
 
         this.submitReview = function() {
             DrugsService.postReview({id: $stateParams.id}, this.review).$promise.then(function() {
-                that.reviewSubmitted = true;
-            });
-            //TODO: add server error handling to display messages to user
+                self.reviewSubmitted = true;
+            }, ServerErrorHandlerService.handle);
         };
     }
 
     /** @ngInject */
-    function DrugsOverviewCtrl() {
+    function DrugsOverviewCtrl(DrugsService, $stateParams) {
+        var self = this;
+
+        this.topReviews = [];
+
         this.effectiveLabels = ['Effective', 'Not Effective'];
         this.effectiveColours = ['#5e35b1', '#d1c4e9'];
         this.effectiveOptions = {
             animationEasing: 'easeOutQuart',
-            percentageInnerCutout: 75,
-            segmentShowStroke : false
+            percentageInnerCutout: 85,
+            segmentShowStroke : false,
+            responsive: false
         };
 
         this.iLabels = ['Covered', 'Not Covered'];
         this.iColours = ['#FF9800', '#FFE0B2'];
         this.iOptions = {
             animationEasing: 'easeOutQuart',
-            percentageInnerCutout: 75,
-            segmentShowStroke : false
+            percentageInnerCutout: 85,
+            segmentShowStroke : false,
+            responsive: false
         };
+
+        function activate() {
+            DrugsService.getReviews({id: $stateParams.id, limit: 2}).$promise.then(function(reviews) {
+                self.topReviews = reviews.data;
+            });
+        }
+
+        activate();
     }
 
     /** @ngInject */
-    function DrugsReviewsCtrl(DrugsService, $stateParams) {
-        this.reviews = {};
-        var that = this;
-
-        activate();
+    function DrugsReviewsCtrl(DrugsService, $stateParams, $auth, ProfileService) {
+        this.reviews = [];
+        var self = this;
 
         function activate() {
-            DrugsService.getReviews({id: $stateParams.id}).$promise.then(function(reviews) {
-                that.reviews = reviews.data;
-            });
+            if (!$auth.isAuthenticated()) {
+                //load with default filters
+                self.applyFilters();
+            } else {
+                ProfileService.get().$promise.then(function(user) {
+                    if (user.age || user.gender) {
+                        if (user.age) {
+                            for (var i = 0; i < self.ageRanges.length; i++) {
+                                var ageRange = self.ageRanges[i];
+                                if (user.age > ageRange.min_value && user.age < ageRange.max_value) {
+                                    self.selectedAgeRangeTabIndex = i;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (user.gender) {
+                            for (var j = 0; j < self.genders.length; j++) {
+                                var gender = self.genders[j];
+                                if (user.gender === gender.value) {
+                                    self.selectedGenderTabIndex = j;
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        //load with default filters
+                        self.applyFilters();
+                    }
+                });
+            }
         }
+
+        this.loadData = function(append) {
+            append = (typeof append !== 'undefined') ? append : true;
+
+            DrugsService.getReviews(
+                {
+                    id: $stateParams.id,
+                    page: self.page,
+                    limit: self.perPage,
+                    min_age: self.filters.ageRange.min_value,
+                    max_age: self.filters.ageRange.max_value,
+                    gender: self.filters.gender.value
+                }
+            ).$promise.then(function(reviews) {
+                    if (append) {
+                        self.reviews = self.reviews.concat(reviews.data);
+                    } else {
+                        self.reviews = reviews.data;
+                    }
+                    self.more = self.page < reviews.last_page;
+                });
+        };
+
+        /** FILTERS **/
+        this.ageRanges = [
+            {
+                'min_value': null,
+                'max_value': null,
+                'label': 'All Ages'
+            },
+            {
+                'min_value': 18,
+                'max_value': 34,
+                'label': '18-34'
+            },
+            {
+                'min_value': 35,
+                'max_value': 50,
+                'label': '35-50'
+            },
+            {
+                'min_value': 51,
+                'max_value': null,
+                'label': '51+'
+            }
+        ];
+
+        this.genders = [
+            {
+                'value': null,
+                'label': 'All Genders'
+            },
+            {
+                'value': 'm',
+                'label': 'Male'
+            },
+            {
+                'value': 'f',
+                'label': 'Female'
+            }
+        ];
+
+        this.filters = {
+            ageRange: self.ageRanges[0],
+            gender: self.genders[0]
+        };
+
+        /* TODO: remove this workaround for this bug:  https://github.com/angular/material/issues/3243 */
+        var onAgeRangeFilterSelectedEventFiredCount = 0;
+        var onGenderFilterSelectedEventFiredCount = 0;
+
+        this.onAgeRangeFilterSelected = function(ageRange) {
+            onAgeRangeFilterSelectedEventFiredCount++;
+            //ignore first event
+            if (onAgeRangeFilterSelectedEventFiredCount > 1) {
+                this.filters.ageRange = ageRange;
+                this.applyFilters();
+            }
+        };
+
+        this.onGenderFilterSelected = function(gender) {
+            onGenderFilterSelectedEventFiredCount++;
+            //ignore first event
+            if (onGenderFilterSelectedEventFiredCount > 1) {
+                this.filters.gender = gender;
+                this.applyFilters();
+            }
+        };
+
+        this.applyFilters = function() {
+            this.resetPagination();
+            this.loadData(false);
+        };
+
+        /** PAGINATION **/
+        this.resetPagination = function() {
+            this.perPage = 10;
+            this.page = 1;
+            this.more = false;
+        };
+
+        this.showMore = function() {
+            self.page++;
+            self.loadData();
+        };
+
+        this.hasMore = function() {
+            return self.more;
+        };
+
+        activate();
     }
 
     /** @ngInject */
     function DrugsAlternativesCtrl(DrugsService, $stateParams) {
         this.alternatives = {};
-        var that = this;
+        var self = this;
 
         this.effectiveLabels = ['Effective', 'Not Effective'];
         this.effectiveColours = ['#5e35b1', '#d1c4e9'];
         this.effectiveOptions = {
             animationEasing: 'easeOutQuart',
-            percentageInnerCutout: 80,
-            segmentShowStroke : false
+            percentageInnerCutout: 85,
+            segmentShowStroke : false,
+            responsive: false
         };
 
         this.insuranceLabels = ['Covered', 'Not Covered'];
         this.insuranceColours = ['#FF9800', '#FFE0B2'];
         this.insuranceOptions = {
             animationEasing: 'easeOutQuart',
-            percentageInnerCutout: 80,
-            segmentShowStroke : false
+            percentageInnerCutout: 85,
+            segmentShowStroke : false,
+            responsive: false
         };
 
         activate();
@@ -223,19 +396,13 @@
                     };
                 });
 
-                that.alternatives = alternatives;
+                self.alternatives = alternatives;
             });
         }
     }
 
     /** @ngInject */
-    function DrugsReviewVoteCtrl(DrugsService, $auth, $mdToast, SignupModalService) {
-        var that = this;
-
-        this.openSignupModal = function() {
-            SignupModalService.open();
-        };
-
+    function DrugsReviewVoteCtrl(DrugsService, $auth, $mdToast, LoginSignupModalService, ServerErrorHandlerService) {
         this.vote = function(review, vote) {
             if ($auth.isAuthenticated()) {
                 DrugsService.voteOnReview(
@@ -257,23 +424,10 @@
                             }
                         }
                     },
-                    function(resp) {
-                        if (resp.status === 401) {
-                            //on 401 error from server ask user to log in (prob. token expired)
-                            that.openSignupModal();
-                        } else if (resp.status === 400) {
-                            //on 400 error user already voted so show toast
-                            $mdToast.show(
-                                $mdToast.simple()
-                                    .content(resp.data.message)
-                                    .position('top right')
-                                    .hideDelay(3000)
-                            );
-                        }
-                    }
+                    ServerErrorHandlerService.handle
                 );
             } else {
-                that.openSignupModal();
+                LoginSignupModalService.open();
             }
         };
     }

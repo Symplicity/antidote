@@ -7,8 +7,10 @@
                 <h4>Effectiveness</h4>
             </md-toolbar>
             <md-card-content class="top-3">
-                <canvas id="doughnut" class="chart chart-doughnut" data="drugsView.effectivenessChartData" labels="drugsOverview.effectiveLabels" colours="drugsOverview.effectiveColours" options="drugsOverview.effectiveOptions" ></canvas>
-                <p class="percentage">{{drugsView.drug.effectiveness_percentage | percentage}}</p>
+                <div class="overview-graph">
+                    <canvas id="doughnut" height="100%" width="100%" class="chart chart-doughnut" data="drugsView.effectivenessChartData" labels="drugsOverview.effectiveLabels" colours="drugsOverview.effectiveColours" options="drugsOverview.effectiveOptions" ></canvas>
+                    <p class="e-percent percentage">{{drugsView.drug.effectiveness_percentage | percentage}}</p>
+                </div>
                 <p>{{drugsView.drug.effectiveness_percentage | percentage}} of people found {{drugsView.drug.label}} effective</p>
             </md-card-content>
         </md-card>
@@ -18,10 +20,11 @@
                 <md-icon>healing</md-icon>
                 <h4>Side Effects</h4>
             </md-toolbar>
-            <md-card-content class="top-3" ng-if="drugsView.drug.side_effects.length > 0">
-                <ul ng-repeat="side_effect in drugsView.drug.side_effects">
-                    <li>{{::side_effect.value | capitalize}}</li>
-                </ul>
+            <md-card-content class="top-3">
+                <div ng-if="drugsView.drug.side_effects.length == 0">
+                    <p>Sorry! No side effect data at this time.</p>
+                </div>
+                <span class="md-pills" ng-repeat="side_effect in drugsView.drug.side_effects">{{::side_effect.value | capitalize}}</span>
             </md-card-content>
         </md-card>
 
@@ -31,8 +34,10 @@
                 <h4>Insurance</h4>
             </md-toolbar>
             <md-card-content class="top-3">
-                 <canvas id="doughnut" class="chart chart-doughnut" data="drugsView.insuranceChartData" labels="drugsOverview.iLabels" colours="drugsOverview.iColours" options="drugsOverview.iOptions"></canvas>
-                 <p class="percentage">{{drugsView.drug.insurance_coverage_percentage | percentage}}</p>
+                <div class="overview-graph">
+                    <canvas id="doughnut" class="chart chart-doughnut" data="drugsView.insuranceChartData" labels="drugsOverview.iLabels" colours="drugsOverview.iColours" options="drugsOverview.iOptions"></canvas>
+                    <p class="i-percent percentage">{{drugsView.drug.insurance_coverage_percentage | percentage}}</p>
+                </div>
                 <p>{{drugsView.drug.insurance_coverage_percentage | percentage}} of people found {{drugsView.drug.label}} covered by their insurance company</p>
             </md-card-content>
         </md-card>
@@ -45,7 +50,7 @@
             <h4>Reviews</h4>
         </md-toolbar>
         <md-card-content>
-            <div layout="column" layout-align="center center" flex ng-if="drugsView.topReviews.length < 0" class="special-ie-fix">
+            <div layout="column" layout-align="center center" flex ng-if="drugsOverview.topReviews.length === 0" class="special-ie-fix">
                 <div flex>
                     <p>Sorry! No reviews at this time. Be the first to share your experience!</p>
                 </div>
@@ -53,26 +58,47 @@
                     <md-button class="md-raised md-primary" ng-click="drugsView.openReviewModal($event)">Review It</md-button>
                 </div>
             </div>
-            <div ng-repeat="review in drugsView.topReviews | limitTo: 2" class="review-content">
+            <div ng-repeat="review in drugsOverview.topReviews | limitTo: 2" class="review-content">
                 <drugs-review-view review="review"></drugs-review-view>
             </div>
         </md-card-content>
         <div class="md-actions" layout="row" layout-align="end center">
-            <md-button ng-if="drugsView.topReviews.length > 0" ui-sref="drugs.view.reviews({id: drugsView.drug.id})" ng-click="drugsView.updateReviewTabState()" class="md-accent">SEE MORE REVIEWS</md-button>
+            <md-button ng-if="drugsOverview.topReviews.length > 0" ui-sref="drugs.view.reviews({id: drugsView.drug.id})" ng-click="drugsView.updateReviewTabState()" class="md-accent">SEE MORE REVIEWS</md-button>
         </div>
     </md-card>
 </md-content>
 
-<md-content layout="row" layout-sm="column" ng-if="drugsView.drug.recalls.length > 0" class="cardTitles">
+<md-content layout="row" layout-sm="column" ng-if="drugsView.drug.recalls.length > 0" class="cardTitles ie-fix" id="recall-card">
     <md-card flex>
         <md-toolbar class="md-toolbar-tools">
             <md-icon>report_problem</md-icon>
             <h4>Recall Information</h4>
         </md-toolbar>
         <md-card-content ng-repeat="recall in drugsView.drug.recalls">
-            <!-- TODO: lay this information for each recall out properly -->
-            <p>{{recall.recall}} {{recall.number}} {{recall.date}} {{recall.lots}}</p>
+                <div layout="column" flex>
+                    <p>Recal Number: {{recall.number}}</p>
+                    <p>Date Issue: {{recall.date}} -- {{recall.lots}}</p>
+                    <p>{{recall.recall}} </p>
+                </div>
         </md-card-content>
     </md-card>
 </md-content>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -3,16 +3,16 @@
 
     angular
         .module('antidote')
-        .factory('SignupModalService', SignupModalService);
+        .factory('LoginSignupModalService', LoginSignupModalService);
 
     /** @ngInject */
-    function SignupModalService($mdDialog) {
+    function LoginSignupModalService($mdDialog) {
         return {
             open: function() {
                 $mdDialog.show({
-                    controller: 'SignupModalCtrl',
-                    controllerAs: 'signupModal',
-                    templateUrl: 'app/components/signup-modal/signup-modal.html',
+                    controller: 'LoginSignupModalCtrl',
+                    controllerAs: 'loginSignupModal',
+                    templateUrl: 'app/components/login-signup-modal/login-signup-modal.html',
                     clickOutsideToClose: true,
                     hasBackdrop: true
                 });

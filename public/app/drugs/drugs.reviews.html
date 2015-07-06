@@ -1,5 +1,5 @@
 <div class="content container ng-scope">
-    <md-content layout="column" layout-gt-md="row" class="cardTitles reviews medium-ie-fix">
+    <md-content layout="column" layout-gt-md="row" class="card-titles reviews medium-ie-fix">
         <div flex flex-md="100" flex-sm="100">
             <md-card flex>
                 <md-toolbar class="md-toolbar-tools">
@@ -13,13 +13,32 @@
                         </div>
                         <div flex>
                             <md-button class="md-raised md-primary" ng-click="drugsView.openReviewModal($event)">Review It</md-button>
-                        </div>                        
+                        </div>
                     </div>
-                    <div ng-repeat="review in drugsReviews.reviews" class="card-content">            
-                        <drugs-review-view review="review"></drugs-review-view>            
+                    <div class="drug-filters">
+                        <md-tabs md-center-tabs="false" md-selected="drugsReviews.selectedGenderTabIndex">
+                            <md-tab ng-repeat="gender in drugsReviews.genders" md-on-select="drugsReviews.onGenderFilterSelected(gender)">{{gender.label}}</md-tab>
+                        </md-tabs>
+                        <md-tabs md-center-tabs="false" md-selected="drugsReviews.selectedAgeRangeTabIndex">
+                            <md-tab ng-repeat="ageRange in drugsReviews.ageRanges" md-on-select="drugsReviews.onAgeRangeFilterSelected(ageRange)">{{ageRange.label}}</md-tab>
+                        </md-tabs>
+                    </div>
+                    <div ng-if="drugsReviews.reviews.length > 0">
+                        <div ng-repeat="review in drugsReviews.reviews" class="card-content">
+                            <div layout="column" layout-align="center center" flex ng-if="drugsReviews.reviews.length === 0" class="special-ie-fix">
+                                <div flex>
+                                    <p>Sorry! No reviews at this time. Be the first to share your experience!</p>
+                                </div>
+                                <div flex>
+                                    <md-button class="md-raised md-primary" ng-click="drugsView.openReviewModal($event)">Review It</md-button>
+                                </div>
+                            </div>
+                            <drugs-review-view review="review"></drugs-review-view>
+                        </div>
                     </div>
                 </md-card-content>
             </md-card>
         </div>
     </md-content>
+    <md-button ng-if="drugsReviews.hasMore()" ng-click="drugsReviews.showMore()">View More</md-button>
 </div>

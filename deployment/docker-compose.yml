@@ -1,58 +1,59 @@
-# This will stand up a dev environment, see CONTRIBUTING.md for details
+# This will stand up a production environment, see Deployment.md for details
+# This file is required to use docker machine and docker swarm for deployment.
 web:
   image: symplicity/webserver
   ports:
     - '80:80'
     - '443:443'
   environment:
-    - ANTIDOTE_API_KEY=21a5701d30f0087304e8d783b9251968
+    - ANTIDOTE_API_KEY=
     - ANTIDOTE_CACHE_DRIVER=memcached
     - ANTIDOTE_DB_HOST=db
     - ANTIDOTE_DB_NAME=antidote
-    - ANTIDOTE_DB_PASS=antidoteSecret
+    - ANTIDOTE_DB_PASS=antidoteSecret # Change Me
     - ANTIDOTE_DB_PORT=3306
-    - ANTIDOTE_DB_USER=antidote
+    - ANTIDOTE_DB_USER=antidote # Change Me
     - ANTIDOTE_ROLE=web
-    - CODESHIP_PROJECT_ID=87143
-    - FDA_TOKEN=qbdWLTS2R88YO54s7bibLQmzXHXGLJJZP9KyUO9P
+    - CODESHIP_PROJECT_ID=
+    - FDA_TOKEN=
     - GITREPO_BRANCH=production
     - 'GITREPO_URL=git@github.com:Symplicity/antidote.git'
-    - MAILGUN_DOMAIN=antidote.symplicity-opensource.com
-    - MAILGUN_PASSWORD=72ad6795306f0eb377b70eb0a46ec905
-    - MAILGUN_SECRET=key-791ee81df84b4cb1721288acab15a194
-    - MAILGUN_USERNAME=postmaster@antidote.symplicity-opensource.com
+    - MAILGUN_DOMAIN=
+    - MAILGUN_PASSWORD=
+    - MAILGUN_SECRET=
+    - MAILGUN_USERNAME=
     - MEMCACHED_HOST=memc
     - RABBITMQ_NAME=hello
     - RABBITMQ_NODE=rabbitmq
     - RABBITMQ_PORT=5672
-    - WEBHOOK_API_KEY=08ckxTbUJ34n185wXKw33uNZ5p5rAJLu
-    - WORKER_API_KEY=71BFA61E865A7D718B385F55AEB2F
+    - WEBHOOK_API_KEY=
+    - WORKER_API_KEY=
   links:
     - db
     - rabbitmq
 job:
   image: symplicity/worker
   environment:
-    - ANTIDOTE_API_KEY=21a5701d30f0087304e8d783b9251968
+    - ANTIDOTE_API_KEY=
     - ANTIDOTE_DB_HOST=db
     - ANTIDOTE_DB_NAME=antidote
-    - ANTIDOTE_DB_PASS=antidoteSecret
+    - ANTIDOTE_DB_PASS=antidoteSecret # Change Me
     - ANTIDOTE_DB_PORT=3306
-    - ANTIDOTE_DB_USER=antidote
+    - ANTIDOTE_DB_USER=antidote # Change Me
     - ANTIDOTE_ROLE=worker
-    - FDA_TOKEN=qbdWLTS2R88YO54s7bibLQmzXHXGLJJZP9KyUO9P
+    - FDA_TOKEN=
     - GITREPO_BRANCH=production
     - 'GITREPO_URL=git@github.com:Symplicity/antidote.git'
-    - MAILGUN_DOMAIN=antidote.symplicity-opensource.com
-    - MAILGUN_PASSWORD=72ad6795306f0eb377b70eb0a46ec905
-    - MAILGUN_SECRET=key-791ee81df84b4cb1721288acab15a194
-    - MAILGUN_USERNAME=postmaster@antidote.symplicity-opensource.com
+    - MAILGUN_DOMAIN=
+    - MAILGUN_PASSWORD=
+    - MAILGUN_SECRET=
+    - MAILGUN_USERNAME=
     - RABBITMQ_NAME=hello
     - RABBITMQ_NODE=rabbitmq
     - RABBITMQ_PORT=5672
-    - SLACK_TOKEN=T04B2UA61/B06FG5TM5/29ovqrlt5CT47DuicSFcZX4k
-    - WEBHOOK_API_KEY=08ckxTbUJ34n185wXKw33uNZ5p5rAJLu
-    - WORKER_API_KEY=71BFA61E865A7D718B385F55AEB2F
+    - SLACK_TOKEN=
+    - WEBHOOK_API_KEY=
+    - WORKER_API_KEY=
   links:
     - db
     - rabbitmq
@@ -62,9 +63,9 @@ db:
     - "3306:3306"
   environment:
    - MYSQL_DATABASE=antidote
-   - MYSQL_USER=antidote
-   - MYSQL_PASSWORD=antidoteSecret
-   - MYSQL_ROOT_PASSWORD=rootSecret
+   - MYSQL_USER=antidote # Change Me
+   - MYSQL_PASSWORD=antidoteSecret # Change Me
+   - MYSQL_ROOT_PASSWORD=rootSecret # Change Me
    - TERM=dumb
 rabbitmq:
   image: rabbitmq:3-management

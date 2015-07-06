@@ -22,67 +22,17 @@ With the drugs API you can retrieve information and reviews on individual drugs 
                 "to": 30,
                 "data": [
                     {
-                        "id": 1,
-                        "label": "Tylenol",
-                        "description": "Tylenol is used to treat pain.",
-                        "generic": "Acetaminophen",
-                        "drug_forms": [
-                            "Disintegrating Oral Tablet",
-                            "Oral Capsule"
-                        ],
-                        "generic_id": null,
-                        "recalls": [],
-                        "effectiveness_percentage": 0,
-                        "insurance_coverage_percentage": 0,
-                        "total_reviews": 0,
-                        "side_effects": [
-                            {
-                                "id": "1",
-                                "value": "fatigue"
-                            },
-                            {
-                                "id": "2",
-                                "value": "weight-loss"
-                            },
-                            {
-                                "id": "3",
-                                "value": "reduced visual acuity"
-                            }
-                        ]
+                        "id": "23",
+                        "label": "Tylenol"
                     },
                     {
-                        "id": 2,
-                        "label": "Claritin",
-                        "description": "Claritin is used to treat allergies",
-                        "generic": null,
-                        "drug_forms": [
-                            "Disintegrating Oral Tablet",
-                            "Oral Capsule"
-                        ],
-                        "generic_id": null,
-                        "recalls": [],
-                        "effectiveness_percentage": 0.75,
-                        "insurance_coverage_percentage": 0.25,
-                        "total_reviews": 50,
-                        "side_effects": [
-                            {
-                                "id": "3",
-                                "value": "reduced visual acuity"
-                            },
-                            {
-                                "id": "4",
-                                "value": "blurred vision"
-                            },
-                            {
-                                "id": "5",
-                                "value": "varicose vein"
-                            }
-                        ]
+                        "id": "31",
+                        "label": "Tylenol III"
                     }
                 ]
             }
 
-### List [GET /drugs{?keywords,page,limit}]
+### List [GET /drugs{?term,page,limit}]
 Returns a list of all drugs. The drugs are returned in alphabetically sorted order. Example:
 
 ```no-highlight
@@ -91,7 +41,7 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
 
 + Parameters
 
-    + keywords: `Tylenol` (string, optional) - Search for a drug by keywords in label or description
+    + term: `a` (string, optional) - Search for a drug by label matching the term
     + page: `1` (integer, optional) - Page number of drugs
     + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `500`
       + Default: `15`
@@ -233,7 +183,7 @@ https://antidote.symplicity-opensource.com/api/drugs?keywords=Tylenol
                 ]
             }
 
-### List All [GET /drugs/{id}/reviews{?keywords,page,limit}]
+### List All [GET /drugs/{id}/reviews{?page,limit,min_age,max_age,gender}]
 Returns a list of all reviews for a drug. The reviews are returned in created date descending order.  Example:
 
 ```no-highlight
@@ -243,9 +193,11 @@ https://antidote.symplicity-opensource.com/api/drugs/1/reviews
 + Parameters
 
     + id: `1` (required, integer) - The drug ID
-    + keywords: `pain` (string, optional) - Search for a drug review by keywords in the comment
-    + page: `1` (integer, optional) - Page number
-    + limit: `25` (integer, optional) - The maximum number of drug reviews to return, up to `500`
+    + min_age: `18` (optional, integer) - The minimum age of the reviewer
+    + max_age: `35` (optional, integer) - The maximum age of the reviewer
+    + gender: `f` (optional, string) - The gender of the reviewer - either f or m
+    + page: `1` (optional, integer) - Page number
+    + limit: `25` (optional, integer) - The maximum number of drug reviews to return, up to `500`
       + Default: `15`
 
 + Response 200
@@ -376,11 +328,7 @@ Vote on a drug review using this action. It takes a JSON object containing the f
     + Body
 
             {
-              "message": {
-                "rating": [
-                  "The vote field is required."
-                ]
-              }
+              "message": "You've already voted on this review!"
             }
 
 ## Autocomplete [/autocomplete/drugs]
@@ -395,7 +343,7 @@ https://antidote.symplicity-opensource.com/api/autocomplete/drugs?term=Tyl
 
 + Parameters
 
-    + term: `Tyl` (string, optional) - Search for a drug by label
+    + term: `Tyl` (string, optional) - Search for a drug by label or generic name matching the term
     + limit: `25` (integer, optional) - The maximum number of drugs to return, up to `500`
       + Default: `15`
 

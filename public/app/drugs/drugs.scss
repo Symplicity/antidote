@@ -32,7 +32,9 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         }
     }
 }
-.cardTitles {
+
+
+.card-titles {
     md-toolbar {
         background-color: transparent;
         h4 {
@@ -43,11 +45,13 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
         }
     }
 }
+
 .card-content{
     border-bottom: 1px solid #ECECEC;
     margin-bottom: 20px;
     padding-bottom: 15px;
 }
+
 .card-content:last-child{
     border-bottom: none;
     margin-bottom: 0px;
@@ -58,16 +62,7 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
     position: absolute;
     top: 32px;
 }
-.top-3 {
 
-    p, span, chart-container {
-        text-align: center;
-    }
-}
-md-card md-card-content.top-3{
-    padding: 16px 0;
-    text-align:center;
-}
 .content {
     padding: 25px;
 }
@@ -75,10 +70,6 @@ md-card md-card-content.top-3{
 .percentage {
     font-size:56px;
     margin: 5px;
-    font-size: 4vw;
-}
-.percentages {
-    padding-top: 20px; 
 }
 
 .md-icon-big {
@@ -121,6 +112,7 @@ md-card md-card-content.top-3{
 
 
 .vote-up {
+
     &:hover {
         color: $md-secondary;
 
@@ -143,6 +135,12 @@ md-card md-card-content.top-3{
     }
     &:active {
         color: #ef5350;
+    }
+}
+
+.vote-up, .vote-down{
+    .material-icons {
+        font-size: 34px;
     }
 }
 

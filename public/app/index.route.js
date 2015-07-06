@@ -16,7 +16,11 @@
             })
             .state('privacy', {
                 url: '/privacy',
-                templateUrl: 'app/privacy/privacy.html'
+                templateUrl: 'app/legal/privacy.html'
+            })
+            .state('terms', {
+                url: '/terms',
+                templateUrl: 'app/legal/terms.html'
             })
             .state('drugs', {
                 url: '/drugs',
@@ -30,10 +34,6 @@
                 params: {
                     term: {
                         value: 'a',
-                        squash: true
-                    },
-                    limit: {
-                        value: '500',
                         squash: true
                     }
                 }
@@ -66,7 +66,7 @@
             })
             .state('login', {
                 url: '/login',
-                templateUrl: 'app/login/login.form.html',
+                templateUrl: 'app/login/login.html',
                 controller: 'LoginCtrl as login'
             })
             .state('logout', {
@@ -76,7 +76,7 @@
             })
             .state('signup', {
                 url: '/signup',
-                templateUrl: 'app/signup/signup.form.html',
+                templateUrl: 'app/signup/signup.html',
                 controller: 'SignupCtrl as signup'
             })
             .state('password', {

@@ -6,34 +6,28 @@
         .controller('LoginCtrl', LoginCtrl);
 
     /** @ngInject */
-    function LoginCtrl($mdToast, $auth) {
+    function LoginCtrl($mdToast, $auth, $state, LoginSignupModalService) {
+        this.username = '';
+        this.password = '';
+
         this.login = function() {
             $auth.login({username: this.username, password: this.password})
                 .then(loginSuccessHandler)
                 .catch(loginErrorHandler);
         };
-        this.authenticate = function(provider) {
-            $auth.authenticate(provider)
-                .then(loginSuccessHandler)
-                .catch(loginErrorHandler);
-        };
 
         function loginSuccessHandler() {
-            $mdToast.show(
-                $mdToast.simple()
-                    .content('You have successfully logged in')
-                    .position('top right')
-                    .hideDelay(3000)
-            );
+            $mdToast.showSimple('You have successfully logged in');
+            if ($state.current.name === 'login') {
+                $state.go('home');
+            } else {
+                //login dialog
+                LoginSignupModalService.close();
+            }
         }
 
         function loginErrorHandler(response) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .content(response.data ? response.data.message : response)
-                    .position('top right')
-                    .hideDelay(3000)
-            );
+            $mdToast.showSimple(response.data ? response.data.message : response);
         }
     }
 })();

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Facades\User;
 
 class AuthControllerTest extends TestCase
 {
@@ -77,6 +78,21 @@ class AuthControllerTest extends TestCase
         $this->assertContains('email must be a valid', $response->getContent());
     }
 
+    public function testBadAge()
+    {
+        $request = new Illuminate\Http\Request([
+            'username' => 'new_user',
+            'email' => 'foo@bar.com',
+            'password' => 'foobar',
+            'age' => 'bar'
+        ]);
+
+        $response = $this->ctrl->signup($request);
+
+        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertContains('Unknown or bad format', $response->getContent());
+    }
+
     public function testGoodSignup()
     {
         $request = new Illuminate\Http\Request([
@@ -101,6 +117,28 @@ class AuthControllerTest extends TestCase
 
         $this->assertEquals(400, $response->getStatusCode());
         $this->assertContains('token is invalid', $response->getContent());
+    }
+
+    public function testPasswordUpdate()
+    {
+        $request = new Illuminate\Http\Request([
+            'password' => 'foobar'
+        ]);
+
+        $user = \Mockery::mock('\App\User');
+        $user->shouldReceive('save')->once();
+        $user->shouldReceive('setAttribute');
+        $user->shouldReceive('getAttribute');
+
+        $stubQuery = \Mockery::mock('\Illuminate\Database\Eloquent\Builder');
+        $stubQuery->shouldReceive('first')->andReturn($user);
+        User::shouldReceive('whereRaw')->once()->andReturn($stubQuery);
+
+        $response = $this->ctrl->updatePasswordFromResetToken('foo', $request);
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $token = json_decode($response->getContent());
+        $this->assertObjectHasAttribute('token', $token);
     }
 
     public function testBadForgotPassword()
@@ -129,5 +167,25 @@ class AuthControllerTest extends TestCase
         $response = $this->ctrl->processForgotPassword($request);
 
         $this->assertContains('An email has been sent', $response->getContent());
+    }
+
+    public function testVerifyBadResetPasswordToken()
+    {
+        $response = $this->ctrl->verifyResetPasswordToken('foo');
+
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertContains('/password/reset/invalid', $response->getTargetUrl());
+    }
+
+    public function testVerifyResetPasswordToken()
+    {
+        $stubQuery = \Mockery::mock('\Illuminate\Database\Eloquent\Builder');
+        $stubQuery->shouldReceive('first')->andReturn(true);
+        User::shouldReceive('whereRaw')->once()->andReturn($stubQuery);
+
+        $response = $this->ctrl->verifyResetPasswordToken('foo');
+
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertContains('/password/reset/foo', $response->getTargetUrl());
     }
 }

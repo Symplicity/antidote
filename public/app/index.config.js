@@ -5,9 +5,10 @@
         .module('antidote')
         .config(config);
 
-    function config($locationProvider, $mdThemingProvider, $authProvider) {
+    function config($locationProvider, $mdThemingProvider, $authProvider, $compileProvider) {
 
         $locationProvider.html5Mode(true);
+        $compileProvider.debugInfoEnabled(false);
 
         $mdThemingProvider.theme('default')
             .primaryPalette('light-blue', {
@@ -20,6 +21,7 @@
             });
 
         $authProvider.baseUrl = '/api';
+        $authProvider.loginRedirect = null;
         $authProvider.logoutRedirect = '/home';
     }
 

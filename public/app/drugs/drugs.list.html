@@ -12,16 +12,24 @@
         </ul>
     </div>
 </div>
-<md-card class="content-container">
-    <md-card-content>
-    <div class="md-drugs">
-        <h3>{{drugsList.getAlphabetLetter()}}</h3>
-        <p>
-           <span ng-if="drug.label" ng-repeat="drug in drugsList.drugs">
-               <a ui-sref="drugs.view.overview({id:drug.id})">{{drug.label}}&nbsp({{drug.generic}})</a>
-           </span>
-        </p>
-    </div>
-</md-card-content>
-</md-card>
+<div class="content container">
+    <md-card>
+        <md-card-content>
+            <div class="md-drugs">
+                <h3>{{drugsList.currentLetter}}</h3>
+                <p>
+                   <span ng-if="drug.label" ng-repeat="drug in drugsList.drugs">
+                       <a ui-sref="drugs.view.overview({id:drug.id})">{{drug.label}}</a>
+                   </span>
+                </p>
+            </div>
+        </md-card-content>
+        <div class="md-actions" layout="row" layout-align="end center">
+            <md-button ng-if="drugsList.hasMore()" ng-click="drugsList.showMore()" class="md-accent">View More</md-button>
+        </div>
+    </md-card>   
+</div>
+
 </md-content>
+
+

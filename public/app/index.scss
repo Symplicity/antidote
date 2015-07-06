@@ -70,6 +70,7 @@
         max-width: 1366px;
         margin: 0px auto;
         margin-top: 50px;
+        margin-bottom: 50px;
 
         @media only screen and (max-width: 600px){
             padding-left: 0px;
@@ -116,7 +117,6 @@
 	}
 
 	.md-pills {
-        padding: 25px;
         color: #212121;
         font-size: 12px;
         display: inline-block;
@@ -126,7 +126,7 @@
         padding: 1px 10px;
         background-color: $md-secondary;
         border-color: $md-secondary;
-        margin: 0 6px;
+        margin: 5px;
 	}
 
 	.md-button.md-raised:not([disabled]):hover {
@@ -146,10 +146,12 @@
     }
 
     md-toast {
+        position:fixed;
         background-color:$md-secondary;
         color:black;
         margin-top:70px;
         font-size:18px;
+
     }
 
     md-toolbar md-icon {

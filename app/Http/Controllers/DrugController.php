@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Facades\Drug;
 use App\Facades\User;
-use App\DrugReview;
+use App\Facades\DrugReview;
 use Validator;
 
 class DrugController extends Controller
@@ -22,12 +22,16 @@ class DrugController extends Controller
 
     public function index(Request $request)
     {
+        $term = $request->input('term');
         $limit = $this->getLimit($request);
 
-        $drugs = Drug::with('sideEffects');
+        //disable extra appends specified in the model
+        \App\Drug::$without_appends = true;
 
-        if ($keywords = $request['keywords']) {
-            $drugs = $drugs->where('label', 'LIKE', '%' . $keywords . '%')->orWhere('description', 'LIKE', '%' . $keywords . '%');
+        $drugs = Drug::select('id', 'label');
+
+        if (!empty($term)) {
+            $drugs = $drugs->where('label', 'LIKE', $term . '%');
         }
 
         $drugs = $drugs->orderBy('label', 'ASC')->paginate($limit);
@@ -48,7 +52,7 @@ class DrugController extends Controller
             ->orWhere('generic', 'LIKE', $term . '%')
             ->limit($limit)
             ->orderBy('label', 'ASC')
-            ->get('label', 'id');
+            ->get();
     }
 
     /**
@@ -59,10 +63,26 @@ class DrugController extends Controller
     public function getReviews($id, Request $request)
     {
         $limit = $this->getLimit($request);
+        $min_age = $request->input('min_age');
+        $max_age = $request->input('max_age');
+        $gender = $request->input('gender');
 
         $reviews = DrugReview::where('drug_id', $id)
-            ->with('sideEffects')
-            ->orderBy('upvotes_cache', 'DESC')
+            ->with('sideEffects');
+
+        if (!empty($min_age)) {
+            $reviews = $reviews->where('age', '>=', $min_age);
+        }
+
+        if (!empty($max_age)) {
+            $reviews = $reviews->where('age', '<=', $max_age);
+        }
+
+        if (!empty($gender)) {
+            $reviews = $reviews->where('gender', $gender);
+        }
+
+        $reviews = $reviews->orderBy('upvotes_cache', 'DESC')
             ->orderBy('downvotes_cache', 'ASC')
             ->paginate($limit);
 
@@ -85,7 +105,8 @@ class DrugController extends Controller
         }
 
         try {
-            $drug_review = new DrugReview();
+            $drug_review = DrugReview::getModel();
+
             $drug_review->drug_id = $id;
             $drug_review->user_id = $request['user']['sub'];
 
@@ -97,7 +118,7 @@ class DrugController extends Controller
             $drug_review->comment = $request->input('comment');
             $drug_review->is_covered_by_insurance = $request->input('is_covered_by_insurance');
 
-            if ($drug_review->save() && $side_effects = $request->input('side_effects')) {
+            if ($drug_review->save() && ($side_effects = $request->input('side_effects'))) {
                 $drug_review->sideEffects()->sync($side_effects);
             }
         } catch (\Exception $e) {

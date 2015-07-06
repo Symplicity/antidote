@@ -1,5 +1,5 @@
 .md-drugs {
-    
+ 
     h3 {
         text-transform: uppercase;
         font-size: 50px;
@@ -13,6 +13,13 @@
 
         a {
             color: $md-primary;
+            text-align: left;
+            line-height: 2;
+            
+            &:hover{
+                font-weight:900;
+            }
+
         }
     }
 

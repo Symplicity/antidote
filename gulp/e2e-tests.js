@@ -9,7 +9,7 @@ function runProtractor (done) {
     var params = process.argv;
     var args = params.length > 3 ? [params[3], params[4]] : [];
     if (process.env.CI) {
-        args.push('--baseUrl=http://localhost:8000/index.html');
+        args.push('--baseUrl=http://localhost:8000/index.html/');
     }
 
     gulp.src(path.join(conf.paths.e2e, '/**/*.js'))

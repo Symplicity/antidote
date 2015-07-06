@@ -1,6 +1,7 @@
 <?php
 
 use \App\Http\Controllers\DrugController;
+use \App\Facades\DrugReview;
 
 class DrugControllerTest extends TestCase
 {
@@ -19,6 +20,7 @@ class DrugControllerTest extends TestCase
         $this->ctrl = new DrugController;
 
         $this->stubQuery = \Mockery::mock('\Illuminate\Database\Eloquent\Builder');
+
         $this->mockModel = \Mockery::mock('\App\Drug');
         $this->app->instance('Drug', $this->mockModel);
 
@@ -51,7 +53,7 @@ class DrugControllerTest extends TestCase
     {
         $this->stubQuery->shouldReceive('paginate')->once()->with(15);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
-        $this->mockModel->shouldReceive('with')->once()->with('sideEffects')->andReturn($this->stubQuery);
+        $this->mockModel->shouldReceive('select')->once()->with('id', 'label')->andReturn($this->stubQuery);
 
         $request = new Illuminate\Http\Request;
 
@@ -61,13 +63,13 @@ class DrugControllerTest extends TestCase
     public function testAutocompleteSearch()
     {
         $params = ['term' => 'foo'];
-        $this->stubQuery->shouldReceive('get')->once()->with('label', 'id');
+
+        $this->stubQuery->shouldReceive('get')->once()->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', '%' . $params['term'] . '%')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orWhere')->once()->with('generic', 'LIKE', '%' . $params['term'] . '%')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('limit')->once()->with(15)->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
         $this->mockModel->shouldReceive('select')->once()->with('id', 'label', 'generic')->andReturn($this->stubQuery);
-
         $request = new Illuminate\Http\Request($params);
 
         $this->ctrl->autocompleteSearch($request);
@@ -77,35 +79,54 @@ class DrugControllerTest extends TestCase
     {
         $params = [
             'limit' => 20,
-            'keywords' => 'foo'
+            'term' => 'foo'
         ];
         $this->stubQuery->shouldReceive('paginate')->once()->with(20);
-        $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', '%foo%')->andReturn($this->stubQuery);
-        $this->stubQuery->shouldReceive('orWhere')->once()->with('description', 'LIKE', '%foo%')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', 'foo%')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
-
-        $this->mockModel->shouldReceive('with')->once()->with('sideEffects')
-            ->andReturn($this->stubQuery);
+        $this->mockModel->shouldReceive('select')->once()->with('id', 'label')->andReturn($this->stubQuery);
 
         $request = new Illuminate\Http\Request($params);
 
         $this->ctrl->index($request);
     }
 
-    /*public function testGetReviews() TODO: fix this test for new query but since that is in flux wait to change this
+    public function testGetReviews()
     {
         $this->stubQuery->shouldReceive('paginate')->once()->with(15);
-        $this->stubQuery->shouldReceive('orderBy')->once()->with('created_at', 'DESC')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('downvotes_cache', 'ASC')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('upvotes_cache', 'DESC')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('with')->with('sideEffects')->once()->andReturn($this->stubQuery);
-        $this->stubQuery->shouldReceive('with')->with('drug')->once()->andReturn($this->stubQuery);
-        $this->stubQuery->shouldReceive('with')->with('user')->once()->andReturn($this->stubQuery);
-        $this->stubQuery->shouldReceive('reviews')->once()->andReturn($this->stubQuery);
-        $this->mockModel->shouldReceive('find')->once()->with('foo')->andReturn($this->stubQuery);
+
+        DrugReview::shouldReceive('where')->once()->with('drug_id', 'foo')->andReturn($this->stubQuery);
 
         $request = new Illuminate\Http\Request;
 
         $this->ctrl->getReviews('foo', $request);
-    }*/
+    }
+
+    public function testGetReviewsFull()
+    {
+        $params = [
+            'min_age' => 18,
+            'max_age' => 35,
+            'gender' => 'f'
+        ];
+
+        $this->stubQuery->shouldReceive('paginate')->once()->with(15);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('upvotes_cache', 'DESC')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('downvotes_cache', 'ASC')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('where')->once()->with('age', '>=', 18)->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('where')->once()->with('age', '<=', 35)->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('where')->once()->with('gender', 'f')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('with')->with('sideEffects')->once()->andReturn($this->stubQuery);
+
+        DrugReview::shouldReceive('where')->once()->with('drug_id', 'foo')->andReturn($this->stubQuery);
+
+        $request = new Illuminate\Http\Request($params);
+
+        $this->ctrl->getReviews('foo', $request);
+    }
 
     public function testAddReviewSansRating()
     {
@@ -120,10 +141,8 @@ class DrugControllerTest extends TestCase
         $this->assertContains('rating field is required', $response->getContent());
     }
 
-    public function testAddReview()
+    public function testAddReviewError()
     {
-        $this->setupDatabase();
-
         $request = new Illuminate\Http\Request([
             'user' => ['sub' => 'foo'],
             'rating' => 2,
@@ -131,15 +150,41 @@ class DrugControllerTest extends TestCase
             'comment' => 'Foo'
         ]);
 
+        DrugReview::shouldReceive('getModel')->once()->andThrow(new \Exception('Unexpected Error'));
+
+        $response = $this->ctrl->addReview('foo', $request);
+
+        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertContains('Unexpected Error', $response->getContent());
+    }
+
+    public function testAddReview()
+    {
+        $request = new Illuminate\Http\Request([
+            'user' => ['sub' => 'foo'],
+            'rating' => 2,
+            'is_covered_by_insurance' => 0,
+            'side_effects' => ['Nausea'],
+            'comment' => 'Foo'
+        ]);
+
         $this->mockUser->shouldReceive('getAttribute')->once()->with('age')->andReturn(22);
         $this->mockUser->shouldReceive('getAttribute')->once()->with('gender')->andReturn('m');
         $this->mockUser->shouldReceive('find')->once()->with('foo')->andReturn($this->mockUser);
 
+        $mockReview = \Mockery::mock('\App\DrugReview');
+        $mockReview->shouldReceive('setAttribute');
+        $mockReview->shouldReceive('toArray')->once();
+        $mockReview->shouldReceive('save')->once()->andReturn(true);
+
+        $side_effect = \Mockery::mock('\App\DrugSideEffect');
+        $side_effect->shouldReceive('sync')->once();
+        $mockReview->shouldReceive('sideEffects')->once()->andReturn($side_effect);
+        DrugReview::shouldReceive('getModel')->once()->andReturn($mockReview);
+
         $response = $this->ctrl->addReview('foo', $request);
 
         $this->assertEquals(201, $response->getStatusCode());
-        $review = json_decode($response->getContent());
-        $this->assertEquals('Foo', $review->comment);
     }
 
     public function testGetAlternatives()

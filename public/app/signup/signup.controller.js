@@ -6,15 +6,9 @@
         .controller('SignupCtrl', SignupCtrl);
 
     /** @ngInject */
-    function SignupCtrl($mdToast, $auth) {
+    function SignupCtrl($mdToast, $auth, $state, LoginSignupModalService) {
 
         this.user = {};
-
-        this.authenticate = function(provider) {
-            $auth.authenticate(provider)
-                .then(loginSuccessHandler)
-                .catch(loginErrorHandler);
-        };
 
         this.signup = function() {
             $auth.signup({
@@ -23,35 +17,28 @@
                 password: this.user.password,
                 gender: this.user.gender,
                 age: this.user.age
-            }).catch(loginErrorHandler);
+            })
+                .then(signupSuccessHandler)
+                .catch(signupErrorHandler);
         };
 
-        function loginSuccessHandler() {
-            $mdToast.show(
-                $mdToast.simple()
-                    .content('You have successfully logged in')
-                    .position('top right')
-                    .hideDelay(3000)
-            );
+        function signupSuccessHandler() {
+            $mdToast.showSimple('You have successfully signed up');
+            if ($state.current.name === 'signup') {
+                $state.go('profile');
+            } else {
+                //login dialog
+                LoginSignupModalService.close();
+            }
         }
 
-        function loginErrorHandler(response) {
+        function signupErrorHandler(response) {
             if (typeof response.data.message === 'object') {
                 angular.forEach(response.data.message, function(message) {
-                    $mdToast.show(
-                        $mdToast.simple()
-                            .content(message[0])
-                            .position('top right')
-                            .hideDelay(3000)
-                    );
+                    $mdToast.showSimple(message[0]);
                 });
             } else {
-                $mdToast.show(
-                    $mdToast.simple()
-                        .content(response.data ? response.data.message : response)
-                        .position('top right')
-                        .hideDelay(3000)
-                );
+                $mdToast.showSimple(response.data ? response.data.message : response);
             }
         }
     }

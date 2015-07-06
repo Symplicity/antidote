@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 MAINTAINER Richard Genthner <moose@symplicity.com>
 
-LABEL version="1.3.30"
+LABEL version="1.3.32"
 LABEL description="This is the Antidote Worker, with PHP 5.6"
 LABEL "com.symplicity.vendor"="Symplicity Corp"
 
@@ -41,8 +41,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ### Get code
 RUN touch /root/.ssh/known_hosts && ssh-keyscan github.com >> /root/.ssh/known_hosts
-ADD hithub /root/.ssh/id_rsa
-RUN chmod 0600 /root/.ssh/id_rsa
 RUN git clone https://github.com/moos3/arbeider.git /worker
 RUN cd /worker && composer install
 RUN mkdir /etc/service/worker
