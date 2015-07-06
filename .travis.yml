@@ -5,9 +5,6 @@ php:
 
 sudo: false
 
-before_install:
-  - npm install -g dredd
-
 install: travis_retry scripts/build.sh
 
-script: scripts/test.sh
+script: scripts/build-test.sh
