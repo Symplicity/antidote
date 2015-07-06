@@ -62,9 +62,16 @@
                         <table border="0" cellspacing="0" cellpadding="0" width="100%">
                             <tbody>
                             <tr>
-                                <td width="20%" style="font-family:'Helvetica Neue', Helvetica, Arial, sans serif; font-size:11px; text-decoration: none; color:#333; font-weight:700;"><a style="font-family:'Helvetica Neue', Helvetica, Arial, sans serif; font-size:11px; text-decoration: none; color:#333" href="test.dags.io">Antidote</a></td>
-                                <td width="20%"><a style="font-family:'Helvetica Neue', Helvetica, Arial, sans serif; font-size:11px; text-decoration: none; color:#333; font-weight:700;"  href="test.dags.io/about">Privacy Policy</a></td>
-                                <td width="20%"><a style="font-family:'Helvetica Neue', Helvetica, Arial, sans serif; font-size:11px; text-decoration: none; color:#333; font-weight:700;" href="test.dags.io/about">About</a></td>
+                                <td width="20%"
+                                    style="font-family:'Helvetica Neue', Helvetica, Arial, sans serif; font-size:11px; text-decoration: none; color:#333; font-weight:700;">
+                                    <a style="font-family:'Helvetica Neue', Helvetica, Arial, sans serif; font-size:11px; text-decoration: none; color:#333"
+                                       href="<?php echo $site_url; ?>">Antidote</a></td>
+                                <td width="20%"><a
+                                        style="font-family:'Helvetica Neue', Helvetica, Arial, sans serif; font-size:11px; text-decoration: none; color:#333; font-weight:700;"
+                                        href="<?php echo $site_url; ?>/privacy">Privacy Policy</a></td>
+                                <td width="20%"><a
+                                        style="font-family:'Helvetica Neue', Helvetica, Arial, sans serif; font-size:11px; text-decoration: none; color:#333; font-weight:700;"
+                                        href="<?php echo $site_url; ?>/about">About</a></td>
                             </tr>
                             </tbody>
                         </table>
