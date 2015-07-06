@@ -12,11 +12,14 @@
                 <p>{{drugsView.drug.description}}</p>
             </div>
             <div flex="100" flex-sm="100" ng-if="drugsView.drug.indications.length > 0">
-                <p>
+                <p ng-init="limit = 6">
                     <span class="md-body-2">Used for:</span>
-                    <span ng-repeat="indication in drugsView.drug.indications | orderBy:'value'">
+                    <span ng-repeat="indication in drugsView.drug.indications | orderBy:'value' | limitTo: limit as results">
                         <span class="md-raised md-pills">{{::indication.value | capitalize}}</span>
                     </span>
+                    <a ng-hide="results.length === drugsView.drug.indications.length"
+                            ng-click="limit = limit +6">show more...
+                    </a>
                 </p>
             </div>
     </md-content>
