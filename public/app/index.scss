@@ -68,13 +68,12 @@
     /*separate container needed for inside content*/
     .content-container{
         max-width: 1366px;
-        margin: 0px auto;
-        margin-top: 50px;
+        margin: 0 auto;
+        margin-top: 34px;
         margin-bottom: 50px;
 
         @media only screen and (max-width: 600px){
-            padding-left: 0px;
-            padding-right: 0px;
+            margin-top: 16px;
         }
     }
 
@@ -88,6 +87,12 @@
 	        color: $md-primary-light;
 	    }
 	}
+
+    md-card {
+        .md-actions{
+           padding: 5px;
+        }
+    }
 
 	strong {
 		color: black;
@@ -135,14 +140,6 @@
 
     a.md-button.md-accent.md-raised, a.md-button.md-accent.md-fab, .md-button.md-accent.md-raised, .md-button.md-accent.md-fab {
     	color:#000;
-    }
-
-    md-card {
-        margin:25px;
-
-        .md-actions{
-    	   padding: 5px;
-        }
     }
 
     md-toast {
