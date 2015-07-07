@@ -15,7 +15,7 @@ class CommandServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('import.drugs', function ($app) {
-            return new Commands\ImportDrugs($app['OpenFDA'], $app['RXNorm'], $app['RXClass']);
+            return new Commands\ImportDrugs($app['OpenFDA'], $app['RXNorm'], $app['RXClass'], $app['MedicalTranslator']);
         });
 
         $this->app->singleton('make.token', function () {

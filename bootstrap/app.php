@@ -90,6 +90,7 @@ $app->register(App\Providers\CommandServiceProvider::class);
 $app->register(App\Providers\OpenFDAServiceProvider::class);
 $app->register(App\Providers\RXNormServiceProvider::class);
 $app->register(App\Providers\RXClassServiceProvider::class);
+$app->register(App\Providers\MedicalTranslatorServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
