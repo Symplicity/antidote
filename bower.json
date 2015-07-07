@@ -1,6 +1,6 @@
 {
   "name": "antidote",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "dependencies": {
     "angular-resource": "^1.4.1",
     "angular-ui-router": "^0.2.13",
