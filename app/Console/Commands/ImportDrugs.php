@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Services\OpenFDA;
 use App\Services\RXNorm;
 use App\Services\RXClass;
+use App\Services\MedicalTranslator;
 use App\Facades\Drug;
 use App\Facades\DrugIndication;
 use App\Facades\DrugSideEffect;
@@ -18,7 +19,7 @@ class ImportDrugs extends Command
 
     private $indications;
     private $side_effects;
-    private $translation;
+    private $translator;
 
     private $openfda;
     private $rxnorm;
@@ -51,13 +52,14 @@ class ImportDrugs extends Command
      *
      * @return void
      */
-    public function __construct(OpenFDA $openfda, RXNorm $rxnorm, RXClass $rxclass)
+    public function __construct(OpenFDA $openfda, RXNorm $rxnorm, RXClass $rxclass, MedicalTranslator $translator)
     {
         parent::__construct();
 
         $this->openfda = $openfda;
         $this->rxnorm = $rxnorm;
         $this->rxclass = $rxclass;
+        $this->translator = $translator;
     }
 
     /**
@@ -67,8 +69,6 @@ class ImportDrugs extends Command
      */
     public function handle()
     {
-        $this->info('Starting drug import... ');
-
         Model::unguard(); // allow mass fills
 
         if ($this->option('verbose')) {
@@ -83,14 +83,33 @@ class ImportDrugs extends Command
         $this->drugs = Drug::lists('id', 'rxcui');
         $this->indications = DrugIndication::lists('id', 'value');
         $this->side_effects = DrugSideEffect::lists('id', 'value');
-        $this->translation = $this->setupTranslation();
+
+        $this->importBrands();
+    }
+
+    private function importBrands()
+    {
+        $this->info('Starting drug import... ');
 
         $brands = $this->getBrands();
 
         $total = ($this->limit ? : count($brands) - $this->skip);
         $this->info("Importing {$total} brands" . ($this->skip ? ' skipping ' . $this->skip : '') . ' ...');
 
+        $this->importConcepts($brands);
+
+        $total = count($this->concepts);
+        $this->info("Imported {$total} concepts. Importing alternatives ...");
+
+        $this->importAlternatives();
+
+        $this->info('Drug Import Done!');
+    }
+
+    private function importConcepts($brands)
+    {
         $imported = 0;
+
         foreach ($brands as $brand) {
             if ($this->skip-- <= 0) {
                 $imported++;
@@ -104,21 +123,74 @@ class ImportDrugs extends Command
                 }
             }
         }
+    }
 
-        $total = count($this->concepts);
-        $this->info("Imported {$total} concepts. Importing alternatives ...");
-
+    private function importAlternatives()
+    {
         $imported = 0;
+
         foreach ($this->concepts as $rxcui => $concept) {
             $imported++;
-            $this->importAlternatives($rxcui, $concept);
+            $alternatives = [];
+
+            foreach ($concept['related'] as $related) {
+                if ($related != $rxcui) {
+                    if (!empty($this->concepts[$related])) {
+                        $alternatives[] = $this->concepts[$related]['drug']->id;
+                    } elseif ($this->drugs->get($related)) {
+                        $alternatives[] = $this->drugs->get($related);
+                    }
+                }
+            }
+
+            $drug = $concept['drug'];
+
+            if ($this->option('debug')) {
+                $this->comment("Alternatives for {$drug->id} ({$drug->rxcui}) [{$drug->label}] : " . join(',', $alternatives));
+            } else {
+                $drug->alternatives()->sync($alternatives);
+            }
 
             if (!$this->option('debug') && $imported % 100 == 0) {
                 $this->line("Imported {$imported} (out of {$total}) alternatives so far ...");
             }
         }
+    }
 
-        $this->info('Drug Import Done!');
+    private function getBrandsFromNames($names)
+    {
+        $brands = [];
+
+        foreach ($names as $name) {
+            if ($name = trim($name)) {
+                $concept = $this->rxnorm->getConceptFromName($name);
+                if (empty($concept) || !in_array($concept['tty'], ['BN', 'BPCK'])) {
+                    $this->info($name . ' not found or not a brand drug. Skipping ...');
+                } else {
+                    $brands[] = ['rxcui' => $concept['rxcui']];
+                }
+            }
+        }
+
+        return $brands;
+    }
+
+    private function getBrandsFromIds($ids)
+    {
+        $brands = [];
+
+        foreach ($ids as $id) {
+            if ($id = trim($id)) {
+                $concept = $this->rxnorm->getConceptProperties($id);
+                if (empty($concept) || !in_array($concept['tty'], ['BN', 'BPCK'])) {
+                    $this->info($id . ' not found or not a brand drug. Skipping ...');
+                } else {
+                    $brands[] = ['rxcui' => $id];
+                }
+            }
+        }
+
+        return $brands;
     }
 
     private function getBrands()
@@ -126,29 +198,11 @@ class ImportDrugs extends Command
         $brands = [];
 
         if ($names = str_getcsv($this->option('names'))) {
-            foreach ($names as $name) {
-                if ($name = trim($name)) {
-                    $concept = $this->rxnorm->getConceptFromName($name);
-                    if (empty($concept) || !in_array($concept['tty'], ['BN', 'BPCK'])) {
-                        $this->info($name . ' not found or not a brand drug. Skipping ...');
-                    } else {
-                        $brands[] = ['rxcui' => $concept['rxcui']];
-                    }
-                }
-            }
+            $brands = array_merge($brands, $this->getBrandsFromNames($names));
         }
 
         if ($ids = str_getcsv($this->option('ids'))) {
-            foreach ($ids as $id) {
-                if ($id = trim($id)) {
-                    $concept = $this->rxnorm->getConceptProperties($id);
-                    if (empty($concept) || !in_array($concept['tty'], ['BN', 'BPCK'])) {
-                        $this->info($id . ' not found or not a brand drug. Skipping ...');
-                    } else {
-                        $brands[] = ['rxcui' => $id];
-                    }
-                }
-            }
+            $brands = array_merge($brands, $this->getBrandsFromIds($ids));
         }
 
         if (empty($brands)) {
@@ -173,21 +227,7 @@ class ImportDrugs extends Command
                 if (!$drug->id) {
                     $drug->id = count($this->drugs) + 1;
                 }
-
-                $this->comment("\n==============================================================================");
-                $this->comment("Importing rxcui: [{$rxcui}] as drug: [{$drug->id}] label: [{$drug->label} ({$drug->generic})]");
-                $this->comment("==============================================================================\n");
-
-                $print = $drug->toArray();
-                foreach ($print as $field => $value) {
-                    if (!is_array($value)) {
-                        $this->line(sprintf('  %-20s : %s', substr($field, 0, 20), $value));
-                    }
-                }
-                foreach (['drug_forms', 'types', 'indications', 'side_effects', 'related'] as $field) {
-                    $this->line(sprintf('  %-20s : [%s]', $field, join(', ', $concept[$field])));
-                }
-                $this->line(sprintf('  %-20s : %s', 'recalls', json_encode($concept['recalls'], JSON_PRETTY_PRINT)));
+                $this->printDrugInfo($drug, $concept);
             } else {
                 $drug->save();
 
@@ -208,27 +248,25 @@ class ImportDrugs extends Command
         }
     }
 
-    private function importAlternatives($rxcui, $concept)
+    private function printDrugInfo($drug, $concept)
     {
-        $alternatives = [];
+        $this->comment("\n==============================================================================");
+        $this->comment("Importing rxcui: [{$drug->rxcui}] as drug: [{$drug->id}] label: [{$drug->label} ({$drug->generic})]");
+        $this->comment("==============================================================================\n");
 
-        foreach ($concept['related'] as $related) {
-            if ($related != $rxcui) {
-                if (!empty($this->concepts[$related])) {
-                    $alternatives[] = $this->concepts[$related]['drug']->id;
-                } elseif ($this->drugs->get($related)) {
-                    $alternatives[] = $this->drugs->get($related);
-                }
+        $print = $drug->toArray();
+
+        foreach ($print as $field => $value) {
+            if (!is_array($value)) {
+                $this->line(sprintf('  %-20s : %s', substr($field, 0, 20), $value));
             }
         }
 
-        $drug = $concept['drug'];
-
-        if ($this->option('debug')) {
-            $this->comment("Alternatives for {$drug->id} ({$drug->rxcui}) [{$drug->label}] : " . join(',', $alternatives));
-        } else {
-            $drug->alternatives()->sync($alternatives);
+        foreach (['drug_forms', 'types', 'indications', 'side_effects', 'related'] as $field) {
+            $this->line(sprintf('  %-20s : [%s]', $field, join(', ', $concept[$field])));
         }
+
+        $this->line(sprintf('  %-20s : %s', 'recalls', json_encode($concept['recalls'], JSON_PRETTY_PRINT)));
     }
 
     private function getConceptValues($rxcui)
@@ -301,6 +339,12 @@ class ImportDrugs extends Command
         return $this->processRelations($terms, $this->indications, 'DrugIndication');
     }
 
+    private function getSideEffects($drug_components)
+    {
+        $terms = $this->openfda->getSideEffects($drug_components);
+        return $this->processRelations($terms, $this->side_effects, 'DrugSideEffect');
+    }
+
     private function processRelations($terms, $model, $provider)
     {
         $relations = [];
@@ -310,7 +354,7 @@ class ImportDrugs extends Command
                 break;
             }
 
-            if ($relation = $this->translate($term)) {
+            if ($relation = $this->translator->translate($term)) {
                 $id = $model->get($relation);
                 if (empty($id)) {
                     if ($this->option('debug')) {
@@ -326,188 +370,5 @@ class ImportDrugs extends Command
             }
         }
         return array_unique($relations);
-    }
-
-    private function getSideEffects($drug_components)
-    {
-        $terms = $this->openfda->getSideEffects($drug_components);
-        return $this->processRelations($terms, $this->side_effects, 'DrugSideEffect');
-    }
-
-    private function translate($term)
-    {
-        $translation = '';
-
-        if ($term) {
-            $term = strtolower($term);
-            if (!array_get($this->translation['skip'], $term, '')) {
-                $translation = array_get($this->translation, "translations.{$term}", '');
-                if (empty($translation)) {
-                    $translation = $term;
-
-                    $comma = strpos($translation, ', ');
-                    if ($comma !== false) {
-                        $translation = substr($translation, $comma + 2) . ' ' . substr($translation, 0, $comma);
-                    }
-
-                    foreach ($this->translation['fix_order'] as $word) {
-                        $pos = strpos($term, ' ' . $word);
-                        if ($pos !== false) {
-                            $translation = $word . ' ' . substr($translation, 0, $pos);
-                        }
-                    }
-
-                    foreach ($this->translation['replace'] as $from => $to) {
-                        $translation = str_replace($from, $to, $translation);
-                    }
-                }
-            }
-        }
-
-        return $translation;
-    }
-
-    private function setupTranslation()
-    {
-        return [
-            'skip' => [
-                'accidental drug intake by child' => true,
-                'adverse event' => true,
-                'condition aggravated' => true,
-                'death' => true,
-                'drug administration error' => true,
-                'drug dose omission' => true,
-                'drug exposure during pregnancy' => true,
-                'drug ineffective' => true,
-                'drug interaction' => true,
-                'drug use for unknown indication' => true,
-                'expired drug administered' => true,
-                'fall' => true,
-                'general physical health deterioration' => true,
-                'ill-defined disorder' => true,
-                'incorrect dose administered' => true,
-                'incorrect drug administration duration' => true,
-                'incorrect route of drug administration' => true,
-                'increased international normalised ratio' => true,
-                'infusion related reaction' => true,
-                'intentional drug misuse' => true,
-                'intentional misuse' => true,
-                'intentional overdose' => true,
-                'maternal exposure during pregnancy' => true,
-                'medication error' => true,
-                'miosis' => true,
-                'no adverse event' => true,
-                'off label use' => true,
-                'pharmaceutical product complaint' => true,
-                'post procedural complication' => true,
-                'premedication' => true,
-                'product quality issue' => true,
-                'product substitution issue' => true,
-                'product used for unknown indication' => true,
-                'therapeutic response unexpected' => true,
-                'unevaluable event' => true,
-                'unresponsive to stimuli' => true,
-                'wrong drug administered' => true,
-                'wrong technique in drug usage process' => true,
-                ],
-            'translations' => [
-                'abdominal pain lower' => 'abdominal pain',
-                'abdominal pain upper' => 'abdominal pain',
-                'acquired immunodeficiency syndrome' => 'aids',
-                'ageusia' => 'loss of taste',
-                'amyotrophic lateral sclerosis' => 'als',
-                'anaemia' => 'anemia',
-                'ankylosing spondylitis' => 'inflammatory arthritis',
-                'arthalgia' => 'joint pain',
-                'ascites' => 'abdominal swelling',
-                'asthenia' => 'weakness',
-                'attention deficit/hyperactivity disorder' => 'adhd',
-                'bacterial gram-negative' => 'bacterial infection',
-                'breast cancer female' => 'breast cancer',
-                'confusional state' => 'confusion',
-                'colitis ulcerative' => 'inflammatory bowel disease',
-                'completed suicide' => 'suicidal ideation',
-                'diabetes mellitus non-insuling-dependent' => 'non insulin dependent diabetes',
-                'diarrhoea' => 'diarrhea',
-                'diplaopia' => 'double vision',
-                'drug abuser' => 'drug abuse',
-                'dysgeusia' => 'loss of taste',
-                'dyspepsia' => 'indigestion',
-                'dyspnoea' => 'labored breathing',
-                'endophthalmitis' => 'eye inflammation',
-                'epistaxis' => 'nose bleed',
-                'erythema' => 'skin redness',
-                'faeces discoloured' => 'discolored feces',
-                'fissure in ano' => 'anal fissure',
-                'foetal exposure during pregnancy' => 'fetal exposure',
-                'gastrooesophageal reflux disease' => 'acid reflux disease',
-                'gram-positive bacterial infections' => 'bacterial infection',
-                'hiv infection' => 'aids',
-                'hypercholasterolaemia' => 'increased cholesterol',
-                'hyperglycaemia' => 'hyperglycemia',
-                'hyperhidrosis' => 'excessive sweating',
-                'hyperlipidaemia' => 'elevated lipids',
-                'hypoaesthesia' => 'numbness',
-                'low density lipoprotein increased' => 'increased ldl',
-                'multiple drug overdose' => 'overdose',
-                'myalgia' => 'muscle pain',
-                'nasopharyngitis' => 'nose and throat infection',
-                'neuropathy peripheral' => 'peripheral neuropathy',
-                'neutropenia' => 'neutrophil deficiency',
-                'oedema peripheral' => 'peripheral edema',
-                'osteoporosis postmenopausal' => 'postmenupausal osteoporosis',
-                'paraesthesia' => 'numbness',
-                'plearal effusion' => 'chest fluid buildup',
-                'pruritis' => 'itching skin',
-                'psychotic disorder' => 'psychosis',
-                'psoriatic arthropathy' => 'psoriatic arthritis',
-                'pyrexia' => 'fever',
-                'rash maculo-papular' => 'rash',
-                'rhabdomyolysis' => 'muscle tissue breakdown',
-                'seborrheic dermatitis' => 'scaly skin patches',
-                'sleep initiation and maintenance disorders' => 'sleep disorder',
-                'somnolence' => 'drowsiness',
-                'status asthmaticus' => 'asthma',
-                'suicide attempt' => 'suicidal ideation',
-                'thrombocytopenia' => 'low platelet count',
-                'tobacco user' => 'tobacco abuse',
-                'toxicity to various agents' => 'toxicity',
-                'transient ischaemic attack' => 'stroke',
-                'urticaria' => 'skin rash',
-                'urinary tract infection' => 'uti',
-                'wound infection staphylococcal' => 'wound infection',
-                'xanthopsia' => 'vision deficiency',
-                'xerosis' => 'dry skin',
-                ],
-            'replace' => [
-                'anaemia' => 'anemia',
-                'diarrhoea' => 'diarrhea',
-                'discolouration' => 'discoloration',
-                'haemorhage' => 'hemorhage',
-                'increased blood' => 'increased',
-                'leukaemia' => 'leukemia',
-                'odour' => 'odor',
-                'oedema' => 'edema',
-                'oesophageal' => 'esophageal',
-                ],
-            'fix_order' => [
-                'abnormal',
-                'acute',
-                'blurred',
-                'chronic',
-                'congestive',
-                'decreased' ,
-                'identified',
-                'impaired',
-                'increased',
-                'induced',
-                'malignant',
-                'metastatic',
-                'peripheral',
-                'poor',
-                'reduced',
-                'spontaneous',
-                ],
-            ];
     }
 }
