@@ -9,7 +9,9 @@
         text-align: center;
     }
 }
-
+.neutral{
+    position: relative;
+}
 .drug-modal {
 	padding: 0px !important;
 	min-height: 100%;
@@ -45,6 +47,14 @@
 			color: #ef5350;
 		}
 	}	
+
+	md-radio-button .md-container, .md-switch-thumb .md-container {
+	  display: none;
+	}
+	.md-checked{
+		padding-bottom: 5px;
+		border-bottom: 5px solid #666;
+	}
 }
 
 .ie-dialog {
