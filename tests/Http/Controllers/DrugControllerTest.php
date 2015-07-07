@@ -206,7 +206,7 @@ class DrugControllerTest extends TestCase
     public function testGetAlternatives()
     {
         $this->stubQuery->shouldReceive('simplePaginate')->once()->with(15);
-        $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'DESC')->andReturn($this->stubQuery);
+        $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('with')->with('sideEffects')->once()->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('alternatives')->once()->andReturn($this->stubQuery);
         $this->mockModel->shouldReceive('find')->once()->with('foo')->andReturn($this->stubQuery);
