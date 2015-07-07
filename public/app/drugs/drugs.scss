@@ -125,6 +125,10 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
     }    
 }
 
+.voted-up{
+    color: #$md-secondary;
+}
+
 .vote-down {
     &:hover {
         color: #e57373;
@@ -136,6 +140,10 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
     &:active {
         color: #ef5350;
     }
+}
+
+.voted-down{
+    color: #e57373;   
 }
 
 .vote-up, .vote-down{
