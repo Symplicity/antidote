@@ -3,6 +3,8 @@
     margin: 0 auto;
     position: relative;
     background-image: URL('/images/carlin-home-blurred.png');
+    background-size: cover;
+    width: 100%;
     color: $md-primary-light;
     z-index: 1;
 
