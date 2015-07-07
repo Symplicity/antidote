@@ -144,7 +144,7 @@ class ImportDrugs extends Command
                 $print['indications'] = '[' . join(',', $concept['indications']) . ']';
                 $print['side_effects'] = '[' . join(',', $concept['side_effects']) . ']';
                 $print['related'] = '[' . join(',', $concept['related']) . ']';
-                print_r($print);
+                $this->line(json_encode($print, JSON_PRETTY_PRINT));
             } else {
                 $drug->save();
 

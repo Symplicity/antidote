@@ -1,63 +1,32 @@
 <?php
 
 use App\Facades\OpenFDA;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 
 class OpenFDATest extends TestCase
 {
-    private static $client;
-
-    public static function setUpBeforeClass()
+    public function testGetEmptyLabel()
     {
-        self::$client = self::mockGuzzle();
-    }
-
-    public function testGetDrugInfo()
-    {
-        $this->assertTrue(true); //TODO: crate a proper unit test for the service
-        /*
-        $this->app->instance('Guzzle', self::$client);
-        $fda_info = json_decode(OpenFDA::getDrugInfo('42893-030'), true);
-        $this->assertEquals('FOO DIOXIDE', $fda_info['results'][0]['openfda']['generic_name'][0]);
-        */
-    }
-
-    public function testBadDrugInfo()
-    {
-        $this->assertTrue(true); //TODO: create a proper unit test for the service
-        /*
-        $this->app->instance('Guzzle', self::$client);
-        $response = OpenFDA::getDrugInfo('foo');
-        $this->assertEquals('Not Found', $response->getReasonPhrase());
-        */
-    }
-
-    private static function mockGuzzle()
-    {
-        $successful_response = [
+        $this->mockGuzzle(200, [
             'results' => [
                 [
                     'openfda' => [
-                        'generic_name' => [
-                            'FOO DIOXIDE',
-                        ],
+                        'brand_name' => [
+                            'FOO'
+                        ]
                     ],
-                ],
-            ],
-        ];
-
-        // Create a mock and queue two responses.
-        $mock = new MockHandler([
-            new Response(200, ['X-Foo' => 'Bar'], json_encode($successful_response)),
-            new Response(404, ['Content-Length' => 0]),
+                    'purpose' => [
+                        'Health'
+                    ]
+                ]
+            ]
         ]);
 
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
+        $fda_label = OpenFDA::getLabel(['label' => 'foo'], ['rx123']);
 
-        return $client;
+        $this->assertEquals([
+            'name' => 'FOO',
+            'description' => 'Health',
+            'prescription_types' => []
+        ], $fda_label);
     }
 }

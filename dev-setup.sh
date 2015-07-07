@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # setup a git hook to check your commits before you push them
-cp scripts/pre-commit.php .git/hooks/pre-commit
+cp scripts/pre-commit .git/hooks/
 
 eval "$(boot2docker shellinit)"
 

@@ -1,9 +1,9 @@
-<div layout="row" layout-sm="column" layout-wrap style="position:relative" class="special-ie-fix">
+<div layout="row" layout-sm="column" layout-wrap style="position:relative" class="mobile-fix">
     <div flex-gt-sm="15" flex class="health-state">
-        <p>{{review.created_at | date}} / {{review.created_at | date:'h:m a'}}</p>
+        <p>{{review.created_at | date}} / {{review.created_at | date:'h:mm a'}}</p>
         <drugs-review-rating rating="review.rating"></drugs-review-rating>
         <p class="center">
-            <span ng-if="review.age > 0">{{review.age}} year old</span> 
+            <span ng-if="review.age > 0">{{review.age}} year old</span>
             <span ng-if="review.age > 0 && review.gender">, </span>
             <span ng-if="review.gender">
                 <span ng-if="review.gender == 'f'">Female</span>
@@ -14,9 +14,9 @@
     <div flex>
         <p><strong>"{{review.comment}}"</strong></p>
         <section class="pill-row" layout="column" layout-align-sm="start start" layout-align="start start">
-            <div flex>
+            <div flex ng-if="review.side_effects.length > 0">
                 <span class="md-body-1">Side Effects:</span>
-                <span ng-repeat="side_effect in review.side_effects" class="md-raised md-pills">{{::side_effect.value | capitalize}}</span>
+                <span ng-repeat="side_effect in review.side_effects | orderBy:'value'" class="md-raised md-pills">{{::side_effect.value | capitalize}}</span>
             </div>
         </section>
         <ul class="unstyled">

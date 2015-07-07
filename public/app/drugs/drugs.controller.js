@@ -23,7 +23,7 @@
             'q', 'r', 's',
             't', 'u', 'v',
             'w', 'x', 'y',
-            'z'
+            'z', '#'
         ];
 
         function activate() {
@@ -116,6 +116,18 @@
                 });
             } else {
                 LoginSignupModalService.open();
+            }
+        };
+
+        this.numLimit = 200;
+        this.readBtn = 'read more';
+        this.readMore = function() {
+            if (this.numLimit === 200) {
+                this.numLimit = 10000;
+                this.readBtn = 'read less';
+            }else {
+                this.numLimit = 200;
+                this.readBtn = 'read more';
             }
         };
 
@@ -284,7 +296,7 @@
             },
             {
                 'min_value': 51,
-                'max_value': null,
+                'max_value': 125,
                 'label': '51+'
             }
         ];

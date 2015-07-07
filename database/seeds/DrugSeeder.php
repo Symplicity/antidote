@@ -22,11 +22,6 @@ class DrugSeeder extends Seeder
             $drug->indications()->sync($faker->randomElements($ids, $faker->numberBetween(0, 10)));
 
             $drug->prescriptionTypes()->sync($faker->randomElements([1, 2], $faker->numberBetween(0, 2)));
-
-            $users = $faker->randomElements($ids, $faker->numberBetween(0, 50));
-            foreach ($users as $user) {
-                $drug->reviews()->save(factory('App\DrugReview')->make(['user_id' => $user]));
-            }
         });
     }
 }

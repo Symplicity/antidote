@@ -62,7 +62,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()], 400);
+            return response()->json(['message' => $validator->messages()], 422);
         }
 
         try {
@@ -139,7 +139,7 @@ class AuthController extends Controller
             'email' => $email,
             'site_url' => $site_url,
             'change_password_link' => $site_url . '/api/auth/reset/' . $token,
-            'link_expiration_time' => '24 hours'
+            'link_expiration_time' => '90 minutes'
         ];
 
         Mail::send('emails.forgot-password', $data, function ($message) use ($email) {

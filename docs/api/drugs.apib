@@ -207,7 +207,7 @@ https://antidote.symplicity-opensource.com/api/drugs/1/reviews
 ### Create New [POST /drugs/{id}/reviews]
 Create a new drug review using this action. It takes a JSON object containing the following fields:
 
-    - rating: `3` (required, integer) - The rating the user gave the drug either 1, 2, 3 - 3 is best
+    - rating: `3` (integer, required) - The rating the user gave the drug either 1, 2, 3 - 3 is best
     - is_covered_by_insurance: `1` (integer, required) - Was the drug covered by insurance?
     - comment: `My pain has subsided considerably since I started taking this.` (text, optional) - User comments
     - side_effects: `[1,2,3]` (array, optional) - Side effects experienced by the user
@@ -249,7 +249,7 @@ Create a new drug review using this action. It takes a JSON object containing th
                 "downvotes": 0
             }
 
-+ Response 400
++ Response 422
     + Headers
 
             Content-Type: application/json
@@ -259,7 +259,7 @@ Create a new drug review using this action. It takes a JSON object containing th
             {
               "message": {
                 "rating": [
-                  "The rating field is required."
+                  "Effectiveness is required, Insurance coverage is required"
                 ]
               }
             }

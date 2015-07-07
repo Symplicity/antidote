@@ -1,0 +1,119 @@
+This page outlines the iterative design and development processes in which we engaged in order to bring Antidote to the public.  Prototypes and mocks went through iterations based on user and development team feedback while front and backend development were progressing.  Once a working application was in place, we engaged in further changes based on user and group feedback.  
+
+==Prototyping==
+
+All prototypes are created in Axure, including main pages and interactions in the system, both web and mobile versions.
+
+===Web prototype iterations===
+
+====V1.0====
+
+'''Content includes:'''
+*home page
+*medication detail page(overview, reviews, alternatives)
+*sign up
+*personal medication tracking and management.
+
+'''Created based on:'''
+*user interview insights
+
+'''Link:''' 
+http://qshen.web.dev.symplicity.com/fda/v1/
+
+====V2.0====
+
+'''Changes include:'''
+*home page: collect users' age, gender, insurance company upfront in order to provide customized search results.
+*medication detail page
+*overview: put the most important information including effectiveness, side effects and insurance accessible at first glance. Add tips section. Add the action to review this medication. Once user stayed certain time on this page, show review form to ask their experience.
+*reviews: put all individual reviews sort by how useful it's considered by other users. Allow users to thump up or thumb down for each review. Also ask user to put their reviews of this medication including effectiveness, side effects, if covered by their insurance, their insurance plan and comments.
+*alternatives: for each alternative of this medication, provide side effects, effectiveness chart and percentage of insurance covered.
+deleted sign up/sign in and personal medication tracking due to privacy and security concerns.
+
+'''Created based on:'''
+*group discussion about scope and target user cases.
+
+'''Link to it:''' 
+http://qshen.web.dev.symplicity.com/fda/v2/
+
+====V3.0====
+
+'''Changes include:'''
+*home page
+*bring back sign up and sign in to provide personalized search results after user sign in.
+put functionality introduction sections in a line so that users don't need to scroll the page to see everything.
+*medication detail page
+*overview: in header, provide medication brand name and if generics is available. Move interactions section above since users want to see that easily. Add medication recalls information. Add 1 top review. Delete usage section.
+*reviews: add filters of gender and age to let user filter out reviews.
+*alternatives: add manufacturer/generic information for each alternative.
+
+'''Created based on:'''
+*group reviews
+*user tests insights on version 2.0
+
+'''Link to it:''' 
+http://qshen.web.dev.symplicity.com/fda/v3/
+
+====V4.0====
+
+'''Changes include:'''
+*home page
+*use a single search box instead of collecting user info upfront.
+*add a sign up page
+
+'''Created based on:'''
+*group reviews
+*user tests insights on version 2.0
+
+'''Link to it:''' 
+http://qshen.web.dev.symplicity.com/fda/v4/
+
+====V5.0====
+
+'''Changes include:'''
+*medication detail page
+*overview: add same filters of reviews under overview
+*reviews: in the review form, not asking insurance plan, just collect if it's covered in insurance. *Allow user to add new side effects in the review form.
+
+'''Created based on:'''
+*group reviews
+
+'''Link to it:''' 
+http://qshen.web.dev.symplicity.com/fda/v5/
+
+====V6.0====
+
+'''Changes include:'''
+*medication detail page
+*overview: after user set filters, we pop out a message for user to quickly sign up.
+*add a medications list page: users can search by alphabetic.
+*sign up: change the fields to email, password, gender and age.
+*add an account page for user to manage profiles and view previous reviews.
+
+'''Created based on:'''
+*group reviews
+
+'''Link to it:''' 
+http://qshen.web.dev.symplicity.com/fda/v6/
+
+====V7.0====
+
+'''Changes include:'''
+*Account page
+*remove the extra search box and add previously viewed medications.
+
+'''Created based on:'''
+*group reviews
+
+'''Link to it:''' 
+*http://qshen.web.dev.symplicity.com/fda/v7/
+
+===Mobile prototype===
+*Mobile prototype is created based on web prototype and revised accordingly. The main purpose of mobile prototype is to provide responsive reference.
+*The link to it: http://qshen.web.dev.symplicity.com/fda_mobile/
+
+===Mock Iterations===
+While development began immediately based on prototypes, various iterations of mocks were created to complement and confirm development trajectory as well as achieve design cohesiveness.  A document that discusses the iterations our mocks went through is linked here.
+
+===Roadmap===
+Our minimum viable product (MVP) consisted of the completed user stories documented in Pivotal Tracker.  These user stories were paired with feature tasks to track the development details associated with features and provide a checklist to verify completion of requirements.  All features that did not meet the MVP were placed in the Pivotal Tracker icebox for incorporation into a product roadmap.  The Pivotal Tracker roadmap and full history are available here for anyone who wishes to enhance Antidote moving forward.

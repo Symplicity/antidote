@@ -1,7 +1,7 @@
 <div class="header">
     <md-content layout="row" layout-wrap class="md-drug-info container" flex >
             <div flex="90" flex-sm="70">
-                <h1 class="md-display-1">{{drugsView.drug.label}} ({{drugsView.drug.generic}})</h1>
+                <h1 class="md-display-1">{{drugsView.drug.label | capitalize}} ({{drugsView.drug.generic | capitalize}})</h1>
                 <span ng-repeat="prescription_type in drugsView.drug.prescription_types" class="md-drug-type">{{prescription_type.value}}</span>
                 <a class="md-raised" ng-if="drugsView.drug.recalls.length > 0"><md-icon class="md-accent recall-icon">report_problem</md-icon></a>
             </div>
@@ -9,14 +9,17 @@
                 <md-button class="md-accent md-raised md-button" ng-click="drugsView.openReviewModal($event)">Review it</md-button>
             </div>
             <div flex="70" flex-sm="100">
-                <p>{{drugsView.drug.description}}</p>
+                <p>{{drugsView.drug.description | limitTo:drugsView.numLimit}}<span ng-if="drugsView.drug.description.length>drugsView.numLimit">...</span><a ng-if="drugsView.drug.description.length > 200" class="read-more" ng-click="drugsView.readMore()" >{{drugsView.readBtn}}</a> </p>
             </div>
             <div flex="100" flex-sm="100" ng-if="drugsView.drug.indications.length > 0">
-                <p>
+                <p ng-init="limit = 6">
                     <span class="md-body-2">Used for:</span>
-                    <span ng-repeat="indication in drugsView.drug.indications">
+                    <span ng-repeat="indication in drugsView.drug.indications | orderBy:'value' | limitTo: limit as results">
                         <span class="md-raised md-pills">{{::indication.value | capitalize}}</span>
                     </span>
+                    <a ng-hide="results.length === drugsView.drug.indications.length"
+                            ng-click="limit = drugsView.drug.indications.length">show all...
+                    </a>
                 </p>
             </div>
     </md-content>

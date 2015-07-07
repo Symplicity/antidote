@@ -6,4 +6,5 @@ languages:
 exclude_paths:
  - "tests/*"
  - "e2e/*"
+ - "gulp/*"
  - "database/migrations/*"

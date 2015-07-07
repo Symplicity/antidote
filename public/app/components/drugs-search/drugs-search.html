@@ -1,7 +1,7 @@
 <md-autocomplete flex
     md-no-cache="false"
     md-selected-item="drugsSearch.search.selectedItem"
-    md-autofocus="true"
+    md-autofocus="false"
     md-autoselect="true"
     md-search-text="drugsSearch.search.searchText"
     md-items="item in drugsSearch.getMatches(drugsSearch.search.searchText)"
@@ -10,7 +10,7 @@
     md-search-text-change="drugsSearch.textChange()"
     md-selected-item-change="drugsSearch.itemChange(item)">
     <md-item-template>
-        <span md-highlight-text="drugsSearch.searchText">{{item.label}} ({{item.generic}})</span>
+        <span md-highlight-text="drugsSearch.searchText">{{item.label | capitalize}} ({{item.generic | capitalize}})</span>
     </md-item-template>
     <md-not-found>
         No matches found.

@@ -14,7 +14,7 @@ describe('The drugs view', function() {
     it('should provide alphabetical navigation', function() {
         page.menuButtons.get(1).click();
         var alphaLinks = element.all(by.repeater('letter in drugsList.letters'));
-        for (var i = 25; i >= 0; i--) {
+        for (var i = 26; i >= 0; i--) {
             var link = alphaLinks.get(i);
             link.click();
             browser.waitForAngular();

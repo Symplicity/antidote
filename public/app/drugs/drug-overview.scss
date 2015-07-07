@@ -87,6 +87,11 @@ md-card md-card-content.top-3 {
         display: inline-block;
         background: #FFF;
 
+        @media only screen and (max-width : 600px) {
+            height: 41px;
+            max-width: 100%;
+        }
+
         md-tabs-wrapper {
             margin-bottom: -2px;
         }
@@ -96,4 +101,21 @@ md-card md-card-content.top-3 {
         color: #FFF;
         border: 0 !important;
     }
+    .md-tab {
+        @media only screen and (max-width : 600px) {
+            padding: 10px;
+        }
+    }
+    md-tab-item {
+        @media only screen and (max-width : 600px) {
+
+            &:first-child{
+                max-width: 110px !important;
+            }
+                max-width: 70px !important;
+        }
+    }
 }
+
+
+

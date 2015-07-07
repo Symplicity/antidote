@@ -20,6 +20,11 @@ gulp
 
 # zip build files and push them to production branch
 rm -f dist.zip && zip -r9 dist.zip dist vendor
+
+# Codeship defaults to https clone for public repos, follow these instructions and uncomment the line below:
+# https://codeship.com/documentation/continuous-deployment/push-to-remote-repository/
+# git remote set-url origin git@github.com:Symplicity/antidote.git
+
 git config --global user.email "your-machine-user@email.com" && git config --global user.name "your-machine-user"
 git commit -m "release update --skip-ci" dist.zip
 git branch -f production `git rev-parse HEAD` && git checkout production && git push -f --set-upstream origin production

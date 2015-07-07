@@ -60,7 +60,7 @@ class AuthControllerTest extends TestCase
 
         $response = $this->ctrl->signup($request);
 
-        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals(422, $response->getStatusCode());
         $this->assertContains('email field is required', $response->getContent());
     }
 
@@ -74,7 +74,7 @@ class AuthControllerTest extends TestCase
 
         $response = $this->ctrl->signup($request);
 
-        $this->assertEquals(400, $response->getStatusCode());
+        $this->assertEquals(422, $response->getStatusCode());
         $this->assertContains('email must be a valid', $response->getContent());
     }
 

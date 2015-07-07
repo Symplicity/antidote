@@ -8,6 +8,7 @@
     /** @ngInject */
     function LoginSignupModalCtrl(LoginSignupModalService) {
         this.showPasswordForgotForm = false;
+        this.signup = false;
 
         this.closeDialog = function() {
             LoginSignupModalService.close();

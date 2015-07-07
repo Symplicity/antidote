@@ -31,7 +31,13 @@ class DrugController extends Controller
         $drugs = Drug::select('id', 'label');
 
         if (!empty($term)) {
-            $drugs = $drugs->where('label', 'LIKE', $term . '%');
+            if ($term === '#') {
+                $drugs = $drugs->whereRaw(
+                    "upper(left(label, 1)) not between 'A' and 'Z'"
+                );
+            } else {
+                $drugs = $drugs->where('label', 'LIKE', $term . '%');
+            }
         }
 
         $drugs = $drugs->orderBy('label', 'ASC')->paginate($limit);
@@ -96,12 +102,18 @@ class DrugController extends Controller
      */
     public function addReview($id, Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'rating' => 'required'
-        ]);
+        $validator = Validator::make($request->all(),
+            [
+                'rating' => 'required',
+                'is_covered_by_insurance' => 'required'
+            ],
+            [
+                'rating.required' => 'Effectiveness is required',
+                'is_covered_by_insurance.required' => 'Insurance coverage is required',
+            ]);
 
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->messages()], 400);
+            return response()->json(['message' => $validator->messages()], 422);
         }
 
         try {
@@ -122,7 +134,7 @@ class DrugController extends Controller
                 $drug_review->sideEffects()->sync($side_effects);
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 400);
+            return response()->json(['message' => 'Unexpected Error'], 400);
         }
 
         return response()->json($drug_review, 201);
