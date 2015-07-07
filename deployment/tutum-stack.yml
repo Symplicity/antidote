@@ -8,22 +8,8 @@ db:
     - TERM=dumb
 elasticsearch:
   image: 'elasticsearch:1.5'
-  ports:
-    - '9200:9200'
-  tags:
-    - nodecluster-name=BeefLogMon
   volumes:
     - '/elasticsearch/data:/usr/share/elasticsearch/data'
-kibana:
-  image: 'vfarcic/kibana:latest'
-  environment:
-    - 'ELASTICSEARCH=http://elasticsearch:9200'
-  links:
-    - elasticsearch
-  ports:
-    - '5601:5601'
-  tags:
-    - nodecluster-name=BeefLogMon
 lb:
   image: 'tutum/haproxy:latest'
   environment:
@@ -56,20 +42,14 @@ logspout:
   entrypoint: /bin/sh
   links:
     - logstash
-  tags:
-    - nodecluster-name=BeefLogMon
+  target_num_containers: 5
   volumes:
     - '/var/run/docker.sock:/tmp/docker.sock'
 logstash:
   image: 'logstash:latest'
   command: 'logstash -f /logstash/antidote.conf'
-  expose:
-    - '5000'
-    - 5000/udp
   links:
     - elasticsearch
-  tags:
-    - nodecluster-name=BeefLogMon
   volumes:
     - '/logstash:/logstash'
 memc:
