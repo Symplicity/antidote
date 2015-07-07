@@ -43,10 +43,27 @@ class RXNorm extends RestAPI
         return array_get($results, 'allRelatedGroup.conceptGroup', []);
     }
 
+    public function getApproximateTerm($term)
+    {
+        $results = $this->get("approximateTerm.json?term=" . urlencode($term) . "&maxEntries=1");
+
+        return array_get($results, 'approximateGroup.candidate.0.rxcui', false);
+    }
 
     public function getAllBrands()
     {
         return $this->getAllConcepts('tty=BN+BPCK');
+    }
+
+    public function getConceptFromName($name)
+    {
+        $properties = [];
+
+        if ($rxcui = $this->getApproximateTerm($name)) {
+            $properties = $this->getConceptProperties($rxcui);
+        }
+
+        return $properties;
     }
 
     public function getConceptProperties($rxcui)

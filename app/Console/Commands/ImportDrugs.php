@@ -33,9 +33,11 @@ class ImportDrugs extends Command
      * @var string
      */
     protected $signature = 'import:drugs' .
-        ' {--limit=0 : limit the number of brands to be imported}' .
-        ' {--skip=0 : skip a number of brands from the beginning}' .
-        ' {--debug : do not save in db, print values in console}';
+        ' {--limit=0 : (optional) limit the number of brands to be imported}' .
+        ' {--skip=0 : (optional) skip a number of brands from the beginning}' .
+        ' {--debug : (optional) do not save in db, print values in console}' .
+        ' {--ids= : (optional) csv string of drug rxcuis to be imported} ' .
+        ' {--names= : (optional) csv string of drug names to be imported} ';
 
     /**
      * The console command description.
@@ -78,11 +80,12 @@ class ImportDrugs extends Command
         $this->limit = (int)$this->option('limit');
         $this->skip = (int)$this->option('skip');
 
+        $this->drugs = Drug::lists('id', 'rxcui');
         $this->indications = DrugIndication::lists('id', 'value');
         $this->side_effects = DrugSideEffect::lists('id', 'value');
         $this->translation = $this->setupTranslation();
 
-        $brands = $this->rxnorm->getAllBrands();
+        $brands = $this->getBrands();
 
         $total = ($this->limit ? : count($brands) - $this->skip);
         $this->info("Importing {$total} brands" . ($this->skip ? ' skipping ' . $this->skip : '') . ' ...');
@@ -118,10 +121,44 @@ class ImportDrugs extends Command
         $this->info('Drug Import Done!');
     }
 
+    private function getBrands() {
+        $brands = [];
+
+        if ($names = str_getcsv($this->option('names'))) {
+            foreach ($names as $name) {
+                if ($name = trim($name)) {
+                    $concept = $this->rxnorm->getConceptFromName($name);
+                    if (empty($concept) || !in_array($concept['tty'], ['BN', 'BPCK'])) {
+                        $this->info($name . ' not found or not a brand drug. Skipping ...');
+                    } else {
+                        $brands[] = ['rxcui' => $concept['rxcui']];
+                    }
+                }
+            }
+        }
+
+        if ($ids = str_getcsv($this->option('ids'))) {
+            foreach ($ids as $id) {
+                if ($id = trim($id)) {
+                    $concept = $this->rxnorm->getConceptProperties($id);
+                    if (empty($concept) || !in_array($concept['tty'], ['BN', 'BPCK'])) {
+                        $this->info($id . ' not found or not a brand drug. Skipping ...');
+                    } else {
+                        $brands[] = ['rxcui' => $id];
+                    }
+                }
+            }
+        }
+
+        if (empty($brands)) {
+            $brands = $this->rxnorm->getAllBrands();
+        }
+
+        return $brands;
+    }
+
     private function importConcept($rxcui)
     {
-        static $id = 1;
-
         if ($concept = $this->getConceptValues($rxcui)) {
             $drug = Drug::firstOrNew(['rxcui' => $rxcui]);
 
@@ -132,7 +169,9 @@ class ImportDrugs extends Command
             $drug->recalls = $concept['recalls'];
 
             if ($this->option('debug')) {
-                $drug->id = $id++;
+                if (!$drug->id) {
+                    $drug->id = count($this->drugs) + 1;
+                }
 
                 $this->comment("\n==============================================================================");
                 $this->comment("Importing rxcui: [{$rxcui}] as drug: [{$drug->id}] label: [{$drug->label} ({$drug->generic})]");
@@ -148,6 +187,7 @@ class ImportDrugs extends Command
                     $this->line(sprintf('  %-20s : [%s]', $field, join(', ', $concept[$field])));
                 }
                 $this->line(sprintf('  %-20s : %s', 'recalls', json_encode($concept['recalls'], JSON_PRETTY_PRINT)));
+
             } else {
                 $drug->save();
 
@@ -164,16 +204,21 @@ class ImportDrugs extends Command
             }
 
             $this->concepts[$rxcui] = ['drug' => $drug, 'related' => $concept['related']];
+            $this->drugs->put($rxcui, $drug->id);
         }
-    }
+    } 
 
     private function importAlternatives($rxcui, $concept)
     {
         $alternatives = [];
 
         foreach ($concept['related'] as $related) {
-            if ($related != $rxcui && !empty($this->concepts[$related])) {
-                $alternatives[] = $this->concepts[$related]['drug']->id;
+            if ($related != $rxcui) {
+                if (!empty($this->concepts[$related])) {
+                    $alternatives[] = $this->concepts[$related]['drug']->id;
+                } else if ($this->drugs->get($related)) {
+                    $alternatives[] = $this->drugs->get($related);
+                }
             }
         }
 
@@ -348,6 +393,7 @@ class ImportDrugs extends Command
                 'accidental drug intake by child' => true,
                 'adverse event' => true,
                 'condition aggravated' => true,
+                'death' => true,
                 'drug administration error' => true,
                 'drug dose omission' => true,
                 'drug exposure during pregnancy' => true,
