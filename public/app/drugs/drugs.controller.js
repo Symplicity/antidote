@@ -71,7 +71,16 @@
     }
 
     /** @ngInject */
-    function DrugsViewCtrl(DrugsService, $stateParams, LoginSignupModalService, $auth, $mdDialog, $state) {
+    function DrugsViewCtrl(
+        DrugsService,
+        $stateParams,
+        LoginSignupModalService,
+        $auth,
+        $mdDialog,
+        $state,
+        $location,
+        $anchorScroll
+    ) {
         var self = this;
 
         activate();
@@ -145,6 +154,11 @@
                 self.effectivenessChartData = [effectiveness, uneffectiveness];
             });
         }
+
+        this.goToRecalls = function() {
+            $location.hash('anchor-recall');
+            $anchorScroll();
+        };
     }
 
     /** @ngInject */

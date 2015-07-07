@@ -3,7 +3,7 @@
             <div flex="90" flex-sm="70">
                 <h1 class="md-display-1">{{drugsView.drug.label | capitalize}} </h1>
                 <span ng-repeat="prescription_type in drugsView.drug.prescription_types" class="md-drug-type">{{prescription_type.value}}</span>
-                <a class="md-raised" ng-if="drugsView.drug.recalls.length > 0"><md-icon class="md-accent recall-icon">report_problem</md-icon></a>
+                <a class="md-raised" ng-if="drugsView.drug.recalls.length > 0"><md-icon ng-click="drugsView.goToRecalls()" class="md-accent recall-icon">report_problem</md-icon></a>
 
             </div>
             <div flex="10" flex-sm="30">
