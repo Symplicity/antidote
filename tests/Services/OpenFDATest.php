@@ -4,22 +4,25 @@ use App\Facades\OpenFDA;
 
 class OpenFDATest extends TestCase
 {
-    public function testGetEmptyLabel()
+    public function testGetLabel()
     {
-        $this->mockGuzzle(200, [
-            'results' => [
-                [
-                    'openfda' => [
-                        'brand_name' => [
-                            'FOO'
+        $this->mockGuzzle([[
+            'code' => 200,
+            'content' => [
+                'results' => [
+                    [
+                        'openfda' => [
+                            'brand_name' => [
+                                'FOO'
+                            ]
+                        ],
+                        'purpose' => [
+                            'Health'
                         ]
-                    ],
-                    'purpose' => [
-                        'Health'
                     ]
                 ]
             ]
-        ]);
+        ]]);
 
         $fda_label = OpenFDA::getLabel(['label' => 'foo'], ['rx123']);
 

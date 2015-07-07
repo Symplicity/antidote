@@ -23,11 +23,13 @@ class TestCase extends Laravel\Lumen\Testing\TestCase
         Artisan::call('migrate:refresh');
     }
 
-    protected function mockGuzzle($code, $response)
+    protected function mockGuzzle(array $response_stack)
     {
-        $mock = new MockHandler([
-            new Response($code, [], json_encode($response))
-        ]);
+        $mock_responses = [];
+        foreach ($response_stack as $response) {
+            $mock_responses[] = new Response($response['code'], [], json_encode($response['content']));
+        }
+        $mock = new MockHandler($mock_responses);
 
         $handler = HandlerStack::create($mock);
         $client = new Client(['handler' => $handler]);
