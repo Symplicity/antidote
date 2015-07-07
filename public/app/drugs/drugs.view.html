@@ -4,7 +4,7 @@
                 <h1 class="md-display-1">{{drugsView.drug.label | capitalize}} </h1>
                 <span ng-repeat="prescription_type in drugsView.drug.prescription_types" class="md-drug-type">{{prescription_type.value}}</span>
                 <a class="md-raised" ng-if="drugsView.drug.recalls.length > 0"><md-icon class="md-accent recall-icon">report_problem</md-icon></a>
-                
+
             </div>
             <div flex="10" flex-sm="30">
                 <md-button class="md-accent md-raised md-button" ng-click="drugsView.openReviewModal($event)">Review it</md-button>
@@ -19,8 +19,8 @@
                     <span ng-repeat="indication in drugsView.drug.indications | orderBy:'value' | limitTo: limit as results">
                         <span class="md-raised md-pills">{{::indication.value | capitalize}}</span>
                     </span>
-                    <a ng-hide="results.length === drugsView.drug.indications.length" ng-click="limit = drugsView.drug.indications.length" class="read-more">show all...</a>
-                    <a ng-hide="results.length < drugsView.drug.indications.length" ng-click="limit = 6" class="read-more">show less...</a>
+                    <a ng-hide="results.length === drugsView.drug.indications.length" ng-click="limit = drugsView.drug.indications.length" class="read-more">show all</a>
+                    <a ng-hide="(results.length < drugsView.drug.indications.length) || (drugsView.drug.indications.length < 6)" ng-click="limit = 6" class="read-more">show less</a>
 
                 </p>
             </div>
