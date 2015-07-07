@@ -7,19 +7,24 @@
 
     md-autocomplete input{
         background: #0269a6;
-        background-image: URL("/images/icons/md-search-white.svg"); 
-        background-repeat: no-repeat; 
-        background-position: 99%; 
         width: 500px;
         max-width: 100%; 
         color: #FFFFFF;
-
-        &:focus{
-            background-image:none;
-        }
-
     }
+
     
+    .search-button{
+        font-size: 30px;
+    }  
+
+    md-icon{
+        padding: 5px;
+        background: #0269a6;
+        height:auto;
+        width:auto;
+    }
+
+
     /*IE FIX*/
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         md-autocomplete-wrap {
@@ -122,3 +127,7 @@ md-backdrop{
         }
     }
 }
+
+
+
+
