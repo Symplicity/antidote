@@ -6,6 +6,9 @@
                 <h4>Alternatives</h4>
             </md-toolbar>
             <md-card-content>
+                <div ng-if="drugsAlternatives.alternatives.data == 0">
+                    <p>Sorry! No alternative data at this time.</p>
+                </div>
                 <div ng-repeat="drug in drugsAlternatives.alternatives.data" layout="column" layout-gt-md="row" flex layout-wrap class="mobile-fix card-content">
                     <div flex>
                         <div layout="column" flex class="ie-fix">

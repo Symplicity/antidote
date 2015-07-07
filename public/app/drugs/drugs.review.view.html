@@ -13,9 +13,9 @@
     </div>
     <div flex>
         <p><strong>"{{review.comment}}"</strong></p>
-        <section class="pill-row" layout="column" layout-align-sm="start start" layout-align="start start">
+        <section class="pill-row ie-fix" layout="column" layout-align-sm="start start" layout-align="start start">
             <div flex ng-if="review.side_effects.length > 0">
-                <span class="md-body-1">Side Effects:</span>
+                <span class="md-body-1">Side Effects:</span> 
                 <span ng-repeat="side_effect in review.side_effects | orderBy:'value'" class="md-raised md-pills">{{::side_effect.value | capitalize}}</span>
             </div>
         </section>
