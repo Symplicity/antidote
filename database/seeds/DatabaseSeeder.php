@@ -13,18 +13,20 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $drug_import_args = [];
         if (getenv('APP_ENV') == 'local') {
-            $drug_import_args = [
-                '--limit' => 50
-            ];
+            //for dev its all fake data
+            $this->call('UserSeeder');
+            $this->call('DrugSideEffectSeeder');
+            $this->call('DrugIndicationSeeder');
+            $this->call('DrugSeeder');
+            $this->call('DrugReviewSeeder');
+        } else {
+            Artisan::call('import:drugs');
+
+            //drugs are now seeded above -
+            //for dev it will seed 50 drugs and for prod it will seed all drugs
+            $this->call('UserSeeder');
+            $this->call('DrugReviewSeeder');
         }
-
-        Artisan::call('import:drugs', $drug_import_args);
-
-        //drugs are now seeded above -
-        //for dev it will seed 50 drugs and for prod it will seed all drugs
-        $this->call('UserSeeder');
-        $this->call('DrugReviewSeeder');
     }
 }

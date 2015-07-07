@@ -54,7 +54,7 @@ $factory->define(App\Drug::class, function (Faker\Generator $faker) {
 });
 
 $max_drug_id = 50;
-if (\Illuminate\Support\Facades\Schema::hasTable('drugs')) {
+if (getenv('APP_ENV') != 'local' && \Illuminate\Support\Facades\Schema::hasTable('drugs')) {
     $max_drug_id = \Illuminate\Support\Facades\DB::table('drugs')->max('id');
 }
 
