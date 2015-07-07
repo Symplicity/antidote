@@ -72,6 +72,7 @@ class DrugController extends Controller
         $min_age = $request->input('min_age');
         $max_age = $request->input('max_age');
         $gender = $request->input('gender');
+        $user = $request->input('user');
 
         $reviews = DrugReview::where('drug_id', $id)
             ->with('sideEffects');
@@ -88,9 +89,19 @@ class DrugController extends Controller
             $reviews = $reviews->where('gender', $gender);
         }
 
+        $fields = ['drug_reviews.*'];
+        if ($user) {
+            $reviews = $reviews->leftJoin('drug_review_votes', function ($join) use ($user) {
+                $join->on('drug_reviews.id', '=', 'drug_review_votes.drug_review_id');
+                $join->on('drug_review_votes.user_id', '=', \DB::raw($user));
+            });
+
+            $fields[] = 'drug_review_votes.vote';
+        }
+
         $reviews = $reviews->orderBy('upvotes_cache', 'DESC')
             ->orderBy('downvotes_cache', 'ASC')
-            ->paginate($limit);
+            ->paginate($limit, $fields);
 
         return $reviews;
     }

@@ -15,7 +15,7 @@
         <p><strong>"{{review.comment}}"</strong></p>
         <section class="pill-row ie-fix" layout="column" layout-align-sm="start start" layout-align="start start">
             <div flex ng-if="review.side_effects.length > 0">
-                <span class="md-body-1">Side Effects:</span> 
+                <span class="md-body-1">Side Effects:</span>
                 <span ng-repeat="side_effect in review.side_effects | orderBy:'value'" class="md-raised md-pills">{{::side_effect.value | capitalize}}</span>
             </div>
         </section>
@@ -27,7 +27,8 @@
         <div class="md-vote" layout="column" layout-align="center center" flex>
             <a href="#">
                 <span class="vote-up">
-                    <md-icon ng-click="drugsReviewVote.vote(review, 1)" class="vote-up">thumb_up</md-icon>
+                    <md-icon ng-click="drugsReviewVote.vote(review, 1)" class="vote-up"
+                             ng-class="{'voted-up': review.vote === '1'}">thumb_up</md-icon>
                     <p><strong>{{review.upvotes}}</strong></p>
                 </span>
             </a>
@@ -35,7 +36,8 @@
         <div class="md-vote" layout="column" layout-align="center center" flex>
             <a href="#">
                 <span class="vote-down">
-                    <md-icon ng-click="drugsReviewVote.vote(review, -1)" class="vote-down">thumb_down</md-icon>
+                    <md-icon ng-click="drugsReviewVote.vote(review, -1)" class="vote-down"
+                             ng-class="{'voted-down': review.vote === '-1'}">thumb_down</md-icon>
                     <p><strong>{{review.downvotes}}</strong></p>
                 </span>
             </a>
