@@ -12,7 +12,7 @@ class DrugReviewSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-        $ids = range(1, 50);
+        $ids = range(2, 50);
 
         $review_limit = 5000;
         if (getenv('APP_ENV') == 'local') {
