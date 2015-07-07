@@ -51,7 +51,7 @@ class DrugControllerTest extends TestCase
 
     public function testIndex()
     {
-        $this->stubQuery->shouldReceive('paginate')->once()->with(15);
+        $this->stubQuery->shouldReceive('simplePaginate')->once()->with(15);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
         $this->mockModel->shouldReceive('select')->once()->with('id', 'label')->andReturn($this->stubQuery);
 
@@ -81,7 +81,7 @@ class DrugControllerTest extends TestCase
             'limit' => 20,
             'term' => 'foo'
         ];
-        $this->stubQuery->shouldReceive('paginate')->once()->with(20);
+        $this->stubQuery->shouldReceive('simplePaginate')->once()->with(20);
         $this->stubQuery->shouldReceive('where')->once()->with('label', 'LIKE', 'foo%')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
         $this->mockModel->shouldReceive('select')->once()->with('id', 'label')->andReturn($this->stubQuery);
@@ -97,7 +97,7 @@ class DrugControllerTest extends TestCase
             'limit' => 20,
             'term' => '#'
         ];
-        $this->stubQuery->shouldReceive('paginate')->once()->with(20);
+        $this->stubQuery->shouldReceive('simplePaginate')->once()->with(20);
         $this->stubQuery->shouldReceive('whereRaw')->once()->with("upper(left(label, 1)) not between 'A' and 'Z'")->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'ASC')->andReturn($this->stubQuery);
         $this->mockModel->shouldReceive('select')->once()->with('id', 'label')->andReturn($this->stubQuery);
@@ -109,7 +109,7 @@ class DrugControllerTest extends TestCase
 
     public function testGetReviews()
     {
-        $this->stubQuery->shouldReceive('paginate')->once()->with(15, ['drug_reviews.*']);
+        $this->stubQuery->shouldReceive('simplePaginate')->once()->with(15, ['drug_reviews.*']);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('downvotes_cache', 'ASC')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('upvotes_cache', 'DESC')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('with')->with('sideEffects')->once()->andReturn($this->stubQuery);
@@ -129,7 +129,7 @@ class DrugControllerTest extends TestCase
             'gender' => 'f'
         ];
 
-        $this->stubQuery->shouldReceive('paginate')->once()->with(15, ['drug_reviews.*']);
+        $this->stubQuery->shouldReceive('simplePaginate')->once()->with(15, ['drug_reviews.*']);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('upvotes_cache', 'DESC')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('downvotes_cache', 'ASC')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('where')->once()->with('age', '>=', 18)->andReturn($this->stubQuery);
@@ -205,7 +205,7 @@ class DrugControllerTest extends TestCase
 
     public function testGetAlternatives()
     {
-        $this->stubQuery->shouldReceive('paginate')->once()->with(15);
+        $this->stubQuery->shouldReceive('simplePaginate')->once()->with(15);
         $this->stubQuery->shouldReceive('orderBy')->once()->with('label', 'DESC')->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('with')->with('sideEffects')->once()->andReturn($this->stubQuery);
         $this->stubQuery->shouldReceive('alternatives')->once()->andReturn($this->stubQuery);

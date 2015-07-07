@@ -39,7 +39,7 @@
                 }
             ).$promise.then(function(drugs) {
                     self.drugs = self.drugs.concat(drugs.data);
-                    self.more = self.page < drugs.last_page;
+                    self.more = drugs.next_page_url !== null;
                 });
         };
 
@@ -288,7 +288,7 @@
                     } else {
                         self.reviews = reviews.data;
                     }
-                    self.more = self.page < reviews.last_page;
+                    self.more = reviews.next_page_url !== null;
                 });
         };
 

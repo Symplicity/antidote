@@ -40,7 +40,7 @@ class DrugController extends Controller
             }
         }
 
-        $drugs = $drugs->orderBy('label', 'ASC')->paginate($limit);
+        $drugs = $drugs->orderBy('label', 'ASC')->simplePaginate($limit);
 
         return $drugs;
     }
@@ -101,7 +101,7 @@ class DrugController extends Controller
 
         $reviews = $reviews->orderBy('upvotes_cache', 'DESC')
             ->orderBy('downvotes_cache', 'ASC')
-            ->paginate($limit, $fields);
+            ->simplePaginate($limit, $fields);
 
         return $reviews;
     }
@@ -160,7 +160,7 @@ class DrugController extends Controller
     {
         $limit = $this->getLimit($request);
 
-        $reviews = Drug::find($id)->alternatives()->with('sideEffects')->orderBy('label', 'DESC')->paginate($limit);
+        $reviews = Drug::find($id)->alternatives()->with('sideEffects')->orderBy('label', 'DESC')->simplePaginate($limit);
         return $reviews;
     }
 }
