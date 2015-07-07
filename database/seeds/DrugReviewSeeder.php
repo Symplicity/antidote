@@ -30,7 +30,7 @@ class DrugReviewSeeder extends Seeder
             }
 
             if (count($side_effects)) {
-                $drug_review->sideEffects()->sync($faker->randomElements($side_effects, $faker->numberBetween(0, 10)));
+                $drug_review->sideEffects()->sync($faker->randomElements($side_effects, $faker->numberBetween(0, count($side_effects))));
             }
 
             $users = $faker->randomElements($ids, $faker->numberBetween(0, 25));
