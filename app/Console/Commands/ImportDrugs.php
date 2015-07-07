@@ -175,17 +175,17 @@ class ImportDrugs extends Command
         return $brands;
     }
 
-    private function getBrandsFromIds($ids)
+    private function getBrandsFromIds($rxcuis)
     {
         $brands = [];
 
-        foreach ($ids as $id) {
-            if ($id = trim($id)) {
-                $concept = $this->rxnorm->getConceptProperties($id);
+        foreach ($rxcuis as $rxcui) {
+            if ($rxcui = trim($rxcui)) {
+                $concept = $this->rxnorm->getConceptProperties($rxcui);
                 if (empty($concept) || !in_array($concept['tty'], ['BN', 'BPCK'])) {
-                    $this->info($id . ' not found or not a brand drug. Skipping ...');
+                    $this->info($rxcui . ' not found or not a brand drug. Skipping ...');
                 } else {
-                    $brands[] = ['rxcui' => $id];
+                    $brands[] = ['rxcui' => $rxcui];
                 }
             }
         }
@@ -201,8 +201,8 @@ class ImportDrugs extends Command
             $brands = array_merge($brands, $this->getBrandsFromNames($names));
         }
 
-        if ($ids = str_getcsv($this->option('ids'))) {
-            $brands = array_merge($brands, $this->getBrandsFromIds($ids));
+        if ($rxcuis = str_getcsv($this->option('ids'))) {
+            $brands = array_merge($brands, $this->getBrandsFromIds($rxcuis));
         }
 
         if (empty($brands)) {
@@ -269,6 +269,47 @@ class ImportDrugs extends Command
         $this->line(sprintf('  %-20s : %s', 'recalls', json_encode($concept['recalls'], JSON_PRETTY_PRINT)));
     }
 
+    private function getConceptIngredients($ttys)
+    {
+        $ingredients = [];
+
+        if ($mins = array_get($ttys, 'MIN.ids', [])) {
+            $ingredients = $mins;
+        } elseif ($pins = array_get($ttys, 'PIN.ids', [])) {
+            $ingredients = $pins;
+        } elseif ($ins = array_get($ttys, 'IN.ids', [])) {
+            $ingredients = $ins;
+        }
+
+        return $ingredients;
+    }
+
+    private function getConceptGeneric($ttys)
+    {
+        $generic = '';
+
+        if ($mins = array_get($ttys, 'MIN.ids', [])) {
+            $generic = join(' / ', array_get($ttys, 'MIN.names', []));
+        } elseif ($pins = array_get($ttys, 'PIN.ids', [])) {
+            $generic = join(' / ', array_get($ttys, 'PIN.names', []));
+        } elseif ($ins = array_get($ttys, 'IN.ids', [])) {
+            $generic = join(' / ', array_get($ttys, 'IN.names', []));
+        }
+
+        return $generic;
+    }
+
+    private function getConceptLabel($concept)
+    {
+        $label = (empty($concept['synonym']) ? $concept['name'] : $concept['synonym']);
+
+        if ($pos = strpos($label, 'Pack [')) {
+            $label = substr($label, $pos + 6, -1) . ' [Pack]';
+        }
+
+        return $label;
+    }
+
     private function getConceptValues($rxcui)
     {
         $values = [];
@@ -278,25 +319,10 @@ class ImportDrugs extends Command
             $ttys = $this->rxnorm->getConceptRelations($rxcui);
 
             $values['rxcui'] = $rxcui;
-            $values['label'] = (empty($concept['synonym']) ? $concept['name'] : $concept['synonym']);
+            $values['label'] = $this->getConceptLabel($concept);
+            $values['generic'] = $this->getConceptGeneric($ttys);
+            $values['ingredients'] = $this->getConceptIngredients($ttys);
             $values['drug_forms'] = array_get($ttys, 'DF.names', []);
-            $values['generic'] = '';
-            $values['ingredients'] = [];
-
-            if ($ids = array_get($ttys, 'MIN.ids', [])) {
-                $values['ingredients'] = $ids;
-                $values['generic'] = join(' / ', array_get($ttys, 'MIN.names', []));
-            } elseif ($ids = array_get($ttys, 'PIN.ids', [])) {
-                $values['ingredients'] = $ids;
-                $values['generic'] = join(' / ', array_get($ttys, 'PIN.names', []));
-            } elseif ($ids = $values['ingredients'] = array_get($ttys, 'IN.ids', [])) {
-                $values['ingredients'] = $ids;
-                $values['generic'] = join(' / ', array_get($ttys, 'IN.names', []));
-            }
-
-            if ($pos = strpos($values['label'], 'Pack [')) {
-                $values['label'] = substr($values['label'], $pos + 6, -1) . ' [Pack]';
-            }
 
             $drugs = array_get($ttys, 'SBD.ids', []);
             $label = $this->openfda->getLabel($values, $drugs);
