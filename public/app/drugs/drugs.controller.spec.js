@@ -94,7 +94,7 @@ describe('Drugs Controller', function() {
     });
 
     describe('DrugsOverviewCtrl', function() {
-        it('should call drugs service to get top 2 reviews', inject(function(DrugsService) {
+        it('should call drugs service to get top 2 reviews', inject(function(DrugsService, $auth) {
             var reviews = {data: [{id: 1}, {id: 2}]};
 
             spyOn(DrugsService, 'getReviews').and.returnValue({
@@ -107,13 +107,15 @@ describe('Drugs Controller', function() {
 
             var vm = controller('DrugsOverviewCtrl', {
                 $stateParams: {id: 2},
-                $scope: scope
+                $scope: scope,
+                $auth: $auth
             });
 
             expect(DrugsService.getReviews).toHaveBeenCalledWith(
                 {
                     id: 2,
-                    limit: 2
+                    limit: 2,
+                    user: null
                 }
             );
             expect(vm.topReviews[0].id).toEqual(1);
@@ -144,7 +146,8 @@ describe('Drugs Controller', function() {
                     limit: 10,
                     min_age: null,
                     max_age: null,
-                    gender: null
+                    gender: null,
+                    user: null
                 }
             );
 
@@ -181,7 +184,8 @@ describe('Drugs Controller', function() {
                         limit: 10,
                         min_age: null,
                         max_age: null,
-                        gender: null
+                        gender: null,
+                        user: null
                     }
                 );
                 expect(vm.more).toEqual(false);
@@ -209,7 +213,8 @@ describe('Drugs Controller', function() {
                     limit: 10,
                     min_age: null,
                     max_age: null,
-                    gender: null
+                    gender: null,
+                    user: null
                 }
             );
 
@@ -226,7 +231,8 @@ describe('Drugs Controller', function() {
                     limit: 10,
                     min_age: 18,
                     max_age: 34,
-                    gender: null
+                    gender: null,
+                    user: null
                 }
             );
 
@@ -239,7 +245,8 @@ describe('Drugs Controller', function() {
                     limit: 10,
                     min_age: 18,
                     max_age: 34,
-                    gender: 'm'
+                    gender: 'm',
+                    user: null
                 }
             );
         }));

@@ -184,9 +184,10 @@
     }
 
     /** @ngInject */
-    function DrugsOverviewCtrl(DrugsService, $stateParams) {
+    function DrugsOverviewCtrl(DrugsService, $stateParams, $auth) {
         var self = this;
 
+        this.userId = null;
         this.topReviews = [];
 
         this.effectiveLabels = ['Effective', 'Not Effective'];
@@ -208,7 +209,17 @@
         };
 
         function activate() {
-            DrugsService.getReviews({id: $stateParams.id, limit: 2}).$promise.then(function(reviews) {
+            if ($auth.isAuthenticated()) {
+                self.userId = $auth.getPayload().sub;
+            }
+
+            DrugsService.getReviews(
+                {
+                    id: $stateParams.id,
+                    limit: 2,
+                    user: self.userId
+                }
+            ).$promise.then(function(reviews) {
                 self.topReviews = reviews.data;
             });
         }
@@ -219,6 +230,7 @@
     /** @ngInject */
     function DrugsReviewsCtrl(DrugsService, $stateParams, $auth, ProfileService) {
         this.reviews = [];
+        this.userId = null;
         var self = this;
 
         function activate() {
@@ -226,6 +238,8 @@
                 //load with default filters
                 self.applyFilters();
             } else {
+                self.userId = $auth.getPayload().sub;
+
                 ProfileService.get().$promise.then(function(user) {
                     if (user.age || user.gender) {
                         if (user.age) {
@@ -265,7 +279,8 @@
                     limit: self.perPage,
                     min_age: self.filters.ageRange.min_value,
                     max_age: self.filters.ageRange.max_value,
-                    gender: self.filters.gender.value
+                    gender: self.filters.gender.value,
+                    user: self.userId
                 }
             ).$promise.then(function(reviews) {
                     if (append) {
@@ -414,7 +429,7 @@
     }
 
     /** @ngInject */
-    function DrugsReviewVoteCtrl(DrugsService, $auth, $mdToast, LoginSignupModalService, ServerErrorHandlerService) {
+    function DrugsReviewVoteCtrl(DrugsService, $auth, LoginSignupModalService, ServerErrorHandlerService) {
         this.vote = function(review, vote) {
             if ($auth.isAuthenticated()) {
                 DrugsService.voteOnReview(
@@ -435,6 +450,7 @@
                                 review.upvotes--;
                             }
                         }
+                        review.vote = vote.toString();
                     },
                     ServerErrorHandlerService.handle
                 );

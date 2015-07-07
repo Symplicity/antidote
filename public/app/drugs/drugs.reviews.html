@@ -6,17 +6,17 @@
                     <md-icon>people</md-icon>
                     <h4>Reviews</h4>
                 </md-toolbar>
-                <md-card-content>                    
-                    <div class="drug-filters" ng-if="drugsReviews.reviews.length === 0">
+                <md-card-content>
+                    <div class="drug-filters">
                         <md-tabs md-center-tabs="false" md-selected="drugsReviews.selectedGenderTabIndex">
                             <md-tab ng-repeat="gender in drugsReviews.genders" md-on-select="drugsReviews.onGenderFilterSelected(gender)">{{gender.label}}</md-tab>
                         </md-tabs>
                         <md-tabs md-center-tabs="false" md-selected="drugsReviews.selectedAgeRangeTabIndex">
                             <md-tab ng-repeat="ageRange in drugsReviews.ageRanges" md-on-select="drugsReviews.onAgeRangeFilterSelected(ageRange)">{{ageRange.label}}</md-tab>
                         </md-tabs>
-                    </div>                   
+                    </div>
                     <div ng-repeat="review in drugsReviews.reviews" class="card-content">
-                        <div layout="column" layout-align="center center" flex ng-if="drugsReviews.reviews.length < 0" class="special-ie-fix">
+                        <div layout="column" layout-align="center center" flex ng-if="drugsReviews.reviews.length < 1" class="special-ie-fix">
                             <div flex>
                                 <p>Sorry! No reviews at this time. Be the first to share your experience!</p>
                             </div>
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                         <drugs-review-view review="review"></drugs-review-view>
-                    </div>                    
+                    </div>
                 </md-card-content>
             </md-card>
         </div>

@@ -6,14 +6,14 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
 .drugs-tabs-bg {
     background-color: #FFF;
     max-height: 100%;
-    
+
     ul {
         margin-left: 0px;
         padding-left: 0px;
         display: inline-block;
         text-align: center;
         margin-bottom: 5px;
-    
+
         li {
             display: inline-block;
             height: 100%;
@@ -28,7 +28,7 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
                 border-bottom: 5px solid $md-secondary-dark;
                 color: $md-secondary;
                 margin-bottom: -5px;
-            }            
+            }
         }
     }
 }
@@ -93,16 +93,16 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
 .md-vote {
     text-align: center;
     padding:10px;
-    p { 
-        text-align: center; 
-        color: #666; 
+    p {
+        text-align: center;
+        color: #666;
     }
 
     md-icon {
-        color: $md-gray-accent;   
+        color: $md-gray-accent;
         height: 34px;
         width: 34px;
-        
+
         .material-icons{
             font-size: 34px;
         }
@@ -122,17 +122,17 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
     }
     &:active {
         color: $md-secondary-dark;
-    }    
+    }
 }
 
 .voted-up {
-    color: $md-secondary;
+    color: $md-secondary !important;
 }
 
 .vote-down {
     &:hover {
         color: #e57373;
-        
+
         p {
             color: #e57373;
         }
@@ -143,7 +143,7 @@ md-tabs .md-tab.md-active, md-tabs .md-tab.md-focused {
 }
 
 .voted-down{
-    color: #e57373;   
+    color: #e57373 !important;
 }
 
 .vote-up, .vote-down{
