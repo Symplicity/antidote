@@ -296,7 +296,7 @@
             },
             {
                 'min_value': 51,
-                'max_value': null,
+                'max_value': 125,
                 'label': '51+'
             }
         ];
