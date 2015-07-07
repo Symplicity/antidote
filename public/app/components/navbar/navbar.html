@@ -25,9 +25,9 @@
         <md-button class="nav-link" ui-sref="about">About</md-button>
     </div>
     <div layout="column">
-        <md-button ui-sref="profile" class="nav-link"  ng-if="navbar.isAuthenticated()" flex>Profile</md-button>
-        <md-button ui-sref="signup" class="nav-link" ng-if="!navbar.isAuthenticated()" flex>Sign up</md-button>
-        <md-button ui-sref="login" class="nav-link" ng-if="!navbar.isAuthenticated()" flex>Log In</md-button>
-        <md-button ui-sref="logout" class="nav-link" ng-if="navbar.isAuthenticated()" flex>Logout</md-button>
+        <md-button ui-sref="profile" class="nav-link"  ng-if="navbar.isAuthenticated()">Profile</md-button>
+        <md-button ui-sref="signup" class="nav-link" ng-if="!navbar.isAuthenticated()">Sign up</md-button>
+        <md-button ui-sref="login" class="nav-link" ng-if="!navbar.isAuthenticated()">Log In</md-button>
+        <md-button ui-sref="logout" class="nav-link" ng-if="navbar.isAuthenticated()">Logout</md-button>
     </div>
 </md-sidenav>
