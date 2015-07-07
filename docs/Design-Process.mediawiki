@@ -1,0 +1,32 @@
+This page documents the design process utilized for the iterative development of Antidote.  We utilized multiple [human-centered design methods] (http://www.designkit.org/methods) within the [Google Venture Design Sprint] (http://www.fastcodesign.com/1672887/how-to-conduct-your-own-google-design-sprint) framework to ground our design approach firmly within the needs of our potential consumers. 
+
+==Understand==
+In order to understand we: 
+*Engaged in individual research
+*Reviewed the information provided by OpenFDA
+*Brainstormed as a team to determine initial direction and to determine survey questions:
+[[https://github.com/Symplicity/antidote/blob/master/docs/attachments/brainstorm2.jpg]]
+[[https://github.com/Symplicity/antidote/blob/master/docs/attachments/brainstorm1.jpg]]
+*Conducted a user survey, created by the Content Writer (Technical Approach, Criteria 3 & 4) [[Design Process: A. Initial Survey]]
+*Interviewed survey respondents to dig deeper (Technical Approach, Criteria 3 & 4) [[Design Process: B. Interviews]]
+*Reviewed interview results for user needs and identified a problem statement:
+[[https://github.com/Symplicity/antidote/blob/master/docs/attachments/18fProbStatement.jpg]]
+
+==Diverge==
+To generate creative ideas:
+*We separated to create sketches of applications that would meet the user needs. (Technical Approach, Criteria 4) [[Design Process: C. Sketch Activity]]
+*We used our problem statement as a guideline for this work (Technical Approach, Criteria 4) 
+
+==Decide==
+To determine the most effective approach to meet our users needs:
+*We voted on the sketches and chose a winner: https://github.com/Symplicity/antidote/wiki/Iterations#V10
+*And combined our top two voted sketches into a design prototype 
+
+==Prototype==
+Our discussion during the decision phase generated an initial version: https://github.com/Symplicity/antidote/wiki/Iterations#V20
+
+==Validate==
+We validated our approach by:
+*Engaging in user testing of the prototype (Technical Approach, Criteria 3) [[Design Process: D. Usability Testing for Prototype]]
+*Continuing feedback at after development (Technical Approach, Criteria 3) [[Design Process: D. Usability Testing for Website]] and [[Design Process: D. Usability Testing for Website: Insights]]
+

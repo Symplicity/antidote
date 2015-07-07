@@ -18,7 +18,7 @@ All prototypes are created in Axure, including main pages and interactions in th
 *user interview insights
 
 '''Link:''' 
-http://qshen.web.dev.symplicity.com/fda/v1/
+https://github.com/Symplicity/antidote/blob/master/docs/attachments/wire1.pdf
 
 ====V2.0====
 
@@ -33,8 +33,8 @@ deleted sign up/sign in and personal medication tracking due to privacy and secu
 '''Created based on:'''
 *group discussion about scope and target user cases.
 
-'''Link to it:''' 
-http://qshen.web.dev.symplicity.com/fda/v2/
+'''Link:''' 
+https://github.com/Symplicity/antidote/blob/master/docs/attachments/wire2.pdf
 
 ====V3.0====
 
@@ -51,8 +51,8 @@ put functionality introduction sections in a line so that users don't need to sc
 *group reviews
 *user tests insights on version 2.0
 
-'''Link to it:''' 
-http://qshen.web.dev.symplicity.com/fda/v3/
+'''Link:''' 
+https://github.com/Symplicity/antidote/blob/master/docs/attachments/wire3.pdf
 
 ====V4.0====
 
@@ -65,8 +65,8 @@ http://qshen.web.dev.symplicity.com/fda/v3/
 *group reviews
 *user tests insights on version 2.0
 
-'''Link to it:''' 
-http://qshen.web.dev.symplicity.com/fda/v4/
+'''Link:''' 
+https://github.com/Symplicity/antidote/blob/master/docs/attachments/wire4.pdf
 
 ====V5.0====
 
@@ -78,8 +78,8 @@ http://qshen.web.dev.symplicity.com/fda/v4/
 '''Created based on:'''
 *group reviews
 
-'''Link to it:''' 
-http://qshen.web.dev.symplicity.com/fda/v5/
+'''Link:''' 
+https://github.com/Symplicity/antidote/blob/master/docs/attachments/wire5.pdf
 
 ====V6.0====
 
@@ -93,8 +93,8 @@ http://qshen.web.dev.symplicity.com/fda/v5/
 '''Created based on:'''
 *group reviews
 
-'''Link to it:''' 
-http://qshen.web.dev.symplicity.com/fda/v6/
+'''Link:''' 
+https://github.com/Symplicity/antidote/blob/master/docs/attachments/wire6.pdf
 
 ====V7.0====
 
@@ -105,15 +105,21 @@ http://qshen.web.dev.symplicity.com/fda/v6/
 '''Created based on:'''
 *group reviews
 
-'''Link to it:''' 
-*http://qshen.web.dev.symplicity.com/fda/v7/
+'''Link:''' 
+https://github.com/Symplicity/antidote/blob/master/docs/attachments/wire7.pdf
 
 ===Mobile prototype===
 *Mobile prototype is created based on web prototype and revised accordingly. The main purpose of mobile prototype is to provide responsive reference.
-*The link to it: http://qshen.web.dev.symplicity.com/fda_mobile/
+'''Link:''' 
+https://github.com/Symplicity/antidote/blob/master/docs/attachments/mockv4-desktop.pdf
+(includes desktop and mobile)
 
 ===Mock Iterations===
 While development began immediately based on prototypes, various iterations of mocks were created to complement and confirm development trajectory as well as achieve design cohesiveness.  A document that discusses the iterations our mocks went through is linked here.
+'''Links:'''
+* https://github.com/Symplicity/antidote/blob/master/docs/attachments/mock1.pdf
+* https://github.com/Symplicity/antidote/blob/master/docs/attachments/mockv2.pdf
+* https://github.com/Symplicity/antidote/blob/master/docs/attachments/mockv3.pdf
 
 ===Roadmap===
 Our minimum viable product (MVP) consisted of the completed user stories documented in Pivotal Tracker.  These user stories were paired with feature tasks to track the development details associated with features and provide a checklist to verify completion of requirements.  All features that did not meet the MVP were placed in the Pivotal Tracker icebox for incorporation into a product roadmap.  The Pivotal Tracker roadmap and full history are available here for anyone who wishes to enhance Antidote moving forward.

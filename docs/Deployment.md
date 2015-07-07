@@ -1,8 +1,10 @@
+This article explains how to deploy in production.
+
 ### Deployment
-To deploy this project you will need Docker, docker-machine, docker-compose and docker-swarm. You can also use a service like [tutum.co](http://tutum.co) for orchestration, but that is not required. Antidote can be deployed locally on a single box, or with docker-swarm using docker-compose.
+To deploy this project you will need Docker, docker-machine, docker-compose and docker-swarm. You can also use a service like [tutum.co](http://tutum.co) to aid in orchestration, but that is not required. Antidote can be deployed locally on a single box, or scaled out across a production cluster with docker-swarm using docker-compose or a service like Tutum, with the use of standard docker-compose-format yml specficication files.
 
 ### Technologies Used
-We used the following open source technologies:
+We used the following open source technologies to support this project:
 
 - [Docker](http://www.docker.com)
 - [MariaDB](http://www.mariadb.com)
@@ -20,7 +22,7 @@ We used the following open source technologies:
 - [Prometheus](http://prometheus.io/)
 
 ### Containers
-We built a pair of custom containers to make certain things easier to deploy:
+We built a pair of custom containers to make certain things easier to deploy, and these are available from the public Docker Hub repository:
 
 - symplicity/webserver (NGINX + PHP-FPM)
 - symplicity/worker (Runs Cron Jobs and Executes PHP code)
@@ -202,12 +204,12 @@ worker:
     - rabbitmq
 ```
 
-After the docker-compose.yml is written, you will need to `docker-comose up`. This will start up a MariaDB, RabbitMQ, web server and worker VM.
+After the docker-compose.yml is written, you will need to `docker-compose up`. This will start up a MariaDB, RabbitMQ, web server and worker VM.
 
 Once they all come up you should be able to connect to your Docker IP or boot2docker IP.
 
 #### Production
-If you want to deploy this in a production environment it is appropriate to setup some nodes with docker-machine and docker-swarm. You would then use docker-compose to deploy using the docker-swarm. Alternatively, you can use Tutum as your orchestration service and use the tutum.yml file to deploy this on Amazon AWS, Digital Ocean, Microsoft Azure and Softlayer by IBM. You should use at least 3 nodes and if you have spare hardware you can also bring your own nodes to Tutum. We have tried both AWS and Digital Ocean with Tutum. You can have nodes in more than one provider to give your site HA on the IaaS level. If you need to change crons on the worker node, you just need to edit `deployments/jobs/antidote-cron` this file is reloaded on every update.
+If you want to deploy this in a production environment it is appropriate to setup some nodes with docker-machine and docker-swarm. You would then use docker-compose to deploy using the docker-swarm. Alternatively, you can use Tutum as your orchestration service and use the tutum.yml file to deploy this on Amazon AWS, Digital Ocean, Microsoft Azure, Softlayer by IBM, or even your own hardware. You should use at bare minimum 3 nodes, and depending on load the web server layer can be scaled across more nodes. Through the development of this site it has been deployed in both AWS and Digital Ocean with Tutum, and is currently serving from Digital Ocean nodes. You can have nodes in more than one provider to give your site HA on the IaaS level. If you need to change crons on the worker node, you just need to edit `deployments/jobs/antidote-cron` this file is reloaded on every update.
 
 ###### Recommendations for Production
-It is recommended to put the db container on a node with at least 4 GB of RAM and 2 CPUs. Putting a load balancer in front of the web nodes that terminates SSL is also recommended. The web servers don't require a large amount of memory so 512 GB or 1 GB should be enough. A final recommendation is to stand up a Memcached server for the site to use. 
+It is recommended to put the db container on a node with at least 4 GB of RAM and 2 CPUs. Putting a load balancer in front of the web nodes that terminates SSL is also recommended. The web servers don't require a large amount of memory so 512 GB or 1 GB should be enough. A final recommendation is to stand up a Memcached server to increase performance. 

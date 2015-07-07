@@ -1,0 +1,3 @@
+This repository and the product to which it relates, Antidote, was created by Symplicity Corporation in order to meet the requirements for submission to Request for Quotation (RFQ) 4QTFHS150004, issued by The General Services Administration (GSA) in order to establish a list of vendors as part of a blanket purchase agreement to supply agile delivery services.  
+
+This wiki will describe the development process and progress for the general public, as well as provide support information for users of Antidote.  

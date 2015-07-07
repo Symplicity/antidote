@@ -1,0 +1,199 @@
+=6/19/2015=
+
+==3 pm Testing results review==
+*CH will do content, which will be done by Monday
+*mocks-placeholder
+*docker is in process
+*CS is working on mocks, but this will be ongoing so he will give SS a structure to go off of for tomorrow so SS & CT can start on front end development
+*QS-prototype & start mobile prototype tomorrow; she will get it done before Monday
+*SS will start front end coding based on prototypes
+*Services to fetch data
+*Routes and controllers
+*We can do directives and controllers-they need endpoints
+*Backend web stuff
+*start on user stories
+
+==11 am Prototype review==
+*Confirm/explain change in scope that occurred as a result of conversation later on 6/18
+**we cut out personal history and reminders
+*Figure out age/identifying info
+*People won't scroll-combine/make blocks
+*We can't store anything until they submit; could store at the point of effectiveness-get rid of continue; once they click face it goes to next page
+*next one should be a done button
+*Can we get encryption done if we store user data?
+**Vik will encrypt data by deadline; anything that will tie back to identify user
+**No need for zip; average recovery time
+*Add showing image of drug
+*What drug is used for may have to be crowd sourced
+**research API for what data can be displayed in "Used for"
+**side effects-our database vs. fda
+**Used for section in API is not parseable
+*Perhaps add icons for pregnancy safety, etc., causes death, cancer, controlled substance
+*Number of people with side effects
+**Total # of side effects; full page with full side effects; take it a layer deeper if there are side effects
+**Icon or something to show what data source is; crowd sourced vs. fda
+*show source of data-disclaimer-subtle
+*reactions/side effects need clear labeling
+*don't like click and close; need to find material design element to expand/slide
+*how are we going to populate test data?
+*put interactivity at top (drug event)
+*reviews instead
+*indications are "used for"
+*add "was this useful?" for review
+*taking out tips (or make crowd sourced)
+*insurance - company and plan-design figures out list display- look for api
+*Users info gathered-age, zip, insurance plan and gender, email
+*karma points tied to you
+**your karma points are higher when you view it
+*we need a disclaimer
+*part of checklist is security
+*due by 5 pm-playbook chores
+*Pivotal Tracker-Iva will help Chelsea and Chris learn it
+*Write-wiki page on procedural stuff to send out
+*every time we do new feature-pull request
+*Using github issues to report bugs? Yes
+
+==Tech team, 10:30 am==
+*Identifying bottle necks and hard deadlines: we don't have a lot of bottlenecks
+*Help with documentation-plain text file
+**What fields we are putting out from aPI
+*Front end devs design around sample file that Iva will generate from fda stuff we get
+*Write up ndc number
+*System to verify that it works
+*Get on github and edit it
+*Iva-samples of data
+*Vik-working on backend API so front end guys can go at it; consuming fda api
+*Svemir-automation add api testing bit and some real tests; not that much code in to test right now; moose-setting up docker container; figure out how to build/host
+*Dags-facilitating; AWS or Heroku-reading up
+*Solutions outstanding? 
+**There will be more added-might add one more thing to infrastructure; proper caching.  
+**Add that layer not hard; focus on meat of it first
+*Other things we could be working on
+**setting up dredd thing to test blueprint api
+**load testing-missing in general; mentioned in playbook
+*Request for support forum: 
+**feature stories on pivotal-bugs/issues should be publicly available
+**bugs in github
+*Anyone not working should be testing
+**Determine issues/ramifications ex: zip code personally identifiable & hipaa compliance
+
+=6/18/2015=
+
+==3:00 pm Eastern, Reviewing Chosen Sketch==
+**Winning sketch: #2
+*What would it take to pull this off?  Are there amendments?
+**Obtaining insurance info: crowd source info for insurance
+**percent covered by insurance
+**too many different insurers/plans
+**% of people covered
+**zoc doc contains simplified insurance plan list so we could refer to this
+**fda data for matches of symptoms
+*Drug info to display:
+**Perscription or OTC
+**Overview
+**Uses
+**Reviews-effectiveness-user generated
+**side effects from API
+**Interactivity
+**Success rate
+**there is info about what it is used to treat
+**add three aspects to area that currently has reviews-effectiveness, side effects, insurance covered
+*Discussion about lack of clarity on how stats are represented: Is this showing commonness of them
+*List of what info is needed: 
+**IA will review API and consult with QS regarding how these should be formatted
+**Side effect data will be investigated (Dave says in this is in Adverse Events/reactions list)
+**Is there a summary? yes
+**Used for-not sure if we have this
+**Whether prescription or OTC
+**Alternatives-other drugs in same class
+**what does side effect look like?
+**overall summary with click for more details
+**suggested usage-what is there?
+**Interactivity info; what does this look like-not just other meds-can be foods, etc.
+**Reviews section; need to add karma to vote up/down
+**Demographic info
+***sign up to manage account-email, password
+***issues with collecting user data b/c it needs to be encryption is an issue
+***can we do username, zip and password and no email, age, gender, insurance co
+***get demographic information when you write a review
+***timeline for medication
+***List view of all of drugs-show notifications new notice for drug-fda warnings, recalls, effectiveness has changed more than 10%
+**take out the reminder piece & history of medication use; get away from ongoing health management
+**do we do logins?
+**give them a reward-we will customize their data to them if they put in age, etc.
+*Next steps/schedule:
+**prototypes amended by 11 am
+**IA looks at data now and gives it to QS
+**Write out task for prototype for interview
+**Testing Script-CS
+**During lunch-prototype testing 11-12 testing, 4 people
+**11-2 interviews/reviews
+**2:00 review results in group
+**Have something working by Monday and give it to users
+
+==1:00 pm Eastern, Interview results==
+*9 people were interviewed
+**mostly single prescription 
+**not many with six or more prescriptions with interactivity issues
+*discussed how they research before or after taking medicine
+**on google or web md
+**trust issue b/c different info comes up
+**Online reviews: some people don’t respect and say disrespectful things online
+**talk to pharmacist
+**Look for interactivity info and side effects
+**social network to get info from other people
+**check if medication is safe
+**if friends/family are taking same medication
+**check other people’s reactions and side effects
+**check if medication is covered by insurance
+**is it dr. recommended, if covered, price
+**care about side effects
+***70% research before-general side effects
+***70% care about how other people afterward
+***don’t care about interactivity
+***most people don’t have experience of asking family about prescriptions 
+**reminders:
+***part will remember to take the medication
+***some do phone reminder
+***A lot of people don’t take note of what they took
+**1 longterm perscription
+**as long as they take it not worried about recording it
+***forgot to take medicine over the weekend b/c on different schedule
+***reminder could be a feature
+*rely on doctor for interactivity b/c doctor will tell them
+*What are our users' problems
+**generic or brandname-insurance websites
+**Finding a trusted source for side effect info
+**Finding generic versions
+**knowing whether it was effective for others?
+**differentiate clinical data from user feedback
+**How do we create a product that provides a mix of unbiased and user-based feedback
+**go online to look up side effects
+**trusted sources
+**reviews from others
+**look at clinical info-data is skewed: report only negative reactions
+**how do we get users to be more proactive
+*What we need:
+**create a tool you will use on a larger basis; keep people engaged
+**reminder feature
+**when you finish doses, game/points for giving feedback
+**separate from message board concept
+**show generics of that drug
+*Problem statement should be a large one:
+**helping people have a better experience with prescription and otc medications through access to better and real time information
+**Keep engaged to present better information 
+**Reminders
+**Drug history/inventory
+**being able to look up info about the drug
+**able to see ratings data-clinical and non-clinical
+*Sketches we will put in front of users; we only need a couple
+*group vote by tally to find a clear winner to bring to users 
+*api to give pictures of boxes etc.
+Our sketchers: 
+*#1-CS
+*#2-QS
+*#3-CT
+*#4-BS
+*#5-IA
+
+ 

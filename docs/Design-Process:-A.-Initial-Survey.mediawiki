@@ -1,0 +1,84 @@
+An initial user survey was conducted amongst Symplicity employees to recruit interviewees to conduct one-on-one user interviews.  The target interviewees must include: people that have taken medications within 5 years. Should include: both male and female, both multiple medications and single medication, both short-term and long-term. This survey was administered via Survey Monkey.
+
+==Survey Questions==
+#In the past 5 years, have you been prescribed medications or taken Over The Counter medications?
+#Are you taking multiple medications at the same time ?
+#Was the prescription short-term or long-term?
+#Did you read medication labels or research a medication that you are taking?
+
+==Survey Results==
+
+{|
+! Respondent
+! Q1
+! Q2
+! Q3
+! Q4
+! Respondent Selected?
+|-
+| U1
+| Yes
+| Yes
+| Short-term (less than 1 month)
+| Yes
+| 1
+|-
+| U2
+| Yes
+| No
+| Short-term (less than 1 month)
+| Yes
+| 1
+|-
+| U3
+| Yes
+| No
+| Short-term (less than 1 month)
+| Yes
+| 1
+|-
+| U4
+| Yes
+| Yes
+| both
+| Yes
+| 1
+|-
+| U5
+| Yes
+| Yes
+| Long-term (more than 1 month)
+| Yes
+| 1
+|-
+| U6
+| Yes
+| No
+| Long-term (more than 1 month)
+| Yes
+| 1
+|-
+| U7
+| Yes
+| Yes
+| both
+| Yes
+| 1
+|-
+| U8
+| Yes
+| Yes
+| both
+| Yes
+| 1
+|-
+| U9
+| Yes
+| Yes
+| Long-term (more than 1 month)
+| Yes
+| 1
+|}
+
+==Initial Survey Data Results Summary==
+[[https://github.com/Symplicity/antidote/blob/master/docs/attachments/Initial_Survey_Data_Summary.pdf]]
