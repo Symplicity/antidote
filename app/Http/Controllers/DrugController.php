@@ -160,7 +160,7 @@ class DrugController extends Controller
     {
         $limit = $this->getLimit($request);
 
-        $reviews = Drug::find($id)->alternatives()->with('sideEffects')->orderBy('label', 'DESC')->simplePaginate($limit);
+        $reviews = Drug::find($id)->alternatives()->with('sideEffects')->orderBy('label', 'ASC')->simplePaginate($limit);
         return $reviews;
     }
 }
