@@ -14,7 +14,7 @@ describe('Drugs Controller', function() {
 
     describe('DrugsListCtrl', function() {
         it('should call drugs service to get the list', inject(function(DrugsService) {
-            var returnData = {data: [{id: 1}], last_page: 2};
+            var returnData = {data: [{id: 1}], next_page_url: 'http://foo.com/?page=2'};
 
             spyOn(DrugsService, 'query').and.returnValue({$promise: {
                 then: function(callback) {
@@ -39,7 +39,7 @@ describe('Drugs Controller', function() {
         }));
 
         it('should call drugs service to get more drugs and append them to the list', inject(function(DrugsService) {
-            var returnData = {data: [{id: 1}], last_page: 2};
+            var returnData = {data: [{id: 1}], next_page_url: 'http://foo.com/?page=2'};
 
             spyOn(DrugsService, 'query').and.returnValue({
                 $promise: {
@@ -67,7 +67,6 @@ describe('Drugs Controller', function() {
                 }
             );
 
-            expect(vm.more).toEqual(false);
             expect(vm.drugs.length).toEqual(2);
         }));
     });
@@ -156,7 +155,7 @@ describe('Drugs Controller', function() {
 
         it('should call drugs service to get more reviews and append them to existing list', inject(
             function(DrugsService) {
-                var returnData = {data: [{id: 1}], last_page: 2};
+                var returnData = {data: [{id: 1}], next_page_url: 'http://foo.com/?page=2'};
 
                 spyOn(DrugsService, 'getReviews').and.returnValue({
                     $promise: {
@@ -188,7 +187,6 @@ describe('Drugs Controller', function() {
                         user: null
                     }
                 );
-                expect(vm.more).toEqual(false);
                 expect(vm.reviews.length).toEqual(2);
             }
         ));
