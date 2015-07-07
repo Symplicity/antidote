@@ -27,29 +27,36 @@
         
         input {
             width: 450px;
-            max-width: 100%; 
-            padding: 10px;
+            padding: 5px;
+            color: #4DB6AC;
+            background-image: URL('/images/icons/md-search.svg');
+            background-repeat: no-repeat;
+            background-position: 99%;
             background-color: #FFF;
             color: $md-primary;
-
-            @media only screen and (max-width: 600px){
-                width: 200px;
+            
+            &:focus{
+                background-image:none;
             }
+        } 
 
+        @media only screen and (max-width: 500px) {
+            h1{
+                width: 320px;
+                margin-bottom: 40px;                
+            }
+            input {
+                width: 280px;
+            }
+        }      
+
+        md-input-container label:not(.md-no-float), md-input-container .md-placeholder:not(.md-select-label) {
+            padding-left: 13px;
         }
         
-        md-icon.search-button{
-            padding: 5px;
-            height:auto;
-            width:auto;
+        md-autocomplete-wrap {
+            display: block;
         }
-
-        .search-button{
-            font-size:30px;
-                        background: #FFF;
-
-        }
-
         
         @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
             md-autocomplete-wrap {
