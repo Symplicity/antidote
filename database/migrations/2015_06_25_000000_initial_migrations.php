@@ -51,9 +51,9 @@ class InitialMigrations extends Migration
             $table->integer('rxcui')->default(0);
             $table->string('type')->default('brand');
             $table->string('label')->default('');
-            $table->text('generic')->default('');
+            $table->string('generic')->default('');
             $table->integer('generic_id')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->json('drug_forms')->nullable();
             $table->json('recalls')->nullable();
             $table->timestamps();
