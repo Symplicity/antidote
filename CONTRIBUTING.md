@@ -11,20 +11,13 @@ To make sure docker host is running and environment is correct in your terminal:
 eval "$(boot2docker shellinit)"
 ```
 
-To start all the containers: `docker-compose up -d`
-
-The first time it may take a while because it needs to download docker images from Docker Hub.
-
 ### Configuration
 
-If you are not already using an external database, update your .env file to use the default credentials provided by our docker containers:
-```
-DB_HOST=db
-DB_PORT=3306
-DB_DATABASE=antidote
-DB_USERNAME=antidote
-DB_PASSWORD=antidoteSecret
-```
+Create configuration file and update it to match your environment: `cp .env.example .env`
+
+It comes with default DB credentials provided by our docker containers, but you can use any other database supported by Eloquent ORM: http://laravel.com/docs/5.1/eloquent
+
+See [Deployment doc](docs/Deployment.md) for additional details about configuration variables.
 
 See http://lumen.laravel.com/docs/installation#basic-configuration for additional information about configuring a Lumen app.
 
