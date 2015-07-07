@@ -2,10 +2,10 @@
     padding-top: 20px; 
     text-align:center; 
 
-    .alt-graph{
+    .alt-graph {
          margin-bottom: -60px;
 
-        canvas{
+        canvas {
 
             @media only screen and (min-width : 1280px){
                 height:150px !important;
@@ -13,12 +13,11 @@
             }
         }
 
-        .percentage{
+        .percentage {
             position: relative;
             top: -107px;
             left: 5px;
             font-size: 40px;
-
         }
     }
 
