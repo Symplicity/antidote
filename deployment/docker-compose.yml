@@ -17,7 +17,7 @@ web:
     - CODESHIP_PROJECT_ID=
     - FDA_TOKEN=
     - GITREPO_BRANCH=production
-    - 'GITREPO_URL=git@github.com:Symplicity/antidote.git'
+    - GITREPO_URL=https://github.com/Symplicity/antidote.git
     - MAILGUN_DOMAIN=
     - MAILGUN_PASSWORD=
     - MAILGUN_SECRET=
@@ -43,7 +43,7 @@ job:
     - ANTIDOTE_ROLE=worker
     - FDA_TOKEN=
     - GITREPO_BRANCH=production
-    - 'GITREPO_URL=git@github.com:Symplicity/antidote.git'
+    - GITREPO_URL=https://github.com/Symplicity/antidote.git
     - MAILGUN_DOMAIN=
     - MAILGUN_PASSWORD=
     - MAILGUN_SECRET=
