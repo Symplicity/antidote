@@ -11,8 +11,7 @@
         $stateProvider
             .state('home', {
                 url: '/',
-                templateUrl: 'app/home/home.html',
-                controller: 'HomeCtrl as home'
+                templateUrl: 'app/home/home.html'
             })
             .state('privacy', {
                 url: '/privacy',
