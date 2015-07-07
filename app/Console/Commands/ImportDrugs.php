@@ -121,7 +121,8 @@ class ImportDrugs extends Command
         $this->info('Drug Import Done!');
     }
 
-    private function getBrands() {
+    private function getBrands()
+    {
         $brands = [];
 
         if ($names = str_getcsv($this->option('names'))) {
@@ -187,7 +188,6 @@ class ImportDrugs extends Command
                     $this->line(sprintf('  %-20s : [%s]', $field, join(', ', $concept[$field])));
                 }
                 $this->line(sprintf('  %-20s : %s', 'recalls', json_encode($concept['recalls'], JSON_PRETTY_PRINT)));
-
             } else {
                 $drug->save();
 
@@ -206,7 +206,7 @@ class ImportDrugs extends Command
             $this->concepts[$rxcui] = ['drug' => $drug, 'related' => $concept['related']];
             $this->drugs->put($rxcui, $drug->id);
         }
-    } 
+    }
 
     private function importAlternatives($rxcui, $concept)
     {
@@ -216,7 +216,7 @@ class ImportDrugs extends Command
             if ($related != $rxcui) {
                 if (!empty($this->concepts[$related])) {
                     $alternatives[] = $this->concepts[$related]['drug']->id;
-                } else if ($this->drugs->get($related)) {
+                } elseif ($this->drugs->get($related)) {
                     $alternatives[] = $this->drugs->get($related);
                 }
             }
@@ -297,60 +297,41 @@ class ImportDrugs extends Command
 
     private function getIndications($drug_components)
     {
-        $indications = [];
-
         $terms = $this->openfda->getIndications($drug_components);
+        return $this->processRelations($terms, $this->indications, 'DrugIndication');
+    }
+
+    private function processRelations($terms, $model, $provider)
+    {
+        $relations = [];
+
         foreach ($terms as $term => $count) {
-            if (count($indications) >= 20 || $count < 5) {
+            if (count($relations) >= 20 || $count < 5) {
                 break;
             }
 
-            if ($indication = $this->translate($term)) {
-                $id = $this->indications->get($indication);
+            if ($relation = $this->translate($term)) {
+                $id = $model->get($relation);
                 if (empty($id)) {
                     if ($this->option('debug')) {
-                        $id = $this->indications->max() + 1;
-                        $this->comment("New indication object: id [{$id}] value [{$indication}]");
+                        $id = $model->max() + 1;
+                        $this->comment("New $provider object: id [{$id}] value [{$relation}]");
                     } else {
-                        $id = DrugIndication::create(['value' => $indication])->id;
+                        $id = call_user_func(['\App\Facades\\' . $provider, 'create'], ['value' => $relation])->id;
                     }
-                    $this->indications->put($indication, $id);
+                    $model->put($relation, $id);
                 }
 
-                $indications[] = $id;
+                $relations[] = $id;
             }
         }
-
-        return array_unique($indications);
+        return array_unique($relations);
     }
 
     private function getSideEffects($drug_components)
     {
-        $side_effects = [];
-
         $terms = $this->openfda->getSideEffects($drug_components);
-        foreach ($terms as $term => $count) {
-            if (count($side_effects) >= 20 || $count < 5) {
-                break;
-            }
-
-            if ($side_effect = $this->translate($term)) {
-                $id = $this->side_effects->get($side_effect);
-                if (empty($id)) {
-                    if ($this->option('debug')) {
-                        $id = $this->side_effects->max() + 1;
-                        $this->comment("New side effect object: id [{$id}] value [{$side_effect}]");
-                    } else {
-                        $id = DrugSideEffect::create(['value' => $side_effect])->id;
-                    }
-                    $this->side_effects->put($side_effect, $id);
-                }
-
-                $side_effects[] = $id;
-            }
-        }
-
-        return array_unique($side_effects);
+        return $this->processRelations($terms, $this->side_effects, 'DrugSideEffect');
     }
 
     private function translate($term)
