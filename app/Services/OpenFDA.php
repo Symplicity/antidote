@@ -10,21 +10,32 @@ class OpenFDA extends RestAPI
     protected $api_base_uri = 'https://api.fda.gov/';
     protected $rate_limit = 20;
 
+    private $api_key = false;
+
     public function __construct(Client $client)
     {
         parent::__construct($client);
 
         if ($api_key = env('OPENFDA_API_KEY', false)) {
-            $this->setOptions(['api_key' => $api_key]);
+            $this->api_key = $api_key;
         } else {
             Log::error('OpenFDA api key is not set!');
         }
     }
 
+    protected function get($query)
+    {
+        if ($this->api_key) {
+            $query = substr_replace($query, 'api_key=' . $this->api_key . '&', strpos($query, '?') + 1, 0);
+        }
+
+        return parent::get($query);
+    }
+
     private function getRecords($type, $query, $page = 0)
     {
         $skip = $page * 100;
-        $results = $this->get("drug/{$type}.json?search= " . $query . "&skip={$skip}&limit=100");
+        $results = $this->get("drug/{$type}.json?search=" . $query . "&skip={$skip}&limit=100");
 
         return array_get($results, 'results', []);
     }
