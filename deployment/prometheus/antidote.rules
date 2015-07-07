@@ -1,0 +1,13 @@
+# Alert for any instance that is unreachable for >5 minutes.
+ALERT InstanceDown
+  IF up == 0
+  FOR 5m
+  SUMMARY "Instance {{$labels.instance}} down"
+  DESCRIPTION "{{$labels.instance}} of job {{$labels.job}} has been down for more than 5 minutes."
+
+# Alert for any instance with high request latency, above 50ms
+ALERT ApiHighRequestLatency
+  IF curl_time_connect > 50
+  FOR 1m
+  SUMMARY "High request latency on {{$labels.instance}}"
+  DESCRIPTION "{{$labels.instance}} has a median request latency above 50ms (current value: {{$value}})"

@@ -1,0 +1,36 @@
+# docker-compose format
+alertmanager:
+  image: 'prom/alertmanager:latest'
+  command: '-config.file=/prometheus/alertmanager.conf'
+  environment:
+    - SLACK_TOKEN=
+  ports:
+    - '9093:9093'
+  volumes:
+    - '/prometheus:/prometheus:ro'
+haproxyexporter:
+  image: 'prom/haproxy-exporter:latest'
+  command: '-haproxy.scrape-uri='
+  ports:
+    - '9101:9101'
+promdash:
+  image: 'prom/promdash:latest'
+  environment:
+    - 'DATABASE_URL=sqlite3:/prometheus/dash/file.sqlite3'
+  ports:
+    - '3000:3000'
+  volumes:
+    - '/prometheus/dash:/prometheus/dash'
+prometheus:
+  image: 'prom/prometheus:latest'
+  command: '-config.file=/prometheus/prometheus.yml -storage.local.path=/prometheus/data -storage.local.memory-chunks=1048576 -alertmanager.url='
+  links:
+    - alertmanager
+  ports:
+    - '9090:9090'
+  volumes:
+    - '/prometheus:/prometheus'
+pushgateway:
+  image: 'prom/pushgateway:latest'
+  ports:
+    - '9091:9091'
