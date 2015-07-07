@@ -8,6 +8,8 @@
     /** @ngInject */
     function ProfileCtrl($mdToast, ProfileService, ServerErrorHandlerService) {
         var self = this;
+        this.user = {};
+
         activate();
 
         function activate() {
