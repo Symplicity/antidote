@@ -77,9 +77,11 @@
         <md-card-content ng-repeat="recall in drugsView.drug.recalls">
             <!-- TODO: lay this information for each recall out properly -->
             <div layout="column" flex>
-                <p>Recal Number: {{recall.number}}</p>
-                <p>Date Issue: {{recall.date}} -- {{recall.lots}}</p>
-                <p>{{recall.recall}} </p>
+                <p>{{recall.number}} | {{recall.date}}</p>
+                <p>Lots: {{recall.lots}}</p>
+                <p>Reason: {{recall.recall}} </p>
+                <p>{{recall.description}}</p>
+
             </div>
         </md-card-content>
     </md-card>
