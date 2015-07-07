@@ -89,6 +89,26 @@ class OpenFDA extends RestAPI
         return $description;
     }
 
+    public function getMatchingLabel($record, $generic)
+    {
+        $matching_label = [];
+
+        $generic_name = array_get($record, 'openfda.generic_name.0');
+        $substances = array_get($record, 'openfda.substance_name', []);
+        sort($substances);
+        $substance_name = join(', ', $substances);
+
+        if ($generic && $generic_name && strtolower($generic) == strtolower($generic_name)) {
+            $matching_label['name'] = $generic_name;
+            $matching_label['description'] = $this->getDescription($record);
+        } elseif ($generic && $substance_name && strtolower($generic) == strtolower($substance_name)) {
+            $matching_label['name'] = $substance_name;
+            $matching_label['description'] = $this->getDescription($record);
+        }
+
+        return $matching_label;
+    }
+
     public function getLabel($concept, $rxcuis)
     {
         $label = ['name' => '', 'description' => '', 'prescription_types' => []];
@@ -109,18 +129,7 @@ class OpenFDA extends RestAPI
                     $label['name'] = $brand_name;
                     $label['description'] = $this->getDescription($record);
                 } elseif (empty($matching_label)) {
-                    $generic_name = array_get($record, 'openfda.generic_name.0');
-                    $substances = array_get($record, 'openfda.substance_name', []);
-                    sort($substances);
-                    $substance_name = join(', ', $substances);
-
-                    if ($generic && $generic_name && strtolower($generic) == strtolower($generic_name)) {
-                        $matching_label['name'] = $generic_name;
-                        $matching_label['description'] = $this->getDescription($record);
-                    } elseif ($generic && $substance_name && strtolower($generic) == strtolower($substance_name)) {
-                        $matching_label['name'] = $substance_name;
-                        $matching_label['description'] = $this->getDescription($record);
-                    }
+                    $matching_label = $this->getMatchingLabel($record, $generic);
                 }
 
                 if ($product_type = array_get($record, 'openfda.product_type.0')) {
