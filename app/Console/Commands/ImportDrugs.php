@@ -139,12 +139,15 @@ class ImportDrugs extends Command
                 $this->comment("==============================================================================\n");
 
                 $print = $drug->toArray();
-                $print['drug_forms'] = '[' . join(',', $print['drug_forms']) . ']';
-                $print['prescription_types'] = '[' . join(',', $concept['types']) . ']';
-                $print['indications'] = '[' . join(',', $concept['indications']) . ']';
-                $print['side_effects'] = '[' . join(',', $concept['side_effects']) . ']';
-                $print['related'] = '[' . join(',', $concept['related']) . ']';
-                $this->line(json_encode($print, JSON_PRETTY_PRINT));
+                foreach ($print as $field => $value) {
+                    if (!is_array($value)) {
+                        $this->line(sprintf('  %-20s : %s', substr($field, 0, 20), $value));
+                    }
+                }
+                foreach (['drug_forms', 'types', 'indications', 'side_effects', 'related'] as $field) {
+                    $this->line(sprintf('  %-20s : [%s]', $field, join(', ', $concept[$field])));
+                }
+                $this->line(sprintf('  %-20s : %s', 'recalls', json_encode($concept['recalls'], JSON_PRETTY_PRINT)));
             } else {
                 $drug->save();
 
