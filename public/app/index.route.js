@@ -60,8 +60,7 @@
             })
             .state('about', {
                 url: '/about',
-                templateUrl: 'app/about/about.html',
-                controller: 'AboutCtrl as about'
+                templateUrl: 'app/about/about.html'
             })
             .state('login', {
                 url: '/login',
