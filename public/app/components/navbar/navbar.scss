@@ -12,11 +12,18 @@
         color: #FFFFFF;
     }
 
-    button.search-button{
+    
+    .search-button{
+        font-size: 30px;
+    }  
+
+    md-icon{
+        padding: 5px;
         background: #0269a6;
-        margin: 0;
-        padding: 2px 3px;
+        height:auto;
+        width:auto;
     }
+
 
     /*IE FIX*/
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -121,15 +128,6 @@ md-backdrop{
     }
 }
 
-.search-button{
-    min-width:25px;
-    margin-bottom: 5px;
 
-    md-icon{
-        font-size: 30px;
-        height:100%;
-        width:100%;
-    }
-}
 
 

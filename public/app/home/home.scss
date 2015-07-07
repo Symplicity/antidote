@@ -37,14 +37,19 @@
             }
 
         }
-
-        button{
-            width:125px;
-
-            @media only screen and (max-width: 600px){
-                width: 88px;
-            }
+        
+        md-icon.search-button{
+            padding: 5px;
+            height:auto;
+            width:auto;
         }
+
+        .search-button{
+            font-size:30px;
+                        background: #FFF;
+
+        }
+
         
         @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
             md-autocomplete-wrap {
