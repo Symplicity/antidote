@@ -27,14 +27,14 @@
                         </div>
                     </div>
                     <div class="percentages mobile-fix" layout="row" layout-sm="column" layout-align="center center" flex flex-sm="100">
-                        <div flex="50" flex-sm="50" layout="column" layout-align="center center">
+                        <div flex="50" flex-sm="100" layout="column" layout-align="center center">
                             <div class="alt-graph">
                                 <canvas id="doughnut" class="chart chart-doughnut" data="drug.chartData.effectivenessChartData" labels="drugsAlternatives.effectiveLabels" colours="drugsAlternatives.effectiveColours" options="drugsAlternatives.effectiveOptions"></canvas>
                                 <p class="percentage">{{::drug.effectiveness_percentage | percentage}}</p>
                             </div>
                             <p>Effectiveness</p>
                         </div>
-                        <div flex="50" flex-sm="50" layout="column" layout-align="center center">
+                        <div flex="50" flex-sm="100" layout="column" layout-align="center center">
                             <div class="alt-graph">
                                 <canvas id="doughnut" class="chart chart-doughnut" data="drug.chartData.insuranceChartData" labels="drugsAlternatives.insuranceLabels" colours="drugsAlternatives.insuranceColours" options="drugsAlternatives.insuranceOptions"></canvas>
                                 <p class="percentage">{{::drug.insurance_coverage_percentage | percentage}}</p>

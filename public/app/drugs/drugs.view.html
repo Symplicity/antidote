@@ -17,9 +17,9 @@
                     <span ng-repeat="indication in drugsView.drug.indications | orderBy:'value' | limitTo: limit as results">
                         <span class="md-raised md-pills">{{::indication.value | capitalize}}</span>
                     </span>
-                    <a ng-hide="results.length === drugsView.drug.indications.length"
-                            ng-click="limit = drugsView.drug.indications.length">show all...
-                    </a>
+                    <a ng-hide="results.length === drugsView.drug.indications.length" ng-click="limit = drugsView.drug.indications.length" class="read-more">show all...</a>
+                    <a ng-hide="results.length < drugsView.drug.indications.length" ng-click="limit = 6" class="read-more">show less...</a>
+
                 </p>
             </div>
     </md-content>

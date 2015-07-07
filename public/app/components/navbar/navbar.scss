@@ -7,19 +7,17 @@
 
     md-autocomplete input{
         background: #0269a6;
-        background-image: URL("/images/icons/md-search-white.svg"); 
-        background-repeat: no-repeat; 
-        background-position: 99%; 
         width: 500px;
         max-width: 100%; 
         color: #FFFFFF;
-
-        &:focus{
-            background-image:none;
-        }
-
     }
-    
+
+    button.search-button{
+        background: #0269a6;
+        margin: 0;
+        padding: 2px 3px;
+    }
+
     /*IE FIX*/
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         md-autocomplete-wrap {
@@ -122,3 +120,16 @@ md-backdrop{
         }
     }
 }
+
+.search-button{
+    min-width:25px;
+    margin-bottom: 5px;
+
+    md-icon{
+        font-size: 30px;
+        height:100%;
+        width:100%;
+    }
+}
+
+
