@@ -34,3 +34,11 @@ pushgateway:
   image: 'prom/pushgateway:latest'
   ports:
     - '9091:9091'
+kibana:
+  image: 'vfarcic/kibana:latest'
+  environment:
+    - 'ELASTICSEARCH=http://elasticsearch:9200'
+  links:
+    - elasticsearch
+  ports:
+    - '5601:5601'
