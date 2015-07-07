@@ -1,0 +1,27 @@
+This page documents the design process utilized for the iterative development of Antidote.  We utilized multiple [human-centered design methods] (http://www.designkit.org/methods) within the [Google Venture Design Sprint] (http://www.fastcodesign.com/1672887/how-to-conduct-your-own-google-design-sprint) framework to ground our design approach firmly within the needs of our potential consumers. 
+
+==Understand==
+In order to understand we: 
+*Engaged in individual research
+*Reviewed the information provided by OpenFDA
+*Conducted a user survey, created by the Content Writer (Technical Approach, Criteria 3 & 4)
+*Interviewed survey respondents to dig deeper (Technical Approach, Criteria 3 & 4)
+*Reviewed interview results for user needs
+
+==Diverge==
+To generate creative ideas:
+*We separated to create sketches of applications that would meet the user needs. (Technical Approach, Criteria 4)
+*We used our problem statement as a guideline for this work (Technical Approach, Criteria 4):
+
+==Decide==
+To determine the most effective approach to meet our users needs:
+*We voted on the sketches
+*And combined our top two voted sketches into a final product
+
+==Prototype==
+Our ____ (title) generated an initial version based on discussion from the decision phase
+
+==Validate==
+We validated our approach by:
+*Engaging in user testing of the prototype (Technical Approach, Criteria 3)
+

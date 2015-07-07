@@ -1,0 +1,35 @@
+History,  according to the Antidote team
+
+[[https://github.com/Symplicity/antidote/blob/master/docs/images/swim.png]]
+
+'''6/18/2015'''
+*IA dives into API data and soon needs a floatie
+
+'''6/20/2015'''
+*1st weekend standup
+
+'''6/21/2015'''
+*The office AC dies, making weekend coding all that more enjoyable
+
+'''6/22/2015'''
+*CS finishes mocks and, ever agile, starts coding 
+*The office internet goes out
+
+'''6/23/2015'''
+*F mixes up CH and CS's names
+*The office internet goes out '''again'''
+*Because it's not enough that the internet went out, the office fire alarm also goes off
+*The electrical storm is that broken straw that causes us to consider a disaster preparedness plan for Antidote
+*Despite all this, VS becomes the code king
+
+'''6/24/2015'''
+*The deadline change is announced
+*CT takes a nap, F sees sunlight and SB realizes there is a day that exists after Friday
+
+'''6/25/2015'''
+*A moose walks into a bar and changes up containers
+
+'''6/26/2015'''
+*SB challenges VS's claim to the throne
+*The teacher awards star stickers for scoring As
+*F mixes up CH and CS's names '''again'''
